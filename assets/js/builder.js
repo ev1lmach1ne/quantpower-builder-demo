@@ -8,6 +8,7 @@ const presets = {
     options: [10, 20, 30],
     defaultPeriod: 20,
     describe: (period) => `EMA ${period} cruce por encima de EMA 50 y RSI supere 50`,
+    exit: "cruce EMA contrario",
   },
   reversion: {
     signal: "Precio cruza por encima de Bollinger inferior",
@@ -16,6 +17,7 @@ const presets = {
     options: [14, 20, 30],
     defaultPeriod: 20,
     describe: (period) => `el precio cruce por encima de la banda inferior de Bollinger (${period}, 2σ) y RSI esté por debajo de 40`,
+    exit: "cierre igual o superior a la media de Bollinger",
   },
   momentum: {
     signal: "MACD cruza por encima de su señal",
@@ -24,6 +26,7 @@ const presets = {
     options: [8, 12, 16],
     defaultPeriod: 12,
     describe: (period) => `MACD (${period}, 26, 9) cruce por encima de su señal y ADX supere 20`,
+    exit: "cruce MACD contrario",
   },
 };
 
@@ -35,7 +38,7 @@ export function initBuilder() {
   const update = () => {
     const formattedRisk = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(Number(risk.value));
     document.getElementById("builder-summary").textContent =
-      `Entrar cuando ${presets[selected].describe(period.value)}. Aplicar un riesgo nominal del ${formattedRisk} % por setup con stop a 1,5 × ATR.`;
+      `Largos: entrar al open de t+1 cuando ${presets[selected].describe(period.value)} al cierre de t. Riesgo nominal del ${formattedRisk} %, stop a 1,5 × ATR(14) de t y objetivo a 2R. Salir por ${presets[selected].exit}, stop o TP.`;
   };
   const choosePreset = (button) => {
     selected = button.dataset.preset;
@@ -44,6 +47,7 @@ export function initBuilder() {
     document.getElementById("builder-signal").textContent = preset.signal;
     document.getElementById("builder-reference").textContent = preset.reference;
     document.getElementById("builder-confirmation").textContent = preset.confirmation;
+    period.closest("label").firstChild.textContent = selected === "reversion" ? "Periodo de bandas" : selected === "momentum" ? "MACD rápido" : "Periodo rápido";
     period.replaceChildren(...preset.options.map((value) => {
       const option = document.createElement("option");
       option.value = value;
@@ -57,7 +61,9 @@ export function initBuilder() {
   period.addEventListener("change", update);
   risk.addEventListener("change", update);
   document.getElementById("builder-preview").addEventListener("click", () => {
-    document.dispatchEvent(new CustomEvent("quantpower:example", { detail: { sample: selected } }));
+    document.dispatchEvent(new CustomEvent("quantpower:example", { detail: {
+      sample: selected, period: Number(period.value), risk: Number(risk.value),
+    } }));
   });
   update();
 }

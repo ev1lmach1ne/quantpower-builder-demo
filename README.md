@@ -19,6 +19,7 @@ assets/js/releases.js      Consulta de la última Release pública
 assets/js/ui.js            Navegación, pestañas y ejemplo de exportación
 assets/images/             Ilustraciones originales y vista para redes
 content/examples.json      Operaciones y métricas de los ejemplos sintéticos
+content/demo-h1.csv        Serie sintética reproducible, OHLC H1 en UTC
 content/site.json          Repositorio, nombres del ZIP y referencia opcional
 .github/workflows/pages.yml Publicación automática en GitHub Pages
 ```
@@ -62,7 +63,16 @@ repositorio público `ev1lmach1ne/quantpower-builder-demo` y reconoce estos asse
 - `QuantPowerBuilder_Windows_x64.zip`
 - `QuantPowerSystems_Windows_x64.zip`
 
-1. Genera y comprueba el paquete portable que quieras distribuir.
+1. Genera y comprueba el paquete portable que quieras distribuir. Si parte de
+   una Release ya empaquetada, el proyecto incluye una utilidad que conserva
+   el ejecutable y sustituye las copias legibles de fuentes por bytecode:
+
+   ```powershell
+   venv\Scripts\python.exe web\tools\preparar_demo_publica.py "ZIP_ORIGINAL" "ZIP_PUBLICO" --sha256-original "SHA256_DE_LA_RELEASE"
+   ```
+
+   El Python utilizado debe tener el mismo formato de bytecode que el
+   intérprete embebido. El bytecode sigue siendo analizable.
 2. Revisa que el paquete no entrega fuentes privadas legibles ni configuración
    personal. La utilidad del proyecto de desarrollo es:
 
@@ -70,10 +80,9 @@ repositorio público `ev1lmach1ne/quantpower-builder-demo` y reconoce estos asse
    venv\Scripts\python.exe web\tools\validar_demo.py "RUTA_DEL_ZIP"
    ```
 
-   El empaquetado original incorpora fuentes de `core/`, `gui/` y `library/`.
-   Es necesario revisar esa distribución antes de publicar la primera demo.
-   Quitar archivos a mano puede romper la descarga, importación o análisis,
-   porque esas utilidades ejecutan scripts en procesos separados.
+   La revisión permite únicamente los cargadores genéricos conocidos de los
+   scripts, con su bytecode adjunto. Verifica también el ejecutable, el
+   constructor, los recursos y los resultados de simulación antes de publicar.
 
 3. Crea una Release pública, adjunta el ZIP completo con uno de los nombres
    indicados e incluye notas de versión e instrucciones de actualización.
@@ -111,23 +120,42 @@ validan para pertenecer al repositorio de Releases configurado.
 
 ## Ilustraciones y contenido
 
-Las imágenes son recreaciones ilustrativas con datos sintéticos, no capturas
-de la aplicación ni resultados de mercado. El generador del proyecto de
-desarrollo utiliza una semilla fija y produce las gráficas, curvas, operaciones
-y métricas desde los mismos datos. No consulta históricos o sistemas privados.
+Las gráficas de operaciones y capital se generan con los indicadores,
+`generar_senales_sistema()`, `simular()` y `calcular_metricas()` de la aplicación
+sobre una serie sintética de semilla fija. No se colocan operaciones a mano.
+Los diagramas de Walk-Forward y Montecarlo se identifican como esquemas
+metodológicos. No se consultan históricos o sistemas privados.
 
 ```powershell
 venv\Scripts\python.exe web\tools\generar_ilustraciones.py
 ```
 
-El generador usa Python y Pillow; estos no son requisitos para servir la web.
-El ejemplo del constructor explica cómo se conectan reglas. El backtesting
-real se ejecuta en la aplicación de escritorio.
+El generador usa el entorno Python del proyecto y Pillow; estos no son
+requisitos para servir la web. La página sirve 27 combinaciones precalculadas
+de periodo/riesgo del constructor y un ejemplo TPO; el motor no se publica
+como JavaScript. Cambiar las opciones carga los resultados de esa combinación.
+
+### Contrato de ejecución
+
+- Serie OHLC H1 en UTC; 50 velas de calentamiento sin entradas.
+- Señal calculada con la vela cerrada `t` y entrada al open de `t+1`.
+- Stop inicial fijo: 1,5 × ATR(14) de `t`.
+- Objetivo: 2 × distancia inicial al stop (RR 1:2).
+- Dimensionamiento por riesgo nominal del 0,5 %, 1 % o 2 % según el selector.
+- Comisión: 0,05 % por lado; slippage: 0,02 % aplicado a los fills.
+- Salidas por condición al open siguiente; stop/TP en su vela de activación.
+- Las salidas intrabar describen la vela y su precio, sin inventar un instante
+  de tick que no existe en OHLC.
+- Curvas, drawdown, tabla, zoom e inspector comparten las mismas operaciones.
+
+Los cruces y las confirmaciones son visibles en el inspector. El zoom conserva
+los indicadores calculados sobre todo el histórico, no los reinicia en su ventana.
+El CSV de la serie sintética se puede descargar desde la galería.
 
 ## Verificación en el proyecto de desarrollo
 
 ```powershell
-venv\Scripts\python.exe -m pytest tests/test_web_publicacion.py -q -o addopts=''
+venv\Scripts\python.exe -m pytest tests/test_web_motor.py tests/test_web_publicacion.py -q -o addopts=''
 python web\tools\verificar_web.py --salida "RUTA_TEMPORAL"
 ```
 
