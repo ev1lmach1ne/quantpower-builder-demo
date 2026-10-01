@@ -38,10 +38,22 @@ function setButton(href, label, icon = "i-download", external = false) {
   if (external) {
     button.target = "_blank";
     button.rel = "noopener noreferrer";
+    button.removeAttribute("download");
   } else {
     button.removeAttribute("target");
     button.removeAttribute("rel");
+    button.setAttribute("download", "QuantPowerBuilder_Windows_x64.zip");
   }
+}
+
+export function initDownloadFeedback() {
+  const button = document.getElementById("demo-download");
+  button.addEventListener("click", () => {
+    const url = new URL(button.href);
+    if (url.hostname !== "github.com" || !url.pathname.includes("/download/")) return;
+    document.getElementById("download-note").textContent =
+      "Solicitud de descarga enviada al navegador. Consulta su panel de descargas (Ctrl+J en Windows). Si no aparece, utiliza «Abrir descarga en GitHub».";
+  });
 }
 
 function displayRelease(release, snapshot = false) {
@@ -72,11 +84,14 @@ export async function initReleases() {
     config = await response.json();
     if (!repositoryPattern.test(config.releaseRepository) || !Array.isArray(config.assetNames)) throw new Error("Repositorio no configurado");
   } catch {
-    document.getElementById("release-status").textContent = "La información de descarga no está disponible en este momento.";
+    document.getElementById("release-status").textContent = "Descarga directa disponible. Consulta las novedades en GitHub para confirmar la versión.";
+    document.documentElement.dataset.releasesReady = "true";
     return;
   }
   const releasesUrl = `https://github.com/${config.releaseRepository}/releases`;
   document.getElementById("release-notes").href = releasesUrl;
+  const snapshot = normalizeRelease(config.fallbackRelease, config);
+  if (snapshot) displayRelease(snapshot, true);
   try {
     const response = await fetch(`${API}${config.releaseRepository}/releases/latest`, {
       headers: { Accept: "application/vnd.github+json" },
@@ -84,7 +99,13 @@ export async function initReleases() {
       signal: AbortSignal.timeout(8000),
     });
     if (response.status === 404) {
-      document.getElementById("release-status").textContent = "La primera demo pública está en preparación.";
+      if (!snapshot) {
+        document.getElementById("release-status").textContent = "La primera demo pública está en preparación.";
+        document.getElementById("release-version").textContent = "Pendiente de publicación";
+        document.getElementById("release-size").textContent = "—";
+        document.getElementById("release-date").textContent = "—";
+        setButton(releasesUrl, "Consultar las publicaciones", "i-external", true);
+      }
       return;
     }
     if (!response.ok) throw new Error("GitHub no disponible");
@@ -92,7 +113,6 @@ export async function initReleases() {
     if (!release) throw new Error("Publicación no válida");
     displayRelease(release);
   } catch {
-    const snapshot = normalizeRelease(config.fallbackRelease, config);
     if (snapshot) displayRelease(snapshot, true);
     else {
       document.getElementById("release-version").textContent = "Consultar en GitHub";
@@ -100,5 +120,7 @@ export async function initReleases() {
       setButton(releasesUrl, "Consultar las descargas", "i-external", true);
       document.getElementById("download-note").textContent = "No se ha podido consultar la versión automáticamente. Puedes comprobar las publicaciones en GitHub.";
     }
+  } finally {
+    document.documentElement.dataset.releasesReady = "true";
   }
 }

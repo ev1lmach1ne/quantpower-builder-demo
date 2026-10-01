@@ -13,6 +13,8 @@ de investigación cuantitativa.
 index.html                 Contenido, navegación y estructura accesible
 assets/css/tokens.css      Paleta y tokens del tema Noche del software
 assets/css/site.css        Componentes y adaptación a distintos tamaños
+assets/css/analyzer.css    Analizador interactivo e identidad corporativa
+assets/js/analyzer.js      Curvas Día/Semana/Mes/Año, cursor y selección de tramo
 assets/js/builder.js       Constructor visual ilustrativo
 assets/js/gallery.js       Indicadores, capital y tabla de operaciones
 assets/js/releases.js      Consulta de la última Release pública
@@ -20,6 +22,8 @@ assets/js/ui.js            Navegación, pestañas y ejemplo de exportación
 assets/images/             Ilustraciones originales y vista para redes
 content/examples.json      Operaciones y métricas de los ejemplos sintéticos
 content/demo-h1.csv        Serie sintética reproducible, OHLC H1 en UTC
+content/analyzer.json      Curvas del Analizador con su metodología y muestra
+content/analizador-h1.csv   Serie sintética H1 de seis años, con retornos log
 content/site.json          Repositorio, nombres del ZIP y referencia opcional
 .github/workflows/pages.yml Publicación automática en GitHub Pages
 ```
@@ -89,10 +93,15 @@ repositorio público `ev1lmach1ne/quantpower-builder-demo` y reconoce estos asse
 4. Publica la Release como versión oficial, no como borrador ni prerelease, y
    márcala como **Latest**.
 
-La web consulta la API pública de GitHub y actualiza versión, tamaño, fecha,
-descarga y notas sin cambiar su código. Antes de la primera Release muestra
-**Demo en preparación**. Si la Release todavía no incluye el ZIP, enlaza a
-esa publicación. Si la API no responde, permite consultar las Releases.
+El HTML incluye un enlace nativo a `releases/latest/download/` que funciona
+sin JavaScript ni consulta de la API. La API actualiza versión, tamaño, fecha,
+descarga y notas. La referencia local se aplica antes de consultar GitHub,
+por lo que no hay un botón inerte durante la consulta. También hay un enlace
+visible de respaldo a la página de Releases y una confirmación del clic.
+
+Si la última Release no incluye el ZIP, se enlaza a esa publicación. Si la
+API falla, se conserva la referencia disponible. Al cambiar el nombre del
+asset, actualiza también el enlace HTML nativo.
 
 ### Referencia para cuando la API no responde
 
@@ -152,16 +161,47 @@ Los cruces y las confirmaciones son visibles en el inspector. El zoom conserva
 los indicadores calculados sobre todo el histórico, no los reinicia en su ventana.
 El CSV de la serie sintética se puede descargar desde la galería.
 
+## Analizador e identidad corporativa
+
+La sección **Analizador** presenta un ejemplo de Intradía con los mismos
+cálculos de `core.metrics.curvas_cambio_acumulado()` y el lenguaje visual de
+`gui/widgets/analisis_graficos.py`: curva verde/roja, rombo del total, cambio
+medio por paso y botones Día/Semana/Mes/Año.
+
+El histórico del ejemplo es sintético, H1, UTC, 24/7, de 2018 a 2023 con la
+frontera final de 2024. Contiene 52.585 observaciones y aporta 2.191 días,
+313 semanas, 72 meses y 6 años completos. La última agrupación en curso se
+excluye como en la aplicación. El promedio usa retornos **logarítmicos**
+acumulados × 100; no se presenta como rentabilidad compuesta.
+
+El cursor consulta valores y la selección de rango calcula `y(fin) − y(inicio)`
+en puntos porcentuales. Puede hacerse mediante arrastre o con los selectores
+Inicio/Fin; la consulta admite teclado. Se publican datos y SVG estáticos de
+respaldo, no el código de cálculo del software.
+
+```powershell
+venv\Scripts\python.exe web\tools\generar_analizador.py
+venv\Scripts\python.exe web\tools\preparar_marca.py
+```
+
+La imagen corporativa de la cabecera, presentación y pie procede de
+`gui/assets/logo_inicio.png`, con una copia web optimizada que respeta su
+composición y proporciones.
+
 ## Verificación en el proyecto de desarrollo
 
 ```powershell
-venv\Scripts\python.exe -m pytest tests/test_web_motor.py tests/test_web_publicacion.py -q -o addopts=''
+venv\Scripts\python.exe -m pytest tests/test_web_analizador.py tests/test_cambio_acumulado.py tests/test_web_publicacion.py -q -o addopts=''
 python web\tools\verificar_web.py --salida "RUTA_TEMPORAL"
+python web\tools\verificar_descarga.py --salida "RUTA_TEMPORAL"
 ```
 
 La verificación de navegador utiliza Playwright con Microsoft Edge para comprobar tamaños,
 interacciones, recursos, navegación por teclado y distintos estados de la
 API de Releases. Guarda capturas de escritorio y móvil en la carpeta indicada.
+Comprueba el clic real y el evento nativo de descarga, con y sin JavaScript;
+cancela la transferencia después de comprobar el nombre del ZIP, evitando
+descargar 391 MiB en cada ejecución.
 Instala `playwright` en un entorno de verificación independiente; no es una
 dependencia del software de escritorio ni de la web publicada. También admite
 Chrome mediante `--navegador chrome`.
