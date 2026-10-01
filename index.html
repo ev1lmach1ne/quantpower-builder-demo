@@ -3,6 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // Los enlaces de entrada antiguos muestran la portada; la navegación
+    // interna a las instrucciones conserva su ancla habitual.
+    if (window.location.hash === "#instalacion") {
+      window.history.scrollRestoration = "manual";
+      window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search);
+    }
+  </script>
   <meta name="theme-color" content="#111828">
   <meta name="description" content="Analiza y construye tu ventaja. QuantPower Builder: construcción visual de sistemas de trading, gestión avanzada del riesgo y backtesting cuantitativo.">
   <meta property="og:type" content="website">
