@@ -88,20 +88,34 @@ repositorio público `ev1lmach1ne/quantpower-builder-demo` y reconoce estos asse
    scripts, con su bytecode adjunto. Verifica también el ejecutable, el
    constructor, los recursos y los resultados de simulación antes de publicar.
 
-3. Crea una Release pública, adjunta el ZIP completo con uno de los nombres
-   indicados e incluye notas de versión e instrucciones de actualización.
-4. Publica la Release como versión oficial, no como borrador ni prerelease, y
-   márcala como **Latest**.
+3. Crea una Release oficial en el repositorio público `quantpower-builder-demo`
+   y adjunta el ZIP completo con uno de los nombres indicados. Incluye notas de
+   versión e instrucciones de actualización. El repositorio privado del
+   software conserva sus Releases internas; la web lee las versiones del
+   repositorio demo público. Si publicas una versión en ambos, crea la Release
+   en cada repositorio y adjunta a la pública el portable revisado.
+4. Márcala como Release estable y **Latest**, no como borrador ni prerelease.
 
-El HTML incluye un enlace nativo a `releases/latest/download/` que funciona
-sin JavaScript ni consulta de la API. La API actualiza versión, tamaño, fecha,
-descarga y notas. La referencia local se aplica antes de consultar GitHub,
-por lo que no hay un botón inerte durante la consulta. También hay un enlace
-visible de respaldo a la página de Releases y una confirmación del clic.
+El selector muestra las Releases estables disponibles (hasta las 100 más
+recientes) y su fecha; indica si falta el ZIP en alguna publicación. **Latest**
+aparece seleccionada por defecto. Al elegir una versión anterior se actualizan
+el tamaño, la fecha, las notas y la descarga.
+La lista se consulta automáticamente en el repositorio público: una Release
+nueva estable aparece sin modificar el código de la página. Las versiones en
+borrador y prerelease no se ofrecen para descarga.
 
-Si la última Release no incluye el ZIP, se enlaza a esa publicación. Si la
-API falla, se conserva la referencia disponible. Al cambiar el nombre del
-asset, actualiza también el enlace HTML nativo.
+Al publicar una Release estable en el repositorio demo, el workflow de Pages
+lee automáticamente su asset y actualiza la referencia local de la versión
+vigente. Este respaldo permite seguir descargando la última demo si la API
+pública de Releases no responde. No hace falta editar el HTML ni copiar el ZIP
+a la carpeta de GitHub Pages: adjúntalo una vez a la Release pública.
+
+El HTML también incluye un enlace nativo a `releases/latest/download/` que
+funciona sin JavaScript ni consulta de la API. La referencia de la versión
+vigente se aplica antes de cargar la lista; así, el botón no queda inactivo
+mientras se consulta GitHub. Si la última Release no incluye el ZIP, se enlaza
+a su página; si falla la API, se conserva la descarga directa y el selector
+muestra la versión de referencia disponible.
 
 ### Referencia para cuando la API no responde
 

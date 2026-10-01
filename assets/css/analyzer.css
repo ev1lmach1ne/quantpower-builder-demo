@@ -8,6 +8,10 @@
 .analysis-discover { margin-top: 20px; }
 .download-backup { margin-top: 12px; font-weight: 400; color: var(--text-muted); }
 .download-backup:hover { color: var(--accent); }
+.release-version-picker { display: grid; gap: 6px; margin: -7px 0 17px; color: var(--text-muted); font-size: 10px; }
+.release-version-picker select { width: 100%; min-height: 42px; padding: 9px 34px 9px 12px; color: var(--text-strong); background: var(--panel-raised); border: 1px solid var(--border); border-radius: 6px; font-family: var(--font-mono); font-size: 11px; }
+.release-version-picker select:focus-visible { outline-offset: 3px; border-color: var(--accent); }
+.release-version-help { display: block; margin: -11px 0 17px; font-size: 9px; line-height: 1.6; color: var(--text-muted); }
 .analyzer-section { background: linear-gradient(180deg, var(--bg-deep), var(--bg)); border-top: 1px solid var(--border-soft); }
 .analyzer-terminal { border-color: #34517b; }
 .analyzer-topic-strip { display: flex; gap: 25px; padding: 13px 26px; border-bottom: 1px solid var(--border); font-size: 10px; color: var(--text-muted); overflow-x: auto; }
