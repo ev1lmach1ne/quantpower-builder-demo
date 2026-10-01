@@ -1,0 +1,23 @@
+:root {
+  color-scheme: dark;
+  --bg: #111828;
+  --bg-deep: #0d1424;
+  --panel: #141e30;
+  --panel-raised: #1a2a45;
+  --border: #253a60;
+  --border-soft: #202d44;
+  --text: #c8d6e5;
+  --text-strong: #e6edf3;
+  --text-muted: #9aaec7;
+  --text-soft: #8fb3d9;
+  --accent: #4fc3f7;
+  --green: #2ecc71;
+  --red: #e74c3c;
+  --amber: #f1c40f;
+  --purple: #b38af6;
+  --font-sans: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --radius: 16px;
+  --container: 1240px;
+  --ease: cubic-bezier(.2, .7, .3, 1);
+}

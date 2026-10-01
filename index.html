@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111828">
+  <meta name="description" content="Analiza y construye tu ventaja. QuantPower Builder: construcción visual de sistemas de trading, gestión avanzada del riesgo y backtesting cuantitativo.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="QuantPower Builder — Analiza y construye tu ventaja.">
+  <meta property="og:description" content="Crea sistemas sin escribir código. Combina indicadores, configura tu gestión y pon a prueba tu lógica de trading.">
+  <meta property="og:url" content="https://ev1lmach1ne.github.io/quantpower-builder-demo/">
+  <meta property="og:image" content="https://ev1lmach1ne.github.io/quantpower-builder-demo/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://ev1lmach1ne.github.io/quantpower-builder-demo/">
+  <link rel="icon" href="./assets/images/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/tokens.css">
+  <link rel="stylesheet" href="./assets/css/site.css">
+  <link rel="preload" href="./assets/images/trend.svg" as="image" type="image/svg+xml">
+  <script type="module" src="./assets/js/main.js"></script>
+  <title>QuantPower Builder — Analiza y construye tu ventaja.</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M6 16l4-5 4 3 6-8"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 3v5m0 6v7M12 3v11m0 6v1M20 3v1m0 6v11"/><circle cx="4" cy="11" r="3"/><circle cx="12" cy="17" r="3"/><circle cx="20" cy="7" r="3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 3v6c0 6-8 11-8 11S4 17 4 11V5l8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l0-7Z"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 3H3v18h18v-7"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="QuantPower Builder, inicio">
+        <img src="./assets/images/mark.svg" width="38" height="38" alt="">
+        <span><strong>QuantPower<span class="brand-light"> Builder</span></strong><small>by QuantPower Systems</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="navegacion" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+      <nav id="navegacion" class="main-nav" aria-label="Navegación principal">
+        <a href="#plataforma">Plataforma</a>
+        <a href="#constructor">Constructor</a>
+        <a href="#backtesting">Backtesting</a>
+        <a href="#proyecto">Proyecto</a>
+        <a class="button button-small button-outline nav-demo" href="#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section id="inicio" class="hero section">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="status-dot"></span> Investigación cuantitativa, a tu alcance</span>
+          <h1>Analiza y construye <span class="text-accent">tu ventaja.</span></h1>
+          <p class="hero-description">Combina indicadores, define tus reglas de entrada y salida y evalúa su comportamiento histórico con un motor de backtesting acelerado. QuantPower Builder simplifica la construcción de sistemas sin perder profundidad técnica.</p>
+          <p class="hero-support"><strong>Crea sistemas sin escribir código.</strong> Selecciona opciones, combina condiciones y construye tu lógica desde la plataforma.</p>
+          <div class="button-row">
+            <a class="button button-primary" href="#constructor">Explorar el constructor <svg class="icon"><use href="#i-arrow"/></svg></a>
+            <a class="button button-quiet" href="#demo"><svg class="icon"><use href="#i-download"/></svg> Descargar la demo</a>
+          </div>
+          <div class="hero-footnote"><span class="mini-dot"></span> Aplicación de escritorio <span class="separator">/</span> Proyecto de portfolio</div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="terminal hero-terminal">
+            <div class="terminal-titlebar"><span class="window-dots"><i></i><i></i><i></i></span><span>QuantPower Builder</span><span class="terminal-badge">BACKTEST</span></div>
+            <div class="terminal-tabs"><span>Constructor</span><span class="selected">Resultados</span><span>Optimizador</span><span class="terminal-asset">ACTIVO DEMO · H1</span></div>
+            <div class="hero-chart-heading"><div><span class="label">Sistema de tendencia</span><strong>Tu lógica, puesta a prueba.</strong></div><span class="pill pill-cyan">IS / OOS</span></div>
+            <img class="hero-chart" src="./assets/images/trend.svg" width="1100" height="520" alt="Ilustración de velas sintéticas con medias EMA, entradas y salidas de operaciones y un panel RSI." fetchpriority="high">
+            <div class="hero-terminal-stats"><div><span>SEÑAL</span><strong>EMA 20 / 50</strong></div><div><span>CONFIRMACIÓN</span><strong>RSI &gt; 50</strong></div><div><span>PROTECCIÓN</span><strong>Stop × ATR</strong></div></div>
+            <div class="terminal-caption"><span class="status-dot"></span> Visualización ilustrativa · Datos sintéticos</div>
+          </div>
+          <div class="floating-rule"><span class="floating-icon"><svg class="icon"><use href="#i-check"/></svg></span><div><span>DE LA IDEA A LA REGLA</span><strong>Condiciones conectadas.</strong><small>Señal + confirmación + gestión</small></div></div>
+          <div class="visual-coordinate" aria-hidden="true">QP / RESEARCH ENVIRONMENT</div>
+        </div>
+      </div>
+      <div class="container capability-strip" aria-label="Capacidades principales">
+        <span><svg class="icon"><use href="#i-grid"/></svg> Construcción visual</span>
+        <span><svg class="icon"><use href="#i-sliders"/></svg> Reglas avanzadas</span>
+        <span><svg class="icon"><use href="#i-shield"/></svg> Gestión del riesgo</span>
+        <span><svg class="icon"><use href="#i-chart"/></svg> Validación de robustez</span>
+      </div>
+    </section>
+
+    <section id="plataforma" class="section workflow-section">
+      <div class="container">
+        <div class="section-heading heading-split"><div><span class="eyebrow">01 / Un flujo conectado</span><h2>De los datos<br>a las decisiones.</h2></div><p>Todo el recorrido de investigación en un mismo entorno. Cada paso aporta contexto al siguiente.</p></div>
+        <ol class="workflow">
+          <li><a href="#datos"><span class="step-number">01</span><svg class="icon"><use href="#i-database"/></svg><strong>Prepara</strong><span>Descarga y limpia<br>tu histórico.</span></a></li>
+          <li><a href="#analisis"><span class="step-number">02</span><svg class="icon"><use href="#i-chart"/></svg><strong>Analiza</strong><span>Comprende el activo<br>y su contexto.</span></a></li>
+          <li><a href="#constructor"><span class="step-number">03</span><svg class="icon"><use href="#i-grid"/></svg><strong>Construye</strong><span>Transforma tu idea<br>en reglas.</span></a></li>
+          <li><a href="#gestion"><span class="step-number">04</span><svg class="icon"><use href="#i-shield"/></svg><strong>Gestiona</strong><span>Define posiciones<br>y riesgo.</span></a></li>
+          <li><a href="#backtesting"><span class="step-number">05</span><svg class="icon"><use href="#i-sliders"/></svg><strong>Valida</strong><span>Simula, contrasta<br>y compara.</span></a></li>
+          <li><a href="#exportacion"><span class="step-number">06</span><svg class="icon"><use href="#i-code"/></svg><strong>Exporta</strong><span>Lleva la lógica<br>a tu plataforma.</span></a></li>
+        </ol>
+
+        <div id="datos" class="data-grid">
+          <article id="descarga" class="feature-card data-card">
+            <span class="card-icon"><svg class="icon"><use href="#i-download"/></svg></span>
+            <span class="label">DESCARGA E IMPORTACIÓN</span>
+            <h3>Tu punto de partida.<br>Un histórico organizado.</h3>
+            <p>Descarga datos desde los proveedores disponibles o importa tus archivos CSV. Reúne activos, fuentes y temporalidades en una biblioteca de trabajo.</p>
+            <div class="source-flow" aria-label="Fuentes de datos conectadas a una biblioteca local"><div class="source-tags"><span>Cripto</span><span>Forex</span><span>Acciones</span><span>Futuros</span></div><span class="source-connector"></span><div class="source-destination"><svg class="icon"><use href="#i-database"/></svg><span>Biblioteca local<small>QuestDB + históricos</small></span></div></div>
+          </article>
+          <article id="limpieza" class="feature-card cleaning-card">
+            <span class="card-icon"><svg class="icon"><use href="#i-layers"/></svg></span>
+            <span class="label">LIMPIEZA Y CALIDAD</span>
+            <h3>Una base consistente.<br>Un análisis con contexto.</h3>
+            <p>Normaliza tus series, identifica huecos y conserva la procedencia del volumen. Controla el tratamiento de las velas interpoladas al generar señales.</p>
+            <div class="quality-visual"><div class="quality-row"><span>Fechas y temporalidad</span><span class="quality-state"><svg class="icon"><use href="#i-check"/></svg> Normalización</span></div><div class="quality-row"><span>Continuidad de la serie</span><span class="quality-state"><svg class="icon"><use href="#i-check"/></svg> Diagnóstico</span></div><div class="quality-row"><span>Volumen e interpolaciones</span><span class="quality-state"><svg class="icon"><use href="#i-check"/></svg> Trazabilidad</span></div></div>
+          </article>
+        </div>
+
+        <article id="analisis" class="analysis-card feature-card">
+          <div class="analysis-copy"><span class="label">ANÁLISIS DEL ACTIVO</span><h3>Entiende el mercado<br>antes de definir la señal.</h3><p>Explora volatilidad, distribución de retornos, patrones de velas y comportamiento por sesiones. Utiliza el análisis descriptivo para dar forma a tu hipótesis.</p><div class="tag-row"><span>Volatilidad</span><span>Patrones</span><span>Sesiones</span><span>Estadística</span></div></div>
+          <div class="analysis-visual" aria-label="Diagrama ilustrativo de volatilidad por sesión"><div class="mini-panel-title"><span>CONTEXTO DEL ACTIVO</span><span class="pill">EJEMPLO</span></div><div class="volatility-bars"><div><span>Tokio</span><i style="--bar:42%"></i><small>Sesión</small></div><div><span>Londres</span><i style="--bar:78%"></i><small>Sesión</small></div><div><span>Nueva York</span><i style="--bar:63%"></i><small>Sesión</small></div></div><span class="illustration-note">Distribución ilustrativa, sin datos de mercado reales.</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="constructor" class="section builder-section">
+      <div class="container builder-layout">
+        <div class="builder-copy"><span class="eyebrow">02 / Constructor visual</span><h2>Tu criterio.<br>Tus reglas.<br><span class="text-accent">Tu sistema.</span></h2><p class="section-lead">Crea sistemas sin escribir código. Escoge indicadores, ajusta sus parámetros y combina condiciones desde un constructor guiado.</p><p>Empieza con una lógica sencilla y añade confirmaciones, filtros y reglas de gestión conforme desarrollas tu hipótesis.</p><ul class="check-list"><li><svg class="icon"><use href="#i-check"/></svg> Condiciones conectadas con lógica AND / OR</li><li><svg class="icon"><use href="#i-check"/></svg> Entradas, salidas y confirmaciones configurables</li><li><svg class="icon"><use href="#i-check"/></svg> Múltiples setups y descripciones legibles</li></ul><a class="text-link" href="#gestion">Explora la gestión avanzada <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+        <div class="builder-demo terminal">
+          <div class="terminal-titlebar"><span class="window-dots"><i></i><i></i><i></i></span><span>Constructor de estrategias</span><span class="terminal-badge">DEMO VISUAL</span></div>
+          <div class="builder-demo-inner">
+            <div class="mini-panel-title"><span>PRUÉBALO: ELIGE UNA LÓGICA</span><svg class="icon"><use href="#i-grid"/></svg></div>
+            <div class="preset-buttons" role="group" aria-label="Plantillas ilustrativas"><button type="button" data-preset="trend" aria-pressed="true">Tendencia</button><button type="button" data-preset="reversion" aria-pressed="false">Reversión</button><button type="button" data-preset="momentum" aria-pressed="false">Momentum</button></div>
+            <div class="rule-block"><span class="rule-index">01</span><div><span class="label">SEÑAL PRINCIPAL</span><strong id="builder-signal">EMA rápida cruza por encima de EMA lenta</strong><div class="rule-fields"><label>Periodo rápido<select id="builder-period"><option value="10">10 velas</option><option value="20" selected>20 velas</option><option value="30">30 velas</option></select></label><span class="field-hint" id="builder-reference">Referencia: EMA 50</span></div></div><span class="rule-type">ENTRADA</span></div>
+            <span class="rule-join">Y</span>
+            <div class="rule-block"><span class="rule-index">02</span><div><span class="label">CONFIRMACIÓN</span><strong id="builder-confirmation">RSI por encima de 50</strong><span class="field-hint">Filtra la señal con una segunda condición.</span></div><span class="rule-type">FILTRO</span></div>
+            <span class="rule-join">+</span>
+            <div class="rule-block"><span class="rule-index">03</span><div><span class="label">GESTIÓN DEL RIESGO</span><strong>Stop Loss × ATR</strong><div class="rule-fields"><label>Riesgo por setup<select id="builder-risk"><option value="0.5">0,5 %</option><option value="1" selected>1,0 %</option><option value="2">2,0 %</option></select></label><span class="field-hint">Stop inicial: 1,5 × ATR</span></div></div><svg class="icon text-accent"><use href="#i-shield"/></svg></div>
+            <div class="rule-summary"><span class="label">TU LÓGICA, EN LENGUAJE CLARO</span><p id="builder-summary" aria-live="polite">Entrar cuando EMA 20 cruce por encima de EMA 50 y RSI supere 50. Aplicar un riesgo nominal del 1 % por setup con stop a 1,5 × ATR.</p></div>
+            <div class="builder-bottom"><span><span class="status-dot"></span> Configuración ilustrativa</span><a class="button button-small button-primary" href="#backtesting" id="builder-preview">Ver el ejemplo <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+          </div>
+          <p class="demo-disclosure">Esta interacción explica el constructor. La simulación se ejecuta en la aplicación de escritorio.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gestion" class="section management-section">
+      <div class="container">
+        <div class="section-heading heading-split"><div><span class="eyebrow">03 / Gestión de posiciones y riesgo</span><h2>Define cómo entras.<br>Y cómo te proteges.</h2></div><p>La señal es el principio. Construye también la lógica que acompaña a cada posición, desde su apertura hasta su cierre.</p></div>
+        <div class="management-grid">
+          <article class="feature-card"><span class="card-icon"><svg class="icon"><use href="#i-layers"/></svg></span><h3>Entradas y salidas<br>por etapas.</h3><p>Configura incorporaciones y cierres parciales. Define qué condición activa cada etapa y qué porcentaje de la posición gestiona.</p><div class="position-plan" aria-label="Ejemplo de reparto de una posición en tres etapas"><div class="position-segment" style="--segment:40%"><span>01</span><strong>40 %</strong></div><div class="position-segment" style="--segment:35%"><span>02</span><strong>35 %</strong></div><div class="position-segment" style="--segment:25%"><span>03</span><strong>25 %</strong></div></div><span class="illustration-note">Ejemplo de reparto · 100 % de la posición</span></article>
+          <article class="feature-card"><span class="card-icon"><svg class="icon"><use href="#i-shield"/></svg></span><h3>Protecciones que forman<br>parte del sistema.</h3><p>Dimensionamiento por riesgo, stops basados en ATR, break-even y trailing. Añade límites de actividad y protecciones por pérdidas.</p><div class="protection-stack"><span><svg class="icon"><use href="#i-check"/></svg> Riesgo nominal por setup</span><span><svg class="icon"><use href="#i-check"/></svg> Stop inicial y seguimiento</span><span><svg class="icon"><use href="#i-check"/></svg> Límites y pausas operativas</span></div></article>
+          <article class="feature-card"><span class="card-icon"><svg class="icon"><use href="#i-clock"/></svg></span><h3>El contexto también<br>es una condición.</h3><p>Incorpora filtros de tendencia, volatilidad, volumen y calendario. Selecciona sesiones y horarios para delimitar cuándo puede actuar tu sistema.</p><div class="session-chips"><span>Tokio</span><span class="active">Londres</span><span class="active">Nueva York</span><span>Sídney</span></div><div class="calendar-strip" aria-label="Ejemplo de calendario operativo de lunes a viernes"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span class="off">S</span><span class="off">D</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="backtesting" class="section backtest-section">
+      <div class="container">
+        <div class="section-heading heading-centered"><span class="eyebrow">04 / El motor de backtesting</span><h2>Ve lo que realmente<br><span class="text-accent">hace tu sistema.</span></h2><p>Inspecciona señales, ejecuciones y costes. Recorre cada operación y conecta las reglas con la curva de capital y sus periodos de drawdown.</p></div>
+        <div class="backtest-terminal terminal">
+          <div class="terminal-titlebar"><span class="window-dots"><i></i><i></i><i></i></span><span>Laboratorio de resultados</span><span class="terminal-badge">DATOS SINTÉTICOS</span></div>
+          <div class="gallery-toolbar"><div class="gallery-tabs" role="tablist" aria-label="Ejemplos de indicadores"><button id="tab-trend" type="button" role="tab" aria-selected="true" aria-controls="sample-panel" tabindex="0" data-sample="trend">EMA + RSI</button><button id="tab-reversion" type="button" role="tab" aria-selected="false" aria-controls="sample-panel" tabindex="-1" data-sample="reversion">Bollinger + RSI</button><button id="tab-momentum" type="button" role="tab" aria-selected="false" aria-controls="sample-panel" tabindex="-1" data-sample="momentum">MACD + ADX</button><button id="tab-profile" type="button" role="tab" aria-selected="false" aria-controls="sample-panel" tabindex="-1" data-sample="profile">Perfil TPO</button></div><span class="gallery-source">MUESTRA DEMOSTRATIVA</span></div>
+          <div id="sample-panel" role="tabpanel" aria-labelledby="tab-trend" tabindex="0">
+            <div class="sample-heading"><div><h3 id="sample-title">Tendencia con confirmación</h3><p id="sample-description">Medias EMA sobre el precio, confirmación RSI y marcadores de entrada y salida.</p></div><div class="view-switch" role="group" aria-label="Vista del resultado"><button type="button" data-result-view="chart" aria-pressed="true">Gráfico</button><button type="button" data-result-view="equity" aria-pressed="false">Capital</button><button type="button" data-result-view="trades" aria-pressed="false">Operaciones</button></div></div>
+            <figure class="result-figure" id="result-chart"><img id="sample-image" src="./assets/images/trend.svg" width="1100" height="520" loading="lazy" alt="Gráfico demostrativo de velas con EMA 20, EMA 50, panel RSI y operaciones marcadas."><figcaption><span id="sample-caption">Entradas y salidas sobre una serie sintética. Las cifras describen este ejemplo ilustrativo.</span><a id="chart-open" href="./assets/images/trend.svg" target="_blank" rel="noopener noreferrer" class="text-link">Ampliar gráfico <svg class="icon"><use href="#i-external"/></svg></a></figcaption></figure>
+            <div id="result-trades" class="trades-view" hidden><div class="table-scroll" tabindex="0" role="region" aria-label="Tabla de operaciones ilustrativas"><table><caption>Operaciones del ejemplo sintético seleccionado</caption><thead><tr><th scope="col">Operación</th><th scope="col">Dirección</th><th scope="col">Entrada</th><th scope="col">Salida</th><th scope="col">Resultado neto</th><th scope="col">Cierre</th></tr></thead><tbody id="trades-body"></tbody></table></div></div>
+            <div class="result-metrics" aria-label="Métricas del ejemplo sintético"><div><span>OPERACIONES</span><strong data-metric="count">—</strong><small>Posiciones completas</small></div><div><span>PROFIT FACTOR</span><strong data-metric="profitFactor">—</strong><small>Ganancia / pérdida bruta</small></div><div><span>RETORNO NETO</span><strong data-metric="returnPct">—</strong><small>Después del coste ilustrativo</small></div><div><span>MAX. DRAWDOWN</span><strong data-metric="maxDrawdownPct">—</strong><small>Curva marcada a mercado</small></div></div>
+            <div class="metric-catalog"><span>También en la plataforma</span><span>Sharpe</span><span>Sortino</span><span>Calmar</span><span>CVaR</span><span>Exposición</span></div>
+            <div class="results-disclosure"><svg class="icon"><use href="#i-chart"/></svg><span>Ilustraciones con datos sintéticos, no resultados de mercado. Cambia de indicador o de vista para explorar el ejemplo.</span></div>
+          </div>
+        </div>
+        <div class="engine-points"><article><svg class="icon"><use href="#i-clock"/></svg><div><h3>Ejecución con secuencia temporal</h3><p>Señales de velas cerradas y ejecución posterior, con tratamiento de gaps y órdenes pendientes.</p></div></article><article><svg class="icon"><use href="#i-sliders"/></svg><div><h3>Costes dentro del análisis</h3><p>Comisiones, slippage y costes de mantenimiento configurables para estudiar su impacto.</p></div></article><article><svg class="icon"><use href="#i-layers"/></svg><div><h3>Resultados que puedes recorrer</h3><p>Métricas IS/OOS, operaciones, motivos de cierre y vistas independientes de largos y cortos.</p></div></article></div>
+      </div>
+    </section>
+
+    <section id="validacion" class="section validation-section">
+      <div class="container validation-layout">
+        <div><span class="eyebrow">05 / Optimización y robustez</span><h2>Afina en IS.<br><span class="text-accent">Contrasta en OOS.</span></h2><p class="section-lead">Separa la búsqueda de parámetros de la evaluación del sistema. Examina cómo cambia su comportamiento fuera del tramo utilizado para ajustarlo.</p><div class="validation-list"><article><span>01</span><div><h3>Optimización In-Sample</h3><p>Barre parámetros y compara configuraciones usando únicamente la muestra de ajuste.</p></div></article><article><span>02</span><div><h3>Out-of-Sample y Walk-Forward</h3><p>Evalúa la configuración elegida fuera de muestra y revisa su evolución en distintas ventanas.</p></div></article><article><span>03</span><div><h3>Montecarlo</h3><p>Explora variaciones de la secuencia de operaciones y la dispersión de sus resultados.</p></div></article></div></div>
+        <div class="validation-visual feature-card"><div class="mini-panel-title"><span>DISEÑO DE LA VALIDACIÓN</span><svg class="icon"><use href="#i-shield"/></svg></div><div class="sample-split"><div><strong>70 %</strong><span>IN-SAMPLE</span><small>Ajuste de parámetros</small></div><div><strong>30 %</strong><span>OUT-OF-SAMPLE</span><small>Evaluación posterior</small></div></div><div class="split-legend"><span><i></i> Muestra de ajuste</span><span><i></i> Muestra de evaluación</span></div><img src="./assets/images/robustness.svg" width="760" height="390" loading="lazy" alt="Diagrama ilustrativo de ventanas Walk-Forward y abanico de curvas para explicar Montecarlo."><span class="illustration-note">Esquema explicativo · El reparto se configura en la aplicación.</span></div>
+      </div>
+    </section>
+
+    <section class="section speed-section">
+      <div class="container speed-panel"><div class="speed-title"><span class="card-icon"><svg class="icon"><use href="#i-zap"/></svg></span><span class="eyebrow">Iteración ágil</span><h2>Menos fricción.<br>Más espacio para investigar.</h2><p>Un motor acelerado con Numba y un flujo de trabajo diseñado para construir, probar y revisar tus hipótesis.</p></div><div class="speed-details"><article><span class="mono">@njit(nogil=True)</span><h3>Bucles críticos compilados</h3><p>Compilación JIT para acelerar el trabajo numérico del motor.</p></article><article><span class="mono">SIGNAL → REUSE</span><h3>Reutilización de señales</h3><p>El optimizador reutiliza cálculos cuando cambian parámetros de gestión.</p></article><article><span class="mono">WORKER → RESULTS</span><h3>Trabajo fuera de la interfaz</h3><p>Las tareas pesadas se ejecutan en procesos o hilos de trabajo.</p></article></div></div>
+    </section>
+
+    <section class="section transfer-section">
+      <div class="container transfer-grid">
+        <article id="comparador" class="feature-card compare-card"><span class="eyebrow">06 / Comparador</span><h2>Pon tus sistemas<br>en perspectiva.</h2><p>Guarda resultados y compara sus curvas, riesgo y comportamiento por periodos. Contrasta versiones de una misma hipótesis o sistemas distintos.</p><img src="./assets/images/comparison.svg" width="760" height="340" loading="lazy" alt="Ilustración de tres curvas de capital sintéticas comparadas sobre el mismo periodo."><div class="compare-legend"><span><i></i> Sistema A</span><span><i></i> Sistema B</span><span><i></i> Sistema C</span></div><span class="illustration-note">Curvas ilustrativas para explicar el comparador.</span></article>
+        <article id="exportacion" class="feature-card export-card"><span class="eyebrow">07 / Exportación</span><h2>Tu lógica.<br>Un siguiente paso.</h2><p>Genera código para TradingView y MetaTrader 5. Consulta el informe de compatibilidad para saber qué elementos puede reproducir cada plataforma.</p><div class="code-window"><div class="code-tabs" role="group" aria-label="Ejemplos de código exportado"><button type="button" data-language="pine" aria-pressed="true">Pine Script</button><button type="button" data-language="mql" aria-pressed="false">MQL5</button><span>EJEMPLO</span></div><pre><code id="export-code">// Lógica ilustrativa · TradingView
+fast = ta.ema(close, 20)
+slow = ta.ema(close, 50)
+confirm = ta.rsi(close, 14) &gt; 50
+
+if ta.crossover(fast, slow) and confirm
+    strategy.entry("Long", strategy.long)</code></pre></div><div class="export-note"><svg class="icon"><use href="#i-check"/></svg> Informe de fidelidad y compatibilidad</div></article>
+      </div>
+    </section>
+
+    <section id="proyecto" class="section project-section">
+      <div class="container project-layout"><div><span class="eyebrow">08 / QuantPower Systems</span><h2>Investigación, diseño<br>y desarrollo.<br><span class="text-accent">Un proyecto conectado.</span></h2></div><div class="project-copy"><span class="pill"><span class="status-dot"></span> PORTFOLIO · DESARROLLO ACTIVO</span><p>QuantPower Builder nace para hacer más accesible la construcción de sistemas de trading con reglas avanzadas. Reúne preparación de datos, generación de señales, gestión y evaluación en una aplicación de escritorio.</p><p>Este portfolio muestra el producto, su enfoque de investigación y su evolución técnica. La demo permite explorar el trabajo realizado a medida que se publican nuevas versiones.</p><div class="tech-stack" aria-label="Tecnologías del software"><span>Python</span><span>PyQt6</span><span>NumPy</span><span>pandas</span><span>Numba</span><span>QuestDB</span></div></div></div>
+    </section>
+
+    <section id="demo" class="section demo-section">
+      <div class="container">
+        <div class="download-panel"><div class="download-copy"><span class="eyebrow"><svg class="icon"><use href="#i-download"/></svg> Demo de escritorio</span><h2>Explora la plataforma.<br><span class="text-accent">Construye tu primer sistema.</span></h2><p>Un paquete portable para conocer el constructor y recorrer el flujo de investigación. Descarga el ZIP, descomprímelo y abre la aplicación.</p><ul class="download-highlights"><li><svg class="icon"><use href="#i-check"/></svg> Windows de 64 bits</li><li><svg class="icon"><use href="#i-check"/></svg> Sin instalar Python</li><li><svg class="icon"><use href="#i-check"/></svg> Configuración local</li></ul><a class="text-link" href="#instalacion">Cómo empezar <svg class="icon"><use href="#i-arrow"/></svg></a></div><div class="download-card"><div class="mini-panel-title"><span>ÚLTIMA DEMO PUBLICADA</span><svg class="icon"><use href="#i-download"/></svg></div><div class="release-status" id="release-status" role="status" aria-live="polite">Consultando la versión disponible…</div><div class="release-platform"><span class="platform-icon" aria-hidden="true">⊞</span><div><strong>Windows x64</strong><span>Paquete portable · ZIP</span></div></div><dl class="release-facts"><div><dt>Versión</dt><dd id="release-version">Pendiente de publicación</dd></div><div><dt>Tamaño</dt><dd id="release-size">—</dd></div><div><dt>Publicación</dt><dd id="release-date">—</dd></div></dl><a id="demo-download" class="button button-primary button-full" href="#instalacion" aria-describedby="download-note"><svg class="icon"><use href="#i-clock"/></svg><span>Demo en preparación</span></a><p id="download-note" class="download-note">El enlace se activará cuando esté disponible el paquete público.</p><a id="release-notes" class="release-notes text-link" href="https://github.com/ev1lmach1ne/quantpower-builder-demo/releases" target="_blank" rel="noopener noreferrer">Versiones y novedades <svg class="icon"><use href="#i-external"/></svg></a></div></div>
+        <noscript><p class="noscript-note">Las funciones interactivas y la consulta automática de versiones necesitan JavaScript. Puedes consultar los paquetes publicados en <a href="https://github.com/ev1lmach1ne/quantpower-builder-demo/releases">GitHub Releases</a>.</p></noscript>
+        <div id="instalacion" class="installation-layout"><div><span class="label">EMPIEZA EN TRES PASOS</span><ol class="install-steps"><li><span>01</span><div><strong>Descarga el ZIP</strong><p>Obtén el paquete completo de la versión publicada.</p></div></li><li><span>02</span><div><strong>Descomprime en tu carpeta</strong><p>Usa una ubicación con permisos de escritura, como Documentos.</p></div></li><li><span>03</span><div><strong>Abre la aplicación</strong><p>Ejecuta el archivo .exe y elige dónde guardar tus datos.</p></div></li></ol></div><div class="requirements"><span class="label">REQUISITOS DE REFERENCIA</span><dl><div><dt>Sistema</dt><dd>Windows 10 / 11 · 64 bits</dd></div><div><dt>Memoria</dt><dd>8 GB · 16 GB recomendados</dd></div><div><dt>Procesador</dt><dd>4 núcleos x86-64 o superior</dd></div><div><dt>Espacio</dt><dd>5 GB libres · SSD recomendado</dd></div></dl><p>El primer uso de QuestDB y la descarga de históricos necesitan conexión. El análisis de datos ya importados se realiza localmente.</p></div></div>
+        <div class="faq-list"><details><summary>¿Cómo actualizo la demo?<span aria-hidden="true">+</span></summary><p>Descarga la nueva versión y conserva tu configuración, sistemas, favoritos y resultados guardados antes de sustituir los archivos del programa. Cada Release incluirá las instrucciones de actualización del paquete correspondiente.</p></details><details><summary>¿Qué representan los gráficos de esta página?<span aria-hidden="true">+</span></summary><p>Son ilustraciones creadas con series sintéticas para explicar las vistas y funcionalidades. No son capturas de operaciones reales ni resultados obtenidos en el mercado.</p></details><details><summary>¿Es una plataforma de escritorio?<span aria-hidden="true">+</span></summary><p>Sí. La creación de sistemas y el motor de backtesting forman parte de la aplicación de escritorio. Esta página presenta el proyecto y permite explorar visualmente su flujo de trabajo.</p></details></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-top"><a class="brand" href="#inicio"><img src="./assets/images/mark.svg" width="36" height="36" alt=""><span><strong>QuantPower<span class="brand-light"> Systems</span></strong><small>Construyendo herramientas para investigar.</small></span></a><nav aria-label="Navegación del pie"><a href="#constructor">Constructor</a><a href="#backtesting">Backtesting</a><a href="#demo">Demo</a><a href="https://github.com/ev1lmach1ne/quantpower-builder-demo" target="_blank" rel="noopener noreferrer">Proyecto web <svg class="icon"><use href="#i-external"/></svg></a></nav></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> QuantPower Systems</span><span>QuantPower Builder · Portfolio de producto</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+</body>
+</html>

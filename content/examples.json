@@ -1,0 +1,386 @@
+{
+  "synthetic": true,
+  "initialCapital": 10000,
+  "unit": "u.m.",
+  "examples": [
+    {
+      "id": "trend",
+      "title": "Tendencia con confirmación",
+      "description": "Medias EMA sobre el precio, confirmación RSI y marcadores de entrada y salida.",
+      "image": "trend.svg",
+      "equityImage": "trend-equity.svg",
+      "metrics": {
+        "count": 8,
+        "profitFactor": 0.28,
+        "returnPct": -4.34,
+        "maxDrawdownPct": -4.56
+      },
+      "trades": [
+        {
+          "number": 1,
+          "start": 10,
+          "end": 24,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 105.332,
+          "exit": 104.496,
+          "pnl": -27.49,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 2,
+          "start": 37,
+          "end": 47,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 101.555,
+          "exit": 104.947,
+          "pnl": -104.16,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 3,
+          "start": 57,
+          "end": 69,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 109.732,
+          "exit": 106.355,
+          "pnl": -103.71,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 4,
+          "start": 81,
+          "end": 88,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 100.401,
+          "exit": 102.979,
+          "pnl": -79.74,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 5,
+          "start": 100,
+          "end": 114,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 107.469,
+          "exit": 107.808,
+          "pnl": 7.78,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 6,
+          "start": 128,
+          "end": 139,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 105.455,
+          "exit": 111.014,
+          "pnl": 164.39,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 7,
+          "start": 145,
+          "end": 155,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 113.201,
+          "exit": 118.372,
+          "pnl": -157.54,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 8,
+          "start": 161,
+          "end": 175,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 117.437,
+          "exit": 113.055,
+          "pnl": -133.86,
+          "reason": "Cierre ilustrativo del tramo"
+        }
+      ]
+    },
+    {
+      "id": "reversion",
+      "title": "Reversión y contexto de volatilidad",
+      "description": "Bandas de Bollinger, RSI y recorridos de posiciones sobre una serie sintética.",
+      "image": "reversion.svg",
+      "equityImage": "reversion-equity.svg",
+      "metrics": {
+        "count": 7,
+        "profitFactor": null,
+        "returnPct": 9.78,
+        "maxDrawdownPct": -0.44
+      },
+      "trades": [
+        {
+          "number": 1,
+          "start": 16,
+          "end": 28,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 105.669,
+          "exit": 101.984,
+          "pnl": 108.15,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 2,
+          "start": 39,
+          "end": 52,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 102.315,
+          "exit": 108.867,
+          "pnl": 194.14,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 3,
+          "start": 60,
+          "end": 73,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 109.969,
+          "exit": 104.7,
+          "pnl": 155.64,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 4,
+          "start": 86,
+          "end": 96,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 101.317,
+          "exit": 105.754,
+          "pnl": 130.69,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 5,
+          "start": 105,
+          "end": 116,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 110.468,
+          "exit": 107.717,
+          "pnl": 80.13,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 6,
+          "start": 132,
+          "end": 144,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 105.026,
+          "exit": 113.247,
+          "pnl": 244.23,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 7,
+          "start": 153,
+          "end": 164,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 117.234,
+          "exit": 114.984,
+          "pnl": 65.1,
+          "reason": "Cierre ilustrativo del tramo"
+        }
+      ]
+    },
+    {
+      "id": "momentum",
+      "title": "Momentum con confirmaciones",
+      "description": "Panel MACD, medias sobre el precio y ADX como ejemplo de condición de confirmación.",
+      "image": "momentum.svg",
+      "equityImage": "momentum-equity.svg",
+      "metrics": {
+        "count": 8,
+        "profitFactor": 1.48,
+        "returnPct": 1.77,
+        "maxDrawdownPct": -2.79
+      },
+      "trades": [
+        {
+          "number": 1,
+          "start": 5,
+          "end": 15,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 103.777,
+          "exit": 105.84,
+          "pnl": 59.5,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 2,
+          "start": 32,
+          "end": 44,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 100.572,
+          "exit": 103.496,
+          "pnl": -90.11,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 3,
+          "start": 47,
+          "end": 59,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 104.491,
+          "exit": 110.045,
+          "pnl": 164.22,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 4,
+          "start": 73,
+          "end": 84,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 105.591,
+          "exit": 101.097,
+          "pnl": 132.43,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 5,
+          "start": 95,
+          "end": 107,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 104.646,
+          "exit": 111.086,
+          "pnl": 190.81,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 6,
+          "start": 121,
+          "end": 133,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 107.273,
+          "exit": 105.596,
+          "pnl": -52.69,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 7,
+          "start": 144,
+          "end": 156,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 113.033,
+          "exit": 118.791,
+          "pnl": -175.15,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 8,
+          "start": 165,
+          "end": 178,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 114.776,
+          "exit": 113.109,
+          "pnl": -52.41,
+          "reason": "Cierre ilustrativo del tramo"
+        }
+      ]
+    },
+    {
+      "id": "profile",
+      "title": "Estructura del mercado con TPO",
+      "description": "Perfiles ilustrativos con POC y zonas VAH / VAL, junto a entradas y salidas de ejemplo.",
+      "image": "profile.svg",
+      "equityImage": "profile-equity.svg",
+      "metrics": {
+        "count": 6,
+        "profitFactor": 6.14,
+        "returnPct": 5.68,
+        "maxDrawdownPct": -1.09
+      },
+      "trades": [
+        {
+          "number": 1,
+          "start": 12,
+          "end": 26,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 105.325,
+          "exit": 102.534,
+          "pnl": -86.14,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 2,
+          "start": 44,
+          "end": 58,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 103.189,
+          "exit": 110.344,
+          "pnl": 212.26,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 3,
+          "start": 66,
+          "end": 79,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 107.353,
+          "exit": 101.177,
+          "pnl": 182.87,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 4,
+          "start": 91,
+          "end": 104,
+          "direction": 1,
+          "side": "Largo",
+          "entry": 103.62,
+          "exit": 110.532,
+          "pnl": 204.94,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 5,
+          "start": 115,
+          "end": 128,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 107.904,
+          "exit": 105.194,
+          "pnl": 78.89,
+          "reason": "Cierre ilustrativo del tramo"
+        },
+        {
+          "number": 6,
+          "start": 148,
+          "end": 163,
+          "direction": -1,
+          "side": "Corto",
+          "entry": 115.218,
+          "exit": 115.95,
+          "pnl": -24.35,
+          "reason": "Cierre ilustrativo del tramo"
+        }
+      ]
+    }
+  ]
+}

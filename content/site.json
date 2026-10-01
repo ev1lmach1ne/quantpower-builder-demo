@@ -1,0 +1,10 @@
+{
+  "product": "QuantPower Builder",
+  "company": "QuantPower Systems",
+  "releaseRepository": "ev1lmach1ne/quantpower-builder-demo",
+  "assetNames": [
+    "QuantPowerBuilder_Windows_x64.zip",
+    "QuantPowerSystems_Windows_x64.zip"
+  ],
+  "fallbackRelease": null
+}
