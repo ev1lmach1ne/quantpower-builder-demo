@@ -11,7 +11,7 @@ function trustedReleaseUrl(value, repository, asset = false) {
 }
 
 export function normalizeRelease(release, config) {
-  if (!release || release.draft || release.prerelease || !release.tag_name || !Array.isArray(release.assets)) return null;
+  if (!release || release.draft || !release.tag_name || !Array.isArray(release.assets)) return null;
   const pageUrl = trustedReleaseUrl(release.html_url, config.releaseRepository);
   if (!pageUrl) return null;
   let asset;
@@ -24,6 +24,7 @@ export function normalizeRelease(release, config) {
   return {
     version: release.tag_name,
     publishedAt: release.published_at,
+    prerelease: Boolean(release.prerelease),
     pageUrl,
     downloadUrl: validSize ? downloadUrl : null,
     size: validSize ? asset.size : null,
@@ -64,14 +65,16 @@ function displayRelease(release, { snapshot = false, latest = false, total = 1 }
   document.getElementById("release-date").textContent = Number.isNaN(published.getTime()) ? "Ver Release"
     : new Intl.DateTimeFormat("es-ES", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(published);
   document.getElementById("release-notes").href = release.pageUrl;
-  const selectedInfo = latest ? "Última versión estable · " : "Versión histórica seleccionada · ";
+  const selectedInfo = latest
+    ? `${release.prerelease ? "Última alpha publicada" : "Última versión publicada"} · `
+    : `${release.prerelease ? "Alpha histórica" : "Versión histórica seleccionada"} · `;
   document.getElementById("release-status").textContent = snapshot
     ? `${selectedInfo}${release.downloadUrl ? "Demo disponible." : "ZIP pendiente."} Consulta las novedades para ver si hay una actualización.`
     : release.downloadUrl ? `${selectedInfo}Demo disponible.` : "La publicación seleccionada todavía no incluye el ZIP de Windows.";
   const help = document.getElementById("release-version-help");
   if (help) help.textContent = snapshot
     ? "Versión disponible mientras se consulta la lista de Releases."
-    : `${total} versiones estables${latest ? " · última publicación seleccionada" : " · explorando el historial"}.`;
+    : `${total} versiones publicadas${latest ? " · última con ZIP seleccionada" : " · explorando el historial"}.`;
   if (release.downloadUrl) {
     setButton(release.downloadUrl, "Descargar demo para Windows");
     document.getElementById("download-note").textContent = "Descarga directa desde GitHub Releases. Descomprime el ZIP completo antes de abrir la aplicación.";
@@ -83,12 +86,13 @@ function displayRelease(release, { snapshot = false, latest = false, total = 1 }
 
 function fillVersionSelector(releases, selectedTag, config) {
   const picker = document.getElementById("release-version-select");
-  const stable = new Map();
+  const releasesByTag = new Map();
   for (const release of releases) {
-    const normalized = normalizeRelease(release, config);
-    if (normalized) stable.set(normalized.version, normalized);
+    const normalized = release?.version && release?.pageUrl
+      ? release : normalizeRelease(release, config);
+    if (normalized) releasesByTag.set(normalized.version, normalized);
   }
-  const versions = [...stable.values()].sort((a, b) => {
+  const versions = [...releasesByTag.values()].sort((a, b) => {
     if (a.version === selectedTag) return -1;
     if (b.version === selectedTag) return 1;
     return Date.parse(b.publishedAt || "") - Date.parse(a.publishedAt || "");
@@ -96,7 +100,9 @@ function fillVersionSelector(releases, selectedTag, config) {
   picker.replaceChildren(...versions.map((release) => {
     const option = document.createElement("option");
     option.value = release.version;
-    option.textContent = `${release.version}${release.version === selectedTag ? " · Última" : ""}${release.downloadUrl ? "" : " · ZIP pendiente"}`;
+    const estado = release.version === selectedTag ? " · Descargar por defecto"
+      : release.prerelease ? " · Alpha" : "";
+    option.textContent = `${release.version}${estado}${release.downloadUrl ? "" : " · ZIP pendiente"}`;
     option.dataset.releasePage = release.pageUrl;
     option.selected = release.version === selectedTag;
     return option;
@@ -130,52 +136,35 @@ export async function initReleases() {
   if (snapshot) displayRelease(snapshot, true);
   const headers = { Accept: "application/vnd.github+json" };
   const releaseEndpoint = `${API}${config.releaseRepository}/releases`;
-  const latestPromise = fetch(`${releaseEndpoint}/latest`, {
+  const versionsPromise = fetch(`${releaseEndpoint}?per_page=100`, {
       headers,
       credentials: "omit",
       signal: AbortSignal.timeout(8000),
     });
-  const versionsPromise = fetch(`${releaseEndpoint}?per_page=100`, {
-      headers: { Accept: "application/vnd.github+json" },
-      credentials: "omit",
-      signal: AbortSignal.timeout(8000),
-    });
   try {
-    const [latestResponse, versionsResponse] = await Promise.allSettled([latestPromise, versionsPromise]);
-    let latest = null;
-    if (latestResponse.status === "fulfilled" && latestResponse.value.ok) {
-      latest = normalizeRelease(await latestResponse.value.json(), config);
-    }
+    const versionsResponse = await Promise.allSettled([versionsPromise]);
+    const releasesResult = versionsResponse[0];
     let published = [];
-    if (versionsResponse.status === "fulfilled" && versionsResponse.value.ok) {
-      const releases = await versionsResponse.value.json();
-      if (Array.isArray(releases)) published = releases;
-    }
-    if (latest) {
-      const collection = fillVersionSelector(published, latest.version, config);
-      if (!collection.versions.some((item) => item.version === latest.version)) {
-        collection.versions.unshift(latest);
-        versionPicker.replaceChildren(...collection.versions.map((release) => new Option(
-          `${release.version}${release.version === latest.version ? " · Última" : release.downloadUrl ? "" : " · ZIP pendiente"}`,
-          release.version, release.version === latest.version, release.version === latest.version)));
+    if (releasesResult.status === "fulfilled" && releasesResult.value.ok) {
+      const releases = await releasesResult.value.json();
+      if (Array.isArray(releases)) {
+        published = releases.map((release) => normalizeRelease(release, config))
+          .filter(Boolean)
+          .sort((a, b) => Date.parse(b.publishedAt || "") - Date.parse(a.publishedAt || ""));
       }
-      releaseVersions = collection.versions;
-      versionPicker.hidden = false;
-      displayRelease(latest, { latest: true, total: releaseVersions.length });
-      return;
     }
     if (published.length) {
-      const collection = fillVersionSelector(published, snapshot?.version, config);
+      const latestDownload = published.find((release) => release.downloadUrl) || published[0];
+      const collection = fillVersionSelector(published, latestDownload.version, config);
       releaseVersions = collection.versions;
-      if (collection.selected) displayRelease(collection.selected, { snapshot: true, latest: true, total: releaseVersions.length });
-      else if (!snapshot) throw new Error("No hay versiones estables con archivos compatibles.");
+      displayRelease(latestDownload, { latest: true, total: releaseVersions.length });
       return;
     }
     if (!snapshot) {
       const picker = document.getElementById("release-version-select");
       picker.replaceChildren(new Option("Versiones no disponibles", "", true, true));
       picker.disabled = true;
-      const firstPublication = latestResponse.status === "fulfilled" && latestResponse.value.status === 404;
+      const firstPublication = releasesResult.status === "fulfilled" && releasesResult.value.status === 404;
       if (firstPublication) {
         document.getElementById("release-version").textContent = "Pendiente de publicación";
         document.getElementById("release-size").textContent = "—";
