@@ -7,17 +7,19 @@
     "QuantPowerSystems_Windows_x64.zip"
   ],
   "fallbackRelease": {
-    "tag_name": "v0.7.6",
-    "html_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/tag/v0.7.6",
-    "published_at": "2026-10-01T19:54:14Z",
+    "tag_name": "v0.7.6.1-alpha",
+    "html_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/tag/v0.7.6.1-alpha",
+    "published_at": "2026-10-02T21:59:37Z",
     "draft": false,
-    "prerelease": false,
-    "assets": [{
-      "name": "QuantPowerBuilder_Windows_x64.zip",
-      "state": "uploaded",
-      "size": 410366990,
-      "browser_download_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/download/v0.7.6/QuantPowerBuilder_Windows_x64.zip",
-      "digest": "sha256:fc2fce3a7b329dc52401eadc50b78ffe415aa514c91877bec0ce66c17fa746c0"
-    }]
+    "prerelease": true,
+    "assets": [
+      {
+        "name": "QuantPowerBuilder_Windows_x64.zip",
+        "state": "uploaded",
+        "size": 397023400,
+        "browser_download_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/download/v0.7.6.1-alpha/QuantPowerBuilder_Windows_x64.zip",
+        "digest": "sha256:2e55d442b79286409de627535ee42f5d8e4965c9ad4ff654b07ac514bed4afb6"
+      }
+    ]
   }
 }
