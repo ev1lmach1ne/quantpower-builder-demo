@@ -30,7 +30,10 @@ export async function initGallery() {
   const inspection = document.getElementById("inspection-trade");
   const settings = Object.fromEntries(Object.entries(defaultPeriods).map(([id, period]) => [id, { period, risk: 1 }]));
   let data;
-  let selected = "trend";
+  let selected = document.querySelector('[data-preset][aria-pressed="true"]').dataset.preset;
+  // Recoge también los controles restaurados por el navegador antes del fetch.
+  settings[selected] = { period: Number(document.getElementById("builder-period").value),
+    risk: Number(document.getElementById("builder-risk").value) };
   let view = "chart";
   let sample;
 
@@ -89,17 +92,20 @@ export async function initGallery() {
     document.getElementById("sample-panel").dataset.configuration = sample.key;
     document.getElementById("sample-title").textContent = sample.title;
     document.getElementById("sample-description").textContent = sample.description;
-    document.getElementById("sample-parameters").textContent = `${selected === "profile" ? "Letra TPO" : "Periodo"} ${sample.period} · Riesgo ${compact.format(sample.risk)} % · Solo largos · H1 UTC`;
+    document.getElementById("sample-parameters").textContent = `${selected === "profile" ? `Letra TPO ${sample.period} min · Sesión diaria` : `Periodo ${sample.period}`} · Riesgo ${compact.format(sample.risk)} % · Solo largos · H1 UTC`;
     document.getElementById("result-chart").hidden = view === "trades";
     document.getElementById("result-trades").hidden = view !== "trades";
     const asset = view === "equity" ? sample.equityImage : sample.image;
     image.src = imageUrl(asset);
     image.setAttribute("height", view === "equity" ? "520" : "600");
-    image.alt = view === "equity" ? `Capital y drawdown del motor: ${sample.title}. Datos sintéticos.` : `Señales y ejecuciones del motor: ${sample.description}`;
+    image.alt = view === "equity" ? `Capital y drawdown del motor: ${sample.title}. Datos sintéticos.`
+      : `${selected === "profile" ? "Mapas de calor TPO diarios consecutivos, señales y ejecuciones" : "Señales y ejecuciones"} del motor: ${sample.description}`;
     document.getElementById("chart-open").href = image.src;
     document.getElementById("sample-caption").textContent = view === "equity"
       ? "Curva marcada a mercado y drawdown producidos por el mismo backtest de la tabla. Capital inicial: 10.000 u.m."
-      : "S: señal al cierre de t. E: entrada en la apertura de t+1. X: salida al precio de llenado del motor. Serie sintética descargable.";
+      : selected === "profile"
+        ? "Mapas de calor al cierre de cada sesión UTC. POC rojo y VAH/VAL grises; niveles anteriores punteados. Las señales usan el perfil anterior cerrado. S: señal · E: entrada al open siguiente · X: salida."
+        : "S: señal al cierre de t. E: entrada en la apertura de t+1. X: salida al precio de llenado del motor. Serie sintética descargable.";
     for (const element of document.querySelectorAll("[data-metric]")) {
       const key = element.dataset.metric;
       const value = sample.metrics[key];
@@ -109,6 +115,7 @@ export async function initGallery() {
       element.title = key === "profitFactor" && sample.metrics.profitFactorInfinite ? "Sin operaciones perdedoras en esta muestra sintética." : "";
     }
     fillTrades(sample.trades);
+    const previousTrade = inspection.value;
     inspection.replaceChildren(...sample.trades.map((trade) => {
       const option = document.createElement("option");
       option.value = trade.number;
@@ -116,16 +123,21 @@ export async function initGallery() {
       return option;
     }));
     if (!sample.trades.length) inspection.replaceChildren(new Option("Sin operaciones", ""));
+    else if (sample.trades.some((trade) => String(trade.number) === previousTrade)) inspection.value = previousTrade;
     inspect();
+    document.dispatchEvent(new CustomEvent("quantpower:example-rendered", { detail: {
+      sample: selected, period: sample.period, risk: sample.risk,
+    } }));
     document.documentElement.dataset.examplesReady = "true";
   };
 
   document.addEventListener("quantpower:example", (event) => {
-    const { sample: family, period, risk } = event.detail || {};
+    const { sample: family, period, risk, resetView } = event.detail || {};
     if (!Object.hasOwn(settings, family)) return;
+    if (data && !data.variants.some((item) => item.id === family && item.period === period && item.risk === risk)) return;
     settings[family] = { period, risk };
     selected = family;
-    view = "chart";
+    if (resetView) view = "chart";
     render();
   });
   wireTabs(sampleButtons, (button) => { selected = button.dataset.sample; render(); });

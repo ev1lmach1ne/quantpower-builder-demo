@@ -34,13 +34,22 @@ export function initBuilder() {
   const buttons = [...document.querySelectorAll("[data-preset]")];
   const period = document.getElementById("builder-period");
   const risk = document.getElementById("builder-risk");
+  const settings = Object.fromEntries(Object.entries(presets).map(([id, preset]) => [id, { period: preset.defaultPeriod, risk: 1 }]));
   let selected = "trend";
-  const update = () => {
+  settings[selected] = { period: Number(period.value), risk: Number(risk.value) };
+  const preview = (resetView = false) => {
+    document.dispatchEvent(new CustomEvent("quantpower:example", { detail: {
+      sample: selected, ...settings[selected], resetView,
+    } }));
+  };
+  const update = (notify = true) => {
+    settings[selected] = { period: Number(period.value), risk: Number(risk.value) };
     const formattedRisk = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(Number(risk.value));
     document.getElementById("builder-summary").textContent =
       `Largos: entrar al open de t+1 cuando ${presets[selected].describe(period.value)} al cierre de t. Riesgo nominal del ${formattedRisk} %, stop a 1,5 × ATR(14) de t y objetivo a 2R. Salir por ${presets[selected].exit}, stop o TP.`;
+    if (notify) preview();
   };
-  const choosePreset = (button) => {
+  const choosePreset = (button, notify = true) => {
     selected = button.dataset.preset;
     const preset = presets[selected];
     selectButtons(buttons, button);
@@ -52,18 +61,22 @@ export function initBuilder() {
       const option = document.createElement("option");
       option.value = value;
       option.textContent = `${value} velas`;
-      option.selected = value === preset.defaultPeriod;
+      option.selected = value === settings[selected].period;
       return option;
     }));
-    update();
+    risk.value = String(settings[selected].risk);
+    update(notify);
   };
   for (const button of buttons) button.addEventListener("click", () => choosePreset(button));
-  period.addEventListener("change", update);
-  risk.addEventListener("change", update);
-  document.getElementById("builder-preview").addEventListener("click", () => {
-    document.dispatchEvent(new CustomEvent("quantpower:example", { detail: {
-      sample: selected, period: Number(period.value), risk: Number(risk.value),
-    } }));
+  period.addEventListener("change", () => update());
+  risk.addEventListener("change", () => update());
+  document.getElementById("builder-preview").addEventListener("click", () => preview(true));
+  document.addEventListener("quantpower:example-rendered", (event) => {
+    const { sample, period: chosenPeriod, risk: chosenRisk } = event.detail;
+    if (!Object.hasOwn(presets, sample)) return;
+    if (sample === selected && chosenPeriod === Number(period.value) && chosenRisk === Number(risk.value)) return;
+    settings[sample] = { period: chosenPeriod, risk: chosenRisk };
+    choosePreset(buttons.find((button) => button.dataset.preset === sample), false);
   });
-  update();
+  choosePreset(buttons.find((button) => button.dataset.preset === selected));
 }

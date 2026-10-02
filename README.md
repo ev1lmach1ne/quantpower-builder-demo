@@ -156,7 +156,25 @@ venv\Scripts\python.exe web\tools\generar_ilustraciones.py
 El generador usa el entorno Python del proyecto y Pillow; estos no son
 requisitos para servir la web. La página sirve 27 combinaciones precalculadas
 de periodo/riesgo del constructor y un ejemplo TPO; el motor no se publica
-como JavaScript. Cambiar las opciones carga los resultados de esa combinación.
+como JavaScript. Cambiar la lógica, el periodo o el riesgo carga inmediatamente
+los resultados de esa combinación, conservando la vista de gráfico, capital
+u operaciones. El constructor y las pestañas de resultados comparten la
+selección, y cada lógica recuerda sus parámetros. «Ver el ejemplo» lleva a la
+galería y abre el gráfico de la configuración seleccionada.
+
+El TPO se genera con `_perfiles_tpo()` y el mismo perfil `CRYPTO_24_7` usado
+por sus señales: una sesión diaria de 00:00 a 24:00 UTC, letras de 60 minutos
+y área de valor del 70 %. Cada sesión tiene su mapa de calor compacto, sin
+solaparse con la siguiente: las celdas se alinean por nivel de precio y
+conservan el gradiente temporal rojo/naranja/amarillo y la intensidad de la
+GUI. El POC actual es rojo; VAH/VAL actuales son grises y las referencias
+del perfil anterior se distinguen con líneas punteadas. Una última sesión
+incompleta se identifica como «En formación».
+
+Las ampliaciones TPO incluyen la sesión de referencia anterior y las sesiones
+de la operación. Recortan los perfiles calculados sobre el histórico completo,
+sin recalcular sus filas ni letras al hacer zoom. Son perfiles visuales al
+cierre de cada sesión; las señales usan únicamente el perfil anterior cerrado.
 
 ### Contrato de ejecución
 
@@ -165,7 +183,8 @@ como JavaScript. Cambiar las opciones carga los resultados de esa combinación.
 - Stop inicial fijo: 1,5 × ATR(14) de `t`.
 - Objetivo: 2 × distancia inicial al stop (RR 1:2).
 - Dimensionamiento por riesgo nominal del 0,5 %, 1 % o 2 % según el selector.
-- Comisión: 0,05 % por lado; slippage: 0,02 % aplicado a los fills.
+- Comisión: 0,05 % por lado; slippage: 0,02 % en entradas y salidas a mercado.
+  Stop/TP se llenan a su nivel sin slippage adicional; un gap de stop usa el open.
 - Salidas por condición al open siguiente; stop/TP en su vela de activación.
 - Las salidas intrabar describen la vela y su precio, sin inventar un instante
   de tick que no existe en OHLC.
@@ -205,7 +224,7 @@ composición y proporciones.
 ## Verificación en el proyecto de desarrollo
 
 ```powershell
-venv\Scripts\python.exe -m pytest tests/test_web_analizador.py tests/test_cambio_acumulado.py tests/test_web_publicacion.py -q -o addopts=''
+venv\Scripts\python.exe -m pytest tests/test_web_motor.py tests/test_web_tpo.py tests/test_web_analizador.py tests/test_cambio_acumulado.py tests/test_web_publicacion.py -q -o addopts=''
 python web\tools\verificar_web.py --salida "RUTA_TEMPORAL"
 python web\tools\verificar_descarga.py --salida "RUTA_TEMPORAL"
 ```
