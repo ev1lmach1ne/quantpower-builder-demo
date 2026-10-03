@@ -77,7 +77,7 @@ def _replace_release_href(html, href):
 
 
 def _version_label(release):
-    label = f"{release['tag_name']} · Descargar por defecto"
+    label = f"{release['tag_name']} · Última Versión"
     if release.get("prerelease"):
         label += " · Alpha"
     return label

@@ -100,7 +100,8 @@ function fillVersionSelector(releases, selectedTag, config) {
   picker.replaceChildren(...versions.map((release) => {
     const option = document.createElement("option");
     option.value = release.version;
-    const estado = release.version === selectedTag ? " · Descargar por defecto"
+    const estado = release.version === selectedTag
+      ? ` · Última Versión${release.prerelease ? " · Alpha" : ""}`
       : release.prerelease ? " · Alpha" : "";
     option.textContent = `${release.version}${estado}${release.downloadUrl ? "" : " · ZIP pendiente"}`;
     option.dataset.releasePage = release.pageUrl;
