@@ -4,7 +4,7 @@
 presentar el constructor visual, el motor de backtesting y el flujo completo
 de investigación cuantitativa.
 
-- Web: <https://ev1lmach1ne.github.io/quantpower-builder-demo/>
+- Web: <https://quantpowerbuilder.com/>
 - Versiones públicas: <https://github.com/ev1lmach1ne/quantpower-builder-demo/releases>
 
 ## Estructura
