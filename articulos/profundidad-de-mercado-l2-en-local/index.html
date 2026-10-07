@@ -67,10 +67,11 @@
       <article class="article" id="inicio">
         <span class="eyebrow">Infraestructura de datos</span>
         <h1 class="article-title">Profundidad de mercado (L2) en local: qué exige y cuánto cuesta</h1>
-        <p class="article-meta">Publicado el <time datetime="2026-10-07">7 de octubre de 2026</time> · Precios consultados ese día</p>
+        <p class="article-meta">Publicado el <time datetime="2026-10-07">7 de octubre de 2026</time></p>
         <div class="article-body">
       <p class="lead">Guardar la profundidad de mercado completa en local es posible, pero cuesta mucho más que guardar barras, y casi nunca compensa para decisiones a 1-3 minutos.</p>
-      <p>Este artículo explica qué exige ingerir el libro de órdenes evento a evento: licencia de datos, proceso de ingesta, almacenamiento y hardware. Después compara el coste de cada nivel de detalle y cómo reducir la inversión sin perder lo útil. Las cifras de volumen son estimaciones de orden de magnitud; los precios citados llevan fecha y fuente.</p>
+      <p>Este artículo explica qué exige ingerir el libro de órdenes evento a evento: licencia de datos, proceso de ingesta, almacenamiento y hardware. Después compara el coste de cada nivel de detalle y cómo reducir la inversión sin perder lo útil. Las cifras de volumen son estimaciones de orden de magnitud. No damos precios cerrados, porque cambian con frecuencia: indicamos qué exige cada nivel y dónde consultar las tarifas vigentes.</p>
+      <aside class="callout"><strong>Idea clave.</strong> Para tener L2 con un sistema evento a evento de verdad hacen falta discos rápidos (NVMe) y mucho almacenamiento. El flujo de eventos es continuo, crece cada día y los backtests leen muchos GB de una vez. Es la parte que más condiciona la inversión, por encima de la CPU o la RAM.</aside>
 
       <h2 id="datos">Qué datos genera la profundidad</h2>
       <p>La profundidad pasa de megabytes a cientos de gigabytes al año según el detalle que guardes, no según cuánto mercado sigas.</p>
@@ -166,42 +167,40 @@
         <figcaption>El libro alimenta dos caminos: el agregado por barra, barato y permanente, y el bruto, caro y de vida corta.</figcaption>
       </figure>
 
-      <h3>Coste de los datos</h3>
-      <p>Solo el plan Standard de Databento suma unos 2.400 USD al año, más de diez veces el precio de un NVMe de 2 TB.</p>
+      <h3>Cómo se pagan los datos</h3>
+      <p>Los datos de profundidad se pagan aparte de las barras, y el coste depende de la bolsa, del tipo de usuario (profesional o no), del nivel de detalle y del histórico que incluya el plan. No damos cifras porque cambian: consulta las tarifas en origen el día que contrates.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Concepto</th><th>Coste</th><th>Fuente</th></tr></thead>
+          <thead><tr><th>Concepto</th><th>Cómo se cobra</th><th>Dónde consultar</th></tr></thead>
           <tbody>
-            <tr><td>CME, profundidad (Depth of Market), no profesional</td><td>12,10 USD/mes por bolsa</td><td><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">Lista de tarifas CME, jun. 2026</a> · <a href="https://nexusfi.com/a/data/exchange-data-fees-market-data-costs" rel="noopener">NexusFi</a></td></tr>
-            <tr><td>CME, mejor precio (Top of Book), no profesional</td><td>1,55 USD/mes por bolsa</td><td><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">Lista de tarifas CME, jun. 2026</a></td></tr>
-            <tr><td>Databento, plan Standard (CME)</td><td>199 USD/mes; MBO histórico: último día; trades: 2 meses</td><td><a href="https://databento.com/pricing" rel="noopener">Databento, precios</a></td></tr>
-            <tr><td>Databento, plan Plus (CME)</td><td>1.750 USD/mes de licencia, contrato anual; MBO histórico: 14+ meses</td><td><a href="https://databento.com/pricing" rel="noopener">Databento, precios</a></td></tr>
-            <tr><td>Databento, plan Unlimited (CME)</td><td>4.500 USD/mes de licencia, contrato anual</td><td><a href="https://databento.com/pricing" rel="noopener">Databento, precios</a></td></tr>
+            <tr><td>CME, profundidad (Depth of Market)</td><td>Cuota mensual por bolsa, con tarifa distinta para usuarios no profesionales y profesionales</td><td><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">Lista de tarifas de CME</a></td></tr>
+            <tr><td>CME, mejor precio (Top of Book)</td><td>Cuota mensual por bolsa, bastante inferior a la de profundidad</td><td><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">Lista de tarifas de CME</a></td></tr>
+            <tr><td>Proveedor con MBO (por ejemplo, Databento)</td><td>Planes por niveles: cuanto más histórico de MBO y más uso, más cuesta, y los superiores suelen exigir contrato anual</td><td><a href="https://databento.com/pricing" rel="noopener">Databento, precios</a></td></tr>
           </tbody>
         </table>
       </div>
-      <p>El artículo de presentación de Databento citaba 179 USD/mes para Standard; la página de precios muestra 199 USD, así que conviene confirmarlo al contratar (<a href="https://databento.com/blog/introducing-new-cme-pricing-plans" rel="noopener">Databento, blog</a>).</p>
-      <p>Las tarifas de CME son de visualización para no profesionales. CME define el uso no visual como el que hace un sistema o un cálculo sin mostrar los datos, y lo licencia aparte (<a href="https://cmegroup.com/market-data/distributor/files/cme-group-data-licensing-policy-guidelines-and-non-display-licensing-faq-october-2024.pdf" rel="noopener">política de licencias de CME</a>). En esa guía no se detalla qué se exige para redistribuir datos a terceros.</p>
+      <p>Los planes más baratos incluyen poco histórico de MBO, así que el histórico profundo suele ser la parte más cara y, si no lo compras, tendrás que capturarlo tú.</p>
+      <p>Las tarifas de visualización de CME son distintas de las de uso no visual. CME define el uso no visual como el que hace un sistema o un cálculo sin mostrar los datos, y lo licencia aparte (<a href="https://cmegroup.com/market-data/distributor/files/cme-group-data-licensing-policy-guidelines-and-non-display-licensing-faq-october-2024.pdf" rel="noopener">política de licencias de CME</a>). En esa guía no se detalla qué se exige para redistribuir datos a terceros.</p>
 
       <h2 id="almacenamiento">Almacenamiento y consulta</h2>
-      <p>La profundidad completa exige escrituras sostenidas y lecturas secuenciales grandes: un NVMe de consumo las cubre, pero su capacidad se agota en meses.</p>
+      <p>La profundidad completa exige escrituras sostenidas y lecturas secuenciales grandes: un NVMe de consumo las cubre, pero su capacidad se agota en meses. Por eso el almacenamiento rápido y de gran tamaño es el requisito central del evento a evento.</p>
       <p>Con un supuesto de 3 GB al día en bruto por instrumento (estimación propia), un NVMe de 1 TB usado hasta el 80% dura unos 12 meses con un instrumento y unos 2,5 meses con cinco. QuestDB trabaja bien con particiones por día, y las antiguas se pueden separar y archivar. Archivadas en Parquet con compresión zstd, suelen ocupar varias veces menos, aunque la cifra depende de los datos.</p>
       <p>Reproducir eventos en un backtest lee muchos GB y es mucho más lento que recorrer barras. Esto choca con calcular en el equipo de cada usuario, porque tendría que descargar esos GB, además de plantear la cuestión de la licencia. Es más práctico servir métricas ya calculadas.</p>
 
       <h2 id="hardware">Hardware en local</h2>
-      <p>Si quieres profundidad completa en local, lo que importa es el disco y la CPU, y en 2026 ambos cuestan más que hace un año.</p>
-      <p>Según una fuente de agosto de 2026, los precios de contrato de la memoria flash subieron entre un 70% y un 75% en el segundo trimestre, y se prevé un aumento de solo el 10-15% en el tercero, sin volver a los precios de 2025 (<a href="https://capitalandcompute.net/ssd-prices/" rel="noopener">Capital and Compute</a>). La RAM DDR4 lleva entre un 50% y un 100% de sobreprecio frente al año anterior (<a href="https://www.tomsguide.com/computing/hardware/ddr4-in-2026-these-kits-can-help-you-beat-the-ram-crisis" rel="noopener">Tom's Guide, feb. 2026</a>). Por eso reutilizar la RAM que ya tienes ahorra entre 187 y 242 USD por cada 32 GB.</p>
+      <p>Si quieres profundidad completa evento a evento en local, lo que más pesa es el disco: rápido, para absorber escrituras sostenidas, y de gran capacidad, para retener días y semanas de eventos. La CPU y la RAM importan menos.</p>
+      <p>Los precios de la memoria flash y de la RAM han subido con fuerza durante 2026, así que conviene comparar varios comercios antes de comprar. Reutilizar la RAM que ya tienes puede ahorrar una parte importante del gasto.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Nivel</th><th>Qué cubre</th><th>Configuración orientativa</th><th>Precios contrastados</th></tr></thead>
+          <thead><tr><th>Nivel</th><th>Qué cubre</th><th>Configuración orientativa</th><th>Qué priorizar</th></tr></thead>
           <tbody>
-            <tr><td>1. Mínimo</td><td>Barras y métricas por barra de un instrumento</td><td>Ryzen 5 5600, 16-32 GB DDR4, NVMe de 1 TB</td><td>CPU: 230,11 € en un comercio, 7 oct. 2026 (<a href="https://comparateur-gamer.fr/prix/730143314190.html" rel="noopener">Comparateur Gamer</a>) · NVMe 1 TB: 150-154 USD, ago. 2026 (<a href="https://capitalandcompute.net/ssd-prices/" rel="noopener">Capital and Compute</a>)</td></tr>
-            <tr><td>2. Intermedio</td><td>Snapshots de 1 s de 1-3 instrumentos y semanas de eventos</td><td>La misma CPU, 32 GB de RAM, NVMe de 2 TB y un disco de archivo</td><td>NVMe 2 TB: unos 210 USD, ago. 2026 (<a href="https://capitalandcompute.net/ssd-prices/" rel="noopener">Capital and Compute</a>)</td></tr>
-            <tr><td>3. Serio</td><td>Eventos completos de varios instrumentos y histórico propio</td><td>8 o más núcleos, 64 GB ECC, dos NVMe de 2-4 TB y almacenamiento frío</td><td>Sin precio contrastado; como referencia de especificaciones, el <a href="https://www.hetzner.com/dedicated-rootserver/matrix-ax" rel="noopener">Hetzner AX42</a> lleva Ryzen 7 PRO 8700GE, 64 GB DDR5 ECC y 2x 1,92 TB NVMe</td></tr>
+            <tr><td>1. Mínimo</td><td>Barras y métricas por barra de un instrumento</td><td>CPU de gama media, 16-32 GB de RAM y un NVMe de 1 TB</td><td>Basta para barras; se queda corto para guardar eventos</td></tr>
+            <tr><td>2. Intermedio</td><td>Snapshots de 1 s de 1-3 instrumentos y semanas de eventos</td><td>La misma CPU, 32 GB de RAM, un NVMe de 2 TB y un disco de archivo</td><td>El disco: capacidad y velocidad de escritura sostenida</td></tr>
+            <tr><td>3. Serio</td><td>Eventos completos de varios instrumentos y histórico propio</td><td>8 o más núcleos, 64 GB de RAM ECC, varios NVMe de 2-4 TB y almacenamiento frío ampliable</td><td>Varios TB de NVMe rápido: es el mayor gasto del equipo</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="note">El precio de la CPU procede de un solo comercio y podría estar por encima del mercado, así que conviene compararlo antes de comprar.</p>
+      <p class="note">No incluimos precios de componentes: varían por tienda y por fecha, y los de memoria y discos han sido especialmente inestables en 2026. Compáralos el día de la compra.</p>
 
       <h2 id="reducir">Cómo reducir la inversión</h2>
       <p>Casi todo el ahorro viene de guardar menos detalle, no de comprar hardware más barato.</p>
@@ -211,8 +210,8 @@
         <li><strong>Agregar mientras ingieres.</strong> Calcula desequilibrio, spread y tamaño en los primeros niveles, y guarda solo la barra enriquecida. El precio es no poder recalcular métricas nuevas sobre el pasado.</li>
         <li><strong>Bruto de ventana corta.</strong> Conserva 2-4 semanas en el NVMe y archiva después en Parquet comprimido en un disco barato.</li>
         <li><strong>Capturar solo lo relevante.</strong> La sesión regular y las ventanas de datos macro, en lugar de 23 horas al día.</li>
-        <li><strong>Un plan de datos ligero.</strong> El plan Standard de Databento incluye solo un día de MBO histórico, así que el histórico profundo tendrías que capturarlo tú.</li>
-        <li><strong>Alquilar solo cuando haga falta.</strong> Un servidor dedicado con NVMe de centro de datos evita comprar hardware, aunque aquí no se ha contrastado su precio.</li>
+        <li><strong>Un plan de datos ligero.</strong> Los planes baratos incluyen poco histórico de MBO, así que el histórico profundo tendrías que capturarlo tú.</li>
+        <li><strong>Alquilar solo cuando haga falta.</strong> Un servidor dedicado con NVMe de centro de datos evita comprar hardware; compara su coste con el de tener el equipo propio.</li>
       </ul>
 
       <h2 id="recomendacion">Por dónde empezar</h2>
@@ -225,17 +224,11 @@
       </ol>
 
       <h2 id="fuentes">Fuentes</h2>
-      <p class="note">Páginas abiertas el 7 de octubre de 2026.</p>
+      <p class="note">Páginas para consultar tarifas y licencias vigentes. Revisa siempre la versión actual antes de contratar.</p>
       <ul>
         <li><a href="https://databento.com/pricing" rel="noopener">Databento, precios CME</a></li>
-        <li><a href="https://databento.com/blog/introducing-new-cme-pricing-plans" rel="noopener">Databento, presentación de los planes CME</a></li>
-        <li><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">CME Group, lista de tarifas de datos, junio de 2026</a></li>
-        <li><a href="https://nexusfi.com/a/data/exchange-data-fees-market-data-costs" rel="noopener">NexusFi, tarifas de datos de bolsa</a></li>
+        <li><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">CME Group, lista de tarifas de datos</a></li>
         <li><a href="https://cmegroup.com/market-data/distributor/files/cme-group-data-licensing-policy-guidelines-and-non-display-licensing-faq-october-2024.pdf" rel="noopener">CME Group, política de licencias y uso no visual (oct. 2024)</a></li>
-        <li><a href="https://capitalandcompute.net/ssd-prices/" rel="noopener">Capital and Compute, precios de SSD (ago. 2026)</a></li>
-        <li><a href="https://www.tomsguide.com/computing/hardware/ddr4-in-2026-these-kits-can-help-you-beat-the-ram-crisis" rel="noopener">Tom's Guide, DDR4 en 2026 (feb. 2026)</a></li>
-        <li><a href="https://comparateur-gamer.fr/prix/730143314190.html" rel="noopener">Comparateur Gamer, Ryzen 5 5600</a></li>
-        <li><a href="https://www.hetzner.com/dedicated-rootserver/matrix-ax" rel="noopener">Hetzner, servidores dedicados AX</a></li>
       </ul>
     
         </div>
