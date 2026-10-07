@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Usar una carpeta sincronizada con MEGA Desktop como Contenedor en QuantPower Builder.">
+  <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/mega/">
+  <link rel="icon" href="../../../assets/images/favicon-circular.png">
+  <link rel="stylesheet" href="../../../assets/css/tokens.css"><link rel="stylesheet" href="../../../assets/css/site.css"><link rel="stylesheet" href="../../../assets/css/help.css">
+  <script src="../../../assets/js/help.js" defer></script>
+  <title>MEGA — Contenedores · QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header help-header"><div class="container header-inner"><a class="brand" href="../../../"><img src="../../../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Centro de ayuda</small></span></a><a class="text-link" href="../../../">Volver a la web →</a></div></header>
+  <div class="container help-shell">
+    <aside class="help-sidebar"><details open><summary>Índice de ayuda</summary><nav aria-label="Centro de ayuda">
+      <a href="../../">Inicio de la ayuda</a><span class="help-group">Contenedores</span><a href="../">Concepto y flujo de trabajo</a>
+      <a class="help-sub" href="../carpeta-local/">Carpeta local</a><a class="help-sub" href="../google-drive/">Google Drive</a>
+      <a class="help-sub" href="../onedrive/">OneDrive</a><a class="help-sub" href="../dropbox/">Dropbox</a>
+      <a class="help-sub" href="./" aria-current="page">MEGA</a><a class="help-sub" href="../sftp/">SFTP</a>
+      <a href="../#formatos">Catálogo y formatos</a><a href="../#problemas">Solución de problemas</a>
+    </nav></details></aside>
+    <main id="contenido" class="help-content">
+      <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../../">Ayuda</a><span>/</span><a href="../">Contenedores</a><span>/</span><span>MEGA</span></nav>
+      <h1>MEGA</h1><p class="lead">Trabaja con los archivos que MEGA Desktop haya descargado a una carpeta del equipo.</p>
+      <div class="help-note"><p><strong>Acceso actual: carpeta sincronizada.</strong> La descarga y el descifrado los realiza el cliente de MEGA. QuantPower Builder no pide la cuenta, la contraseña ni claves de MEGA.</p></div>
+      <h2>Preparar MEGA</h2>
+      <ol><li>Instala <a href="https://mega.io/desktop" target="_blank" rel="noopener noreferrer">MEGA Desktop ↗</a> e inicia sesión.</li><li>Configura una sincronización de la carpeta de históricos con una ubicación local. También puedes descargar los archivos a una carpeta normal.</li><li>Espera a que las transferencias terminen y abre un CSV o ZIP desde el Explorador para confirmar su disponibilidad.</li></ol>
+      <h2>Configurar en Descargar</h2>
+      <div class="help-path">Descargar → + Añadir fuente → Contenedor → MEGA</div>
+      <ol><li>Da un nombre al contenedor, elige la carpeta local y guarda.</li><li>Actualiza el catálogo después de terminar la sincronización.</li><li>Selecciona un archivo compatible y pulsa <strong>Obtener archivo</strong>.</li><li>Revisa y limpia la copia obtenida desde Importar.</li></ol>
+      <h2>Qué implica esta modalidad</h2>
+      <p>El catálogo examina archivos locales legibles, no enlaces web de MEGA ni archivos cifrados sin descargar. Una conexión directa a MEGA desde la aplicación requeriría integrar su SDK y todavía no está implementada.</p>
+      <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#problemas">Resolver problemas</a></div>
+    </main>
+  </div>
+  <footer class="help-footer"><div class="container"><span>QuantPower Builder · MEGA</span><a href="../../../">Volver a la web</a></div></footer>
+</body>
+</html>

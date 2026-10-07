@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configurar Contenedores en Descargar: elegir almacenamiento, explorar carpetas y obtener archivos para Importar.">
+  <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/">
+  <link rel="icon" href="../../assets/images/favicon-circular.png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css"><link rel="stylesheet" href="../../assets/css/site.css"><link rel="stylesheet" href="../../assets/css/help.css">
+  <script src="../../assets/js/help.js" defer></script>
+  <title>Contenedores — Ayuda de QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header help-header"><div class="container header-inner"><a class="brand" href="../../"><img src="../../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Centro de ayuda</small></span></a><a class="text-link" href="../../">Volver a la web →</a></div></header>
+  <div class="container help-shell">
+    <aside class="help-sidebar"><details open><summary>Índice de ayuda</summary><nav aria-label="Centro de ayuda">
+      <a href="../">Inicio de la ayuda</a><span class="help-group">Contenedores</span>
+      <a href="./" aria-current="page">Concepto y flujo de trabajo</a>
+      <a class="help-sub" href="carpeta-local/">Carpeta local</a><a class="help-sub" href="google-drive/">Google Drive</a>
+      <a class="help-sub" href="onedrive/">OneDrive</a><a class="help-sub" href="dropbox/">Dropbox</a>
+      <a class="help-sub" href="mega/">MEGA</a><a class="help-sub" href="sftp/">SFTP</a>
+      <a href="#formatos">Catálogo y formatos</a><a href="#problemas">Solución de problemas</a>
+    </nav></details></aside>
+    <main id="contenido" class="help-content">
+      <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../">Ayuda</a><span>/</span><span>Contenedores</span></nav>
+      <h1>Configurar y usar <span class="text-accent">Contenedores.</span></h1>
+      <p class="lead">Una fuente de archivos en Descargar: explora tu almacenamiento, obtiene los datos y los deja preparados para Importar.</p>
+      <div class="help-note"><p><strong>Modalidad disponible:</strong> carpetas del equipo, carpetas sincronizadas desde la nube y archivos SFTP descargados previamente. La conexión directa mediante OAuth/API será una integración posterior.</p></div>
+      <h2 id="anadir">1. Añade una fuente de archivos</h2>
+      <ol>
+        <li>Abre <strong>Descargar</strong> y pulsa <strong>+ Añadir fuente</strong>.</li>
+        <li>En la tarjeta <strong>Contenedor</strong>, elige el almacenamiento. Cada opción muestra cómo accede actualmente a los archivos.</li>
+        <li>Escribe un nombre, como «Drive — HistData», y usa <strong>Elegir carpeta</strong> para seleccionar su ubicación local.</li>
+        <li>Pulsa <strong>Guardar contenedor</strong>. La fuente aparecerá en el desplegable principal con su nombre y almacenamiento.</li>
+      </ol>
+      <p>El botón <strong>Cómo configurarlo</strong> abre la guía del almacenamiento elegido. Los servicios ya ofrecidos por la aplicación siguen en el desplegable; la tarjeta Proveedor de datos muestra los conectores externos adicionales.</p>
+      <div class="help-services">
+        <a href="carpeta-local/"><strong>Carpeta local</strong><span>Una carpeta del equipo o unidad montada.</span></a>
+        <a href="google-drive/"><strong>Google Drive</strong><span>Carpeta sincronizada, incluidos archivos compartidos accesibles.</span></a>
+        <a href="onedrive/"><strong>OneDrive</strong><span>Archivos conservados en el dispositivo.</span></a>
+        <a href="dropbox/"><strong>Dropbox</strong><span>Carpeta descargada por su aplicación de escritorio.</span></a>
+        <a href="mega/"><strong>MEGA</strong><span>Ubicación local sincronizada con MEGA Desktop.</span></a>
+        <a href="sftp/"><strong>SFTP</strong><span>Descarga previa con un cliente SFTP y carpeta de destino.</span></a>
+      </div>
+      <h2 id="catalogo">2. Explora el catálogo</h2>
+      <p>Selecciona el contenedor y pulsa <strong>Actualizar catálogo</strong>. La aplicación recorre las subcarpetas y reconoce estructuras CSV/TXT/ZIP de mercado. El buscador filtra archivos, símbolos y formatos; no solicita un ticker a una API.</p>
+      <p>La tabla muestra activo, TF, formato y ubicación. <strong>Periodo (nombre)</strong> es una orientación deducida del nombre del archivo, no una comprobación de cobertura. La validación completa ocurre al preparar e importar los datos.</p>
+      <h2 id="obtener">3. Obtén una copia para Importar</h2>
+      <ol>
+        <li>Selecciona un archivo en la tabla para revisar sus detalles.</li>
+        <li>Pulsa <strong>Obtener archivo</strong>. Los CSV se copian a la biblioteca; los ZIP compatibles se extraen y las barras HistData se normalizan.</li>
+        <li>Espera a que aparezca <strong>Archivo listo para Importar</strong>. Puedes pulsar Detener durante una tarea en curso.</li>
+        <li>Ve a <strong>Importar</strong>, selecciona la copia obtenida y revisa nombre, temporalidad, tipo y calendario. Pulsa <strong>Limpiar</strong> para incorporarla a QuestDB y guardar el histórico limpio.</li>
+      </ol>
+      <p>Obtener un archivo no ejecuta automáticamente su limpieza ni combina históricos existentes. Revisa en la consola el destino: la preparación actual puede reemplazar la tabla correspondiente al mismo proveedor, activo y TF.</p>
+      <h2 id="formatos">Catálogo y formatos</h2>
+      <div class="help-table-wrap"><table><thead><tr><th>Formato</th><th>Estructura reconocida</th></tr></thead><tbody>
+        <tr><td>CSV/TXT OHLC</td><td>Encabezado temporal y columnas Open, High, Low, Close; con alias y delimitadores habituales.</td></tr>
+        <tr><td>HistData Generic ASCII M1</td><td>Fecha-hora, OHLC y volumen sin encabezado, separados por punto y coma.</td></tr>
+        <tr><td>HistData MetaTrader M1</td><td>Fecha YYYY.MM.DD, hora HH:MM, OHLC y volumen, separados por comas.</td></tr>
+        <tr><td>HistData MetaStock M1</td><td>Símbolo, fecha-hora YYYYMMDDHHMM, OHLC y volumen.</td></tr>
+        <tr><td>HistData NinjaTrader M1</td><td>Fecha-hora compacta, OHLC y volumen sin encabezado.</td></tr>
+        <tr><td>ZIP</td><td>Un único CSV/TXT OHLC genérico, o archivos HistData M1 del mismo símbolo y formato. Los ZIP con distintos activos no se combinan.</td></tr>
+      </tbody></table></div>
+      <p>Los ticks y los XLSX no forman parte del catálogo actual. El TF de las barras HistData descritas aquí es <code>1m</code>; elegir un archivo no genera automáticamente otras temporalidades.</p>
+      <h3>HistData: hora, precios y volumen</h3>
+      <p>HistData usa EST fijo, UTC−05:00, sin horario de verano. El preparador lo convierte a UTC todo el año: 08:30 EST se guarda como 13:30 UTC. Sus barras son Bid y un volumen en cero no representa volumen negociado utilizable. No se asigna automáticamente un calendario de bolsa.</p>
+      <p><a href="https://www.histdata.com/f-a-q/data-files-detailed-specification/" target="_blank" rel="noopener noreferrer">Especificación original de HistData ↗</a></p>
+      <h2 id="problemas">Gestionar y solucionar problemas</h2>
+      <ul>
+        <li><strong>No aparece el archivo:</strong> confirma su disponibilidad local y formato. Excel, ticks, esquemas no reconocidos y ZIP de varios símbolos se omiten.</li>
+        <li><strong>Catálogo vacío:</strong> revisa la carpeta y actualiza tras terminar la sincronización. Se omiten carpetas internas, ocultas, Limpiados e Informes.</li>
+        <li><strong>Ubicación movida:</strong> usa Configurar para editar nombre y ruta.</li>
+        <li><strong>Quitar:</strong> desvincula la fuente; conserva la carpeta y los archivos originales.</li>
+        <li><strong>Datos nuevos:</strong> sincronízalos o descárgalos primero, vuelve a actualizar y obtén la nueva copia.</li>
+      </ul>
+      <div class="help-related"><a class="button button-outline" href="../">← Centro de ayuda</a><a class="button button-quiet" href="google-drive/">Configurar Google Drive →</a></div>
+    </main>
+  </div>
+  <footer class="help-footer"><div class="container"><span>QuantPower Builder · Contenedores</span><a href="../../">Volver a la web</a></div></footer>
+</body>
+</html>
