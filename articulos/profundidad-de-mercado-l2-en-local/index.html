@@ -91,6 +91,7 @@
       <p class="note">Son estimaciones aproximadas y sin compresión, para un futuro que opera 23 horas al día durante 252 días al año, con 8 bytes por valor. El volumen real de eventos varía mucho entre instrumentos y días de volatilidad.</p>
 
       <h2 id="decisiones">Qué aporta a un motor de decisiones</h2>
+      <p class="bridge">Hasta aquí, los datos en bruto. Ahora toca la pregunta que de verdad importa en la sala de máquinas: ¿qué hace un motor de decisiones con todo esto?</p>
       <p>La profundidad añade contexto de liquidez que las barras OHLCV no contienen, y rinde más como filtro y como medida de coste que como señal única.</p>
       <p>El detalle que guardes decide qué capacidades tienes. Con barras solo ves el resultado del minuto; con snapshots ves el estado del libro; con eventos ves cómo cambió dentro del minuto.</p>
       <div class="table-wrap">
@@ -109,6 +110,7 @@
       <p class="note">La columna de utilidad es una valoración cualitativa propia, que conviene contrastar con datos reales.</p>
 
       <h3>Reglas que se pueden construir</h3>
+      <p class="bridge">Pasemos de la teoría al taller. Con esas capacidades sobre la mesa, estas son las reglas que se pueden construir.</p>
       <ul>
         <li><strong>Filtros duros.</strong> No operar si el spread supera un umbral de ticks o si la liquidez en los primeros niveles baja de un mínimo.</li>
         <li><strong>Confirmación.</strong> Una señal de precio solo cuenta si el delta o el desequilibrio la acompañan.</li>
@@ -120,6 +122,7 @@
       <p>La profundidad visible tiene límites: hay órdenes ocultas y órdenes que se retiran antes de ejecutarse, así que ninguna regla debe depender de ella sin validarla. El procedimiento está en la recomendación final.</p>
 
       <h2 id="ingesta">Ingesta evento a evento</h2>
+      <p class="bridge">Con la teoría clara, bajamos al terreno donde la cosa se complica: cómo entra ese flujo en tu sistema sin perder ni un solo mensaje. Aviso: el reto es de software antes que de músculo.</p>
       <p>Ingerir el libro evento a evento es un problema de software antes que de hardware: hay que parsear el feed sin perder ni reordenar mensajes.</p>
       <p>El proceso receptor debe mantener el orden de los mensajes y absorber las ráfagas de la apertura y de los datos macro, con una cola delante. Con él se reconstruye el libro en memoria, que ocupa poco por instrumento. El cuello de botella es el parseo y la escritura sostenida, no la RAM.</p>
 
@@ -168,6 +171,7 @@
       </figure>
 
       <h3>Cómo se pagan los datos</h3>
+      <p class="bridge">Y ahora, lo que todo el mundo quiere saber: el dinero. Una advertencia de entrada: no hay un precio único, hay un mapa de planes y licencias.</p>
       <p>Los datos de profundidad se pagan aparte de las barras, y el coste depende de la bolsa, del tipo de usuario (profesional o no), del nivel de detalle y del histórico que incluya el plan. No damos cifras porque cambian: consulta las tarifas en origen el día que contrates.</p>
       <div class="table-wrap">
         <table>
@@ -183,11 +187,13 @@
       <p>Las tarifas de visualización de CME son distintas de las de uso no visual. CME define el uso no visual como el que hace un sistema o un cálculo sin mostrar los datos, y lo licencia aparte (<a href="https://cmegroup.com/market-data/distributor/files/cme-group-data-licensing-policy-guidelines-and-non-display-licensing-faq-october-2024.pdf" rel="noopener">política de licencias de CME</a>). En esa guía no se detalla qué se exige para redistribuir datos a terceros.</p>
 
       <h2 id="almacenamiento">Almacenamiento y consulta</h2>
+      <p class="bridge">El flujo ya entra. La siguiente pregunta es incómoda: ¿dónde lo guardas? Aquí es donde las cuentas dejan de ser abstractas.</p>
       <p>La profundidad completa exige escrituras sostenidas y lecturas secuenciales grandes: un NVMe de consumo las cubre, pero su capacidad se agota en meses. Por eso el almacenamiento rápido y de gran tamaño es el requisito central del evento a evento.</p>
       <p>Con un supuesto de 3 GB al día en bruto por instrumento (estimación propia), un NVMe de 1 TB usado hasta el 80% dura unos 12 meses con un instrumento y unos 2,5 meses con cinco. QuestDB trabaja bien con particiones por día, y las antiguas se pueden separar y archivar. Archivadas en Parquet con compresión zstd, suelen ocupar varias veces menos, aunque la cifra depende de los datos.</p>
       <p>Reproducir eventos en un backtest lee muchos GB y es mucho más lento que recorrer barras. Esto choca con calcular en el equipo de cada usuario, porque tendría que descargar esos GB, además de plantear la cuestión de la licencia. Es más práctico servir métricas ya calculadas.</p>
 
       <h2 id="hardware">Hardware en local</h2>
+      <p class="bridge">Llegamos a lo que más pesa en el bolsillo. Hablemos del hierro: qué montar, en qué orden y, sobre todo, en qué no escatimar.</p>
       <p>Si quieres profundidad completa evento a evento en local, lo que más pesa es el disco: rápido, para absorber escrituras sostenidas, y de gran capacidad, para retener días y semanas de eventos. La CPU y la RAM importan menos.</p>
       <p>Los precios de la memoria flash y de la RAM han subido con fuerza durante 2026, así que conviene comparar varios comercios antes de comprar. Reutilizar la RAM que ya tienes puede ahorrar una parte importante del gasto.</p>
       <div class="table-wrap">
@@ -203,6 +209,7 @@
       <p class="note">No incluimos precios de componentes: varían por tienda y por fecha, y los de memoria y discos han sido especialmente inestables en 2026. Compáralos el día de la compra.</p>
 
       <h2 id="reducir">Cómo reducir la inversión</h2>
+      <p class="bridge">Y si el presupuesto no da para tanto, hay buenas noticias: casi todo el margen está en las decisiones, no en la compra. Estos son los atajos que merecen la pena.</p>
       <p>Casi todo el ahorro viene de guardar menos detalle, no de comprar hardware más barato.</p>
       <ul>
         <li><strong>Snapshots en vez de eventos.</strong> Guardar 5-10 niveles cada segundo cuesta unos 4-7 GB al año por instrumento.</li>
@@ -215,6 +222,7 @@
       </ul>
 
       <h2 id="recomendacion">Por dónde empezar</h2>
+      <p class="bridge">Toca cerrar el reportaje con una hoja de ruta. Si hubiera que empezar mañana, esto es lo que recomendamos.</p>
       <p>Para decisiones a 1-3 minutos, empieza con métricas de profundidad agregadas por barra de un solo instrumento y valida su aportación antes de pagar más disco o un feed completo.</p>
       <ol>
         <li>Captura un instrumento (por ejemplo ES): snapshots de 5-10 niveles cada segundo y operaciones. Calcula las métricas por barra de 1 minuto y guarda el bruto 2-4 semanas.</li>
