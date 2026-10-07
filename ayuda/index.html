@@ -152,7 +152,7 @@
         <section id="catalogo">
           <span class="eyebrow">PASO 2 / DESCUBRIMIENTO</span>
           <h2>Actualiza y explora el catálogo</h2>
-          <p>Selecciona el contenedor y pulsa <strong>Actualizar catálogo</strong>. La aplicación busca recursivamente dentro de las subcarpetas y muestra únicamente archivos cuyo contenido coincide con un formato OHLC admitido. Archivos de texto, hojas de cálculo u otros documentos no compatibles no aparecen como candidatos.</p>
+          <p>Selecciona el contenedor y pulsa <strong>Actualizar catálogo</strong>. La aplicación busca recursivamente dentro de las subcarpetas y muestra únicamente archivos cuyo contenido coincide con un formato OHLC admitido. Los archivos con una estructura no compatible no aparecen como candidatos.</p>
           <p>Cuando puede deducirlo, cada resultado muestra el símbolo, la temporalidad, el formato y el rango. Si el nombre o el contenido no permiten determinar algún dato, revísalo en la barra de Importar después de seleccionar el archivo.</p>
           <div class="help-callout"><p>Para abrir un resultado del catálogo, haz <strong>doble clic</strong> o selecciónalo y pulsa <kbd>Enter</kbd>. Los ZIP compatibles se preparan en una copia local; el archivo original permanece en el contenedor.</p></div>
         </section>
@@ -165,7 +165,7 @@
               <thead><tr><th>Formato</th><th>Qué detecta</th><th>Notas</th></tr></thead>
               <tbody>
                 <tr><td>CSV/TXT con encabezado OHLC</td><td>Una columna temporal y Open, High, Low y Close; admite delimitadores habituales.</td><td>El nombre del activo y la temporalidad pueden requerir revisión si no aparecen en el nombre o en metadatos válidos.</td></tr>
-                <tr><td>HistData Generic ASCII M1</td><td>Filas sin encabezado con fecha-hora, OHLC y volumen.</td><td>Semicolon separado; M1.</td></tr>
+                <tr><td>HistData Generic ASCII M1</td><td>Filas sin encabezado con fecha-hora, OHLC y volumen.</td><td>Separador punto y coma; barras de 1 minuto.</td></tr>
                 <tr><td>HistData MetaTrader M1</td><td>Fecha, hora, OHLC y volumen sin encabezado.</td><td>Fecha <code>YYYY.MM.DD</code>; hora <code>HH:MM</code>.</td></tr>
                 <tr><td>HistData MetaStock M1</td><td>Símbolo, fecha-hora compacta, OHLC y volumen.</td><td>La fecha-hora usa <code>YYYYMMDDHHMM</code>.</td></tr>
                 <tr><td>HistData NinjaTrader M1</td><td>Filas OHLC M1 sin encabezado.</td><td>La estructura se reconoce por su contenido y, cuando está disponible, por el nombre del archivo.</td></tr>
