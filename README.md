@@ -11,6 +11,7 @@ de investigación cuantitativa.
 
 ```text
 index.html                 Contenido, navegación y estructura accesible
+ayuda/index.html           Guía pública para configurar y usar Contenedores
 assets/css/tokens.css      Paleta y tokens del tema Noche del software
 assets/css/site.css        Componentes y adaptación a distintos tamaños
 assets/css/analyzer.css    Analizador interactivo e identidad corporativa
@@ -31,6 +32,10 @@ content/site.json          Repositorio, nombres del ZIP y referencia opcional
 La web es estática y no necesita Node, un servidor de aplicaciones ni claves
 de API. Utiliza rutas relativas para funcionar bajo la ruta del proyecto de
 GitHub Pages. Sirve los archivos mediante HTTP para usar los módulos JavaScript.
+La guía de Contenedores se publica en `https://quantpowerbuilder.com/ayuda/` y
+se incluye de forma explícita en la lista pública de `tools/exportar_sitio.py`.
+Al añadir nuevas páginas de ayuda, regístralas también en `HELP_FILES` para que
+el exportador las copie al repositorio público.
 
 ## Probar en local
 
