@@ -1,0 +1,37 @@
+{
+  "softwareVersion": "v0.7.6.2",
+  "guides": {
+    "inicio": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    },
+    "contenedores": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    },
+    "carpeta-local": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    },
+    "google-drive": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    },
+    "onedrive": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    },
+    "dropbox": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    },
+    "mega": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    },
+    "sftp": {
+      "writtenOn": "2026-10-07",
+      "writtenLabel": "7 de octubre de 2026"
+    }
+  }
+}

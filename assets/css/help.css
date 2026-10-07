@@ -24,6 +24,9 @@
 .help-content li { margin-bottom: 11px; }
 .help-content li::marker { color: var(--accent); }
 .help-content .lead { font-size: 18px; color: var(--text-muted); }
+.help-doc-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 25px; padding: 12px 15px; border: 1px solid var(--border-soft); border-radius: 7px; background: var(--panel); color: var(--text-muted); font-size: 11px; }
+.help-doc-meta strong { color: var(--text-strong); font-weight: 600; }
+.help-doc-meta time, .help-doc-meta [data-software-version] { color: var(--accent); font-family: var(--font-mono); }
 .help-note { padding: 16px 20px; margin: 23px 0; border: 1px solid var(--border-soft); border-left: 3px solid var(--accent); border-radius: 8px; background: var(--panel); }
 .help-path { display: block; margin: 20px 0; padding: 15px; border: 1px solid var(--border-soft); border-radius: 7px; font-size: 13px; background: var(--bg-deep); overflow-wrap: anywhere; }
 .help-table-wrap { overflow-x: auto; border: 1px solid var(--border-soft); border-radius: 8px; margin: 20px 0; }
