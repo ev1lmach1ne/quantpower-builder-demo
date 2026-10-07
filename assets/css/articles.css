@@ -18,11 +18,22 @@
 .row-date { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); padding-top: 6px; }
 .row-body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .row-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-.row-body h2 { font-size: 24px; letter-spacing: -.03em; line-height: 1.25; transition: color .2s; }
-.article-row:hover h2 { color: var(--accent); }
+.row-body h2, .row-body h3 { font-size: 24px; letter-spacing: -.03em; line-height: 1.25; transition: color .2s; }
+.article-row:hover h2, .article-row:hover h3 { color: var(--accent); }
 .row-body p { font-size: 14px; line-height: 1.75; }
 .row-arrow { width: 20px; height: 20px; margin-top: 8px; color: var(--text-muted); transition: color .2s, transform .2s var(--ease); }
 .article-row:hover .row-arrow { color: var(--accent); transform: translateX(4px); }
+
+/* Franja «Últimas notas» de la portada */
+.latest-notes { border-top: 1px solid var(--border-soft); padding-block: 80px; }
+.latest-notes-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+.latest-notes-head .eyebrow { margin-bottom: 14px; }
+.latest-notes-head h2 { font-size: clamp(28px, 3vw, 38px); }
+.latest-notes .article-list { max-width: none; }
+.latest-notes .row-body h3 { font-size: 22px; letter-spacing: -.03em; line-height: 1.25; margin: 0; transition: color .2s; }
+.latest-notes .article-row { align-items: center; }
+.latest-notes .row-date { padding-top: 0; }
+.latest-notes .row-arrow { margin-top: 0; }
 
 /* Artículo */
 .breadcrumb { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; color: var(--text-muted); margin-bottom: 34px; }
