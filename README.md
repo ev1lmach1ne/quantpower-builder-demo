@@ -1,4 +1,4 @@
-# QuantPower Builder — Web de portfolio
+# QuantPower Builder — Web 
 
 **Analiza y construye tu ventaja.** Una landing de QuantPower Systems para
 presentar el constructor visual, el motor de backtesting y el flujo completo
