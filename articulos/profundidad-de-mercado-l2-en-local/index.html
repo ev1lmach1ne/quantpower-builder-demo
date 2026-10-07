@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111828">
+  <meta name="description" content="Qué datos genera la profundidad de mercado, qué aporta a un motor de decisiones, cómo se ingiere y se almacena, y qué hardware y licencias exige tenerla en local.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Profundidad de mercado - La segunda capa del análisis cuantitativo y sus costes de infraestructura — QuantPower Builder">
+  <meta property="og:description" content="Qué datos genera la profundidad de mercado, qué aporta a un motor de decisiones, cómo se ingiere y se almacena, y qué hardware y licencias exige tenerla en local.">
+  <meta property="og:url" content="https://quantpowerbuilder.com/articulos/profundidad-de-mercado-l2-en-local/">
+  <meta property="og:image" content="https://quantpowerbuilder.com/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://quantpowerbuilder.com/articulos/profundidad-de-mercado-l2-en-local/">
+  <link rel="icon" href="../../assets/images/favicon-circular.png" sizes="256x256" type="image/png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/articles.css">
+  <script type="module" src="../../assets/js/articles.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Profundidad de mercado - La segunda capa del análisis cuantitativo y sus costes de infraestructura",
+    "description": "Qué datos genera la profundidad de mercado, qué aporta a un motor de decisiones, cómo se ingiere y se almacena, y qué hardware y licencias exige tenerla en local.",
+    "datePublished": "2026-10-07",
+    "inLanguage": "es",
+    "author": { "@type": "Organization", "name": "QuantPower Systems" },
+    "publisher": { "@type": "Organization", "name": "QuantPower Systems" },
+    "mainEntityOfPage": "https://quantpowerbuilder.com/articulos/profundidad-de-mercado-l2-en-local/"
+  }
+  </script>
+  <title>Profundidad de mercado - La segunda capa del análisis cuantitativo y sus costes de infraestructura — QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 3H3v18h18v-7"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../" aria-label="QuantPower Builder, inicio">
+        <img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="54" height="54" alt="Logo de QuantPower Systems">
+        <span><strong>QuantPower<span class="brand-light"> Builder</span></strong><small>by QuantPower Systems</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="navegacion" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+      <nav id="navegacion" class="main-nav" aria-label="Navegación principal">
+        <a href="../../#plataforma">Plataforma</a>
+        <a href="../../#analizador">Analizador</a>
+        <a href="../../#constructor">Constructor</a>
+        <a href="../../#backtesting">Backtesting</a>
+        <a href="../../#proyecto">Proyecto</a>
+        <a href="../" aria-current="page">Artículos</a>
+        <a class="button button-small button-outline nav-demo" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="articles-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="../../">Inicio</a><span aria-hidden="true">/</span><a href="../">Artículos</a></nav>
+      <article class="article" id="inicio">
+        <span class="eyebrow">Infraestructura de datos</span>
+        <h1 class="article-title">Profundidad de mercado - La segunda capa del análisis cuantitativo y sus costes de infraestructura</h1>
+        <p class="article-meta">Publicado el <time datetime="2026-10-07">7 de octubre de 2026</time></p>
+        <div class="article-body">
+      <p class="lead">Guardar la profundidad de mercado completa en local es posible, pero cuesta mucho más que guardar barras, y casi nunca compensa para decisiones a 1-3 minutos.</p>
+      <p>Este artículo explica qué exige ingerir el libro de órdenes evento a evento: licencia de datos, proceso de ingesta, almacenamiento y hardware. Después compara el coste de cada nivel de detalle y cómo reducir la inversión sin perder lo útil. Las cifras de volumen son estimaciones de orden de magnitud. No damos precios cerrados, porque cambian con frecuencia: indicamos qué exige cada nivel y dónde consultar las tarifas vigentes.</p>
+      <aside class="callout"><strong>Idea clave.</strong> Para tener L2 con un sistema evento a evento de verdad hacen falta discos rápidos (NVMe) y mucho almacenamiento. El flujo de eventos es continuo, crece cada día y los backtests leen muchos GB de una vez. Es la parte que más condiciona la inversión, por encima de la CPU o la RAM.</aside>
+
+      <h2 id="datos">Qué datos genera la profundidad</h2>
+      <p>La profundidad pasa de megabytes a cientos de gigabytes al año según el detalle que guardes, no según cuánto mercado sigas.</p>
+      <p>Hay tres niveles. L1 es el mejor precio de compra y de venta; L2 añade la cantidad agregada en cada nivel de precio; L3 o MBO (market by order) registra cada orden individual con sus altas, cancelaciones y modificaciones.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Qué guardas</th><th>Volumen estimado por instrumento y año</th></tr></thead>
+          <tbody>
+            <tr><td>Eventos completos del libro (MBO)</td><td>de cientos de GB a más de 1 TB</td></tr>
+            <tr><td>Snapshots cada segundo, 10 niveles</td><td>~7 GB</td></tr>
+            <tr><td>Snapshots cada segundo, 5 niveles</td><td>~4 GB</td></tr>
+            <tr><td>Métricas de profundidad por barra de 1 minuto</td><td>~50 MB</td></tr>
+            <tr><td>OHLCV de 1 minuto (referencia)</td><td>~18 MB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Son estimaciones aproximadas y sin compresión, para un futuro que opera 23 horas al día durante 252 días al año, con 8 bytes por valor. El volumen real de eventos varía mucho entre instrumentos y días de volatilidad.</p>
+
+      <h2 id="decisiones">Qué aporta a un motor de decisiones</h2>
+      <p>La profundidad añade contexto de liquidez que las barras OHLCV no contienen, y rinde más como filtro y como medida de coste que como señal única.</p>
+      <p>El detalle que guardes decide qué capacidades tienes. Con barras solo ves el resultado del minuto; con snapshots ves el estado del libro; con eventos ves cómo cambió dentro del minuto.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capacidad</th><th>Qué aporta</th><th>Detalle mínimo necesario</th><th>Utilidad a 1-3 min</th></tr></thead>
+          <tbody>
+            <tr><td>Desequilibrio del libro</td><td>Presión relativa de compra y venta en los primeros niveles</td><td>Snapshots de 1 s</td><td>Media: la señal se degrada rápido</td></tr>
+            <tr><td>Spread y coste de ejecución</td><td>Coste real de entrar y salir, y slippage esperado para el backtest</td><td>Mejor bid/ask o snapshots</td><td>Alta</td></tr>
+            <tr><td>Liquidez disponible</td><td>Cuánto se puede operar sin mover el precio, para dimensionar la posición</td><td>Snapshots</td><td>Alta</td></tr>
+            <tr><td>Flujo de órdenes (delta y OFI)</td><td>Quién agrede y cómo cambia el libro entre actualizaciones</td><td>Operaciones para el delta; eventos para el OFI completo</td><td>Alta con delta; el OFI exige eventos</td></tr>
+            <tr><td>Muros y absorción en niveles clave</td><td>Liquidez que aguanta o desaparece cerca de soportes y resistencias</td><td>Snapshots y operaciones</td><td>Media</td></tr>
+            <tr><td>Régimen de liquidez</td><td>Mercado fino o grueso, para activar o desactivar sistemas</td><td>Métricas por barra</td><td>Alta y barata</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">La columna de utilidad es una valoración cualitativa propia, que conviene contrastar con datos reales.</p>
+
+      <h3>Reglas que se pueden construir</h3>
+      <ul>
+        <li><strong>Filtros duros.</strong> No operar si el spread supera un umbral de ticks o si la liquidez en los primeros niveles baja de un mínimo.</li>
+        <li><strong>Confirmación.</strong> Una señal de precio solo cuenta si el delta o el desequilibrio la acompañan.</li>
+        <li><strong>Tamaño de posición.</strong> Limitar el tamaño a una fracción de la liquidez disponible en el lado en que se ejecuta.</li>
+        <li><strong>Coste de ejecución.</strong> Sustituir el slippage fijo del backtest por uno que dependa del spread y de la profundidad de cada momento.</li>
+        <li><strong>Gestión de riesgo.</strong> Reducir exposición cuando la liquidez se retira del libro.</li>
+        <li><strong>Selección de régimen.</strong> Activar un sistema u otro según la liquidez de la sesión.</li>
+      </ul>
+      <p>La profundidad visible tiene límites: hay órdenes ocultas y órdenes que se retiran antes de ejecutarse, así que ninguna regla debe depender de ella sin validarla. El procedimiento está en la recomendación final.</p>
+
+      <h2 id="ingesta">Ingesta evento a evento</h2>
+      <p>Ingerir el libro evento a evento es un problema de software antes que de hardware: hay que parsear el feed sin perder ni reordenar mensajes.</p>
+      <p>El proceso receptor debe mantener el orden de los mensajes y absorber las ráfagas de la apertura y de los datos macro, con una cola delante. Con él se reconstruye el libro en memoria, que ocupa poco por instrumento. El cuello de botella es el parseo y la escritura sostenida, no la RAM.</p>
+
+      <figure>
+        <svg viewBox="0 0 760 412" role="img" aria-labelledby="fig-title">
+          <title id="fig-title">El libro se reconstruye en memoria y se guarda de dos formas</title>
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6f819e"/></marker>
+          </defs>
+          <text class="d-title" x="24" y="34">El libro se reconstruye en memoria y se guarda de dos formas</text>
+          <g class="d-line">
+            <path d="M204 100H254" marker-end="url(#arrow)"/>
+            <path d="M434 100H484" marker-end="url(#arrow)"/>
+            <path d="M574 136V168H300V200" marker-end="url(#arrow)"/>
+            <path d="M574 168H610V200" marker-end="url(#arrow)"/>
+            <path d="M300 272V316" marker-end="url(#arrow)"/>
+            <path d="M610 272V316" marker-end="url(#arrow)"/>
+          </g>
+          <rect class="d-box" x="24" y="64" width="180" height="72" rx="8"/>
+          <text class="d-name" x="114" y="88">Feed de la bolsa</text>
+          <text class="d-txt" x="114" y="104">proveedor con licencia</text>
+          <rect class="d-box" x="254" y="64" width="180" height="72" rx="8"/>
+          <text class="d-name" x="344" y="88">Receptor y parseo</text>
+          <text class="d-txt" x="344" y="104">conserva el orden</text>
+          <text class="d-txt" x="344" y="120">cola para las ráfagas</text>
+          <rect class="d-box" x="484" y="64" width="180" height="72" rx="8"/>
+          <text class="d-name" x="574" y="88">Libro en memoria</text>
+          <text class="d-txt" x="574" y="104">estado por instrumento</text>
+          <rect class="d-box" x="190" y="200" width="220" height="72" rx="8"/>
+          <text class="d-name" x="300" y="224">Agregador por barra</text>
+          <text class="d-txt" x="300" y="240">desequilibrio, spread y tamaño</text>
+          <text class="d-txt" x="300" y="256">en los primeros niveles</text>
+          <rect class="d-box" x="500" y="200" width="220" height="72" rx="8"/>
+          <text class="d-name" x="610" y="224">Escritura en bruto</text>
+          <text class="d-txt" x="610" y="240">eventos o snapshots</text>
+          <text class="d-txt" x="610" y="256">particiones por día</text>
+          <rect class="d-main" x="190" y="316" width="220" height="72" rx="8"/>
+          <text class="d-name" x="300" y="340">QuestDB: barras y métricas</text>
+          <text class="d-txt" x="300" y="356">decenas de MB al año</text>
+          <rect class="d-box" x="500" y="316" width="220" height="72" rx="8"/>
+          <text class="d-name" x="610" y="340">NVMe y archivo comprimido</text>
+          <text class="d-txt" x="610" y="356">Parquet en un disco barato</text>
+          <text class="d-txt" x="610" y="372">tras 2-4 semanas</text>
+        </svg>
+        <figcaption>El libro alimenta dos caminos: el agregado por barra, barato y permanente, y el bruto, caro y de vida corta.</figcaption>
+      </figure>
+
+      <h3>Cómo se pagan los datos</h3>
+      <p>Los datos de profundidad se pagan aparte de las barras, y el coste depende de la bolsa, del tipo de usuario (profesional o no), del nivel de detalle y del histórico que incluya el plan. No damos cifras porque cambian: consulta las tarifas en origen el día que contrates.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Concepto</th><th>Cómo se cobra</th><th>Dónde consultar</th></tr></thead>
+          <tbody>
+            <tr><td>CME, profundidad (Depth of Market)</td><td>Cuota mensual por bolsa, con tarifa distinta para usuarios no profesionales y profesionales</td><td><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">Lista de tarifas de CME</a></td></tr>
+            <tr><td>CME, mejor precio (Top of Book)</td><td>Cuota mensual por bolsa, bastante inferior a la de profundidad</td><td><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">Lista de tarifas de CME</a></td></tr>
+            <tr><td>Proveedor con MBO (por ejemplo, Databento)</td><td>Planes por niveles: cuanto más histórico de MBO y más uso, más cuesta, y los superiores suelen exigir contrato anual</td><td><a href="https://databento.com/pricing" rel="noopener">Databento, precios</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Los planes más baratos incluyen poco histórico de MBO, así que el histórico profundo suele ser la parte más cara y, si no lo compras, tendrás que capturarlo tú.</p>
+      <p>Las tarifas de visualización de CME son distintas de las de uso no visual. CME define el uso no visual como el que hace un sistema o un cálculo sin mostrar los datos, y lo licencia aparte (<a href="https://cmegroup.com/market-data/distributor/files/cme-group-data-licensing-policy-guidelines-and-non-display-licensing-faq-october-2024.pdf" rel="noopener">política de licencias de CME</a>). En esa guía no se detalla qué se exige para redistribuir datos a terceros.</p>
+
+      <h2 id="almacenamiento">Almacenamiento y consulta</h2>
+      <p>La profundidad completa exige escrituras sostenidas y lecturas secuenciales grandes: un NVMe de consumo las cubre, pero su capacidad se agota en meses. Por eso el almacenamiento rápido y de gran tamaño es el requisito central del evento a evento.</p>
+      <p>Con un supuesto de 3 GB al día en bruto por instrumento (estimación propia), un NVMe de 1 TB usado hasta el 80% dura unos 12 meses con un instrumento y unos 2,5 meses con cinco. QuestDB trabaja bien con particiones por día, y las antiguas se pueden separar y archivar. Archivadas en Parquet con compresión zstd, suelen ocupar varias veces menos, aunque la cifra depende de los datos.</p>
+      <p>Reproducir eventos en un backtest lee muchos GB y es mucho más lento que recorrer barras. Esto choca con calcular en el equipo de cada usuario, porque tendría que descargar esos GB, además de plantear la cuestión de la licencia. Es más práctico servir métricas ya calculadas.</p>
+
+      <h2 id="hardware">Hardware en local</h2>
+      <p>Si quieres profundidad completa evento a evento en local, lo que más pesa es el disco: rápido, para absorber escrituras sostenidas, y de gran capacidad, para retener días y semanas de eventos. La CPU y la RAM importan menos.</p>
+      <p>Los precios de la memoria flash y de la RAM han subido con fuerza durante 2026, así que conviene comparar varios comercios antes de comprar. Reutilizar la RAM que ya tienes puede ahorrar una parte importante del gasto.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Nivel</th><th>Qué cubre</th><th>Configuración orientativa</th><th>Qué priorizar</th></tr></thead>
+          <tbody>
+            <tr><td>1. Mínimo</td><td>Barras y métricas por barra de un instrumento</td><td>CPU de gama media, 16-32 GB de RAM y un NVMe de 1 TB</td><td>Basta para barras; se queda corto para guardar eventos</td></tr>
+            <tr><td>2. Intermedio</td><td>Snapshots de 1 s de 1-3 instrumentos y semanas de eventos</td><td>La misma CPU, 32 GB de RAM, un NVMe de 2 TB y un disco de archivo</td><td>El disco: capacidad y velocidad de escritura sostenida</td></tr>
+            <tr><td>3. Serio</td><td>Eventos completos de varios instrumentos y histórico propio</td><td>8 o más núcleos, 64 GB de RAM ECC, varios NVMe de 2-4 TB y almacenamiento frío ampliable</td><td>Varios TB de NVMe rápido: es el mayor gasto del equipo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">No incluimos precios de componentes: varían por tienda y por fecha, y los de memoria y discos han sido especialmente inestables en 2026. Compáralos el día de la compra.</p>
+
+      <h2 id="reducir">Cómo reducir la inversión</h2>
+      <p>Casi todo el ahorro viene de guardar menos detalle, no de comprar hardware más barato.</p>
+      <ul>
+        <li><strong>Snapshots en vez de eventos.</strong> Guardar 5-10 niveles cada segundo cuesta unos 4-7 GB al año por instrumento.</li>
+        <li><strong>Un instrumento al principio.</strong> El coste crece casi lineal con cada activo añadido.</li>
+        <li><strong>Agregar mientras ingieres.</strong> Calcula desequilibrio, spread y tamaño en los primeros niveles, y guarda solo la barra enriquecida. El precio es no poder recalcular métricas nuevas sobre el pasado.</li>
+        <li><strong>Bruto de ventana corta.</strong> Conserva 2-4 semanas en el NVMe y archiva después en Parquet comprimido en un disco barato.</li>
+        <li><strong>Capturar solo lo relevante.</strong> La sesión regular y las ventanas de datos macro, en lugar de 23 horas al día.</li>
+        <li><strong>Un plan de datos ligero.</strong> Los planes baratos incluyen poco histórico de MBO, así que el histórico profundo tendrías que capturarlo tú.</li>
+        <li><strong>Alquilar solo cuando haga falta.</strong> Un servidor dedicado con NVMe de centro de datos evita comprar hardware; compara su coste con el de tener el equipo propio.</li>
+      </ul>
+
+      <h2 id="recomendacion">Por dónde empezar</h2>
+      <p>Para decisiones a 1-3 minutos, empieza con métricas de profundidad agregadas por barra de un solo instrumento y valida su aportación antes de pagar más disco o un feed completo.</p>
+      <ol>
+        <li>Captura un instrumento (por ejemplo ES): snapshots de 5-10 niveles cada segundo y operaciones. Calcula las métricas por barra de 1 minuto y guarda el bruto 2-4 semanas.</li>
+        <li>Durante unas semanas, compara tus decisiones con y sin esas métricas, junto a OHLCV y delta.</li>
+        <li>Solo si mejoran el resultado, pasa a un NVMe de 2 TB, más retención y un feed con MBO.</li>
+        <li>Antes de ofrecer datos de CME a terceros, por ejemplo en un servicio de pago, aclara la licencia de datos: puede ser redistribución. No se han podido confirmar sus requisitos, así que conviene consultarlo con CME o con el proveedor.</li>
+      </ol>
+
+      <h2 id="fuentes">Fuentes</h2>
+      <p class="note">Páginas para consultar tarifas y licencias vigentes. Revisa siempre la versión actual antes de contratar.</p>
+      <ul>
+        <li><a href="https://databento.com/pricing" rel="noopener">Databento, precios CME</a></li>
+        <li><a href="https://www.cmegroup.com/market-data/files/june-2026-market-data-fee-list.pdf" rel="noopener">CME Group, lista de tarifas de datos</a></li>
+        <li><a href="https://cmegroup.com/market-data/distributor/files/cme-group-data-licensing-policy-guidelines-and-non-display-licensing-faq-october-2024.pdf" rel="noopener">CME Group, política de licencias y uso no visual (oct. 2024)</a></li>
+      </ul>
+    
+        </div>
+        <div class="article-end">
+          <a class="button button-quiet" href="../">← Todos los artículos</a>
+          <a class="button button-outline" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-top"><a class="brand" href="../../"><img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="48" height="48" loading="lazy" alt="Logo de QuantPower Systems"><span><strong>QuantPower<span class="brand-light"> Systems</span></strong><small>Construyendo herramientas para investigar.</small></span></a><nav aria-label="Navegación del pie"><a href="../../#analizador">Analizador</a><a href="../../#constructor">Constructor</a><a href="../../#backtesting">Backtesting</a><a href="../">Artículos</a><a href="../../#demo">Demo</a><a href="mailto:info@quantpowerbuilder.com">Contacto</a><a href="https://github.com/ev1lmach1ne/quantpower-builder-demo" target="_blank" rel="noopener noreferrer">Proyecto web <svg class="icon"><use href="#i-external"/></svg></a></nav></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> QuantPower Systems</span><span>QuantPower Builder · Portfolio de producto</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+</body>
+</html>
