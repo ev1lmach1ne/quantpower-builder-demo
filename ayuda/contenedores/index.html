@@ -62,7 +62,7 @@
       <div class="help-table-wrap"><table><thead><tr><th>Formato</th><th>Estructura reconocida</th></tr></thead><tbody>
         <tr><td>CSV/TXT con cabecera</td><td>Fecha u hora y columnas OHLC reconocidas, con delimitadores habituales.</td></tr>
         <tr><td>CSV/TXT sin cabecera</td><td>Solo se identifican estructuras tabulares compatibles con los formatos reconocidos por el catálogo.</td></tr>
-        <tr><td>ZIP</td><td>Archivos CSV/TXT con una estructura compatible. Los paquetes con estructuras mezcladas o activos distintos no se combinan.</td></tr>
+        <tr><td>ZIP</td><td>Los miembros CSV/TXT compatibles se preparan por separado; activos distintos nunca se mezclan. Los paquetes con estructuras no reconocidas se rechazan.</td></tr>
       </tbody></table></div>
       <p>El catálogo no convierte automáticamente una temporalidad en otra. Revisa la zona horaria, cobertura y estructura de los datos durante la importación.</p>
       <h2 id="problemas">Gestionar y solucionar problemas</h2>
