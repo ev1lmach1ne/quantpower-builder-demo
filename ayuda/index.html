@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Centro de ayuda de QuantPower Builder: configurar fuentes de archivos y trabajar con Contenedores en Descargar.">
+  <meta name="description" content="Centro de ayuda de QuantPower Builder: conectar almacenamientos web, explorar carpetas y obtener archivos desde Descargar.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/">
   <link rel="icon" href="../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/help.css">
@@ -32,23 +32,22 @@
     <main id="contenido" class="help-content">
       <span class="eyebrow">QUANTPOWER BUILDER / AYUDA</span>
       <h1>Configura tus fuentes.<br><span class="text-accent">Trabaja con tus datos.</span></h1>
-      <p class="lead">Elige una guía de la lista izquierda para configurar tus carpetas y convertir sus archivos en históricos utilizables.</p>
+      <p class="lead">Conecta un almacenamiento web o elige una carpeta local; explora archivos y prepara los que quieras importar.</p>
       <div class="help-doc-meta" data-help-meta="inicio" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
         <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
       </div>
       <h2>Empezar con Contenedores</h2>
-      <p>Un contenedor identifica dónde guardas archivos de mercado. Se configura en <strong>Descargar → + Añadir fuente → Contenedor</strong>. Desde allí exploras su catálogo y obtienes una copia local; después usas <strong>Importar</strong> para revisar y limpiar los datos.</p>
-      <div class="help-note"><p>Estas guías describen el nuevo flujo de Contenedores en Descargar. Comprueba que tu versión incluye <strong>«+ Añadir fuente»</strong>. La modalidad de nube actual utiliza carpetas sincronizadas por el cliente de escritorio del servicio.</p></div>
+      <p>Un contenedor identifica el almacenamiento donde están tus archivos. En <strong>Descargar → + Añadir fuente → Contenedor</strong>, conecta uno de los servicios web compatibles o elige <strong>Carpeta local</strong>. En una cuenta web puedes navegar por las carpetas remotas y obtener solo los archivos que selecciones, sin sincronizar una carpeta completa. La copia obtenida queda disponible en <strong>Importar</strong> para revisarla y procesarla.</p>
       <div class="help-services">
         <a href="contenedores/"><strong>Cómo funcionan los Contenedores</strong><span>Configuración, catálogo, obtención de archivos e importación.</span></a>
-        <a href="contenedores/google-drive/"><strong>Datos de Google Drive</strong><span>Preparar una carpeta compartida —por ejemplo de HistData— y obtener sus archivos.</span></a>
+        <a href="contenedores/google-drive/"><strong>Conectar Google Drive</strong><span>Autorizar la cuenta, explorar carpetas y elegir archivos desde la web.</span></a>
         <a href="contenedores/carpeta-local/"><strong>Carpetas locales</strong><span>Organizar archivos del equipo, discos externos o unidades montadas.</span></a>
-        <a href="contenedores/#formatos"><strong>Formatos e identificación</strong><span>CSV, TXT, ZIP y barras HistData M1: qué reconoce el catálogo.</span></a>
+        <a href="contenedores/#formatos"><strong>Formatos e identificación</strong><span>CSV, TXT y ZIP: cómo reconoce el catálogo los archivos compatibles.</span></a>
       </div>
       <h2>Proveedor y contenedor: qué elegir</h2>
       <p><strong>Proveedor de datos</strong> conecta un servicio de mercado compatible mediante su API. Las fuentes predefinidas siguen en el selector principal; la tarjeta del «+» permite añadir los conectores externos disponibles.</p>
-      <p><strong>Contenedor</strong> trabaja con archivos que ya tienes, sea cual sea su proveedor. Elegir Google Drive identifica el almacenamiento, no convierte Google Drive en el proveedor de precios.</p>
+      <p><strong>Contenedor</strong> accede a archivos desde un almacenamiento compatible, no descarga precios de mercado por sí mismo. La cuenta de almacenamiento y el proveedor de datos de mercado son conceptos distintos.</p>
     </main>
   </div>
   <footer class="help-footer"><div class="container"><span>QuantPower Builder · Centro de ayuda</span><a href="../">quantpowerbuilder.com</a></div></footer>

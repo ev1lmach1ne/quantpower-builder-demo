@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Configurar OneDrive como carpeta sincronizada en Contenedores de QuantPower Builder.">
+  <meta name="description" content="Conectar OneDrive a QuantPower Builder, explorar carpetas remotas y descargar archivos seleccionados.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/onedrive/">
   <link rel="icon" href="../../../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../../../assets/css/tokens.css"><link rel="stylesheet" href="../../../assets/css/site.css"><link rel="stylesheet" href="../../../assets/css/help.css">
@@ -22,19 +22,19 @@
     </nav></details></aside>
     <main id="contenido" class="help-content">
       <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../../">Ayuda</a><span>/</span><a href="../">Contenedores</a><span>/</span><span>OneDrive</span></nav>
-      <h1>OneDrive</h1><p class="lead">Obtén archivos desde la carpeta de OneDrive que ya está sincronizada en tu ordenador.</p>
+      <h1>OneDrive</h1><p class="lead">Conecta tu cuenta de OneDrive y elige archivos remotos sin sincronizar toda la carpeta con el equipo.</p>
       <div class="help-doc-meta" data-help-meta="onedrive" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
         <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
       </div>
-      <div class="help-note"><p><strong>Acceso actual: carpeta sincronizada.</strong> La cuenta Microsoft se configura en OneDrive. La aplicación todavía no inicia sesión mediante Microsoft Graph.</p></div>
-      <h2>Preparar OneDrive</h2>
-      <ol><li>Abre el cliente OneDrive de Windows o instala la <a href="https://www.microsoft.com/microsoft-365/onedrive/download" target="_blank" rel="noopener noreferrer">aplicación de escritorio ↗</a>.</li><li>Inicia sesión con la cuenta que contiene los históricos y selecciona las carpetas que vas a sincronizar.</li><li>En el Explorador, marca la carpeta de datos con <strong>Mantener siempre en este dispositivo</strong>. Espera a que sus archivos estén descargados, no solo representados como archivos bajo demanda.</li><li>Comprueba su ubicación local y que puedes abrir los CSV o ZIP.</li></ol>
+      <div class="help-note"><p><strong>Conexión online:</strong> la autorización se realiza en la página oficial de Microsoft. QuantPower Builder consulta las carpetas a las que tiene acceso la cuenta conectada.</p></div>
+      <h2>Conectar OneDrive</h2>
+      <ol><li>Comprueba que la cuenta Microsoft tiene acceso a las carpetas que quieres usar.</li><li>En la aplicación, abre <strong>Descargar → + Añadir fuente → Contenedor → OneDrive</strong> y pulsa <strong>Conectar</strong>.</li><li>Inicia sesión en el navegador, revisa el permiso de lectura solicitado y autoriza el acceso para regresar a QuantPower Builder.</li><li>Selecciona la carpeta remota. El catálogo consultará su contenido online, incluidos los archivos compartidos disponibles para esa cuenta.</li></ol>
       <h2>Configurar y utilizar</h2>
       <div class="help-path">Descargar → + Añadir fuente → Contenedor → OneDrive</div>
-      <ol><li>Escribe un nombre, por ejemplo «OneDrive — Históricos».</li><li>Selecciona la carpeta local con <strong>Elegir carpeta</strong> y guarda.</li><li>Actualiza el catálogo, selecciona un archivo y pulsa <strong>Obtener archivo</strong>.</li><li>Ve a Importar para revisar y limpiar la copia obtenida.</li></ol>
+      <ol><li>Asigna un nombre para identificar el contenedor y guarda.</li><li>Pulsa <strong>Actualizar catálogo</strong> para consultar el contenido remoto.</li><li>Selecciona un archivo y pulsa <strong>Obtener archivo</strong> para descargar una copia a la biblioteca.</li><li>Ve a <strong>Importar</strong> para revisar y procesar la copia.</li></ol>
       <h2>Cuando cambien los archivos</h2>
-      <p>Deja que OneDrive termine la sincronización antes de volver a actualizar el catálogo. Si el cliente cambia de ubicación, edita la ruta con Configurar. Quitar el contenedor conserva los archivos de OneDrive.</p>
+      <p>Cuando añadas o cambies archivos en OneDrive, actualiza el catálogo para consultar el estado remoto más reciente. Si la autorización caduca o se revoca, conecta de nuevo la cuenta. Quitar el contenedor no elimina los archivos del servicio.</p>
       <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#problemas">Resolver problemas</a></div>
     </main>
   </div>

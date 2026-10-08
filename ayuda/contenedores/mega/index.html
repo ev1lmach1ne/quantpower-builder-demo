@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Usar una carpeta sincronizada con MEGA Desktop como Contenedor en QuantPower Builder.">
+  <meta name="description" content="Conectar MEGA a QuantPower Builder, explorar carpetas remotas y descargar archivos seleccionados.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/mega/">
   <link rel="icon" href="../../../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../../../assets/css/tokens.css"><link rel="stylesheet" href="../../../assets/css/site.css"><link rel="stylesheet" href="../../../assets/css/help.css">
@@ -22,19 +22,21 @@
     </nav></details></aside>
     <main id="contenido" class="help-content">
       <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../../">Ayuda</a><span>/</span><a href="../">Contenedores</a><span>/</span><span>MEGA</span></nav>
-      <h1>MEGA</h1><p class="lead">Trabaja con los archivos que MEGA Desktop haya descargado a una carpeta del equipo.</p>
+      <h1>MEGA</h1><p class="lead">Accede a carpetas remotas de MEGA y descarga desde QuantPower Builder solo los archivos que elijas.</p>
       <div class="help-doc-meta" data-help-meta="mega" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
-        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
+        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-08">8 de octubre de 2026</time></span>
       </div>
-      <div class="help-note"><p><strong>Acceso actual: carpeta sincronizada.</strong> La descarga y el descifrado los realiza el cliente de MEGA. QuantPower Builder no pide la cuenta, la contraseña ni claves de MEGA.</p></div>
-      <h2>Preparar MEGA</h2>
-      <ol><li>Instala <a href="https://mega.io/desktop" target="_blank" rel="noopener noreferrer">MEGA Desktop ↗</a> e inicia sesión.</li><li>Configura una sincronización de la carpeta de históricos con una ubicación local. También puedes descargar los archivos a una carpeta normal.</li><li>Espera a que las transferencias terminen y abre un CSV o ZIP desde el Explorador para confirmar su disponibilidad.</li></ol>
-      <h2>Configurar en Descargar</h2>
+      <div class="help-note"><p><strong>Componente de conexión:</strong> QuantPower Builder utiliza MEGAcmd, el componente oficial de MEGA, para autorizar la cuenta y consultar el almacenamiento remoto. No necesitas configurar una sincronización completa.</p></div>
+      <h2>Conectar MEGA</h2>
+      <ol><li>En QuantPower Builder, abre <strong>Descargar → + Añadir fuente → Contenedor → MEGA</strong> y pulsa <strong>Conectar con MEGA</strong>.</li><li>En Windows y macOS, si MEGAcmd no está instalado, QuantPower Builder descarga e instala el componente oficial de MEGA solo en ese momento. En Linux, instala <a href="https://mega.io/cmd" target="_blank" rel="noopener noreferrer">MEGAcmd oficial ↗</a> antes de continuar.</li><li>En la consola oficial, escribe <code>login tu-correo</code> e introduce la contraseña y el código de verificación allí si te lo solicita. Vuelve a QuantPower Builder y pulsa <strong>Verificar cuenta conectada</strong>.</li><li>La ventana mostrará la cuenta conectada y la carpeta remota elegida. No necesitas configurar una sincronización local.</li></ol>
+      <h2>Nombre y carpeta remota</h2>
+      <ul><li><strong>Nombre en Descargar:</strong> es solo una etiqueta para reconocer la conexión; no es el correo ni la contraseña de MEGA. Puedes dejarlo vacío y se usará <em>MEGA — tu-correo</em>.</li><li><strong>Carpeta MEGA:</strong> aparece por defecto como <code>/</code>, la raíz de tu cuenta. Eso busca en toda la cuenta y sus subcarpetas; no tienes que escribir nada para empezar. Si quieres limitar la búsqueda, pulsa <strong>Elegir carpeta…</strong> y selecciona una carpeta de la lista. No escribas una ruta del disco ni un enlace web.</li><li>Al guardar, QuantPower Builder comprueba que la carpeta existe en la cuenta conectada. Si no la encuentra, revisa que MEGAcmd siga conectado con la cuenta indicada y vuelve a elegirla.</li></ul>
+      <h2>Ver y obtener archivos</h2>
       <div class="help-path">Descargar → + Añadir fuente → Contenedor → MEGA</div>
-      <ol><li>Da un nombre al contenedor, elige la carpeta local y guarda.</li><li>Actualiza el catálogo después de terminar la sincronización.</li><li>Selecciona un archivo compatible y pulsa <strong>Obtener archivo</strong>.</li><li>Revisa y limpia la copia obtenida desde Importar.</li></ol>
-      <h2>Qué implica esta modalidad</h2>
-      <p>El catálogo examina archivos locales legibles, no enlaces web de MEGA ni archivos cifrados sin descargar. Una conexión directa a MEGA desde la aplicación requeriría integrar su SDK y todavía no está implementada.</p>
+      <ol><li>Pulsa <strong>Actualizar catálogo</strong> para examinar CSV/TXT y localizar ZIP en la carpeta seleccionada y sus subcarpetas.</li><li>Los ZIP remotos se marcan como pendientes de inspección para no descargarlos sin elegirlos. Selecciona uno y pulsa <strong>Obtener archivo</strong>; QuantPower Builder lo revisa y avisa si no contiene datos compatibles.</li><li>Al obtener un archivo compatible, MEGAcmd descarga solo ese archivo a <code>Importador/MEGA</code>. Ve a <strong>Importar</strong> para revisarlo y procesarlo.</li></ol>
+      <h2>Acceso y privacidad</h2>
+      <p>MEGAcmd mantiene la sesión de la cuenta en su propio cliente. QuantPower Builder solo comprueba la cuenta activa y usa esa sesión para listar y obtener los archivos seleccionados; no recibe ni almacena la contraseña de MEGA. Si el catálogo no encuentra una carpeta, verifica que MEGAcmd siga conectado a la cuenta indicada y vuelve a elegirla con <strong>Elegir carpeta…</strong>. Si cambias de cuenta en MEGAcmd, conecta de nuevo el contenedor correspondiente.</p>
       <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#problemas">Resolver problemas</a></div>
     </main>
   </div>

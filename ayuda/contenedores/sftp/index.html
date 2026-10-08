@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Descargar archivos con SFTP y utilizar su carpeta de destino como Contenedor de QuantPower Builder.">
+  <meta name="description" content="Conectar QuantPower Builder a un servidor SFTP, explorar carpetas remotas y descargar archivos seleccionados.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/sftp/">
   <link rel="icon" href="../../../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../../../assets/css/tokens.css"><link rel="stylesheet" href="../../../assets/css/site.css"><link rel="stylesheet" href="../../../assets/css/help.css">
@@ -22,20 +22,20 @@
     </nav></details></aside>
     <main id="contenido" class="help-content">
       <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../../">Ayuda</a><span>/</span><a href="../">Contenedores</a><span>/</span><span>SFTP</span></nav>
-      <h1>SFTP</h1><p class="lead">SFTP permite transferir archivos desde un servidor. En esta entrega se utilizan los archivos que hayas descargado previamente al equipo.</p>
+      <h1>SFTP</h1><p class="lead">Conecta con un servidor SFTP, explora sus carpetas remotas y descarga los archivos que selecciones.</p>
       <div class="help-doc-meta" data-help-meta="sftp" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
         <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
       </div>
-      <div class="help-note"><p><strong>Acceso actual: archivos descargados.</strong> Elegir SFTP en la tarjeta identifica el origen del almacenamiento. La aplicación todavía no abre una conexión SFTP ni pide sus credenciales.</p></div>
-      <h2>Descargar con un cliente SFTP</h2>
-      <ol><li>Obtén del proveedor el servidor, puerto, usuario y método de acceso: contraseña o clave SSH. Son los datos de transferencia de archivos, no una API Key de mercado.</li><li>En Windows puedes usar <a href="https://winscp.net/eng/download.php" target="_blank" rel="noopener noreferrer">WinSCP ↗</a>. Crea una sesión SFTP con los datos que te dieron; el puerto habitual es 22, pero utiliza el especificado por el proveedor.</li><li>El cliente puede pedir que compruebes la identidad del servidor. Contrasta su huella con la proporcionada por el administrador o proveedor.</li><li>Navega a la carpeta de datos y descarga los CSV/TXT/ZIP a una ubicación estable del ordenador.</li><li>Espera a que se complete la transferencia antes de catalogar los archivos.</li></ol>
-      <h2>Añadir la carpeta de destino</h2>
+      <div class="help-note"><p><strong>Conexión remota:</strong> necesitarás los datos de acceso SFTP del administrador del servidor. La conexión permite navegar y descargar archivos, no modifica ni elimina los originales.</p></div>
+      <h2>Conectar con SFTP</h2>
+      <ol><li>Solicita al administrador el servidor, puerto, usuario, directorio remoto y método de autenticación: contraseña o clave SSH. El puerto habitual es 22, salvo que te indiquen otro.</li><li>En QuantPower Builder, abre <strong>Descargar → + Añadir fuente → Contenedor → SFTP</strong>.</li><li>Introduce los datos del servidor y el método de autenticación.</li><li>Verifica la huella del servidor con el administrador antes de confiar en la primera conexión.</li><li>Conecta y navega hasta la carpeta remota que contiene los archivos.</li></ol>
+      <h2>Explorar y obtener archivos</h2>
       <div class="help-path">Descargar → + Añadir fuente → Contenedor → SFTP</div>
-      <ol><li>Escribe un nombre, por ejemplo «SFTP — Históricos».</li><li>Pulsa Elegir carpeta y selecciona la ubicación donde descargaste los archivos; guarda el contenedor.</li><li>Actualiza el catálogo, selecciona un archivo y pulsa <strong>Obtener archivo</strong>.</li><li>Desde Importar, revisa los datos y ejecuta Limpiar.</li></ol>
-      <h2>Cuando haya más datos</h2>
-      <p>Descarga los archivos nuevos con el cliente SFTP y después actualiza el catálogo. No hay sincronización automática ni descarga remota desde QuantPower Builder en este modo.</p>
-      <p><a href="https://winscp.net/eng/docs/guide_connect" target="_blank" rel="noopener noreferrer">Guía de conexión de WinSCP ↗</a></p>
+      <ol><li>Asigna un nombre al contenedor y selecciona la carpeta remota.</li><li>Pulsa <strong>Actualizar catálogo</strong> para ver los archivos compatibles en el servidor.</li><li>Selecciona un archivo y pulsa <strong>Obtener archivo</strong> para descargar una copia a la biblioteca de la aplicación.</li><li>Desde <strong>Importar</strong>, revisa los datos y procésalos.</li></ol>
+      <h2>Conexiones y permisos</h2>
+      <p>Si no aparece un archivo, comprueba la ruta remota y los permisos de lectura de tu usuario. Si cambia la huella del servidor o caduca la autenticación, confirma el cambio con el administrador y vuelve a conectar. Eliminar el contenedor no borra los archivos del servidor.</p>
+      <p><a href="https://winscp.net/eng/docs/guide_connect" target="_blank" rel="noopener noreferrer">Información sobre conexiones SFTP ↗</a></p>
       <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#formatos">Formatos admitidos</a></div>
     </main>
   </div>

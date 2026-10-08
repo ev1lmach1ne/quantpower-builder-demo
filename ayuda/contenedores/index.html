@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Configurar Contenedores en Descargar: elegir almacenamiento, explorar carpetas y obtener archivos para Importar.">
+  <meta name="description" content="Conectar almacenamientos web desde Descargar, explorar carpetas remotas y obtener archivos para Importar en QuantPower Builder.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/">
   <link rel="icon" href="../../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../../assets/css/tokens.css"><link rel="stylesheet" href="../../assets/css/site.css"><link rel="stylesheet" href="../../assets/css/help.css">
@@ -24,59 +24,54 @@
     <main id="contenido" class="help-content">
       <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../">Ayuda</a><span>/</span><span>Contenedores</span></nav>
       <h1>Configurar y usar <span class="text-accent">Contenedores.</span></h1>
-      <p class="lead">Una fuente de archivos en Descargar: explora tu almacenamiento, obtiene los datos y los deja preparados para Importar.</p>
+      <p class="lead">Conecta un almacenamiento web compatible, explora sus carpetas remotas y descarga los archivos seleccionados para Importar.</p>
       <div class="help-doc-meta" data-help-meta="contenedores" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
-        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
+        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-08">8 de octubre de 2026</time></span>
       </div>
-      <div class="help-note"><p><strong>Modalidad disponible:</strong> carpetas del equipo, carpetas sincronizadas desde la nube y archivos SFTP descargados previamente. La conexión directa mediante OAuth/API será una integración posterior.</p></div>
+      <div class="help-note"><p><strong>Acceso web directo:</strong> conecta la cuenta desde QuantPower Builder, navega por el almacenamiento remoto y elige qué archivos obtener. No hace falta sincronizar una carpeta completa con el equipo. Si los archivos ya están en el dispositivo, puedes elegir <strong>Carpeta local</strong>.</p></div>
       <h2 id="anadir">1. Añade una fuente de archivos</h2>
       <ol>
         <li>Abre <strong>Descargar</strong> y pulsa <strong>+ Añadir fuente</strong>.</li>
-        <li>En la tarjeta <strong>Contenedor</strong>, elige el almacenamiento. Cada opción muestra cómo accede actualmente a los archivos.</li>
-        <li>Escribe un nombre, como «Drive — HistData», y usa <strong>Elegir carpeta</strong> para seleccionar su ubicación local.</li>
-        <li>Pulsa <strong>Guardar contenedor</strong>. La fuente aparecerá en el desplegable principal con su nombre y almacenamiento.</li>
+        <li>En la tarjeta <strong>Contenedor</strong>, elige un servicio web compatible o <strong>Carpeta local</strong>.</li>
+        <li>Para un servicio web, pulsa <strong>Conectar</strong> e inicia sesión en el navegador o componente oficial del servicio. Para una carpeta local, elige su ubicación en el equipo.</li>
+        <li>En servicios que ofrecen selector, elige una carpeta remota. Si aparece <code>/</code> como raíz, puedes dejarla así para explorar toda la cuenta y sus subcarpetas.</li>
+        <li>El campo <strong>Nombre</strong> es solo la etiqueta que verás en Descargar; no es el usuario ni la contraseña del servicio. Guarda la conexión para verla en el desplegable principal.</li>
       </ol>
-      <p>El botón <strong>Cómo configurarlo</strong> abre la guía del almacenamiento elegido. Los servicios ya ofrecidos por la aplicación siguen en el desplegable; la tarjeta Proveedor de datos muestra los conectores externos adicionales.</p>
+      <p>La autorización permite a la aplicación explorar y leer los archivos necesarios para esta función. No compartas tu contraseña: inicia sesión en la página oficial del servicio y revisa el permiso solicitado.</p>
       <div class="help-services">
         <a href="carpeta-local/"><strong>Carpeta local</strong><span>Una carpeta del equipo o unidad montada.</span></a>
-        <a href="google-drive/"><strong>Google Drive</strong><span>Carpeta sincronizada, incluidos archivos compartidos accesibles.</span></a>
-        <a href="onedrive/"><strong>OneDrive</strong><span>Archivos conservados en el dispositivo.</span></a>
-        <a href="dropbox/"><strong>Dropbox</strong><span>Carpeta descargada por su aplicación de escritorio.</span></a>
-        <a href="mega/"><strong>MEGA</strong><span>Ubicación local sincronizada con MEGA Desktop.</span></a>
-        <a href="sftp/"><strong>SFTP</strong><span>Descarga previa con un cliente SFTP y carpeta de destino.</span></a>
+        <a href="google-drive/"><strong>Google Drive</strong><span>Conecta la cuenta y elige archivos de tus carpetas remotas.</span></a>
+        <a href="onedrive/"><strong>OneDrive</strong><span>Autoriza Microsoft y explora archivos en la nube.</span></a>
+        <a href="dropbox/"><strong>Dropbox</strong><span>Conecta Dropbox y selecciona archivos para obtener.</span></a>
+        <a href="mega/"><strong>MEGA</strong><span>Accede a carpetas remotas y descarga los archivos seleccionados.</span></a>
+        <a href="sftp/"><strong>SFTP</strong><span>Conecta a un servidor y explora su directorio remoto.</span></a>
       </div>
       <h2 id="catalogo">2. Explora el catálogo</h2>
-      <p>Selecciona el contenedor y pulsa <strong>Actualizar catálogo</strong>. La aplicación recorre las subcarpetas y reconoce estructuras CSV/TXT/ZIP de mercado. El buscador filtra archivos, símbolos y formatos; no solicita un ticker a una API.</p>
-      <p>La tabla muestra activo, TF, formato y ubicación. <strong>Periodo (nombre)</strong> es una orientación deducida del nombre del archivo, no una comprobación de cobertura. La validación completa ocurre al preparar e importar los datos.</p>
-      <h2 id="obtener">3. Obtén una copia para Importar</h2>
+      <p>Selecciona el contenedor y pulsa <strong>Actualizar catálogo</strong>. En un servicio web, el catálogo consulta las carpetas remotas accesibles con la cuenta conectada; en una carpeta local, examina esa ubicación. Reconoce archivos CSV, TXT y ZIP según su estructura, independientemente del servicio que los almacene.</p>
+      <p>La tabla muestra activo, temporalidad, formato y ubicación. <strong>Periodo (nombre)</strong> es una orientación deducida del nombre del archivo, no una comprobación de cobertura. La validación completa ocurre al preparar e importar los datos.</p>
+      <h2 id="obtener">3. Descarga los archivos seleccionados</h2>
       <ol>
         <li>Selecciona un archivo en la tabla para revisar sus detalles.</li>
-        <li>Pulsa <strong>Obtener archivo</strong>. Los CSV se copian a la biblioteca; los ZIP compatibles se extraen y las barras HistData se normalizan.</li>
-        <li>Espera a que aparezca <strong>Archivo listo para Importar</strong>. Puedes pulsar Detener durante una tarea en curso.</li>
-        <li>Ve a <strong>Importar</strong>, selecciona la copia obtenida y revisa nombre, temporalidad, tipo y calendario. Pulsa <strong>Limpiar</strong> para incorporarla a QuestDB y guardar el histórico limpio.</li>
+        <li>Pulsa <strong>Obtener archivo</strong>. Desde un servicio web se descarga una copia del archivo elegido; desde una carpeta local se prepara una copia de trabajo. Los ZIP compatibles se procesan según el formato reconocido.</li>
+        <li>Espera a que aparezca <strong>Archivo listo para Importar</strong>. Puedes detener una descarga en curso.</li>
+        <li>Ve a <strong>Importar</strong>, selecciona la copia y revisa nombre, temporalidad, tipo y calendario. Pulsa <strong>Limpiar</strong> para incorporarla a QuestDB y guardar el histórico limpio.</li>
       </ol>
-      <p>Obtener un archivo no ejecuta automáticamente su limpieza ni combina históricos existentes. Revisa en la consola el destino: la preparación actual puede reemplazar la tabla correspondiente al mismo proveedor, activo y TF.</p>
+      <p>Obtener un archivo no ejecuta automáticamente su limpieza ni combina históricos existentes. Revisa en la consola el destino antes de importar.</p>
       <h2 id="formatos">Catálogo y formatos</h2>
       <div class="help-table-wrap"><table><thead><tr><th>Formato</th><th>Estructura reconocida</th></tr></thead><tbody>
-        <tr><td>CSV/TXT OHLC</td><td>Encabezado temporal y columnas Open, High, Low, Close; con alias y delimitadores habituales.</td></tr>
-        <tr><td>HistData Generic ASCII M1</td><td>Fecha-hora, OHLC y volumen sin encabezado, separados por punto y coma.</td></tr>
-        <tr><td>HistData MetaTrader M1</td><td>Fecha YYYY.MM.DD, hora HH:MM, OHLC y volumen, separados por comas.</td></tr>
-        <tr><td>HistData MetaStock M1</td><td>Símbolo, fecha-hora YYYYMMDDHHMM, OHLC y volumen.</td></tr>
-        <tr><td>HistData NinjaTrader M1</td><td>Fecha-hora compacta, OHLC y volumen sin encabezado.</td></tr>
-        <tr><td>ZIP</td><td>Un único CSV/TXT OHLC genérico, o archivos HistData M1 del mismo símbolo y formato. Los ZIP con distintos activos no se combinan.</td></tr>
+        <tr><td>CSV/TXT con cabecera</td><td>Fecha u hora y columnas OHLC reconocidas, con delimitadores habituales.</td></tr>
+        <tr><td>CSV/TXT sin cabecera</td><td>Solo se identifican estructuras tabulares compatibles con los formatos reconocidos por el catálogo.</td></tr>
+        <tr><td>ZIP</td><td>Archivos CSV/TXT con una estructura compatible. Los paquetes con estructuras mezcladas o activos distintos no se combinan.</td></tr>
       </tbody></table></div>
-      <p>Los ticks y los XLSX no forman parte del catálogo actual. El TF de las barras HistData descritas aquí es <code>1m</code>; elegir un archivo no genera automáticamente otras temporalidades.</p>
-      <h3>HistData: hora, precios y volumen</h3>
-      <p>HistData usa EST fijo, UTC−05:00, sin horario de verano. El preparador lo convierte a UTC todo el año: 08:30 EST se guarda como 13:30 UTC. Sus barras son Bid y un volumen en cero no representa volumen negociado utilizable. No se asigna automáticamente un calendario de bolsa.</p>
-      <p><a href="https://www.histdata.com/f-a-q/data-files-detailed-specification/" target="_blank" rel="noopener noreferrer">Especificación original de HistData ↗</a></p>
+      <p>El catálogo no convierte automáticamente una temporalidad en otra. Revisa la zona horaria, cobertura y estructura de los datos durante la importación.</p>
       <h2 id="problemas">Gestionar y solucionar problemas</h2>
       <ul>
-        <li><strong>No aparece el archivo:</strong> confirma su disponibilidad local y formato. Excel, ticks, esquemas no reconocidos y ZIP de varios símbolos se omiten.</li>
-        <li><strong>Catálogo vacío:</strong> revisa la carpeta y actualiza tras terminar la sincronización. Se omiten carpetas internas, ocultas, Limpiados e Informes.</li>
-        <li><strong>Ubicación movida:</strong> usa Configurar para editar nombre y ruta.</li>
-        <li><strong>Quitar:</strong> desvincula la fuente; conserva la carpeta y los archivos originales.</li>
-        <li><strong>Datos nuevos:</strong> sincronízalos o descárgalos primero, vuelve a actualizar y obtén la nueva copia.</li>
+        <li><strong>No aparece la carpeta remota:</strong> comprueba que conectaste la cuenta correcta. En MEGA, deja la ruta en <code>/</code> o pulsa <strong>Elegir carpeta…</strong>; no introduzcas una ruta local del equipo.</li>
+        <li><strong>No aparece el archivo:</strong> confirma que sea CSV/TXT/ZIP y que su estructura esté entre las reconocidas por el catálogo.</li>
+        <li><strong>Catálogo vacío:</strong> comprueba el acceso al servicio o la ruta local y vuelve a actualizar el catálogo.</li>
+        <li><strong>La autorización caducó:</strong> vuelve a conectar la cuenta desde el contenedor.</li>
+        <li><strong>Quitar:</strong> elimina el contenedor de la lista. Los archivos originales siguen en su almacenamiento; las copias obtenidas permanecen en la biblioteca local.</li>
       </ul>
       <div class="help-related"><a class="button button-outline" href="../">← Centro de ayuda</a><a class="button button-quiet" href="google-drive/">Configurar Google Drive →</a></div>
     </main>

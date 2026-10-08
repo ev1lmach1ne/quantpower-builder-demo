@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Preparar una carpeta de Google Drive y configurar su Contenedor en Descargar de QuantPower Builder.">
+  <meta name="description" content="Conectar Google Drive a QuantPower Builder, explorar carpetas remotas y descargar archivos seleccionados.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/google-drive/">
   <link rel="icon" href="../../../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../../../assets/css/tokens.css"><link rel="stylesheet" href="../../../assets/css/site.css"><link rel="stylesheet" href="../../../assets/css/help.css">
@@ -22,22 +22,20 @@
     </nav></details></aside>
     <main id="contenido" class="help-content">
       <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../../">Ayuda</a><span>/</span><a href="../">Contenedores</a><span>/</span><span>Google Drive</span></nav>
-      <h1>Google Drive</h1><p class="lead">Accede a históricos propios o compartidos mediante una carpeta descargada por Drive para ordenadores.</p>
+      <h1>Google Drive</h1><p class="lead">Conecta tu cuenta de Google Drive y elige desde QuantPower Builder los archivos que quieres obtener.</p>
       <div class="help-doc-meta" data-help-meta="google-drive" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
         <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
       </div>
-      <div class="help-note"><p><strong>Acceso actual: carpeta sincronizada.</strong> Inicias sesión en Google en su cliente de escritorio. QuantPower Builder lee la ubicación local; este flujo no requiere crear un proyecto OAuth ni pegar credenciales de Google.</p></div>
-      <h2>Preparar Drive</h2>
-      <ol><li>Instala <a href="https://www.google.com/drive/download/" target="_blank" rel="noopener noreferrer">Google Drive para ordenadores ↗</a> e inicia sesión con la cuenta que tiene los archivos.</li><li>Localiza la carpeta en Drive. Si un proveedor la compartió, comprueba que accedes con la cuenta destinataria; puedes añadir un acceso directo a Mi unidad para localizarla desde el cliente.</li><li>En el Explorador, localiza su carpeta accesible. Utiliza la opción de disponibilidad sin conexión cuando trabajes con archivos en streaming y espera a que termine su descarga.</li><li>Comprueba que puedes abrir un CSV o ZIP desde esa ubicación. Si la carpeta compartida no aparece en el cliente, descarga sus archivos a una carpeta local accesible y selecciona esa ubicación.</li></ol>
+      <div class="help-note"><p><strong>Conexión online:</strong> la aplicación abre el navegador para que inicies sesión en Google y autorices el acceso solicitado. No necesitas instalar Drive para ordenadores ni sincronizar carpetas completas.</p></div>
+      <h2>Conectar tu cuenta</h2>
+      <ol><li>Comprueba que la cuenta de Google tiene acceso a las carpetas que quieres utilizar, incluidas las que te hayan compartido.</li><li>En QuantPower Builder, abre <strong>Descargar → + Añadir fuente → Contenedor → Google Drive</strong> y pulsa <strong>Conectar</strong>.</li><li>En el navegador, selecciona tu cuenta y revisa el permiso de lectura que solicita QuantPower Builder. Autorízalo para volver a la aplicación.</li><li>Elige la carpeta remota que contiene los archivos. La aplicación muestra los archivos disponibles en Drive sin descargar ni sincronizar la carpeta entera.</li></ol>
       <h2>Configurar el contenedor</h2>
       <div class="help-path">Descargar → + Añadir fuente → Contenedor → Google Drive</div>
-      <ol><li>Asigna un nombre, por ejemplo <strong>Drive — HistData</strong>.</li><li>Pulsa <strong>Elegir carpeta</strong> y selecciona la ubicación local con los datos.</li><li>Guarda el contenedor y pulsa <strong>Actualizar catálogo</strong> cuando cambie el contenido.</li></ol>
-      <h2>Ejemplo: archivos de HistData</h2>
-      <p>El servicio de actualizaciones de HistData comparte archivos por Drive. Usar Google Drive como contenedor permite tratar esos archivos igual que los de otra fuente. El almacenamiento no sustituye los permisos de acceso concedidos por el proveedor.</p>
-      <p>Selecciona las barras M1 compatibles, pulsa <strong>Obtener archivo</strong> y después utiliza Importar. El preparador interpreta las horas de HistData en UTC−05:00 fijo, según su especificación.</p>
-      <p>Para futuras actualizaciones, espera a que Drive termine de sincronizar antes de actualizar el catálogo y obtener el archivo nuevo. La integración directa mediante la API de Drive todavía no está disponible.</p>
-      <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#formatos">Formatos y HistData</a></div>
+      <ol><li>Asigna un nombre que te ayude a reconocer la cuenta o la carpeta.</li><li>Guarda el contenedor y pulsa <strong>Actualizar catálogo</strong> para consultar los archivos remotos.</li><li>Selecciona los archivos que quieras obtener y pulsa <strong>Obtener archivo</strong>. Se descarga una copia a la biblioteca de la aplicación.</li><li>Abre <strong>Importar</strong> para revisar y procesar la copia.</li></ol>
+      <h2>Carpetas compartidas y actualizaciones</h2>
+      <p>Solo aparecerán carpetas que la cuenta conectada pueda abrir. Si no ves una ubicación compartida, confirma que se compartió con esa cuenta y vuelve a conectar si la autorización expiró. Para encontrar archivos nuevos, actualiza el catálogo; no hace falta sincronizar toda la carpeta en el equipo.</p>
+      <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#formatos">Formatos admitidos</a></div>
     </main>
   </div>
   <footer class="help-footer"><div class="container"><span>QuantPower Builder · Google Drive</span><a href="../../../">Volver a la web</a></div></footer>

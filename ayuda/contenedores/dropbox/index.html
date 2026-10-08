@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Configurar Dropbox como Contenedor de archivos sincronizados en Descargar de QuantPower Builder.">
+  <meta name="description" content="Conectar Dropbox a QuantPower Builder, explorar carpetas remotas y descargar archivos seleccionados.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/contenedores/dropbox/">
   <link rel="icon" href="../../../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../../../assets/css/tokens.css"><link rel="stylesheet" href="../../../assets/css/site.css"><link rel="stylesheet" href="../../../assets/css/help.css">
@@ -22,19 +22,19 @@
     </nav></details></aside>
     <main id="contenido" class="help-content">
       <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../../">Ayuda</a><span>/</span><a href="../">Contenedores</a><span>/</span><span>Dropbox</span></nav>
-      <h1>Dropbox</h1><p class="lead">Usa la carpeta de Dropbox del equipo como fuente de archivos de mercado.</p>
+      <h1>Dropbox</h1><p class="lead">Conecta Dropbox desde QuantPower Builder para explorar tus carpetas y elegir qué archivos obtener.</p>
       <div class="help-doc-meta" data-help-meta="dropbox" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
         <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
       </div>
-      <div class="help-note"><p><strong>Acceso actual: carpeta sincronizada.</strong> Inicias sesión en Dropbox en su cliente de escritorio. No se necesita un token de Dropbox dentro de QuantPower Builder para esta modalidad.</p></div>
-      <h2>Preparar Dropbox</h2>
-      <ol><li>Instala <a href="https://www.dropbox.com/install" target="_blank" rel="noopener noreferrer">Dropbox para escritorio ↗</a> y accede a tu cuenta.</li><li>Incluye la carpeta de históricos en la sincronización selectiva del cliente, si utilizas esa opción.</li><li>Marca los datos como disponibles sin conexión para que tengan contenido descargado, no solo archivos en línea.</li><li>Espera a que termine la sincronización y localiza la carpeta en el Explorador.</li></ol>
+      <div class="help-note"><p><strong>Conexión online:</strong> la aplicación solicita autorización a Dropbox para consultar y descargar los archivos que selecciones. No se requiere instalar ni mantener abierta la aplicación de escritorio de Dropbox.</p></div>
+      <h2>Conectar Dropbox</h2>
+      <ol><li>Comprueba que tu cuenta tiene acceso a los archivos y carpetas que quieres utilizar.</li><li>En QuantPower Builder, abre <strong>Descargar → + Añadir fuente → Contenedor → Dropbox</strong> y pulsa <strong>Conectar</strong>.</li><li>Inicia sesión en la página de Dropbox, revisa los permisos que se muestran y autoriza el acceso para regresar a la aplicación.</li><li>Selecciona una carpeta remota. El catálogo consulta su contenido sin crear una copia sincronizada de toda la carpeta.</li></ol>
       <h2>Configurar y obtener archivos</h2>
       <div class="help-path">Descargar → + Añadir fuente → Contenedor → Dropbox</div>
-      <ol><li>Asigna un nombre y selecciona la carpeta local de datos.</li><li>Guarda el contenedor. Actualizar catálogo examina sus subcarpetas y filtra las estructuras reconocidas.</li><li>Selecciona un resultado y pulsa <strong>Obtener archivo</strong> para preparar su copia en la biblioteca.</li><li>En Importar, revisa la identidad y el horario y pulsa Limpiar.</li></ol>
+      <ol><li>Asigna un nombre para identificar la ubicación de Dropbox.</li><li>Pulsa <strong>Actualizar catálogo</strong> para consultar los archivos remotos compatibles.</li><li>Selecciona un resultado y pulsa <strong>Obtener archivo</strong> para descargar una copia en la biblioteca de la aplicación.</li><li>En <strong>Importar</strong>, revisa la identidad y el horario antes de procesar el archivo.</li></ol>
       <h2>Actualizaciones</h2>
-      <p>La sincronización la realiza Dropbox. Después actualiza el catálogo de la aplicación y obtén la nueva copia. No se fusionan automáticamente los archivos remotos ni se ejecuta limpieza en segundo plano. El acceso directo mediante la API de Dropbox se añadirá en otra fase.</p>
+      <p>Cuando haya nuevos archivos, actualiza el catálogo para volver a consultar Dropbox. La descarga ocurre al obtener cada archivo seleccionado; no se fusionan automáticamente con los datos ya importados ni se ejecuta limpieza en segundo plano. Si retiras el permiso de la cuenta, vuelve a conectar Dropbox desde el contenedor.</p>
       <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#formatos">Formatos admitidos</a></div>
     </main>
   </div>
