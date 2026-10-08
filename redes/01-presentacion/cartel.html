@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cartel de presentación — QuantPower Builder</title>
+<!--
+  Cartel para redes. Se renderiza a PNG con redes/renderizar.sh.
+  Formato por parámetro: ?f=vertical (1080×1350, por defecto) o ?f=cuadrado (1080×1080).
+-->
+<style>
+  :root {
+    --bg: #111828; --bg-deep: #0d1424; --panel: #141e30; --panel-raised: #1a2a45;
+    --border: #253a60; --text: #c8d6e5; --text-strong: #e6edf3; --text-muted: #9aaec7;
+    --accent: #4fc3f7; --green: #2ecc71;
+    --font: "Inter", "Segoe UI", Arial, sans-serif;
+    --mono: "DejaVu Sans Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-deep); }
+  .poster {
+    position: relative; overflow: hidden;
+    width: 1080px; height: 1350px; padding: 84px 80px 72px;
+    display: flex; flex-direction: column;
+    font-family: var(--font); color: var(--text);
+    background:
+      radial-gradient(900px 600px at 85% -5%, rgba(79,195,247,.16), transparent 60%),
+      radial-gradient(700px 500px at -10% 105%, rgba(79,195,247,.08), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  }
+  .poster.square { height: 1080px; padding: 64px 72px 56px; }
+
+  /* Retícula de fondo, como en la vista para redes de la web */
+  .grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(37,58,96,.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,58,96,.35) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: linear-gradient(200deg, #000 0%, transparent 55%);
+  }
+
+  .poster > * { flex-shrink: 0; }
+  .head { position: relative; display: flex; align-items: center; gap: 28px; }
+  .logo {
+    width: 168px; height: 168px; flex: none; border-radius: 50%;
+    background: url("../../assets/images/logo-corporativo.png") center / 104% no-repeat;
+    clip-path: circle(48%);
+    filter: drop-shadow(0 18px 40px rgba(79,195,247,.25));
+  }
+  .square .logo { width: 132px; height: 132px; }
+  .brand small {
+    display: block; font-size: 22px; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .brand strong {
+    display: block; margin-top: 6px; font-size: 46px; font-weight: 700;
+    letter-spacing: -.01em; color: var(--text-strong);
+  }
+  .square .brand strong { font-size: 40px; }
+
+  h1 {
+    position: relative; margin-top: 60px;
+    font-size: 100px; line-height: 1.02; font-weight: 800; letter-spacing: -.035em;
+    color: var(--text-strong);
+  }
+  h1 span { color: var(--accent); }
+  .square h1 { margin-top: 52px; font-size: 84px; }
+
+  .lead {
+    position: relative; margin-top: 30px; max-width: 900px;
+    font-size: 31px; line-height: 1.42; color: var(--text-muted);
+  }
+  .lead b { color: var(--text); font-weight: 600; }
+  .square .lead { margin-top: 26px; font-size: 27px; }
+
+  .chart {
+    position: relative; margin-top: 44px; height: 190px;
+    border: 1px solid var(--border); border-radius: 18px;
+    background: rgba(20,30,48,.75);
+    padding: 22px 26px;
+  }
+  .chart .label {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 17px; letter-spacing: .06em; color: var(--text-muted);
+  }
+  .chart .label em { font-style: normal; color: var(--green); }
+  .chart svg { position: absolute; left: 26px; right: 26px; bottom: 18px; width: calc(100% - 52px); height: 120px; }
+  .square .chart { margin-top: 30px; height: 140px; padding: 16px 22px; }
+  .square .chart svg { height: 84px; bottom: 14px; }
+  .square .features { margin-top: 26px; }
+
+  .features {
+    position: relative; margin-top: 36px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .feature {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 24px; border-radius: 14px;
+    border: 1px solid var(--border); background: rgba(26,42,69,.55);
+    font-size: 26px; font-weight: 600; color: var(--text-strong);
+  }
+  .square .feature { padding: 16px 22px; font-size: 24px; }
+  .feature i {
+    font-style: normal; font-family: var(--mono); font-size: 18px; font-weight: 400;
+    color: var(--accent); opacity: .9;
+  }
+
+  .foot {
+    position: relative; margin-top: auto; padding-top: 30px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+  }
+  .cta small {
+    display: block; font-size: 20px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .cta strong { display: block; margin-top: 8px; font-size: 40px; font-weight: 700; color: var(--text-strong); }
+  .cta strong span { color: var(--accent); }
+  .tag {
+    flex: none; padding: 14px 22px; border-radius: 999px;
+    background: var(--accent); color: var(--bg-deep);
+    font-size: 23px; font-weight: 700;
+  }
+  .square .cta strong { font-size: 36px; }
+</style>
+</head>
+<body>
+<main class="poster" id="poster">
+  <div class="grid"></div>
+
+  <header class="head">
+    <div class="logo" role="img" aria-label="Logotipo de QuantPower Systems"></div>
+    <div class="brand">
+      <small>QuantPower Systems</small>
+      <strong>QuantPower Builder</strong>
+    </div>
+  </header>
+
+  <h1>Analiza y construye<br><span>tu ventaja.</span></h1>
+
+  <p class="lead">
+    Construye sistemas de trading <b>sin escribir código</b>: combina indicadores,
+    define tus reglas y ponlas a prueba con un <b>motor de backtesting acelerado</b>.
+  </p>
+
+  <section class="chart" aria-hidden="true">
+    <div class="label"><span>BACKTEST · IS / OOS · DATOS SINTÉTICOS</span><em>▲ CURVA DE CAPITAL</em></div>
+    <svg viewBox="0 0 900 140" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4fc3f7" stop-opacity=".35"/>
+          <stop offset="1" stop-color="#4fc3f7" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="610" y1="0" x2="610" y2="140" stroke="#253a60" stroke-dasharray="6 6"/>
+      <path d="M0 122 L40 116 L80 120 L120 104 L160 108 L200 92 L240 97 L280 84 L320 88 L360 72 L400 78 L440 64 L480 69 L520 55 L560 60 L610 46 L650 52 L690 38 L730 44 L770 30 L810 34 L850 20 L900 14 L900 140 L0 140 Z" fill="url(#fill)"/>
+      <path d="M0 122 L40 116 L80 120 L120 104 L160 108 L200 92 L240 97 L280 84 L320 88 L360 72 L400 78 L440 64 L480 69 L520 55 L560 60 L610 46 L650 52 L690 38 L730 44 L770 30 L810 34 L850 20 L900 14" fill="none" stroke="#4fc3f7" stroke-width="3.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <circle cx="900" cy="14" r="6" fill="#4fc3f7"/>
+    </svg>
+  </section>
+
+  <section class="features">
+    <div class="feature"><i>01</i>Construcción visual</div>
+    <div class="feature"><i>02</i>Análisis del activo</div>
+    <div class="feature"><i>03</i>Gestión del riesgo</div>
+    <div class="feature"><i>04</i>Validación de robustez</div>
+  </section>
+
+  <footer class="foot">
+    <div class="cta">
+      <small>Demo gratuita · Artículos</small>
+      <strong>quantpowerbuilder<span>.com</span></strong>
+    </div>
+    <div class="tag">Pruébalo ↗</div>
+  </footer>
+</main>
+<script>
+  if (new URLSearchParams(location.search).get("f") === "cuadrado") {
+    document.getElementById("poster").classList.add("square");
+  }
+</script>
+</body>
+</html>
