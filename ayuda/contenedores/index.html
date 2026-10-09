@@ -11,13 +11,13 @@
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <header class="site-header help-header"><div class="container header-inner"><a class="brand" href="../../"><img src="../../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Centro de ayuda</small></span></a><a class="text-link" href="../../">Volver a la web →</a></div></header>
+  <header class="site-header help-header"><div class="container header-inner"><a class="brand" href="../../"><img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Centro de ayuda</small></span></a><a class="text-link" href="../../">Volver a la web →</a></div></header>
   <div class="container help-shell">
     <aside class="help-sidebar"><details open><summary>Índice de ayuda</summary><nav aria-label="Centro de ayuda">
       <a href="../">Inicio de la ayuda</a><span class="help-group">Contenedores</span>
       <a href="./" aria-current="page">Concepto y flujo de trabajo</a>
       <a class="help-sub" href="carpeta-local/">Carpeta local</a><a class="help-sub" href="google-drive/">Google Drive</a>
-      <a class="help-sub" href="onedrive/">OneDrive</a><a class="help-sub" href="dropbox/">Dropbox</a>
+      <a class="help-sub" href="dropbox/">Dropbox</a>
       <a class="help-sub" href="mega/">MEGA</a><a class="help-sub" href="sftp/">SFTP</a>
       <a href="#formatos">Catálogo y formatos</a><a href="#problemas">Solución de problemas</a>
     </nav></details></aside>
@@ -27,7 +27,7 @@
       <p class="lead">Conecta un almacenamiento web compatible, explora sus carpetas remotas y descarga los archivos seleccionados para Importar.</p>
       <div class="help-doc-meta" data-help-meta="contenedores" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
-        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-08">8 de octubre de 2026</time></span>
+        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-09">9 de octubre de 2026</time></span>
       </div>
       <div class="help-note"><p><strong>Acceso web directo:</strong> conecta la cuenta desde QuantPower Builder, navega por el almacenamiento remoto y elige qué archivos obtener. No hace falta sincronizar una carpeta completa con el equipo. Si los archivos ya están en el dispositivo, puedes elegir <strong>Carpeta local</strong>.</p></div>
       <h2 id="anadir">1. Añade una fuente de archivos</h2>
@@ -42,32 +42,36 @@
       <div class="help-services">
         <a href="carpeta-local/"><strong>Carpeta local</strong><span>Una carpeta del equipo o unidad montada.</span></a>
         <a href="google-drive/"><strong>Google Drive</strong><span>Conecta la cuenta y elige archivos de tus carpetas remotas.</span></a>
-        <a href="onedrive/"><strong>OneDrive</strong><span>Autoriza Microsoft y explora archivos en la nube.</span></a>
         <a href="dropbox/"><strong>Dropbox</strong><span>Conecta Dropbox y selecciona archivos para obtener.</span></a>
         <a href="mega/"><strong>MEGA</strong><span>Accede a carpetas remotas y descarga los archivos seleccionados.</span></a>
         <a href="sftp/"><strong>SFTP</strong><span>Conecta a un servidor y explora su directorio remoto.</span></a>
       </div>
+      <p class="help-note"><strong>Conexiones OAuth:</strong> Google Drive y Dropbox se habilitan cuando la instalación tiene configurado el client ID público de QuantPower Builder para cada servicio. Si una tarjeta aparece desactivada, solicita esa configuración al administrador de la aplicación.</p>
       <h2 id="catalogo">2. Explora el catálogo</h2>
       <p>Selecciona el contenedor y pulsa <strong>Actualizar catálogo</strong>. En un servicio web, el catálogo consulta las carpetas remotas accesibles con la cuenta conectada; en una carpeta local, examina esa ubicación. Reconoce archivos CSV, TXT y ZIP según su estructura, independientemente del servicio que los almacene.</p>
       <p>La tabla muestra activo, temporalidad, formato y ubicación. <strong>Periodo (nombre)</strong> es una orientación deducida del nombre del archivo, no una comprobación de cobertura. La validación completa ocurre al preparar e importar los datos.</p>
       <h2 id="obtener">3. Descarga los archivos seleccionados</h2>
       <ol>
-        <li>Selecciona un archivo en la tabla para revisar sus detalles.</li>
-        <li>Pulsa <strong>Obtener archivo</strong>. Desde un servicio web se descarga una copia del archivo elegido; desde una carpeta local se prepara una copia de trabajo. Los ZIP compatibles se procesan según el formato reconocido.</li>
-        <li>Espera a que aparezca <strong>Archivo listo para Importar</strong>. Puedes detener una descarga en curso.</li>
+        <li>Selecciona uno o varios archivos en la tabla. Mantén <strong>Ctrl</strong> para elegir elementos separados o <strong>Mayús</strong> para seleccionar un rango.</li>
+        <li>Para elegir archivos concretos dentro de un ZIP, haz doble clic en él. Se mostrará el listado de miembros; selecciona los que quieras con Ctrl o Mayús y pulsa <strong>Descargar seleccionados</strong>.</li>
+        <li>El botón muestra <strong>Descargar serie</strong> o <strong>Descargar ZIP</strong> según el archivo. Dentro del ZIP aparece <strong>Descargar seleccionados</strong>; los miembros elegidos se extraen por separado y los formatos no reconocidos también pueden descargarse para revisión manual.</li>
+        <li>Espera a que aparezca el aviso de archivos listos para Importar. Puedes detener una operación en curso.</li>
         <li>Ve a <strong>Importar</strong>, selecciona la copia y revisa nombre, temporalidad, tipo y calendario. Pulsa <strong>Limpiar</strong> para incorporarla a QuestDB y guardar el histórico limpio.</li>
       </ol>
       <p>Obtener un archivo no ejecuta automáticamente su limpieza ni combina históricos existentes. Revisa en la consola el destino antes de importar.</p>
+      <p>Las copias obtenidas se guardan dentro de la biblioteca de datos elegida en el primer inicio o configurada en <strong>Ajustes</strong>. En <strong>Importar → Fuentes</strong> aparecen agrupadas como <strong>Google Drive</strong> y <strong>Dropbox</strong>; al entrar, puedes localizar las copias por conexión y activo. Son archivos locales independientes: obtenerlos no mueve ni modifica los originales en la nube.</p>
+      <p>Al seleccionar una serie obtenida, Importar comprueba el intervalo entre timestamps y propone el timeframe observado. También propone el tipo cuando hay evidencia suficiente en la categoría, el símbolo o el horario de mercado; en patrones ambiguos conserva la selección actual. Puedes cambiar las propuestas manualmente. Si cambias la ruta de datos en Ajustes, reinicia la aplicación para que todas las pestañas utilicen la nueva ubicación.</p>
       <h2 id="formatos">Catálogo y formatos</h2>
       <div class="help-table-wrap"><table><thead><tr><th>Formato</th><th>Estructura reconocida</th></tr></thead><tbody>
         <tr><td>CSV/TXT con cabecera</td><td>Fecha u hora y columnas OHLC reconocidas, con delimitadores habituales.</td></tr>
         <tr><td>CSV/TXT sin cabecera</td><td>Solo se identifican estructuras tabulares compatibles con los formatos reconocidos por el catálogo.</td></tr>
-        <tr><td>ZIP</td><td>Los miembros CSV/TXT compatibles se preparan por separado; activos distintos nunca se mezclan. Los paquetes con estructuras no reconocidas se rechazan.</td></tr>
+        <tr><td>ZIP</td><td>El doble clic muestra todos sus archivos. Los miembros seleccionados se extraen individualmente; los CSV/TXT reconocidos quedan identificados y los demás pueden revisarse manualmente.</td></tr>
       </tbody></table></div>
       <p>El catálogo no convierte automáticamente una temporalidad en otra. Revisa la zona horaria, cobertura y estructura de los datos durante la importación.</p>
       <h2 id="problemas">Gestionar y solucionar problemas</h2>
       <ul>
         <li><strong>No aparece la carpeta remota:</strong> comprueba que conectaste la cuenta correcta. En MEGA, deja la ruta en <code>/</code> o pulsa <strong>Elegir carpeta…</strong>; no introduzcas una ruta local del equipo.</li>
+        <li><strong>Google Drive o Dropbox aparecen desactivados:</strong> la instalación necesita tener configurado el client ID público OAuth de QuantPower Builder para ese proveedor.</li>
         <li><strong>No aparece el archivo:</strong> confirma que sea CSV/TXT/ZIP y que su estructura esté entre las reconocidas por el catálogo.</li>
         <li><strong>Catálogo vacío:</strong> comprueba el acceso al servicio o la ruta local y vuelve a actualizar el catálogo.</li>
         <li><strong>La autorización caducó:</strong> vuelve a conectar la cuenta desde el contenedor.</li>

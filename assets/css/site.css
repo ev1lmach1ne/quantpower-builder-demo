@@ -52,6 +52,7 @@ p { color: var(--text-muted); }
 .site-header { position: sticky; top: 0; z-index: 30; background: #111828ed; backdrop-filter: blur(16px); border-bottom: 1px solid #253a6080; }
 .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; line-height: 1.2; }
+.corporate-logo { object-fit: contain; border-radius: 50%; flex: 0 0 auto; background: #eef0f2; box-shadow: 0 2px 14px #0003; }
 .brand strong { display: block; font-size: 16px; color: var(--text-strong); letter-spacing: -.04em; font-weight: 650; }
 .brand-light { font-weight: 400; color: var(--text); }
 .brand small { display: block; font-size: 9px; color: var(--text-muted); letter-spacing: .065em; margin-top: 5px; }
