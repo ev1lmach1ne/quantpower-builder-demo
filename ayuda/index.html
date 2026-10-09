@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Centro de ayuda de QuantPower Builder: conectar almacenamientos web, explorar carpetas y obtener archivos desde Descargar.">
+  <meta name="description" content="Centro de ayuda de QuantPower Builder: históricos de mercado, contenedores y configuración del calendario económico histórico desde Ajustes.">
   <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/">
   <link rel="icon" href="../assets/images/favicon-circular.png">
   <link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/help.css">
@@ -18,6 +18,8 @@
   <div class="container help-shell">
     <aside class="help-sidebar"><details open><summary>Índice de ayuda</summary><nav aria-label="Centro de ayuda">
       <a href="./" aria-current="page">Inicio de la ayuda</a>
+      <span class="help-group">Ajustes</span>
+      <a href="calendario-economico/">Calendario económico histórico</a>
       <span class="help-group">Contenedores</span>
       <a href="contenedores/">Concepto y flujo de trabajo</a>
       <a class="help-sub" href="contenedores/carpeta-local/">Carpeta local</a>
@@ -31,10 +33,10 @@
     <main id="contenido" class="help-content">
       <span class="eyebrow">QUANTPOWER BUILDER / AYUDA</span>
       <h1>Configura tus fuentes.<br><span class="text-accent">Trabaja con tus datos.</span></h1>
-      <p class="lead">Conecta un almacenamiento web o elige una carpeta local; explora archivos y prepara los que quieras importar.</p>
+      <p class="lead">Configura tus históricos de mercado, prepara archivos para importar y conecta el calendario de eventos económicos del periodo de tu backtest.</p>
       <div class="help-doc-meta" data-help-meta="inicio" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
-        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-09">9 de octubre de 2026</time></span>
+        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-10">10 de octubre de 2026</time></span>
       </div>
       <h2>Empezar con Contenedores</h2>
       <p>Un contenedor identifica el almacenamiento donde están tus archivos. En <strong>Descargar → + Añadir fuente → Contenedor</strong>, conecta uno de los servicios compatibles o elige <strong>Carpeta local</strong>. Google Drive y Dropbox permiten iniciar sesión, elegir una carpeta remota y obtener solo los archivos seleccionados, sin sincronizar la cuenta completa. Las copias quedan disponibles en <strong>Importar → Fuentes</strong> para revisarlas y procesarlas.</p>
@@ -46,8 +48,14 @@
         <a href="contenedores/#formatos"><strong>Formatos e identificación</strong><span>CSV, TXT y ZIP: cómo reconoce el catálogo los archivos compatibles.</span></a>
       </div>
       <h2>Proveedor y contenedor: qué elegir</h2>
-      <p><strong>Proveedor de datos</strong> conecta un servicio de mercado compatible mediante su API. Las fuentes predefinidas siguen en el selector principal; la tarjeta del «+» permite añadir los conectores externos disponibles.</p>
+      <p><strong>Proveedor de datos</strong> conecta un servicio de precios e históricos de mercado mediante su API. Comprueba los años disponibles, la temporalidad y la cobertura del activo antes de elegirlo para un backtest. Las fuentes predefinidas siguen en el selector principal; la tarjeta del «+» permite añadir los conectores externos disponibles.</p>
       <p><strong>Contenedor</strong> accede a archivos desde un almacenamiento compatible, no descarga precios de mercado por sí mismo. La cuenta de almacenamiento y el proveedor de datos de mercado son conceptos distintos.</p>
+      <h2>Calendario económico histórico en Ajustes</h2>
+      <p>El calendario aporta eventos con fecha, hora, país o divisa e impacto para «Evitar noticias» y las líneas verticales del gráfico. Su registro, login, clave API y descarga por fechas se configuran en <strong>Ajustes → Calendario económico histórico</strong>. La cobertura debe alcanzar los periodos que quieres simular.</p>
+      <div class="help-services">
+        <a href="calendario-economico/"><strong>Configurar el calendario histórico</strong><span>Registro o login, conexión API, descarga del periodo y filtros de noticias.</span></a>
+        <a href="calendario-economico/#datos"><strong>Elegir datos para backtesting</strong><span>Distinguir precios históricos, eventos de publicación y series de indicadores macroeconómicos.</span></a>
+      </div>
     </main>
   </div>
   <footer class="help-footer"><div class="container"><span>QuantPower Builder · Centro de ayuda</span><a href="../">quantpowerbuilder.com</a></div></footer>

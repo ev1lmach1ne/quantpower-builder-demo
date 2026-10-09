@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configurar TradingEconomics desde Ajustes: registro o login, clave API, descarga de eventos macroeconómicos históricos y filtros de noticias para backtesting.">
+  <link rel="canonical" href="https://quantpowerbuilder.com/ayuda/calendario-economico/">
+  <link rel="icon" href="../../assets/images/favicon-circular.png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css"><link rel="stylesheet" href="../../assets/css/site.css"><link rel="stylesheet" href="../../assets/css/help.css">
+  <script src="../../assets/js/help.js" defer></script>
+  <title>Calendario económico histórico — Ayuda de QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header help-header"><div class="container header-inner"><a class="brand" href="../../"><img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Centro de ayuda</small></span></a><a class="text-link" href="../../">Volver a la web →</a></div></header>
+  <div class="container help-shell">
+    <aside class="help-sidebar"><details open><summary>Índice de ayuda</summary><nav aria-label="Centro de ayuda">
+      <a href="../">Inicio de la ayuda</a>
+      <span class="help-group">Ajustes</span>
+      <a href="./" aria-current="page">Calendario económico histórico</a>
+      <a class="help-sub" href="#cuenta">Registro e inicio de sesión</a>
+      <a class="help-sub" href="#clave">Conectar la API</a>
+      <a class="help-sub" href="#historico">Comprobar el histórico</a>
+      <a class="help-sub" href="#filtros">Filtros y gráfico</a>
+      <a class="help-sub" href="#problemas">Solución de problemas</a>
+      <span class="help-group">Contenedores</span>
+      <a href="../contenedores/">Concepto y flujo de trabajo</a>
+      <a class="help-sub" href="../contenedores/carpeta-local/">Carpeta local</a>
+      <a class="help-sub" href="../contenedores/google-drive/">Google Drive</a>
+      <a class="help-sub" href="../contenedores/dropbox/">Dropbox</a>
+      <a class="help-sub" href="../contenedores/mega/">MEGA</a>
+      <a class="help-sub" href="../contenedores/sftp/">SFTP</a>
+    </nav></details></aside>
+    <main id="contenido" class="help-content">
+      <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../">Ayuda</a><span>/</span><span>Ajustes</span><span>/</span><span>Calendario económico</span></nav>
+      <h1>Calendario económico <span class="text-accent">histórico.</span></h1>
+      <p class="lead">Conecta el proveedor en Ajustes, descarga eventos del periodo de tu backtest y consulta su efecto sobre las operaciones.</p>
+      <div class="help-doc-meta" data-help-meta="calendario-economico" aria-label="Versión de la aplicación y fecha de redacción">
+        <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
+        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-10">10 de octubre de 2026</time></span>
+      </div>
+      <div class="help-path">Ajustes → Calendario económico histórico</div>
+      <p>El proveedor conectado actualmente es <strong>TradingEconomics</strong>. En Ajustes encontrarás el acceso a su cuenta, el panel API, el campo de la clave y la descarga por fechas. Los accesos del constructor y del botón ⚙ del gráfico abren esta misma sección de Ajustes.</p>
+
+      <h2 id="datos">Qué datos necesita un backtest</h2>
+      <p>La cobertura debe alcanzar el <strong>periodo histórico que vas a simular</strong>. Para bloquear entradas alrededor de una publicación hacen falta el instante del anuncio, el país o divisa y su impacto. La fecha de referencia de un indicador —por ejemplo, el mes al que corresponde el IPC— no es la fecha y hora en que se anunció.</p>
+      <div class="help-table-wrap"><table><thead><tr><th>Datos</th><th>Para qué se utilizan</th><th>Dónde se configuran</th></tr></thead><tbody>
+        <tr><td>Precios e históricos de mercado</td><td>Velas OHLC, volumen cuando exista y temporalidad del activo. Revisa años disponibles y cobertura intradía del proveedor.</td><td>Descargar → Proveedor de datos; después Importar y Limpiar.</td></tr>
+        <tr><td>Eventos macroeconómicos históricos</td><td>Fecha y hora de publicación, país o divisa, nombre e impacto del evento para los filtros y las líneas verticales.</td><td>Ajustes → Calendario económico histórico.</td></tr>
+        <tr><td>Series de indicadores macroeconómicos</td><td>Valores mensuales o trimestrales de IPC, PIB, empleo, etc. Por sí solos no aportan el calendario intradía de sus anuncios.</td><td>Comprueba los campos y el histórico que entrega el servicio antes de elegirlo como fuente de eventos.</td></tr>
+      </tbody></table></div>
+      <p>Una clave gratuita o un calendario de la semana actual no acredita acceso a años anteriores. Confirma con el proveedor las fechas, países, detalle horario y cuota de la API que incluye tu plan. En TradingEconomics, el acceso y el coste dependen de la suscripción; no se presupone un calendario histórico completo gratuito.</p>
+
+      <h2 id="cuenta">1. Regístrate o inicia sesión</h2>
+      <ol>
+        <li>Abre <strong>Ajustes</strong> y desplázate hasta <strong>Calendario económico histórico</strong>.</li>
+        <li>Pulsa <strong>Registrarse / iniciar sesión</strong>. Se abrirá el formulario oficial de TradingEconomics en el navegador.</li>
+        <li>Si ya tienes cuenta, entra con el método que ofrezca el servicio. Si eres nuevo, completa el registro y la verificación que te solicite ese mismo formulario.</li>
+        <li>Comprueba que tu cuenta permite consultar el <strong>calendario económico histórico mediante API</strong>, con los países y las fechas que necesitas. El acceso a la web del proveedor y el acceso a su API pueden tener condiciones diferentes.</li>
+      </ol>
+      <p><a href="https://sso.tradingeconomics.com/sso/login?returnurl=https%3A%2F%2Fdeveloper.tradingeconomics.com%2F" target="_blank" rel="noopener noreferrer">Abrir registro o login oficial ↗</a> · <a href="https://tradingeconomics.com/api/pricing.aspx" target="_blank" rel="noopener noreferrer">Consultar planes API ↗</a></p>
+      <p>El registro y el login se realizan en TradingEconomics. Para consultar los datos desde QuantPower Builder utilizarás después la clave API de esa cuenta.</p>
+
+      <h2 id="clave">2. Conecta la clave API</h2>
+      <ol>
+        <li>En Ajustes, pulsa <strong>Panel API</strong> para abrir el área de desarrolladores del proveedor.</li>
+        <li>Localiza tu clave o credenciales de acceso API. Copia el valor completo con el formato indicado por el proveedor; si te entrega <code>client:secret</code>, conserva ambos componentes y los dos puntos.</li>
+        <li>Vuelve a QuantPower Builder y pega el valor en <strong>API key</strong>.</li>
+        <li>Pulsa <strong>Probar conexión</strong>. La consulta se realiza en segundo plano y el resultado aparece en la misma sección.</li>
+        <li>Pulsa <strong>Guardar acceso</strong> o <strong>Aplicar</strong> en Ajustes. La clave se reutilizará para los filtros y el gráfico.</li>
+      </ol>
+      <p><a href="https://developer.tradingeconomics.com/" target="_blank" rel="noopener noreferrer">Abrir panel API ↗</a></p>
+      <p>Probar la conexión comprueba una consulta del calendario. Para verificar que tu suscripción cubre un backtest antiguo, descarga también fechas de ese periodo.</p>
+
+      <h2 id="historico">3. Comprueba y descarga el histórico</h2>
+      <ol>
+        <li>En los campos <strong>Desde (UTC)</strong> y <strong>Hasta (UTC)</strong>, elige fechas dentro del periodo que utilizarás en el backtest. La fecha final incluye ese día completo.</li>
+        <li>Pulsa <strong>Descargar histórico del rango</strong>. Verás el progreso por meses y el número de eventos recibidos.</li>
+        <li>Comprueba la cobertura para tus fechas y países. Un rango sin eventos puede ser legítimo, pero no demuestra por sí solo que exista cobertura para otros años.</li>
+        <li>Para actualizar meses guardados, marca <strong>Volver a descargar meses ya guardados</strong> antes de descargar.</li>
+      </ol>
+      <p>Los meses cerrados se guardan en <code>&lt;carpeta de datos&gt;/Noticias/economico_YYYY-MM.json</code> y pueden reutilizarse sin red. El mes en curso se consulta de nuevo porque los eventos pueden cambiar. La descarga divide los rangos que alcanzan el límite de filas del proveedor para evitar guardar respuestas truncadas.</p>
+      <p>El backtest y el optimizador obtienen automáticamente los eventos necesarios cuando hay un filtro de noticias activo. También incluyen los eventos cuya ventana alcanza los extremos de la serie, aunque el anuncio quede justo fuera de ella.</p>
+
+      <h2 id="filtros">4. Usa los eventos en filtros y en el gráfico</h2>
+      <h3>Evitar noticias</h3>
+      <p>En el constructor del setup, abre <strong>Filtros y protecciones → Noticias macroeconómicas</strong> y activa <strong>Evitar noticias</strong>. Ajusta:</p>
+      <ul>
+        <li>Minutos de bloqueo antes y después del evento.</li>
+        <li>Impacto mínimo: bajo, medio o alto.</li>
+        <li>Divisas del activo en modo automático, o una selección manual de divisas o países ISO.</li>
+        <li><strong>Cerrar posiciones abiertas antes de la noticia</strong>, si quieres activar ese cierre al entrar en la ventana previa.</li>
+      </ul>
+      <p>Estos filtros utilizan el instante de los eventos en UTC. Si la ventana elegida es menor que el timeframe, el motor mantiene su ampliación a una vela completa y lo indica en los resultados.</p>
+      <h3>Mostrar noticias</h3>
+      <p>En <strong>Resultados</strong>, marca <strong>Mostrar noticias</strong>. Puedes filtrar por impacto y divisa. Cada evento aparece como una línea vertical discontinua: rojo para alto impacto, ámbar para medio y gris para bajo. Al pasar el cursor se muestran su nombre, país, impacto y hora en la zona horaria de visualización.</p>
+      <p>La visualización funciona también cuando la estrategia no usa «Evitar noticias»: en ese caso consulta el histórico en segundo plano. Cambiar los filtros visuales no cambia las operaciones del backtest.</p>
+
+      <h2 id="problemas">Solución de problemas</h2>
+      <ul>
+        <li><strong>La web del proveedor funciona pero la API no:</strong> comprueba que el plan incluya acceso API al calendario histórico; iniciar sesión en el navegador no configura por sí solo la clave en la aplicación.</li>
+        <li><strong>HTTP 401:</strong> revisa la clave completa y vuelve a copiarla del panel API.</li>
+        <li><strong>HTTP 403:</strong> revisa las credenciales y el permiso de tu suscripción para el calendario histórico solicitado.</li>
+        <li><strong>HTTP 429:</strong> se ha alcanzado una cuota o límite de peticiones. Revisa el plan y reutiliza los meses ya guardados cuando corresponda.</li>
+        <li><strong>No aparecen líneas:</strong> confirma el rango histórico, activa «Mostrar noticias» y revisa los filtros de impacto y divisas.</li>
+        <li><strong>Filtro de noticias no aplicado:</strong> revisa el aviso de Resultados y la conexión en Ajustes antes de interpretar el resultado como un backtest filtrado.</li>
+        <li><strong>Las horas parecen distintas:</strong> los datos se conservan en UTC, mientras el gráfico muestra la zona elegida en Ajustes. Compara el mismo instante en ambas zonas.</li>
+      </ul>
+      <h2 id="referencias">Documentación del proveedor</h2>
+      <ul>
+        <li><a href="https://docs.tradingeconomics.com/economic_calendar/snapshot/" target="_blank" rel="noopener noreferrer">Consultas del calendario por fechas ↗</a></li>
+        <li><a href="https://docs.tradingeconomics.com/economic_calendar/schema/" target="_blank" rel="noopener noreferrer">Campos del calendario: UTC e importancia ↗</a></li>
+        <li><a href="https://docs.tradingeconomics.com/get_started/rate-limits/" target="_blank" rel="noopener noreferrer">Límites de la API ↗</a></li>
+      </ul>
+      <div class="help-related"><a class="button button-outline" href="../">← Centro de ayuda</a><a class="button button-quiet" href="../contenedores/">Archivos históricos en Contenedores →</a></div>
+    </main>
+  </div>
+  <footer class="help-footer"><div class="container"><span>QuantPower Builder · Calendario económico histórico</span><a href="../../">Volver a la web</a></div></footer>
+</body>
+</html>

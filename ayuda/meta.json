@@ -2,8 +2,12 @@
   "softwareVersion": "v0.7.6.2",
   "guides": {
     "inicio": {
-      "writtenOn": "2026-10-09",
-      "writtenLabel": "9 de octubre de 2026"
+      "writtenOn": "2026-10-10",
+      "writtenLabel": "10 de octubre de 2026"
+    },
+    "calendario-economico": {
+      "writtenOn": "2026-10-10",
+      "writtenLabel": "10 de octubre de 2026"
     },
     "contenedores": {
       "writtenOn": "2026-10-09",
