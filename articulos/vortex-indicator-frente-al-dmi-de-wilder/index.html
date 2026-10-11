@@ -73,8 +73,19 @@
       <p>Este reportaje cuenta cómo funciona el Vortex Indicator, dónde falla y qué se ha medido de verdad, con un antecedente de 1985 sobre el propio DMI. Los autores no aportaron estadística propia, y lo que no está probado lo decimos como tal.</p>
       <aside class="callout"><strong>Idea clave.</strong> El Vortex y el DMI se parecen más de lo que sugiere el nombre: los dos comparan cuánto avanza el precio hacia arriba y hacia abajo, y los dos operan con un cruce. La diferencia está en cómo cuentan las barras con huecos, y ahí es donde el Vortex tiene un fallo de diseño que sus autores defienden.</aside>
 
+      <h2 id="dmi">Primero, qué es el DMI</h2>
+      <p>El DMI es el indicador que responde a una pregunta sencilla: ¿hacia dónde se mueve el precio y con cuánta fuerza?</p>
+      <p>J. Welles Wilder lo presentó en 1978, el mismo año en que dio a conocer el RSI, el ATR y el Parabolic SAR. Su punto de partida es que mirar solo el cierre no basta para saber si hay tendencia. Hay que comparar cada barra con la anterior y ver cuánto territorio nuevo ha conquistado, hacia arriba o hacia abajo.</p>
+      <ul>
+        <li><strong>Movimiento direccional (+DM y -DM).</strong> Si el máximo de hoy supera al de ayer, la diferencia es movimiento al alza. Si el mínimo de hoy queda por debajo del de ayer, la diferencia es movimiento a la baja. Si ocurren las dos cosas a la vez, solo cuenta la mayor, y si ninguna, la barra no suma nada.</li>
+        <li><strong>+DI y -DI.</strong> Cada movimiento se suaviza durante 14 periodos y se divide entre el rango verdadero suavizado, para poder comparar activos y épocas distintas.</li>
+        <li><strong>ADX.</strong> Mide la fuerza de la tendencia, no su dirección. Se obtiene suavizando la distancia entre +DI y -DI en relación con su suma. Un ADX alto indica tendencia, y uno bajo indica mercado lateral.</li>
+      </ul>
+      <p>Cuando +DI está por encima de -DI predomina el movimiento alcista, y al revés cuando está por debajo. La señal clásica es el cruce entre ambas líneas. Su debilidad es conocida: en un mercado sin tendencia las líneas se cruzan constantemente y generan señales falsas. Por eso es habitual combinarlo con el ADX para operar solo cuando hay fuerza suficiente.</p>
+      <p>Cuatro décadas después, el DMI sigue siendo el patrón con el que se compara cualquier indicador direccional nuevo, y por eso el Vortex se mide contra él.</p>
+
       <h2 id="origen">Un DMI con otra geometría</h2>
-      <p>El Vortex no inventa el cruce direccional: reutiliza el de Wilder y cambia la forma de medir el movimiento.</p>
+      <p>El Vortex no inventa el cruce direccional: reutiliza el de Wilder y cambia la forma de medir el movimiento, que es justo lo que se acaba de describir.</p>
       <p>Etienne Botes y Douglas Siepman lo presentaron en enero de 2010. Lo describen como una variante del sistema de movimiento direccional que Wilder describió en 1978 y, de forma metafórica, como un homenaje a los vórtices de Schauberger. Wilder cuenta la parte del rango de hoy que sale del rango de ayer, pone a cero la más pequeña y anula las barras interiores. El Vortex mide en cambio la distancia cruzada entre el máximo de hoy y el mínimo de ayer, y entre el mínimo de hoy y el máximo de ayer, sin sustituir nunca un valor por cero.</p>
       <div class="table-wrap">
         <table>
