@@ -191,15 +191,9 @@
       <p>Moraleja que comparten 1985 y 2010: el mismo nombre puede esconder cálculos distintos, y un resultado extraordinario dentro de muestra casi nunca se repite fuera.</p>
 
       <h2 id="plataformas">Mismo nombre, fórmulas distintas</h2>
-      <p class="bridge">Hay un segundo problema, más prosaico, que no depende del indicador sino de quien lo programa. Si pruebas el Vortex en tu plataforma, esto te interesa.</p>
-      <p>La misma fórmula, publicada con todos sus detalles, salió distinta en varias plataformas.</p>
-      <ul>
-        <li><strong>Consenso.</strong> La mayoría de plataformas (TradeStation, AmiBroker, OmniTrader, NeuroShell, AIQ, TradersStudio, StrataSearch y otras) usa la fórmula de los autores con sumas simples. AIQ y TradersStudio escriben la diferencia al revés, lo cual es equivalente por el valor absoluto. StockFinder usa medias en lugar de sumas, con el mismo cociente.</li>
-        <li><strong>Tradecision.</strong> Calcula el rango verdadero usando el movimiento al alza en lugar de máximo menos mínimo. Es un error.</li>
-        <li><strong>eSignal.</strong> Añadió un segundo parámetro para la longitud del rango verdadero, distinto del de los movimientos (14 frente a 21 en su figura), lo que rompe la normalización. Más tarde se corrigió para dejarlo en un único parámetro.</li>
-        <li><strong>VT Trader.</strong> Toma 13 como periodo por defecto en vez de 14.</li>
-      </ul>
-      <p>Por eso, antes de comparar resultados con cualquier fuente, conviene validar la implementación contra la fórmula de consenso, no contra la de una plataforma concreta.</p>
+      <p class="bridge">Un último detalle práctico, que no depende del indicador sino de cómo se programa. Conviene tenerlo presente al comparar resultados.</p>
+      <p>Con indicadores de este tipo, el mismo nombre puede esconder cálculos ligeramente distintos según quién lo implemente: el periodo por defecto, si se usan sumas o medias, o cómo se calcula el rango verdadero. Una diferencia pequeña en la fórmula basta para cambiar las señales y, con ellas, el resultado de una prueba.</p>
+      <p>En QuantPower Builder calcularemos el Vortex con la fórmula clásica de sus autores: sumas simples de n barras, el mismo n para los movimientos y para el rango verdadero, y 14 como periodo por defecto. Así, lo que midas con él será comparable con la definición original.</p>
 
       <h2 id="preguntas">Lo que sigue sin responderse</h2>
       <p class="bridge">Con todo sobre la mesa, ¿qué sabemos de verdad? Menos de lo que sugiere la fama del indicador.</p>
@@ -216,7 +210,7 @@
       <p class="bridge">Cerramos el reportaje con una hoja de ruta. Si quieres probar el Vortex mañana, esto es lo que haríamos.</p>
       <p>Trata el Vortex como un DMI alternativo, no como un indicador distinto, y compáralo siempre con el DMI en las mismas condiciones.</p>
       <ol>
-        <li>Implementa la fórmula de consenso, con sumas simples y el mismo n en movimientos y en rango verdadero, y compruébala con un caso calculado a mano.</li>
+        <li>Usa la fórmula clásica, con sumas simples y el mismo n en movimientos y en rango verdadero, y compruébala con un caso calculado a mano.</li>
         <li>Prueba las dos versiones, con valor absoluto y con parte positiva, y mide cuántos cruces cambian. En divisas serán pocos; en acciones con huecos, más.</li>
         <li>Compara con el cruce del DMI en la misma cesta, con ejecución a la apertura siguiente y con comisión y diferencial incluidos. Sin costes el resultado no vale.</li>
         <li>Mira la superficie de periodos (13, 14, 21, 34, 55) y no el mejor punto: lo que importa es que haya una meseta amplia, no un pico.</li>
