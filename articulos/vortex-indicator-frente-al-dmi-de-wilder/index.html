@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111828">
+  <meta name="description" content="Repasamos el Vortex Indicator de 2010: fórmula, reglas, la polémica de los huecos y las pruebas publicadas contra el DMI de Wilder, y qué hay que medir antes de fiarse de él.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="El Vortex Indicator frente al DMI de Wilder - Qué dijo la revista y qué falta por probar — QuantPower Builder">
+  <meta property="og:description" content="Repasamos el Vortex Indicator de 2010: fórmula, reglas, la polémica de los huecos y las pruebas publicadas contra el DMI de Wilder, y qué hay que medir antes de fiarse de él.">
+  <meta property="og:url" content="https://quantpowerbuilder.com/articulos/vortex-indicator-frente-al-dmi-de-wilder/">
+  <meta property="og:image" content="https://quantpowerbuilder.com/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://quantpowerbuilder.com/articulos/vortex-indicator-frente-al-dmi-de-wilder/">
+  <link rel="icon" href="../../assets/images/favicon-circular.png" sizes="256x256" type="image/png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/articles.css">
+  <script type="module" src="../../assets/js/articles.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "El Vortex Indicator frente al DMI de Wilder - Qué dijo la revista y qué falta por probar",
+    "description": "Repasamos el Vortex Indicator de 2010: fórmula, reglas, la polémica de los huecos y las pruebas publicadas contra el DMI de Wilder, y qué hay que medir antes de fiarse de él.",
+    "datePublished": "2026-10-11",
+    "inLanguage": "es",
+    "author": { "@type": "Organization", "name": "QuantPower Systems" },
+    "publisher": { "@type": "Organization", "name": "QuantPower Systems" },
+    "mainEntityOfPage": "https://quantpowerbuilder.com/articulos/vortex-indicator-frente-al-dmi-de-wilder/"
+  }
+  </script>
+  <title>El Vortex Indicator frente al DMI de Wilder - Qué dijo la revista y qué falta por probar — QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 3H3v18h18v-7"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../" aria-label="QuantPower Builder, inicio">
+        <img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="54" height="54" alt="Logo de QuantPower Systems">
+        <span><strong>QuantPower<span class="brand-light"> Builder</span></strong><small>by QuantPower Systems</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="navegacion" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+      <nav id="navegacion" class="main-nav" aria-label="Navegación principal">
+        <a href="../../#plataforma">Plataforma</a>
+        <a href="../../#analizador">Analizador</a>
+        <a href="../../#constructor">Constructor</a>
+        <a href="../../#backtesting">Backtesting</a>
+        <a href="../../#proyecto">Proyecto</a>
+        <a href="../" aria-current="page">Artículos</a>
+        <a class="button button-small button-outline nav-demo" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="articles-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="../../">Inicio</a><span aria-hidden="true">/</span><a href="../">Artículos</a></nav>
+      <article class="article" id="inicio">
+        <span class="eyebrow">Indicadores</span>
+        <h1 class="article-title">El Vortex Indicator frente al DMI de Wilder - Qué dijo la revista y qué falta por probar</h1>
+        <p class="article-meta">Publicado el <time datetime="2026-10-11">11 de octubre de 2026</time></p>
+        <div class="article-body">
+      <p class="lead">En enero de 2010, Technical Analysis of Stocks &amp; Commodities presentó un indicador direccional que prometía mejorar el de Wilder. Más de quince años después, las pruebas que publicó la propia revista no dan un ganador claro.</p>
+      <p>Hemos releído el artículo original, las implementaciones de los Traders' Tips del mismo número, una errata y una carta de lector, y los hemos puesto junto a un antecedente de 1985 sobre el propio DMI. Este reportaje cuenta cómo funciona el Vortex Indicator, dónde falla y qué se ha medido de verdad. Todas las cifras proceden de esos textos: los autores no aportaron estadística propia, y lo que no está probado lo decimos como tal.</p>
+      <aside class="callout"><strong>Idea clave.</strong> El Vortex y el DMI se parecen más de lo que sugiere el nombre: los dos comparan cuánto avanza el precio hacia arriba y hacia abajo, y los dos operan con un cruce. La diferencia está en cómo cuentan las barras con huecos, y ahí es donde el Vortex tiene un fallo de diseño que sus autores defienden.</aside>
+
+      <h2 id="origen">Un DMI con otra geometría</h2>
+      <p>El Vortex no inventa el cruce direccional: reutiliza el de Wilder y cambia la forma de medir el movimiento.</p>
+      <p>Etienne Botes y Douglas Siepman lo publicaron en el número de enero de 2010 (volumen 28, número 1). Lo presentan como una variante del sistema de movimiento direccional que Wilder describió en 1978 y, de forma metafórica, como un homenaje a los vórtices de Schauberger. Wilder cuenta la parte del rango de hoy que sale del rango de ayer, pone a cero la más pequeña y anula las barras interiores. El Vortex mide en cambio la distancia cruzada entre el máximo de hoy y el mínimo de ayer, y entre el mínimo de hoy y el máximo de ayer, sin sustituir nunca un valor por cero.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Aspecto</th><th>DMI de Wilder</th><th>Vortex Indicator</th></tr></thead>
+          <tbody>
+            <tr><td>Qué mide hacia arriba</td><td>La parte del máximo de hoy que supera al de ayer</td><td>La distancia entre el máximo de hoy y el mínimo de ayer</td></tr>
+            <tr><td>Qué mide hacia abajo</td><td>La parte del mínimo de hoy que queda por debajo del de ayer</td><td>La distancia entre el mínimo de hoy y el máximo de ayer</td></tr>
+            <tr><td>Barras interiores</td><td>Se anulan: no cuentan en ningún sentido</td><td>Siempre aportan algo</td></tr>
+            <tr><td>Normalización</td><td>Rango verdadero suavizado</td><td>Suma simple del rango verdadero de las últimas n barras</td></tr>
+            <tr><td>Periodo por defecto</td><td>14</td><td>14, con 13, 21, 34 y 55 como alternativas</td></tr>
+            <tr><td>Señal</td><td>Cruce de +DI y -DI</td><td>Cruce de VI+ y VI-</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Los autores sugieren los números de Fibonacci como periodos, aclarando que no ven en ellos ninguna magia. Si se cambia n, hay que sumar el rango verdadero con el mismo n.</p>
+
+      <h2 id="formula">La fórmula, paso a paso</h2>
+      <p class="bridge">Antes de discutir si funciona, conviene saber exactamente qué se calcula. La fórmula cabe en cuatro líneas, y los detalles importan más de lo que parece.</p>
+      <p>Para cada barra se calculan dos movimientos y un rango, y después se suman las últimas n barras.</p>
+      <ul>
+        <li><strong>Movimiento al alza (VM+).</strong> Valor absoluto de la diferencia entre el máximo de hoy y el mínimo de ayer.</li>
+        <li><strong>Movimiento a la baja (VM-).</strong> Valor absoluto de la diferencia entre el mínimo de hoy y el máximo de ayer.</li>
+        <li><strong>Rango verdadero (TR).</strong> El mayor de tres valores: máximo menos mínimo de hoy, y las distancias del máximo y del mínimo de hoy al cierre de ayer, en valor absoluto.</li>
+        <li><strong>Indicadores (VI+ y VI-).</strong> La suma de n barras de VM+ o de VM-, dividida entre la suma de n barras del TR. Son sumas simples, no suavizados de Wilder.</li>
+      </ul>
+      <p>Si VI+ queda por encima de VI-, la tendencia es alcista; si queda por debajo, bajista. Cuanto mayor es la separación, más fuerte es la tendencia. Un detalle práctico: VI+ y VI- no están acotados a 1, porque el movimiento cruzado puede superar al rango verdadero de la barra.</p>
+
+      <h2 id="reglas">Cómo se opera</h2>
+      <p class="bridge">Con el indicador calculado, la pregunta del trader es otra: ¿cuándo entro y cuándo salgo? Los autores copian el planteamiento de Wilder, con un añadido.</p>
+      <p>La entrada no es a mercado: es una orden pendiente en el extremo de la barra donde se produjo el cruce.</p>
+      <ol>
+        <li><strong>Largo.</strong> En la barra en que VI+ cruza por encima de VI-, se deja una orden stop de compra en el máximo de esa barra. La orden no se mueve aunque pasen varias barras.</li>
+        <li><strong>Corto.</strong> En el cruce contrario, orden stop de venta en el mínimo de la barra del cruce.</li>
+        <li><strong>Cancelación.</strong> Si antes de ejecutarse el indicador vuelve a cruzar en sentido opuesto, la orden se cancela. Es el filtro de señales falsas.</li>
+        <li><strong>Inversión.</strong> Con posición abierta, el nivel de entrada contrario sirve de stop and reverse.</li>
+        <li><strong>Salida.</strong> Un trailing stop basado en el rango verdadero o el ATR. Desaconsejan los stops en porcentaje o en dólares y no fijan un multiplicador. Tras ser sacado, se reentra con un stop en el extremo de la barra de salida mientras el indicador siga en la misma dirección.</li>
+      </ol>
+      <p>Los ejemplos del artículo son tres operaciones en crudo NYMEX diario de 2008 con n igual a 14. Se dejó una orden corta el 15 de enero en 90,98 que se ejecutó al día siguiente; una larga el 11 de febrero en 94,72, ejecutada tres días después; y el 20 de marzo una señal corta en 98,65 que nunca se ejecutó, de modo que se mantuvo el largo. Son ilustraciones: no hay estadística, ni costes, ni backtest. Los autores afirman que entrar por ruptura del extremo de la barra de señal mejora a la mayoría de los sistemas a costa de entrar más tarde, pero no dan cifras.</p>
+
+      <h2 id="huecos">La polémica de los huecos</h2>
+      <p class="bridge">Y aquí llega el punto que dio más que hablar. Un lector lo detectó tres meses después, y la respuesta de los autores merece leerse con calma.</p>
+      <p>Al usar valores absolutos, un hueco fuerte suma movimiento en los dos sentidos a la vez.</p>
+      <p>Cuando el precio abre por encima del máximo de ayer, el mínimo de hoy queda por encima del máximo anterior. La diferencia entre ambos es un número positivo, y el valor absoluto hace que sume a VM-, el movimiento bajista, aunque el mercado haya subido. Lo mismo ocurre al revés con un hueco a la baja.</p>
+
+      <figure>
+        <svg viewBox="0 0 760 356" role="img" aria-labelledby="fig-title">
+          <title id="fig-title">En un hueco al alza, el valor absoluto suma también al movimiento bajista</title>
+          <text class="d-title" x="24" y="34">En un hueco al alza, el valor absoluto suma también al movimiento bajista</text>
+          <g class="d-line" stroke-dasharray="4 5">
+            <path d="M70 76H560"/>
+            <path d="M70 166H560"/>
+            <path d="M70 216H560"/>
+            <path d="M70 306H560"/>
+          </g>
+          <text class="d-txt" x="52" y="80" style="text-anchor:end">H</text>
+          <text class="d-txt" x="52" y="170" style="text-anchor:end">L</text>
+          <text class="d-txt" x="52" y="220" style="text-anchor:end">H de ayer</text>
+          <text class="d-txt" x="52" y="310" style="text-anchor:end">L de ayer</text>
+          <rect class="d-box" x="116" y="216" width="44" height="90" rx="4" style="stroke:var(--text-soft)"/>
+          <text class="d-txt" x="138" y="330">Ayer</text>
+          <rect class="d-main" x="256" y="76" width="44" height="90" rx="4"/>
+          <text class="d-txt" x="278" y="330">Hoy, con hueco al alza</text>
+          <g class="d-line">
+            <path d="M440 76H452V306H440"/>
+            <path d="M516 166H528V216H516"/>
+          </g>
+          <text class="d-name" x="446" y="60">VM+</text>
+          <text class="d-txt" x="446" y="336">H menos L de ayer</text>
+          <text class="d-name" x="522" y="150">VM-</text>
+          <text class="d-txt" x="522" y="236">el hueco:</text>
+          <text class="d-txt" x="522" y="252">L menos H de ayer</text>
+          <text class="d-txt" x="590" y="112" style="text-anchor:start">El movimiento alcista</text>
+          <text class="d-txt" x="590" y="128" style="text-anchor:start">es enorme, y a la vez</text>
+          <text class="d-txt" x="590" y="144" style="text-anchor:start">el hueco engorda VM-.</text>
+        </svg>
+        <figcaption>Con un hueco alcista, la distancia entre el mínimo de hoy y el máximo de ayer es positiva, y el valor absoluto la suma al lado bajista.</figcaption>
+      </figure>
+
+      <p>El lector Jez Liberty lo señaló en una carta publicada en abril de 2010, en el número 5 del volumen 28. Los autores respondieron que el diseño es intencionado y que en el mercado de divisas no hay huecos, que es donde ellos operan. Liberty publicó una versión corregida para Trading Blox con tratamiento de huecos y una media móvil, pero solo en su blog, y no se detalla en la revista.</p>
+      <p>La corrección que se deduce es truncar cada movimiento en cero: tomar el valor positivo de la diferencia en lugar del valor absoluto. No se ha publicado probada, así que no sabemos cuánto cambia el resultado.</p>
+      <p>La crítica es válida para acciones y futuros con huecos. En divisas, donde apenas los hay, la diferencia sería mínima.</p>
+
+      <h2 id="pruebas">Qué dicen las pruebas publicadas</h2>
+      <p class="bridge">Quedaba lo importante: ¿funciona? En el mismo número, los Traders' Tips reunieron implementaciones de muchas plataformas. Algunas incluyeron pruebas y los resultados no coinciden.</p>
+      <p>Hay cinco pruebas con datos, y ninguna incluye cifras detalladas de rentabilidad por año en el texto.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Plataforma</th><th>Qué probó</th><th>Resultado</th><th>Advertencia</th></tr></thead>
+          <tbody>
+            <tr><td>Wealth-Lab</td><td>E-mini S&amp;P, dos años, 2 contratos, stop and reverse más trailing de 4 ATR(10)</td><td>Más de 33.000 $ en 24 operaciones; reducir el factor ATR reducía el beneficio</td><td>Sin deslizamiento ni comisiones</td></tr>
+            <tr><td>AIQ</td><td>Solo largos en el Nasdaq 100, 10% por posición, máximo 10 posiciones</td><td>El DMI fue claramente mejor en los tramos alcistas; el Vortex, algo mejor en los bajistas. El autor seguiría con el DMI</td><td>Usa la lista actual del índice, con sesgo de supervivencia</td></tr>
+            <tr><td>TradersStudio</td><td>38 futuros desde 1978, siempre en mercado, un contrato</td><td>El Vortex fue mejor en el total y en los últimos diez años</td><td>Las tablas anuales son imágenes sin cifras en el texto</td></tr>
+            <tr><td>TradersStudio</td><td>101 acciones del Nasdaq, de 1992 a agosto de 2009, 100 acciones por operación</td><td>El DMI dio más beneficio y mejor relación media/desviación</td><td>Mismo caso: sin cifras en el texto</td></tr>
+            <tr><td>StrataSearch</td><td>Componentes del Nasdaq 100</td><td>Solo rentable sin costes: con 10 $ de comisión y 0,04 de diferencial el beneficio casi desaparece</td><td>Después probaron unas 25.000 combinaciones y lograron más del 35% anual: minería de datos sin fuera de muestra</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>La lectura que se desprende es la de una ventaja que depende del tipo de activo: a favor del Vortex en futuros, a favor del DMI en acciones, y desapareciendo en cuanto se cargan costes realistas. Es una lectura de las pruebas publicadas, no una conclusión contrastada.</p>
+
+      <h3>Un precedente de 1985</h3>
+      <p class="bridge">Antes de cerrar este capítulo, una curiosidad de hemeroteca: la revista ya había pasado por esto con el DMI.</p>
+      <p>En noviembre de 1985 Thomas Drinka y Steven Kille publicaron una modificación del sistema de Wilder: periodo variable entre 4 y 50 y umbral de ADX entre 5 y 80, con operaciones solo cuando el ADX supera el umbral. En seis contratos del S&amp;P 500 de 1983 y 1984, el resultado iba de menos 13.416 $ a más 3.774 $, y al subir el umbral bajaban las operaciones y subía el porcentaje de aciertos. Había combinaciones con el 100% de aciertos, pero entre todas sumaban 47 operaciones, que es la firma del sobreajuste. Y sus fórmulas simplificaban las de Wilder.</p>
+      <p>Moraleja que comparten 1985 y 2010: el mismo nombre puede esconder cálculos distintos, y un resultado extraordinario dentro de muestra casi nunca se repite fuera.</p>
+
+      <h2 id="plataformas">Mismo nombre, fórmulas distintas</h2>
+      <p class="bridge">Hay un segundo problema, más prosaico, que no depende del indicador sino de quien lo programa. Si pruebas el Vortex en tu plataforma, esto te interesa.</p>
+      <p>Los Traders' Tips muestran que la misma fórmula, publicada con todos sus detalles, salió distinta en varias plataformas.</p>
+      <ul>
+        <li><strong>Consenso.</strong> La mayoría de plataformas (TradeStation, AmiBroker, OmniTrader, NeuroShell, AIQ, TradersStudio, StrataSearch y otras) usa la fórmula de la barra lateral con sumas simples. AIQ y TradersStudio escriben la diferencia al revés, lo cual es equivalente por el valor absoluto. StockFinder usa medias en lugar de sumas, con el mismo cociente.</li>
+        <li><strong>Tradecision.</strong> Calcula el rango verdadero usando el movimiento al alza en lugar de máximo menos mínimo. Es un error.</li>
+        <li><strong>eSignal.</strong> Añadió un segundo parámetro para la longitud del rango verdadero, distinto del de los movimientos (14 frente a 21 en su figura), lo que rompe la normalización. La revista publicó después una errata que lo deja en un único parámetro.</li>
+        <li><strong>VT Trader.</strong> Toma 13 como periodo por defecto en vez de 14.</li>
+      </ul>
+      <p>Por eso, antes de comparar resultados con cualquier fuente, conviene validar la implementación contra la fórmula de consenso, no contra la de una plataforma concreta.</p>
+
+      <h2 id="preguntas">Lo que sigue sin responderse</h2>
+      <p class="bridge">Con todo sobre la mesa, ¿qué sabemos de verdad? Menos de lo que sugiere la fama del indicador.</p>
+      <p>Las pruebas publicadas dejan cuatro preguntas abiertas, que conviene contestar con datos y costes reales antes de usar el Vortex en serio.</p>
+      <ul>
+        <li><strong>¿Supera al DMI?</strong> En una cesta de futuros diarios, con ejecución a la apertura siguiente y costes, ¿difiere de verdad el cruce del Vortex del cruce del DMI, o la diferencia queda dentro del error estadístico?</li>
+        <li><strong>¿Ayuda entrar por stop?</strong> ¿Reduce la entrada en el extremo de la barra del cruce, con cancelación por cruce contrario, las operaciones perdedoras frente a entrar a la apertura siguiente, tanto en el Vortex como en el DMI?</li>
+        <li><strong>¿Importan los huecos?</strong> ¿Qué proporción de cruces cambia al sustituir el valor absoluto por la parte positiva en acciones diarias? Y si cambia mucho, ¿qué versión tiene mejor esperanza en barras con huecos?</li>
+        <li><strong>¿Sobrevive a los costes?</strong> ¿Tiene el cruce esperanza neta distinta de cero en acciones individuales, y se mantiene positiva en futuros diversificados, como sugieren las pruebas de TradersStudio?</li>
+      </ul>
+      <p class="note">Son preguntas de investigación, no resultados. Ninguna se ha contestado aquí.</p>
+
+      <h2 id="recomendacion">Por dónde empezar</h2>
+      <p class="bridge">Cerramos el reportaje con una hoja de ruta. Si quieres probar el Vortex mañana, esto es lo que haríamos.</p>
+      <p>Trata el Vortex como un DMI alternativo, no como un indicador distinto, y compáralo siempre con el DMI en las mismas condiciones.</p>
+      <ol>
+        <li>Implementa la fórmula de consenso, con sumas simples y el mismo n en movimientos y en rango verdadero, y compruébala con un caso calculado a mano.</li>
+        <li>Prueba las dos versiones, con valor absoluto y con parte positiva, y mide cuántos cruces cambian. En divisas serán pocos; en acciones con huecos, más.</li>
+        <li>Compara con el cruce del DMI en la misma cesta, con ejecución a la apertura siguiente y con comisión y diferencial incluidos. Sin costes el resultado no vale.</li>
+        <li>Mira la superficie de periodos (13, 14, 21, 34, 55) y no el mejor punto: lo que importa es que haya una meseta amplia, no un pico.</li>
+        <li>Solo después, prueba la entrada por stop en el extremo de la barra del cruce y el trailing por ATR, y reserva un tramo de datos fuera de muestra.</li>
+      </ol>
+
+      <h2 id="fuentes">Fuentes</h2>
+      <p class="note">Todas se publicaron en la revista Technical Analysis of Stocks &amp; Commodities. Los números de enero y abril de 2010 corresponden al volumen 28 y el de noviembre de 1985, al volumen 3.</p>
+      <ul>
+        <li>Botes, E. y Siepman, D., «The Vortex Indicator», enero de 2010 (vol. 28, n.º 1)</li>
+        <li>Traders' Tips, «The Vortex Indicator», enero de 2010 (vol. 28, n.º 1)</li>
+        <li>Cartas: Jez Liberty sobre el Vortex Indicator y respuesta de los autores, abril de 2010 (vol. 28, n.º 5), y errata del código eSignal</li>
+        <li>Drinka, T. P. y Kille, S. L., «A modification of Wilder's directional movement system», noviembre de 1985 (vol. 3, n.º 6)</li>
+      </ul>
+
+        </div>
+        <div class="article-end">
+          <a class="button button-quiet" href="../">← Todos los artículos</a>
+          <a class="button button-outline" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-top"><a class="brand" href="../../"><img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="48" height="48" loading="lazy" alt="Logo de QuantPower Systems"><span><strong>QuantPower<span class="brand-light"> Systems</span></strong><small>Construyendo herramientas para investigar.</small></span></a><nav aria-label="Navegación del pie"><a href="../../#analizador">Analizador</a><a href="../../#constructor">Constructor</a><a href="../../#backtesting">Backtesting</a><a href="../">Artículos</a><a href="../../#demo">Demo</a><a href="mailto:info@quantpowerbuilder.com">Contacto</a><a href="https://github.com/ev1lmach1ne/quantpower-builder-demo" target="_blank" rel="noopener noreferrer">Proyecto web <svg class="icon"><use href="#i-external"/></svg></a></nav></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> QuantPower Systems</span><span>QuantPower Builder · Portfolio de producto</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+</body>
+</html>
