@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Crea tu cuenta gratuita de QuantPower Builder, gestiona tu perfil y activa tu licencia.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://quantpowerbuilder.com/cuenta/">
+  <link rel="icon" href="../assets/images/favicon-circular.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/cuenta.css">
+  <script src="../assets/js/cuenta.js" defer></script>
+  <title>Cuenta — QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="../"><img class="corporate-logo" src="../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Mi cuenta</small></span></a><a class="text-link" href="../">Volver a la web →</a></div></header>
+
+  <main id="contenido" class="container cuenta-shell">
+    <!-- Acceso: iniciar sesión / crear cuenta -->
+    <section id="vista-acceso" aria-labelledby="titulo-acceso">
+      <h1 id="titulo-acceso">Tu <span class="text-accent">cuenta.</span></h1>
+      <p class="lead">Crear la cuenta es gratis. La clave de licencia se introduce después, aquí o en la propia aplicación.</p>
+      <div class="cuenta-tabs" role="tablist" aria-label="Acceso">
+        <button type="button" role="tab" id="tab-login" aria-selected="true" aria-controls="form-login">Iniciar sesión</button>
+        <button type="button" role="tab" id="tab-alta" aria-selected="false" aria-controls="form-alta">Crear cuenta</button>
+      </div>
+      <form id="form-login" class="cuenta-form" role="tabpanel" aria-labelledby="tab-login" novalidate>
+        <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <label>Contraseña<input name="password" type="password" autocomplete="current-password" required maxlength="200"></label>
+        <button class="button button-primary" type="submit">Entrar</button>
+        <p class="cuenta-estado" role="status" aria-live="polite"></p>
+      </form>
+      <form id="form-alta" class="cuenta-form" role="tabpanel" aria-labelledby="tab-alta" hidden novalidate>
+        <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <label>Contraseña <small>(mínimo 8 caracteres)</small><input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="200"></label>
+        <label>Repite la contraseña<input name="password2" type="password" autocomplete="new-password" required maxlength="200"></label>
+        <button class="button button-primary" type="submit">Crear cuenta gratis</button>
+        <p class="cuenta-estado" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- Panel de la cuenta -->
+    <section id="vista-cuenta" hidden aria-labelledby="titulo-cuenta">
+      <div class="cuenta-cabecera">
+        <div><h1 id="titulo-cuenta">Mi <span class="text-accent">cuenta.</span></h1><p class="lead" id="cuenta-email"></p></div>
+        <button type="button" class="button button-outline button-small" id="btn-salir">Cerrar sesión</button>
+      </div>
+
+      <article class="cuenta-card" aria-labelledby="h-licencia">
+        <h2 id="h-licencia">Licencia <span class="cuenta-badge" id="lic-estado"></span></h2>
+        <dl class="cuenta-datos" id="lic-datos"></dl>
+        <form id="form-clave" class="cuenta-form cuenta-inline" novalidate>
+          <label>Clave de licencia<input name="clave" type="text" autocomplete="off" spellcheck="false" maxlength="40" placeholder="QPB-XXXX-XXXX-XXXX-XXXX"></label>
+          <button class="button button-primary" type="submit">Activar licencia</button>
+          <p class="cuenta-estado" role="status" aria-live="polite"></p>
+        </form>
+        <p class="cuenta-estado ok" id="aviso-promo" role="status" hidden>Te hemos enviado una clave de licencia a tu correo. Revisa también la carpeta de spam y pégala arriba para activarla.</p>
+        <p class="cuenta-nota" id="lic-nota"></p>
+      </article>
+
+      <article class="cuenta-card" aria-labelledby="h-perfil">
+        <h2 id="h-perfil">Perfil <small>(opcional)</small></h2>
+        <form id="form-perfil" class="cuenta-form" novalidate>
+          <label>Nombre<input name="nombre" type="text" autocomplete="name" maxlength="80"></label>
+          <label>País<input name="pais" type="text" autocomplete="country-name" maxlength="80"></label>
+          <label>Empresa u ocupación<input name="empresa" type="text" autocomplete="organization" maxlength="80"></label>
+          <button class="button button-outline" type="submit">Guardar</button>
+          <p class="cuenta-estado" role="status" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="cuenta-card" aria-labelledby="h-equipos">
+        <h2 id="h-equipos">Equipos</h2>
+        <ul class="cuenta-equipos" id="lista-equipos"></ul>
+        <p class="cuenta-nota">Una licencia permite usar la aplicación en un equipo a la vez. Si necesitas cambiar de ordenador y no puedes, escribe a <a href="mailto:info@quantpowerbuilder.com">info@quantpowerbuilder.com</a>.</p>
+      </article>
+
+      <article class="cuenta-card" aria-labelledby="h-seguridad">
+        <h2 id="h-seguridad">Cambiar contraseña</h2>
+        <form id="form-password" class="cuenta-form" novalidate>
+          <label>Contraseña actual<input name="actual" type="password" autocomplete="current-password" maxlength="200"></label>
+          <label>Contraseña nueva <small>(mínimo 8 caracteres)</small><input name="nueva" type="password" autocomplete="new-password" maxlength="200"></label>
+          <button class="button button-outline" type="submit">Cambiar contraseña</button>
+          <p class="cuenta-estado" role="status" aria-live="polite"></p>
+        </form>
+      </article>
+    </section>
+
+    <p class="cuenta-pie">¿Sin clave de licencia? Escribe a <a href="mailto:info@quantpowerbuilder.com">info@quantpowerbuilder.com</a>. Las licencias se entregan manualmente.</p>
+  </main>
+</body>
+</html>

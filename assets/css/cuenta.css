@@ -1,0 +1,37 @@
+.cuenta-shell { max-width: 640px; padding-block: 56px 80px; }
+.cuenta-shell [hidden] { display: none !important; }
+.cuenta-tabs { display: flex; gap: 8px; margin: 28px 0 8px; border-bottom: 1px solid var(--border-soft); }
+.cuenta-tabs button {
+  background: none; border: 0; border-bottom: 2px solid transparent; color: var(--text-muted);
+  padding: 10px 14px; font: inherit; font-weight: 600; cursor: pointer;
+}
+.cuenta-tabs button[aria-selected="true"] { color: var(--text-strong); border-bottom-color: var(--accent); }
+.cuenta-form { display: grid; gap: 16px; margin-top: 20px; }
+.cuenta-form label { display: grid; gap: 6px; color: var(--text-muted); font-size: .9rem; }
+.cuenta-form small, .cuenta-card h2 small { color: var(--text-soft); font-weight: 400; }
+.cuenta-form input {
+  background: var(--bg-deep); color: var(--text-strong);
+  border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font: inherit;
+}
+.cuenta-form input:focus-visible, .cuenta-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cuenta-form input[name="clave"] { font-family: var(--font-mono); text-transform: uppercase; }
+.cuenta-form button[disabled] { opacity: .6; cursor: wait; }
+.cuenta-estado { min-height: 1.5em; margin: 0; font-size: .95rem; color: var(--text-muted); }
+.cuenta-estado.error { color: var(--red); }
+.cuenta-estado.ok { color: var(--green); }
+.cuenta-cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.cuenta-card { margin-top: 24px; padding: 22px; background: var(--panel); border: 1px solid var(--border-soft); border-radius: var(--radius); }
+.cuenta-card h2 { margin: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cuenta-badge { font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-muted); }
+.cuenta-badge.activa { color: var(--green); border-color: #2ecc7155; background: #2ecc710f; }
+.cuenta-badge.caducada, .cuenta-badge.revocada { color: var(--red); border-color: #e74c3c55; background: #e74c3c0f; }
+.cuenta-badge.sin_licencia { color: var(--amber); border-color: #f1c40f55; background: #f1c40f0f; }
+.cuenta-datos { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; margin: 16px 0 0; }
+.cuenta-datos dt { color: var(--text-muted); }
+.cuenta-datos dd { margin: 0; color: var(--text-strong); font-family: var(--font-mono); }
+.cuenta-inline { margin-top: 16px; }
+.cuenta-equipos { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+.cuenta-equipos li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; background: var(--bg-deep); border-radius: 8px; }
+.cuenta-equipos .on { color: var(--green); }
+.cuenta-nota, .cuenta-pie { color: var(--text-muted); font-size: .9rem; margin-top: 14px; }
+.cuenta-pie { margin-top: 36px; }
