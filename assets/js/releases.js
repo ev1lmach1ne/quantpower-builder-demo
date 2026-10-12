@@ -25,6 +25,7 @@ export function normalizeRelease(release, config) {
     version: release.tag_name,
     publishedAt: release.published_at,
     prerelease: Boolean(release.prerelease),
+    body: typeof release.body === "string" ? release.body : "",
     pageUrl,
     downloadUrl: validSize ? downloadUrl : null,
     size: validSize ? asset.size : null,
@@ -57,8 +58,46 @@ export function initDownloadFeedback() {
   });
 }
 
+let releaseHighlights = {};
+
+function notesFromBody(body) {
+  return String(body || "").split(/\r?\n/)
+    .filter((line) => /^\s{0,1}[-*] /.test(line))
+    .map((line) => line.replace(/^\s*[-*] /, "").replace(/[*_`]/g, "").trim())
+    .filter(Boolean).slice(0, 6)
+    .map((text) => {
+      const cut = text.search(/[:.]\s/);
+      const head = cut > 0 && cut < 70 ? text.slice(0, cut) : text.slice(0, 70);
+      return { title: head, text: cut > 0 && cut < 70 ? text.slice(cut + 1).trim() : "" };
+    });
+}
+
+function renderHighlights(release, latest) {
+  const box = document.getElementById("release-highlights");
+  if (!box) return;
+  const curated = Array.isArray(releaseHighlights[release.version]) ? releaseHighlights[release.version] : [];
+  const items = curated.length ? curated : notesFromBody(release.body);
+  box.replaceChildren();
+  box.hidden = !items.length;
+  if (!items.length) return;
+  const title = document.createElement("strong");
+  title.textContent = curated.length ? "Novedades destacadas"
+    : latest ? "Últimos cambios" : `Cambios de ${release.version}`;
+  const list = document.createElement("ul");
+  for (const item of items) {
+    const li = document.createElement("li");
+    const name = document.createElement("b");
+    name.textContent = item.title;
+    li.append(name);
+    if (item.text) li.append(` — ${item.text}`);
+    list.append(li);
+  }
+  box.append(title, list);
+}
+
 function displayRelease(release, { snapshot = false, latest = false, total = 1 } = {}) {
   document.getElementById("release-version").textContent = release.version;
+  renderHighlights(release, latest);
   document.getElementById("release-size").textContent = release.size
     ? `${new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(release.size / 1048576)} MiB` : "ZIP pendiente";
   const published = new Date(release.publishedAt);
@@ -126,6 +165,7 @@ export async function initReleases() {
     if (!response.ok) throw new Error("Configuración no disponible");
     config = await response.json();
     if (!repositoryPattern.test(config.releaseRepository) || !Array.isArray(config.assetNames)) throw new Error("Repositorio no configurado");
+    releaseHighlights = config.highlights && typeof config.highlights === "object" ? config.highlights : {};
   } catch {
     document.getElementById("release-status").textContent = "Descarga directa disponible. Consulta las novedades en GitHub para confirmar la versión.";
     document.documentElement.dataset.releasesReady = "true";

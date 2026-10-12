@@ -6,6 +6,26 @@
     "QuantPowerBuilder_Windows_x64.zip",
     "QuantPowerSystems_Windows_x64.zip"
   ],
+  "highlights": {
+    "v0.7.6.2": [
+      {
+        "title": "Initial Balance / Opening Range",
+        "text": "Rango de la primera hora de cada sesión con sus extensiones, listo para entradas y filtros."
+      },
+      {
+        "title": "Vista previa en vivo",
+        "text": "Panel lateral que resume entradas, salidas, riesgo y filtros mientras configuras tu sistema."
+      },
+      {
+        "title": "Varios patrones de vela y fusión con indicadores",
+        "text": "Añade varios patrones como alternativas y combínalos con indicadores en un solo paso."
+      },
+      {
+        "title": "Contenedores",
+        "text": "Trae tus datos desde Google Drive, OneDrive, Dropbox, MEGA o SFTP."
+      }
+    ]
+  },
   "fallbackRelease": {
     "tag_name": "v0.7.6.2",
     "html_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/tag/v0.7.6.2",
