@@ -138,7 +138,13 @@
     if (password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres.');
     if (password !== String(f.get('password2'))) throw new Error('Las contraseñas no coinciden.');
     const datos = await api('/api/registro', { email, password });
-    form.reset(); mensaje(form, '');
+    form.reset();
+    if (datos.pendiente) {            // servidor apagado: el buzón guardó el correo, sin cuenta todavía
+      mensaje(form, datos.mensaje || 'Ahora mismo no podemos crear cuentas. Hemos guardado tu correo y, '
+        + 'mientras queden plazas de la promoción, te enviaremos tu clave de licencia en 1 o 2 días.', 'ok');
+      return;
+    }
+    mensaje(form, '');
     await iniciar(datos);
     $('aviso-promo').hidden = !datos.promo;
   });
