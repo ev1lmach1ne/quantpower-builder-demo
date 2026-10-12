@@ -143,6 +143,39 @@
     $('aviso-promo').hidden = !datos.promo;
   });
 
+  // ---- clave de licencia: los guiones se añaden solos al teclear o pegar ----------
+  const PREFIJO = 'QPB';
+  const formatearClave = (texto) => {
+    const limpio = String(texto).toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (!limpio) return '';
+    if (PREFIJO.startsWith(limpio)) return limpio;            // «Q», «QP», «QPB» a medio escribir
+    const cuerpo = (limpio.startsWith(PREFIJO) ? limpio.slice(PREFIJO.length) : limpio).slice(0, 16);
+    const grupos = cuerpo.match(/.{1,4}/g) || [];
+    return PREFIJO + (grupos.length ? '-' + grupos.join('-') : '');
+  };
+  const campoClave = $('form-clave').elements.clave;
+  campoClave.addEventListener('input', () => {
+    const antes = campoClave.value;
+    const caretAlFinal = campoClave.selectionStart === antes.length;
+    // letras/dígitos a la izquierda del cursor (para recolocarlo tras reformatear)
+    const previos = antes.slice(0, campoClave.selectionStart).toUpperCase().replace(/[^A-Z0-9]/g, '').length;
+    const despues = formatearClave(antes);
+    if (despues === antes) return;
+    campoClave.value = despues;
+    let pos = despues.length;
+    if (!caretAlFinal) {
+      const anadidoPrefijo = !antes.toUpperCase().replace(/[^A-Z0-9]/g, '').startsWith(PREFIJO)
+        && despues.startsWith(PREFIJO) ? PREFIJO.length : 0;
+      let vistos = 0;
+      pos = 0;
+      while (pos < despues.length && vistos < previos + anadidoPrefijo) {
+        if (/[A-Z0-9]/.test(despues[pos])) vistos++;
+        pos++;
+      }
+    }
+    try { campoClave.setSelectionRange(pos, pos); } catch (e) { /* tipos de campo sin selección */ }
+  });
+
   enviar($('form-clave'), async (f, form) => {
     const clave = String(f.get('clave')).trim().toUpperCase();
     if (!clave) throw new Error('Introduce tu clave de licencia.');
