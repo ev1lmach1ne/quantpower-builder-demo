@@ -680,7 +680,7 @@ code { font-family: var(--font-mono); font-size: 10px; line-height: 1.95; color:
   .feature-card, .terminal { break-inside: avoid; }
 }
 
-.release-highlights{margin:14px 0;padding:12px 14px;border:1px solid var(--line,rgba(255,255,255,.14));border-radius:10px;background:rgba(255,255,255,.04);font-size:.9rem}
+.release-highlights{margin:22px 0 20px;max-width:520px;padding:14px 16px;border:1px solid var(--line,rgba(255,255,255,.14));border-radius:10px;background:rgba(255,255,255,.04);font-size:.9rem}
 .release-highlights strong{display:block;margin-bottom:6px}
 .release-highlights ul{margin:0;padding-left:18px;display:grid;gap:6px}
 .release-highlights b{color:var(--accent,#4ea3ff)}
