@@ -141,7 +141,7 @@
     form.reset();
     if (datos.pendiente) {            // servidor apagado: el buzón guardó el correo, sin cuenta todavía
       mensaje(form, datos.mensaje || 'Ahora mismo no podemos crear cuentas. Hemos guardado tu correo y, '
-        + 'mientras queden plazas de la promoción, te enviaremos tu clave de licencia en 1 o 2 días.', 'ok');
+        + 'mientras queden plazas de la promoción, te enviaremos tu clave de licencia por correo en un plazo máximo de 24 a 48 horas.', 'ok');
       return;
     }
     mensaje(form, '');
