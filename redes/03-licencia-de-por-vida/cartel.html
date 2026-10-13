@@ -7,7 +7,8 @@
   Cartel de la promoción «licencia de por vida para los próximos 50 usuarios».
   Se renderiza a PNG con redes/renderizar.sh.
   Formato por parámetro: ?f=vertical (1080×1350, por defecto), ?f=cuadrado (1080×1080)
-  o ?f=historia (1080×1920; deja libre ~200 px arriba y ~300 px abajo para la interfaz de la app).
+  o ?f=historia (1080×1920). En 9:16 deja libres ~360 px arriba, ~340 abajo y ~150 a la derecha:
+  en móviles alargados TikTok tapa esas zonas con sus pestañas, la descripción y los botones.
 -->
 <style>
   :root {
@@ -30,7 +31,8 @@
       linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
   }
   .poster.square { height: 1080px; padding: 60px 72px 52px; }
-  .poster.story { height: 1920px; padding: 200px 80px 300px; }
+  .poster.story { height: 1920px; padding: 360px 150px 340px 80px; }
+  .story .head { display: none; }
   .grid {
     position: absolute; inset: 0; pointer-events: none;
     background-image:
@@ -61,7 +63,7 @@
   }
   .badge::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-deep); }
   .square .badge { margin-top: 40px; font-size: 21px; }
-  .story .badge { margin-top: 56px; }
+  .story .badge { margin-top: 0; }
 
   /* Bloque principal: el «50» y el titular */
   .hero { margin-top: 30px; display: flex; align-items: center; gap: 44px; }
@@ -76,14 +78,14 @@
   .square .hero { margin-top: 24px; gap: 36px; }
   .square .count { font-size: 240px; }
   .square h1 { font-size: 64px; }
-  .story .hero { margin-top: 40px; flex-direction: column; align-items: flex-start; gap: 24px; }
-  .story .count { font-size: 300px; }
-  .story h1 { font-size: 90px; }
+  .story .hero { margin-top: 30px; flex-direction: column; align-items: flex-start; gap: 18px; }
+  .story .count { font-size: 250px; }
+  .story h1 { font-size: 84px; }
 
   .lead { margin-top: 38px; max-width: 900px; font-size: 31px; line-height: 1.42; color: var(--text-muted); }
   .lead b { color: var(--text); font-weight: 600; }
   .square .lead { margin-top: 24px; font-size: 27px; }
-  .story .lead { margin-top: 36px; font-size: 32px; }
+  .story .lead { margin-top: 28px; font-size: 30px; }
 
   .steps { margin-top: 44px; display: grid; gap: 14px; }
   .step {
@@ -102,8 +104,8 @@
   .square .steps { margin-top: 26px; gap: 10px; }
   .square .step { padding: 14px 22px; font-size: 24px; }
   .square .step i { width: 40px; height: 40px; font-size: 18px; }
-  .story .steps { margin-top: 40px; gap: 14px; }
-  .story .step { padding: 20px 28px; font-size: 29px; }
+  .story .steps { margin-top: 30px; gap: 12px; }
+  .story .step { padding: 16px 24px; font-size: 27px; }
 
   .foot {
     margin-top: auto; padding-top: 28px; border-top: 1px solid var(--border);
@@ -114,7 +116,7 @@
   .cta strong span { color: var(--accent); }
   .fine { font-size: 20px; line-height: 1.4; color: var(--text-muted); }
   .square .cta strong { font-size: 34px; }
-  .story .cta strong { font-size: 42px; }
+  .story .cta strong { font-size: 40px; }
   .story .fine { font-size: 22px; }
 </style>
 </head>
@@ -161,6 +163,13 @@
   const f = new URLSearchParams(location.search).get("f");
   const clase = { cuadrado: "square", historia: "story" }[f];
   if (clase) document.getElementById("poster").classList.add(clase);
+</script>
+<script>
+  // Comprobación al renderizar: cuántos píxeles de contenido no caben en el lienzo
+  addEventListener("load", () => {
+    const el = document.querySelector(".poster, .slide.active");
+    if (el) document.documentElement.dataset.desborde = el.scrollHeight - el.clientHeight;
+  });
 </script>
 </body>
 </html>

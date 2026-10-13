@@ -102,19 +102,21 @@
   }
   .square .feature { padding: 16px 22px; font-size: 24px; }
 
-  /* TikTok 1080×1920: deja libres ~170 px arriba, ~360 px abajo y ~110 px a la derecha
-     (descripción y botones de la app) */
-  .poster.tiktok { height: 1920px; padding: 170px 120px 360px 80px; }
+  /* TikTok 1080×1920: deja libres ~360 px arriba, ~340 px abajo y ~150 px a la derecha.
+     En móviles alargados TikTok tapa esas zonas con sus pestañas, la descripción y los botones;
+     el logo ya aparece en el avatar de la cuenta, así que se omite la cabecera. */
+  .poster.tiktok { height: 1920px; padding: 360px 150px 340px 80px; }
+  .tiktok .head { display: none; }
   .tiktok .logo { width: 132px; height: 132px; }
   .tiktok .brand strong { font-size: 40px; }
-  .tiktok h1 { margin-top: 56px; font-size: 108px; }
-  .tiktok .lead { margin-top: 36px; font-size: 32px; }
-  .tiktok .chart { margin-top: 40px; height: 180px; }
-  .tiktok .chart svg { height: 112px; }
+  .tiktok h1 { margin-top: 0; font-size: 100px; }
+  .tiktok .lead { margin-top: 28px; font-size: 30px; }
+  .tiktok .chart { margin-top: 32px; height: 160px; }
+  .tiktok .chart svg { height: 92px; }
   .tiktok .chart .label em { display: none; }
-  .tiktok .features { margin-top: 30px; grid-template-columns: 1fr; gap: 10px; }
-  .tiktok .feature { padding: 14px 24px; font-size: 27px; }
-  .tiktok .cta strong { font-size: 44px; }
+  .tiktok .features { margin-top: 26px; grid-template-columns: 1fr; gap: 8px; }
+  .tiktok .feature { padding: 12px 22px; font-size: 26px; }
+  .tiktok .cta strong { font-size: 40px; }
   .tiktok .tag { display: none; }
   .feature i {
     font-style: normal; font-family: var(--mono); font-size: 18px; font-weight: 400;
@@ -193,6 +195,13 @@
 <script>
   const clase = { cuadrado: "square", tiktok: "tiktok" }[new URLSearchParams(location.search).get("f")];
   if (clase) document.getElementById("poster").classList.add(clase);
+</script>
+<script>
+  // Comprobación al renderizar: cuántos píxeles de contenido no caben en el lienzo
+  addEventListener("load", () => {
+    const el = document.querySelector(".poster, .slide.active");
+    if (el) document.documentElement.dataset.desborde = el.scrollHeight - el.clientHeight;
+  });
 </script>
 </body>
 </html>

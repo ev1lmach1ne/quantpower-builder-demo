@@ -8,7 +8,8 @@
   «Más allá del backtest - MAE, MFE, walk-forward y Montecarlo en la práctica».
   Se renderiza a PNG con redes/renderizar.sh.
   Parámetros: ?s=1…8 (diapositiva) y ?f=vertical (1080×1350, por defecto) o ?f=historia (1080×1920).
-  En 9:16 deja libres ~200 px arriba, ~380 px abajo y ~110 px a la derecha para la interfaz de la app.
+  En 9:16 deja libres ~360 px arriba, ~340 px abajo y ~150 px a la derecha: en móviles alargados
+  TikTok tapa esas zonas con sus pestañas, la descripción y los botones. La cabecera se omite.
 -->
 <style>
   :root {
@@ -31,7 +32,8 @@
       linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
   }
   .slide.active { display: flex; }
-  .historia .slide { height: 1920px; padding: 200px 110px 380px 80px; gap: 34px; }
+  .historia .slide { height: 1920px; padding: 360px 150px 340px 80px; gap: 24px; }
+  .historia .top { display: none; }
   .slide > * { position: relative; flex-shrink: 0; }
   .grid {
     position: absolute; inset: 0; pointer-events: none;
@@ -683,6 +685,13 @@
   const s = q.get("s") || "1";
   const el = document.querySelector(`.slide[data-s="${s}"]`);
   if (el) el.classList.add("active");
+</script>
+<script>
+  // Comprobación al renderizar: cuántos píxeles de contenido no caben en el lienzo
+  addEventListener("load", () => {
+    const el = document.querySelector(".poster, .slide.active");
+    if (el) document.documentElement.dataset.desborde = el.scrollHeight - el.clientHeight;
+  });
 </script>
 </body>
 </html>
