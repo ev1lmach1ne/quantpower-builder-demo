@@ -1,6 +1,7 @@
 /* Centro de ayuda: navegación común y lectura, con la identidad del sitio. */
 .help-header .header-inner { min-height: 76px; }
 .help-header .text-link { font-size: 12px; }
+.help-header .brand .corporate-logo { object-fit: contain; border-radius: 50%; flex: 0 0 auto; background: #eef0f2; box-shadow: 0 2px 14px #0003; }
 .help-shell { display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 54px; padding-block: 42px 90px; align-items: start; }
 .help-sidebar { position: sticky; top: 100px; background: var(--panel); border: 1px solid var(--border-soft); border-radius: 10px; padding: 18px; }
 .help-sidebar summary { cursor: pointer; color: var(--text-strong); font-size: 14px; font-weight: 600; }

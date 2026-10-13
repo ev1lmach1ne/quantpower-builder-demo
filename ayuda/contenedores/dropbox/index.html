@@ -11,28 +11,29 @@
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <header class="site-header help-header"><div class="container header-inner"><a class="brand" href="../../../"><img src="../../../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Centro de ayuda</small></span></a><a class="text-link" href="../../../">Volver a la web →</a></div></header>
+  <header class="site-header help-header"><div class="container header-inner"><a class="brand" href="../../../"><img class="corporate-logo" src="../../../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Centro de ayuda</small></span></a><a class="text-link" href="../../../">Volver a la web →</a></div></header>
   <div class="container help-shell">
     <aside class="help-sidebar"><details open><summary>Índice de ayuda</summary><nav aria-label="Centro de ayuda">
       <a href="../../">Inicio de la ayuda</a><span class="help-group">Contenedores</span><a href="../">Concepto y flujo de trabajo</a>
       <a class="help-sub" href="../carpeta-local/">Carpeta local</a><a class="help-sub" href="../google-drive/">Google Drive</a>
-      <a class="help-sub" href="../onedrive/">OneDrive</a><a class="help-sub" href="./" aria-current="page">Dropbox</a>
+      <a class="help-sub" href="./" aria-current="page">Dropbox</a>
       <a class="help-sub" href="../mega/">MEGA</a><a class="help-sub" href="../sftp/">SFTP</a>
       <a href="../#formatos">Catálogo y formatos</a><a href="../#problemas">Solución de problemas</a>
     </nav></details></aside>
     <main id="contenido" class="help-content">
       <nav class="help-breadcrumb" aria-label="Ruta de navegación"><a href="../../">Ayuda</a><span>/</span><a href="../">Contenedores</a><span>/</span><span>Dropbox</span></nav>
       <h1>Dropbox</h1><p class="lead">Conecta Dropbox desde QuantPower Builder para explorar tus carpetas y elegir qué archivos obtener.</p>
+      <div class="help-note"><p><strong>Disponibilidad del login:</strong> la instalación debe incluir la App key OAuth pública (<code>QPB_DROPBOX_APP_KEY</code>) y la App Console de Dropbox debe tener registrada la URI de retorno <code>http://127.0.0.1:53682/oauth2/callback</code> (o la configurada en <code>QPB_DROPBOX_REDIRECT_URI</code>).</p></div>
       <div class="help-doc-meta" data-help-meta="dropbox" aria-label="Versión de la aplicación y fecha de redacción">
         <span><strong>Versión:</strong> <span data-software-version>v0.7.6.2</span></span>
-        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-07">7 de octubre de 2026</time></span>
+        <span><strong>Redactada:</strong> <time data-guide-date datetime="2026-10-09">9 de octubre de 2026</time></span>
       </div>
       <div class="help-note"><p><strong>Conexión online:</strong> la aplicación solicita autorización a Dropbox para consultar y descargar los archivos que selecciones. No se requiere instalar ni mantener abierta la aplicación de escritorio de Dropbox.</p></div>
       <h2>Conectar Dropbox</h2>
-      <ol><li>Comprueba que tu cuenta tiene acceso a los archivos y carpetas que quieres utilizar.</li><li>En QuantPower Builder, abre <strong>Descargar → + Añadir fuente → Contenedor → Dropbox</strong> y pulsa <strong>Conectar</strong>.</li><li>Inicia sesión en la página de Dropbox, revisa los permisos que se muestran y autoriza el acceso para regresar a la aplicación.</li><li>Selecciona una carpeta remota. El catálogo consulta su contenido sin crear una copia sincronizada de toda la carpeta.</li></ol>
+      <ol><li>Comprueba que tu cuenta tiene acceso a los archivos y carpetas que quieres utilizar.</li><li>En QuantPower Builder, abre <strong>Descargar → + Añadir fuente → Contenedor → Dropbox</strong> y pulsa <strong>Conectar con Dropbox</strong>.</li><li>Inicia sesión en la página de Dropbox, revisa los permisos que se muestran y autoriza el acceso para regresar a la aplicación.</li><li>Pulsa <strong>Elegir carpeta…</strong>, selecciona la carpeta que quieres explorar y pulsa <strong>Guardar conexión</strong>. El catálogo consultará esa ubicación y sus subcarpetas sin crear una copia sincronizada.</li></ol>
       <h2>Configurar y obtener archivos</h2>
       <div class="help-path">Descargar → + Añadir fuente → Contenedor → Dropbox</div>
-      <ol><li>Asigna un nombre para identificar la ubicación de Dropbox.</li><li>Pulsa <strong>Actualizar catálogo</strong> para consultar los archivos remotos compatibles.</li><li>Selecciona un resultado y pulsa <strong>Obtener archivo</strong> para descargar una copia en la biblioteca de la aplicación.</li><li>En <strong>Importar</strong>, revisa la identidad y el horario antes de procesar el archivo.</li></ol>
+      <ol><li>Asigna un nombre para identificar la ubicación de Dropbox.</li><li>Pulsa <strong>Actualizar catálogo</strong> para consultar los archivos remotos compatibles.</li><li>Selecciona una o varias series y pulsa el botón de descarga. Para elegir archivos concretos de un ZIP, ábrelo y selecciona sus miembros.</li><li>Las copias se guardan en la biblioteca local, dentro de la fuente <strong>Dropbox</strong>. Abre <strong>Importar → Fuentes → Dropbox</strong> para localizarlas; los originales en Dropbox no se mueven ni se modifican.</li></ol>
       <h2>Actualizaciones</h2>
       <p>Cuando haya nuevos archivos, actualiza el catálogo para volver a consultar Dropbox. La descarga ocurre al obtener cada archivo seleccionado; no se fusionan automáticamente con los datos ya importados ni se ejecuta limpieza en segundo plano. Si retiras el permiso de la cuenta, vuelve a conectar Dropbox desde el contenedor.</p>
       <div class="help-related"><a class="button button-outline" href="../">← Contenedores</a><a class="button button-quiet" href="../#formatos">Formatos admitidos</a></div>

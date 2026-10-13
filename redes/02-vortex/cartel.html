@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cartel del Vortex Indicator — QuantPower Builder</title>
+<!--
+  Cartel para TikTok (y otras redes verticales). Se renderiza a PNG con redes/02-vortex/renderizar.js.
+  Formato por parámetro: ?f=vertical (1080×1920, 9:16, por defecto) o ?f=corto (1080×1350, 4:5).
+  Zonas seguras de TikTok: se deja libre ~170 px arriba y ~360 px abajo (descripción y botones de la app)
+  y ~110 px a la derecha en el formato vertical.
+-->
+<style>
+  :root {
+    --bg: #111828; --bg-deep: #0d1424; --panel: #141e30; --panel-raised: #1a2a45;
+    --border: #253a60; --text: #c8d6e5; --text-strong: #e6edf3; --text-muted: #9aaec7;
+    --accent: #4fc3f7; --warm: #f5b84b; --green: #2ecc71;
+    --font: "Inter", "Segoe UI", Arial, sans-serif;
+    --mono: "DejaVu Sans Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-deep); }
+  .poster {
+    position: relative; overflow: hidden;
+    width: 1080px; height: 1920px; padding: 170px 120px 360px 80px;
+    display: flex; flex-direction: column; gap: 34px;
+    font-family: var(--font); color: var(--text);
+    background:
+      radial-gradient(900px 700px at 90% -5%, rgba(79,195,247,.18), transparent 60%),
+      radial-gradient(800px 600px at -10% 100%, rgba(79,195,247,.08), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  }
+  .poster.corto { height: 1350px; padding: 70px 80px 60px; gap: 28px; }
+  .grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(37,58,96,.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,58,96,.35) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: linear-gradient(200deg, #000 0%, transparent 55%);
+  }
+  .poster > * { position: relative; flex-shrink: 0; }
+
+  .head { display: flex; align-items: center; gap: 24px; }
+  .logo {
+    width: 104px; height: 104px; flex: none; border-radius: 50%;
+    background: url("../../assets/images/logo-corporativo.png") center / 104% no-repeat;
+    clip-path: circle(48%);
+  }
+  .brand small { display: block; font-size: 20px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+  .brand strong { display: block; margin-top: 4px; font-size: 38px; font-weight: 700; color: var(--text-strong); }
+
+  .tag {
+    align-self: flex-start; display: inline-flex; align-items: center; gap: 14px;
+    padding: 12px 22px; border-radius: 6px; background: var(--accent); color: #0d1424;
+    font-size: 24px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .tag span { font-weight: 600; opacity: .75; }
+
+  h1 { font-size: 104px; line-height: 1.02; letter-spacing: -.025em; font-weight: 800; color: var(--text-strong); }
+  h1 em { font-style: normal; color: var(--accent); }
+  .sub { font-size: 38px; line-height: 1.4; color: var(--text-muted); }
+  .sub strong { color: var(--text-strong); font-weight: 600; }
+
+  .chart { padding: 24px 28px 18px; border: 1px solid var(--border); border-radius: 22px; background: var(--panel); }
+  .chart-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 20px; letter-spacing: .06em; color: var(--text-muted); }
+  .chart-top .up { color: var(--green); }
+  .chart-top .dn { color: var(--warm); }
+  .chart svg { display: block; width: 100%; height: 150px; margin-top: 10px; }
+  .corto .chart svg { height: 130px; }
+  .short-hide { display: block; }
+  .corto .short-hide { display: none; }
+
+  .facts { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .facts li {
+    display: flex; align-items: center; gap: 22px; padding: 20px 26px;
+    border: 1px solid var(--border); border-radius: 18px; background: var(--panel);
+    font-size: 33px; line-height: 1.25; font-weight: 600; color: var(--text-strong);
+  }
+  .facts i { flex: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); }
+  .facts li:nth-child(2) i { background: var(--warm); }
+  .facts li:nth-child(3) i { background: var(--green); }
+
+  .cta { margin-top: auto; padding-top: 26px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .cta small { display: block; font-size: 22px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); }
+  .cta strong { display: block; margin-top: 6px; font-size: 38px; font-weight: 700; color: var(--text-strong); }
+  .cta strong b { color: var(--accent); font-weight: 700; }
+  .btn { flex: none; padding: 20px 34px; border-radius: 999px; background: var(--accent); color: #0d1424; font-size: 30px; font-weight: 800; }
+</style>
+</head>
+<body>
+<div class="poster" id="poster">
+  <div class="grid"></div>
+  <div class="head">
+    <div class="logo" role="img" aria-label="Logo de QuantPower Systems"></div>
+    <div class="brand"><small>QuantPower Systems</small><strong>QuantPower Builder</strong></div>
+  </div>
+
+  <div class="tag">Análisis <span>· Indicadores</span></div>
+  <h1>¿Mejora el <em>Vortex</em> al DMI de Wilder?</h1>
+  <p class="sub">Un indicador de 2010 prometía superar al clásico de 1978. <strong>Esto dice el análisis.</strong></p>
+
+  <div class="chart short-hide" aria-hidden="true">
+    <div class="chart-top"><span class="up">VI+ (alcista)</span><span>ILUSTRACIÓN</span><span class="dn">VI− (bajista)</span></div>
+    <svg viewBox="0 0 800 150" preserveAspectRatio="none">
+      <g stroke="#253a60" stroke-width="1" opacity=".7"><path d="M0 37H800M0 75H800M0 113H800"/></g>
+      <path d="M0 112 C80 108 140 96 210 90 S330 76 400 72 S520 40 620 30 S740 24 800 22" fill="none" stroke="#2ecc71" stroke-width="5" stroke-linecap="round"/>
+      <path d="M0 34 C80 40 140 52 210 62 S330 72 400 76 S520 104 620 114 S740 122 800 124" fill="none" stroke="#f5b84b" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="400" cy="74" r="10" fill="#111828" stroke="#4fc3f7" stroke-width="4"/>
+    </svg>
+  </div>
+
+  <ul class="facts">
+    <li><i></i>Mide el movimiento "cruzado" entre máximos y mínimos</li>
+    <li><i></i>Los huecos de precio le juegan una mala pasada</li>
+    <li><i></i>Las pruebas publicadas no dan un ganador claro</li>
+  </ul>
+
+  <div class="cta">
+    <div><small>Léelo completo</small><strong>quantpowerbuilder<b>.com</b>/articulos</strong></div>
+    <div class="btn">Leer ↗</div>
+  </div>
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('f') === 'corto') document.getElementById('poster').classList.add('corto');
+</script>
+</body>
+</html>
