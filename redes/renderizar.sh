@@ -7,10 +7,14 @@ CHROMIUM="${CHROMIUM:-$(ls /opt/pw-browsers/chromium_headless_shell-*/chrome-lin
 CHROMIUM="${CHROMIUM:-$(command -v chromium || command -v google-chrome)}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-render() { # html  formato  ancho  alto  salida
+url() { # html[?parámetros]  formato
+  case "$1" in *\?*) echo "file://$ROOT/$1&f=$2" ;; *) echo "file://$ROOT/$1?f=$2" ;; esac
+}
+
+render() { # html[?parámetros]  formato  ancho  alto  salida
   "$CHROMIUM" --no-sandbox --hide-scrollbars --allow-file-access-from-files \
     --force-device-scale-factor=1 --window-size="$3,$4" \
-    --screenshot="$5" "file://$ROOT/$1?f=$2" >/dev/null 2>&1
+    --screenshot="$5" "$(url "$1" "$2")" >/dev/null 2>&1
   echo "→ $5"
 }
 
@@ -23,3 +27,9 @@ DIR="$ROOT/redes/03-licencia-de-por-vida"
 render redes/03-licencia-de-por-vida/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
 render redes/03-licencia-de-por-vida/cartel.html cuadrado 1080 1080 "$DIR/cartel-1080x1080.png"
 render redes/03-licencia-de-por-vida/cartel.html historia 1080 1920 "$DIR/cartel-1080x1920.png"
+
+DIR="$ROOT/redes/04-backtesting-carrusel"
+for s in 1 2 3 4 5 6 7 8; do
+  render "redes/04-backtesting-carrusel/carrusel.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
+  render "redes/04-backtesting-carrusel/carrusel.html?s=$s" historia 1080 1920 "$DIR/historia-$s.png"
+done

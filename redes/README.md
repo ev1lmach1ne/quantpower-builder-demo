@@ -2,7 +2,7 @@
 
 Cada publicación vive en su carpeta numerada con:
 
-- `cartel.html`: diseño editable del cartel (usa los colores del tema Noche y
+- `cartel.html` (o `carrusel.html` en los carruseles, con una diapositiva por `?s=N`): diseño editable (usa los colores del tema Noche y
   el logotipo de `assets/images/`).
 - `cartel-*.png`: imágenes listas para subir, una por formato.
 - `texto-post.md`: texto del post por red social, con enlaces y hashtags.
