@@ -33,3 +33,10 @@ for s in 1 2 3 4 5 6 7 8; do
   render "redes/04-backtesting-carrusel/carrusel.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
   render "redes/04-backtesting-carrusel/carrusel.html?s=$s" historia 1080 1920 "$DIR/historia-$s.png"
 done
+
+# La misma serie como publicaciones independientes (sin «Desliza», con enlace en cada una)
+mkdir -p "$DIR/sueltas"
+for s in 1 2 3 4 5 6 7; do
+  render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta" vertical 1080 1350 "$DIR/sueltas/post-$s-vertical.png"
+  render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta" historia 1080 1920 "$DIR/sueltas/post-$s-tiktok.png"
+done

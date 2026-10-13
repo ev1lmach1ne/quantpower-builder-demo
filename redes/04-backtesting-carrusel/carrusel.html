@@ -8,6 +8,7 @@
   «Más allá del backtest - MAE, MFE, walk-forward y Montecarlo en la práctica».
   Se renderiza a PNG con redes/renderizar.sh.
   Parámetros: ?s=1…8 (diapositiva) y ?f=vertical (1080×1350, por defecto) o ?f=historia (1080×1920).
+  Con ?modo=suelta, las diapositivas 1-7 se convierten en publicaciones independientes de una serie.
   En 9:16 deja libres ~360 px arriba, ~340 px abajo y ~150 px a la derecha: en móviles alargados
   TikTok tapa esas zonas con sus pestañas, la descripción y los botones. La cabecera se omite.
 -->
@@ -685,6 +686,16 @@
   const s = q.get("s") || "1";
   const el = document.querySelector(`.slide[data-s="${s}"]`);
   if (el) el.classList.add("active");
+  // ?modo=suelta: cada diapositiva (1-7) como publicación independiente de una serie.
+  // Sustituye el contador y el «Desliza» por la serie y el enlace, y da contexto al ejemplo.
+  if (el && q.get("modo") === "suelta") {
+    el.querySelector(".count").textContent = `Serie backtesting · ${s}/7`;
+    const next = el.querySelector(".foot .next");
+    if (next) next.textContent = "quantpowerbuilder.com/articulos";
+    const nota = el.querySelector(".foot span:first-child");
+    if (nota && Number(s) >= 3 && Number(s) <= 6) nota.textContent = "Ejemplo: sistema de tendencia, 8 años · datos sintéticos";
+    if (s === "7") nota.textContent = "Ejemplo didáctico · no es una recomendación de inversión";
+  }
 </script>
 <script>
   // Comprobación al renderizar: cuántos píxeles de contenido no caben en el lienzo

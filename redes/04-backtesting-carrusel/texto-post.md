@@ -82,3 +82,79 @@ Ejemplo didáctico con datos sintéticos; no es una recomendación de inversión
 6. Montecarlo: 50 curvas simuladas alrededor del backtest; la caída en el peor 5 % llega al 19,2 % y solo el 0,3 % de las simulaciones pierde dinero.
 7. El orden de trabajo en cinco pasos: hipótesis, backtest realista, MAE y MFE, walk-forward y Montecarlo.
 8. Invitación a leer el artículo completo en quantpowerbuilder.com/articulos.
+
+---
+
+# Serie de 7 publicaciones sueltas
+
+Las mismas ideas como publicaciones independientes, en la carpeta `sueltas/`:
+`post-N-tiktok.png` (9:16) y `post-N-vertical.png` (4:5). Cada imagen lleva el
+enlace al artículo y, en las de datos, el contexto del ejemplo, así que se
+entienden solas.
+
+Ritmo sugerido: una cada 1 o 2 días, en este orden, empezando cuando el
+artículo ya esté publicado. En TikTok, el enlace va en el perfil.
+
+Hashtags comunes: #backtesting #trading #tradingalgoritmico #quant #QuantPowerBuilder
+
+## 1/7 · Tu backtest cuenta una sola historia
+
+Tu backtest cuenta una sola historia 👀 ¿Cómo sabes si es verdad o pura suerte?
+
+Empiezo una serie con las 3 técnicas que uso para comprobarlo antes de arriesgar dinero: MAE/MFE, walk-forward y Montecarlo.
+
+Serie backtesting 1/7 · Sígueme para no perderte las siguientes.
+
+## 2/7 · El ejemplo
+
++128 % en 8 años con una caída máxima del −11,9 %. Comprar y mantener el mismo activo: +5 % y una caída del −62,9 % 📊
+
+Un resultado así es justo el que más conviene examinar antes de creérselo. En las próximas publicaciones lo ponemos a prueba.
+
+Serie backtesting 2/7 · Ejemplo didáctico con datos sintéticos.
+
+## 3/7 · MAE
+
+¿Cuánto va en contra una operación antes de ganar? Eso es la MAE 📉
+
+En el ejemplo, la mitad de las ganadoras no retrocede más de 0,32 R. Eso te dice dónde poner el stop… pero el cambio siempre hay que validarlo.
+
+Serie backtesting 3/7 · Artículo completo: enlace en el perfil.
+
+## 4/7 · MFE
+
+¿Cuánto beneficio devuelven tus operaciones? Eso es la MFE 💸
+
+Las ganadoras capturan menos de la mitad de su recorrido. La tentación es ajustar el stop de seguimiento… y a 3 ATR cuesta casi un tercio de la rentabilidad.
+
+Serie backtesting 4/7 · Artículo completo: enlace en el perfil.
+
+## 5/7 · Walk-forward
+
+Optimiza con el pasado, comprueba con el futuro 🔁
+
+Walk-forward: elegir parámetros con 2 años y probarlos en los 6 meses siguientes, 12 veces. Fuera de muestra, el ejemplo gana un +82,6 % en 6 años con 10 de 12 ventanas en positivo.
+
+Serie backtesting 5/7 · Artículo completo: enlace en el perfil.
+
+## 6/7 · Montecarlo
+
+La caída que viste en tu backtest no es la peor 🎲
+
+10.000 simulaciones con las mismas operaciones: el backtest cayó un −11,9 %, pero en el peor 5 % de los casos la caída llega al −19,2 %. Ese es el número con el que hay que calcular el riesgo.
+
+Serie backtesting 6/7 · Artículo completo: enlace en el perfil.
+
+## 7/7 · El orden importa
+
+Cierre de la serie: el orden en que aplicar todo esto ✅
+
+1. Hipótesis y costes antes de mirar resultados
+2. Backtest realista
+3. MAE y MFE para la gestión
+4. Walk-forward para los parámetros
+5. Montecarlo para el riesgo
+
+Ninguna técnica convierte un sistema malo en bueno, pero juntas te dicen si el tuyo lo es.
+
+Serie backtesting 7/7 · Artículo completo con tablas y gráficos: enlace en el perfil.
