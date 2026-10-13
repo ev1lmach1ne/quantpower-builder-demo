@@ -17,6 +17,7 @@ render() { # html  formato  ancho  alto  salida
 DIR="$ROOT/redes/01-presentacion"
 render redes/01-presentacion/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
 render redes/01-presentacion/cartel.html cuadrado 1080 1080 "$DIR/cartel-1080x1080.png"
+render redes/01-presentacion/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
 
 DIR="$ROOT/redes/03-licencia-de-por-vida"
 render redes/03-licencia-de-por-vida/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"

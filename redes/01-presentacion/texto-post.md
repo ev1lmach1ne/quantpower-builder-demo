@@ -4,6 +4,7 @@ Imágenes:
 
 - `cartel-1080x1350.png` → Instagram, Facebook y LinkedIn (vertical 4:5).
 - `cartel-1080x1080.png` → X/Twitter, Threads o cualquier red que recorte a cuadrado.
+- `cartel-1080x1920.png` → TikTok e historias (9:16, con márgenes libres para la interfaz de la app).
 
 Enlaces:
 
@@ -36,6 +37,26 @@ artículos sobre indicadores, datos y arquitectura de sistemas.
 👉 Enlace en la bio: quantpowerbuilder.com
 
 #trading #tradingalgoritmico #backtesting #quant #analisiscuantitativo #sistemasdetrading #nocode #QuantPowerBuilder
+
+---
+
+## TikTok
+
+Analiza y construye tu ventaja. 📈
+
+Crea sistemas de trading sin escribir código: combina indicadores, define tus reglas y ponlas a prueba con un motor de backtesting acelerado.
+
+✅ Construcción visual
+✅ Análisis del activo
+✅ Gestión del riesgo
+✅ Validación de robustez
+
+Demo gratuita para Windows y artículos en quantpowerbuilder.com 👉 enlace en el perfil
+
+#trading #tradingalgoritmico #backtesting #quant #sistemasdetrading #nocode #QuantPowerBuilder
+
+> El enlace de la descripción no es clicable en TikTok: ponlo en la biografía
+> del perfil (campo «Sitio web», disponible con cuenta de empresa).
 
 ---
 

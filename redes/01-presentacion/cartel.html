@@ -5,7 +5,8 @@
 <title>Cartel de presentación — QuantPower Builder</title>
 <!--
   Cartel para redes. Se renderiza a PNG con redes/renderizar.sh.
-  Formato por parámetro: ?f=vertical (1080×1350, por defecto) o ?f=cuadrado (1080×1080).
+  Formato por parámetro: ?f=vertical (1080×1350, por defecto), ?f=cuadrado (1080×1080)
+  o ?f=tiktok (1080×1920, 9:16).
 -->
 <style>
   :root {
@@ -100,6 +101,21 @@
     font-size: 26px; font-weight: 600; color: var(--text-strong);
   }
   .square .feature { padding: 16px 22px; font-size: 24px; }
+
+  /* TikTok 1080×1920: deja libres ~170 px arriba, ~360 px abajo y ~110 px a la derecha
+     (descripción y botones de la app) */
+  .poster.tiktok { height: 1920px; padding: 170px 120px 360px 80px; }
+  .tiktok .logo { width: 132px; height: 132px; }
+  .tiktok .brand strong { font-size: 40px; }
+  .tiktok h1 { margin-top: 56px; font-size: 108px; }
+  .tiktok .lead { margin-top: 36px; font-size: 32px; }
+  .tiktok .chart { margin-top: 40px; height: 180px; }
+  .tiktok .chart svg { height: 112px; }
+  .tiktok .chart .label em { display: none; }
+  .tiktok .features { margin-top: 30px; grid-template-columns: 1fr; gap: 10px; }
+  .tiktok .feature { padding: 14px 24px; font-size: 27px; }
+  .tiktok .cta strong { font-size: 44px; }
+  .tiktok .tag { display: none; }
   .feature i {
     font-style: normal; font-family: var(--mono); font-size: 18px; font-weight: 400;
     color: var(--accent); opacity: .9;
@@ -136,7 +152,7 @@
     </div>
   </header>
 
-  <h1>Analiza y construye<br><span>tu ventaja.</span></h1>
+  <h1>Analiza y <wbr>construye<br><span>tu ventaja.</span></h1>
 
   <p class="lead">
     Construye sistemas de trading <b>sin escribir código</b>: combina indicadores,
@@ -175,9 +191,8 @@
   </footer>
 </main>
 <script>
-  if (new URLSearchParams(location.search).get("f") === "cuadrado") {
-    document.getElementById("poster").classList.add("square");
-  }
+  const clase = { cuadrado: "square", tiktok: "tiktok" }[new URLSearchParams(location.search).get("f")];
+  if (clase) document.getElementById("poster").classList.add(clase);
 </script>
 </body>
 </html>
