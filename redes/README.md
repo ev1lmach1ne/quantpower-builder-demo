@@ -4,7 +4,7 @@ Cada publicación vive en su carpeta numerada con:
 
 - `cartel.html`: diseño editable del cartel (usa los colores del tema Noche y
   el logotipo de `assets/images/`).
-- `cartel-1080x1350.png` y `cartel-1080x1080.png`: imágenes listas para subir.
+- `cartel-*.png`: imágenes listas para subir, una por formato.
 - `texto-post.md`: texto del post por red social, con enlaces y hashtags.
 
 Para regenerar los PNG después de editar un `cartel.html`, desde la raíz:
