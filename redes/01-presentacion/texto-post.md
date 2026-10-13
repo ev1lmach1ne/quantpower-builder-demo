@@ -116,3 +116,20 @@ Demo para Windows y artículos 👇
 https://quantpowerbuilder.com/
 
 #trading #backtesting #quant
+
+---
+
+## TikTok: descripción de una línea + comentario fijado
+
+En TikTok, una descripción de más de una línea abre un panel negro bajo la
+imagen y la desplaza hacia arriba. Usa solo una línea y pon los detalles en un
+comentario fijado.
+
+**Descripción:**
+
+📈 Crea y valida sistemas de trading sin código · enlace en el perfil #trading
+
+**Comentario fijado:**
+
+QuantPower Builder: construcción visual, análisis del activo, gestión del riesgo y validación de robustez en una sola plataforma. Demo gratuita para Windows y artículos en quantpowerbuilder.com
+#tradingalgoritmico #backtesting #quant #nocode #QuantPowerBuilder

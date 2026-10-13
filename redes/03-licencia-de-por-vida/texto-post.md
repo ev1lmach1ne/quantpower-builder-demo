@@ -106,3 +106,24 @@ Cartel oscuro con el logotipo de QuantPower Systems, un «50» grande en azul y
 el titular «Licencias de por vida». Explica que la oferta es para los próximos
 50 usuarios y los tres pasos: crear la cuenta gratis, recibir la clave por
 correo en 24–48 h y activarla. Al pie, quantpowerbuilder.com/cuenta.
+
+---
+
+## TikTok: descripción de una línea + comentario fijado
+
+En TikTok, una descripción de más de una línea abre un panel negro bajo la
+imagen y la desplaza hacia arriba. Usa solo una línea y pon los detalles en un
+comentario fijado (publícalo desde la cuenta, mantén pulsado → «Fijar»).
+
+**Descripción:**
+
+🔓 50 licencias de por vida · enlace en el perfil #trading #QuantPowerBuilder
+
+**Comentario fijado:**
+
+Cómo conseguir tu licencia:
+1️⃣ Crea tu cuenta gratis en quantpowerbuilder.com/cuenta
+2️⃣ Recibe tu clave por correo en 24–48 h
+3️⃣ Actívala en la app o en tu cuenta
+⏳ Cuando se agoten las 50 plazas, se cierra la promoción.
+#tradingalgoritmico #backtesting #quant #sistemasdetrading

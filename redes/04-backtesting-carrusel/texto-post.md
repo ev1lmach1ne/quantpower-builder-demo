@@ -158,3 +158,23 @@ Cierre de la serie: el orden en que aplicar todo esto ✅
 Ninguna técnica convierte un sistema malo en bueno, pero juntas te dicen si el tuyo lo es.
 
 Serie backtesting 7/7 · Artículo completo con tablas y gráficos: enlace en el perfil.
+
+---
+
+## TikTok: descripciones de una línea + comentario fijado
+
+En TikTok, una descripción de más de una línea abre un panel negro bajo la
+imagen y la desplaza hacia arriba. Para cada publicación de la serie, usa solo
+la línea de descripción y fija como comentario el texto largo de la sección
+anterior («Serie de 7 publicaciones sueltas»).
+
+1. 👀 Tu backtest cuenta una sola historia · Serie 1/7 #backtesting
+2. 📊 +128 % frente a +5 %: ¿suerte o ventaja? · Serie 2/7 #backtesting
+3. 📉 ¿Cuánto va en contra antes de ganar? MAE · Serie 3/7 #trading
+4. 💸 ¿Cuánto beneficio devuelves? MFE · Serie 4/7 #trading
+5. 🔁 Optimiza con el pasado, comprueba con el futuro · Serie 5/7 #quant
+6. 🎲 La caída de tu backtest no es la peor · Serie 6/7 #trading
+7. ✅ El orden importa · Serie 7/7, artículo en el perfil #backtesting
+
+Carrusel completo (8 imágenes en una publicación):
+👀 3 técnicas para saber si tu backtest es real · enlace en el perfil #backtesting
