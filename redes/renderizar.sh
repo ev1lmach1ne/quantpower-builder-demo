@@ -42,3 +42,7 @@ for s in 1 2 34 5 6 7; do
   render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta&n=$n&de=6" vertical 1080 1350 "$DIR/sueltas/post-$n-vertical.png"
   render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta&n=$n&de=6" historia 1080 1920 "$DIR/sueltas/post-$n-tiktok.png"
 done
+
+DIR="$ROOT/redes/05-acceso-anticipado"
+render redes/05-acceso-anticipado/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
+render redes/05-acceso-anticipado/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
