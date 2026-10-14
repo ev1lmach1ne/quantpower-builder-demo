@@ -51,6 +51,9 @@ p { color: var(--text-muted); }
 .skip-link:focus { transform: translateY(0); }
 .site-header { position: sticky; top: 0; z-index: 30; background: #111828ed; backdrop-filter: blur(16px); border-bottom: 1px solid #253a6080; }
 .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.discord-link { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 42px; width: 42px; height: 42px; border: 1px solid #5865f255; border-radius: 8px; background: #5865f212; transition: background .2s, border-color .2s; }
+.discord-link:hover { background: #5865f235; border-color: #8b95ff; }
+.discord-link img { width: 24px; height: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; line-height: 1.2; }
 .corporate-logo { object-fit: contain; border-radius: 50%; flex: 0 0 auto; background: #eef0f2; box-shadow: 0 2px 14px #0003; }
 .brand strong { display: block; font-size: 16px; color: var(--text-strong); letter-spacing: -.04em; font-weight: 650; }
@@ -627,6 +630,11 @@ code { font-family: var(--font-mono); font-size: 10px; line-height: 1.95; color:
   .footer-top { flex-direction: column; align-items: flex-start; gap: 25px; }
   .footer-top nav { gap: 20px; flex-wrap: wrap; }
   .footer-bottom { flex-wrap: wrap; font-size: 8px; row-gap: 10px; }
+}
+@media (max-width: 520px) {
+  .site-header:has(.discord-link) .header-inner { flex-wrap: wrap; gap: 8px; padding-block: 10px; }
+  .site-header:has(.discord-link) .header-inner > .brand { flex-basis: 100%; }
+  .site-header:has(.discord-link) .main-nav { top: 100%; }
 }
 @media (max-width: 400px) {
   .container { width: calc(100% - 32px); }

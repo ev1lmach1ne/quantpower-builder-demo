@@ -23,6 +23,7 @@
     try {
       r = await fetch(API + ruta, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo),
+        credentials: ruta === '/api/cuenta/discord/iniciar' ? 'include' : 'same-origin',
       });
     } catch (e) {
       throw Object.assign(new Error('No se pudo conectar con el servidor. Inténtalo más tarde.'), { codigo: 'red' });
@@ -68,6 +69,21 @@
 
   const pintarPerfil = (p) => {
     $('cuenta-email').textContent = p.email;
+    const discord = p.discord || {};
+    $('btn-discord-vincular').hidden = Boolean(discord.vinculado);
+    $('btn-discord-vincular').disabled = !discord.disponible;
+    $('btn-discord-desvincular').hidden = !discord.vinculado;
+    $('btn-discord-desvincular').disabled = Boolean(discord.desvinculando);
+    const estadosDiscord = {
+      pendiente: 'Sincronización pendiente.',
+      activa: 'Rol «Licencia activa» asignado.',
+      sin_licencia: 'Cuenta vinculada. El rol se asignará cuando tengas una licencia activa.',
+      no_miembro: 'Únete al servidor de Discord para recibir el rol.',
+      desvinculando: 'Retirando el rol y desvinculando la cuenta…',
+    };
+    $('discord-estado').textContent = discord.vinculado
+      ? `${discord.nombre || 'Cuenta de Discord'} · ${estadosDiscord[discord.estado] || 'Sincronización pendiente.'}`
+      : discord.disponible ? 'Tu cuenta de Discord todavía no está vinculada.' : 'La vinculación con Discord estará disponible cuando el equipo complete la configuración.';
     const lic = p.licencia;
     const etiquetas = { activa: 'Activa', sin_licencia: 'Sin licencia', caducada: 'Caducada', revocada: 'Revocada' };
     $('lic-estado').textContent = etiquetas[lic.estado] || lic.estado;
@@ -208,6 +224,43 @@
 
   $('btn-salir').addEventListener('click', cerrarSesion);
 
+  $('btn-discord-vincular').addEventListener('click', async () => {
+    const boton = $('btn-discord-vincular');
+    boton.disabled = true;
+    $('discord-estado').textContent = 'Abriendo la autorización de Discord…';
+    try {
+      const datos = await conToken('/api/cuenta/discord/iniciar');
+      const url = new URL(datos.url);
+      if (url.origin !== 'https://discord.com' || url.pathname !== '/oauth2/authorize') throw new Error('Discord devolvió una autorización no válida.');
+      location.assign(url.href);
+    } catch (e) {
+      $('discord-estado').textContent = e.message;
+      if (e.codigo === 'token') cerrarSesion();
+      boton.disabled = false;
+    }
+  });
+  $('btn-discord-desvincular').addEventListener('click', async () => {
+    $('btn-discord-desvincular').disabled = true;
+    try {
+      await conToken('/api/cuenta/discord/desvincular');
+      await cargarCuenta();
+    } catch (e) {
+      $('discord-estado').textContent = e.message;
+      if (e.codigo === 'token') cerrarSesion();
+      $('btn-discord-desvincular').disabled = false;
+    }
+  });
+  $('btn-discord-refrescar').addEventListener('click', cargarCuenta);
+
+  const retornoDiscord = new URLSearchParams(location.hash.slice(1)).get('discord');
+  if (retornoDiscord) {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+
   sesion = leerSesion();
-  if (sesion) cargarCuenta(); else mostrarAcceso();
+  if (sesion) {
+    cargarCuenta().then(() => {
+      if (retornoDiscord === 'error') $('discord-estado').textContent = 'No se completó la vinculación de Discord. Vuelve a intentarlo.';
+    });
+  } else mostrarAcceso();
 })();
