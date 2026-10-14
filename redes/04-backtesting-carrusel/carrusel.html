@@ -8,7 +8,8 @@
   «Más allá del backtest - MAE, MFE, walk-forward y Montecarlo en la práctica».
   Se renderiza a PNG con redes/renderizar.sh.
   Parámetros: ?s=1…8 (diapositiva) y ?f=vertical (1080×1350, por defecto) o ?f=historia (1080×1920).
-  Con ?modo=suelta, las diapositivas 1-7 se convierten en publicaciones independientes de una serie.
+  Con ?modo=suelta, las diapositivas se convierten en publicaciones independientes de una serie
+  (?n=número y ?de=total). La diapositiva 34 junta MAE y MFE para la serie de 6 publicaciones.
   En 9:16 deja libres ~360 px arriba, ~340 px abajo y ~150 px a la derecha: en móviles alargados
   TikTok tapa esas zonas con sus pestañas, la descripción y los botones. La cabecera se omite.
 -->
@@ -98,6 +99,13 @@
   .center { text-align: center; }
   .url { align-self: center; padding: 22px 34px; border-radius: 999px; background: var(--accent); color: var(--bg-deep);
     font-size: 38px; font-weight: 800; }
+
+  .slide.tight { gap: 18px; }
+  /* Halo para que las anotaciones se lean sobre los puntos */
+  figure text[fill="var(--text-strong)"] { paint-order: stroke; stroke: var(--panel); stroke-width: 7px; stroke-linejoin: round; }
+  .pair { padding-top: 14px; }
+  .fig-head { margin: 0 26px 4px; font-size: 25px; line-height: 1.3; color: var(--text); }
+  .fig-head b { color: var(--accent); font-weight: 700; }
 
   /* Ajustes para 9:16: el ancho útil es algo menor y sobra altura */
   .historia h1 { font-size: 100px; }
@@ -512,6 +520,363 @@
   <div class="foot"><span>Ejemplo didáctico con datos sintéticos</span><span class="next">Desliza →</span></div>
 </section>
 
+<section class="slide tight" data-s="34">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count"></span></div>
+  <span class="eyebrow">01 · MAE y MFE</span>
+  <h2>Dentro de <span>cada operación.</span></h2>
+  <figure class="pair"><p class="fig-head"><b>MAE:</b> las ganadoras apenas van en contra.</p><svg viewBox="0 0 920 360" role="img" aria-label="Retroceso máximo de cada operación frente a su resultado">
+<circle cx="120" cy="26" r="9" fill="var(--accent)"/>
+<text x="146" y="34" font-size="24" fill="var(--text)" font-weight="400" text-anchor="start">Ganadora</text>
+<path d="M342 18l16 16m0 -16l-16 16" stroke="var(--red)" stroke-width="3.5" stroke-linecap="round"/>
+<text x="376" y="34" font-size="24" fill="var(--text)" font-weight="400" text-anchor="start">Perdedora</text>
+<path d="M110 240H890" stroke="var(--border-soft)" stroke-width="1.5"/>
+<text x="96" y="248" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="end">0</text>
+<path d="M110 150H890" stroke="var(--border-soft)" stroke-width="1.5"/>
+<text x="96" y="158" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="end">8</text>
+<path d="M110 60H890" stroke="var(--border-soft)" stroke-width="1.5"/>
+<text x="96" y="68" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="end">16</text>
+<text x="110" y="298" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">0,0</text>
+<text x="435" y="298" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">0,5</text>
+<text x="760" y="298" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">1,0</text>
+<path d="M110 262H890" stroke="var(--border)" stroke-width="2"/>
+<text x="500" y="338" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">Retroceso máximo en contra (R)</text>
+<text x="30" y="161" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle" transform="rotate(-90 30 161)">Resultado final (R)</text>
+<path d="M672 100V262" stroke="var(--text-strong)" stroke-width="2.5" stroke-dasharray="8 8"/>
+<text x="658" y="90" font-size="24" fill="var(--text-strong)" font-weight="600" text-anchor="end">9 de cada 10 ganadoras</text>
+<text x="658" y="122" font-size="24" fill="var(--text-strong)" font-weight="400" text-anchor="end">quedan a la izquierda (0,86 R)</text>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="408" cy="229" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M180 234l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M734 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M371 236l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M312 237l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="291" cy="168" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="231" cy="102" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="308" cy="225" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="537" cy="239" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="365" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="521" cy="209" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="306" cy="194" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="227" cy="228" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M362 239l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M514 242l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="618" cy="132" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="187" cy="204" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="224" cy="205" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M659 244l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="237" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M338 238l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="200" cy="196" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M752 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="426" cy="200" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="583" cy="237" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M677 241l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="271" cy="235" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="321" cy="196" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M524 242l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="456" cy="228" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="626" cy="219" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="672" cy="231" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M801 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="295" cy="237" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="308" cy="193" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="537" cy="207" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="172" cy="238" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M264 237l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M360 239l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="242" cy="231" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="172" cy="210" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="211" cy="225" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="324" cy="147" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M462 239l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="152" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M568 242l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="165" cy="198" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="542" cy="224" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="319" cy="226" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M668 244l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M586 243l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M629 243l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M419 238l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M471 241l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="703" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M330 234l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="635" cy="216" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="695" cy="234" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="131" cy="220" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="700" cy="181" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="379" cy="65" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="283" cy="235" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="261" cy="196" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="394" cy="179" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M758 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="158" cy="238" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M569 237l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="170" cy="208" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M443 240l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M725 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="419" cy="111" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="347" cy="239" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="413" cy="224" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="716" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="148" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="178" cy="211" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="128" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M590 236l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="705" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="180" cy="203" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="629" cy="188" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M488 238l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M754 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="722" cy="121" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="558" cy="220" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="232" cy="224" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M648 244l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="372" cy="234" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="616" cy="237" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="271" cy="199" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M754 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="456" cy="232" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+</svg></figure>
+  <figure class="pair"><p class="fig-head"><b>MFE:</b> devuelven parte del recorrido, y es el precio de seguir la tendencia.</p><svg viewBox="0 0 920 360" role="img" aria-label="Avance máximo a favor de cada operación frente a su resultado">
+<circle cx="120" cy="26" r="9" fill="var(--accent)"/>
+<text x="146" y="34" font-size="24" fill="var(--text)" font-weight="400" text-anchor="start">Ganadora</text>
+<path d="M342 18l16 16m0 -16l-16 16" stroke="var(--red)" stroke-width="3.5" stroke-linecap="round"/>
+<text x="376" y="34" font-size="24" fill="var(--text)" font-weight="400" text-anchor="start">Perdedora</text>
+<path d="M110 240H890" stroke="var(--border-soft)" stroke-width="1.5"/>
+<text x="96" y="248" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="end">0</text>
+<path d="M110 150H890" stroke="var(--border-soft)" stroke-width="1.5"/>
+<text x="96" y="158" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="end">8</text>
+<path d="M110 60H890" stroke="var(--border-soft)" stroke-width="1.5"/>
+<text x="96" y="68" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="end">16</text>
+<text x="110" y="298" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">0</text>
+<text x="327" y="298" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">5</text>
+<text x="543" y="298" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">10</text>
+<text x="760" y="298" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">15</text>
+<path d="M110 262H890" stroke="var(--border)" stroke-width="2"/>
+<text x="500" y="338" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle">Avance máximo a favor (R)</text>
+<text x="30" y="161" font-size="24" fill="var(--text-muted)" font-weight="400" text-anchor="middle" transform="rotate(-90 30 161)">Resultado final (R)</text>
+<path d="M110 240L803 60" stroke="var(--text-strong)" stroke-width="2.5" stroke-dasharray="8 8"/>
+<text x="509" y="98" font-size="24" fill="var(--text-strong)" font-weight="600" text-anchor="end">Cierre en el</text>
+<text x="509" y="130" font-size="24" fill="var(--text-strong)" font-weight="600" text-anchor="end">mejor punto</text>
+<path d="M114 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M109 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M125 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M135 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="216" cy="229" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M183 234l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M141 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M117 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M177 236l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M106 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M113 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M125 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M133 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M123 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M114 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M169 237l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="459" cy="168" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="710" cy="102" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="242" cy="225" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M113 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M107 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M110 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="199" cy="239" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="246" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="291" cy="209" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="377" cy="194" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M107 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="231" cy="228" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M120 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M136 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M132 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M172 239l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M165 242l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M112 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="597" cy="132" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M136 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M108 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="323" cy="204" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="324" cy="205" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M140 244l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="204" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M108 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M171 238l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M116 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M108 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="379" cy="196" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M137 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="355" cy="200" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="190" cy="237" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M165 241l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="215" cy="235" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="365" cy="196" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M169 242l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="236" cy="228" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="293" cy="219" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M123 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M105 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="217" cy="231" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M125 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M108 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="219" cy="237" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="382" cy="193" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="323" cy="207" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M109 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="186" cy="238" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M179 237l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M117 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M133 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M172 239l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M123 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="224" cy="231" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M125 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M113 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M122 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="297" cy="210" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="241" cy="225" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="579" cy="147" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M163 239l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M116 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M127 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="201" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M153 242l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="364" cy="198" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="252" cy="224" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="245" cy="226" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M119 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M146 244l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M105 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M147 243l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M149 243l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M161 238l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M105 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M163 241l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M118 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M131 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="259" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M108 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M190 234l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M119 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="304" cy="216" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M107 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M133 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="207" cy="234" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="256" cy="220" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="425" cy="181" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M105 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="884" cy="65" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="218" cy="235" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="378" cy="196" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="426" cy="179" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M123 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M146 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M127 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M116 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M113 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="203" cy="238" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M161 237l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M107 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="321" cy="208" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M114 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M164 240l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M105 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M126 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M148 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M115 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="675" cy="111" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="196" cy="239" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="251" cy="224" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="203" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M136 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="258" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="314" cy="211" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="198" cy="236" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M168 236l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="267" cy="222" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M128 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M130 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="347" cy="203" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M134 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="398" cy="188" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M190 238l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M113 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M114 245l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="665" cy="121" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="249" cy="220" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M124 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="261" cy="224" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M159 244l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="215" cy="234" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="214" cy="237" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<circle cx="371" cy="199" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+<path d="M109 246l12 12m0 -12l-12 12" stroke="var(--red)" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<circle cx="238" cy="232" r="7.5" fill="var(--accent)" fill-opacity=".85" stroke="var(--panel)" stroke-width="2"/>
+</svg></figure>
+  <div class="foot"><span>Ejemplo didáctico con datos sintéticos</span><span class="next">Desliza →</span></div>
+</section>
+
 <section class="slide" data-s="5">
   <div class="grid"></div>
   <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">5 / 8</span></div>
@@ -689,11 +1054,12 @@
   // ?modo=suelta: cada diapositiva (1-7) como publicación independiente de una serie.
   // Sustituye el contador y el «Desliza» por la serie y el enlace, y da contexto al ejemplo.
   if (el && q.get("modo") === "suelta") {
-    el.querySelector(".count").textContent = `Serie backtesting · ${s}/7`;
+    // ?n y ?de numeran la publicación dentro de la serie (por defecto, la propia diapositiva de 7)
+    el.querySelector(".count").textContent = `Serie backtesting · ${q.get("n") || s}/${q.get("de") || 7}`;
     const next = el.querySelector(".foot .next");
     if (next) next.textContent = "quantpowerbuilder.com/articulos";
     const nota = el.querySelector(".foot span:first-child");
-    if (nota && Number(s) >= 3 && Number(s) <= 6) nota.textContent = "Ejemplo: sistema de tendencia, 8 años · datos sintéticos";
+    if (nota && Number(s) >= 3 && Number(s) <= 34) nota.textContent = "Ejemplo: sistema de tendencia, 8 años · datos sintéticos";
     if (s === "7") nota.textContent = "Ejemplo didáctico · no es una recomendación de inversión";
   }
 </script>

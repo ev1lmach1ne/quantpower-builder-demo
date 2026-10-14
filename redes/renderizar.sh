@@ -34,9 +34,11 @@ for s in 1 2 3 4 5 6 7 8; do
   render "redes/04-backtesting-carrusel/carrusel.html?s=$s" historia 1080 1920 "$DIR/historia-$s.png"
 done
 
-# La misma serie como publicaciones independientes (sin «Desliza», con enlace en cada una)
+# La misma serie como 6 publicaciones independientes (MAE y MFE juntas en la diapositiva 34)
 mkdir -p "$DIR/sueltas"
-for s in 1 2 3 4 5 6 7; do
-  render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta" vertical 1080 1350 "$DIR/sueltas/post-$s-vertical.png"
-  render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta" historia 1080 1920 "$DIR/sueltas/post-$s-tiktok.png"
+n=0
+for s in 1 2 34 5 6 7; do
+  n=$((n + 1))
+  render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta&n=$n&de=6" vertical 1080 1350 "$DIR/sueltas/post-$n-vertical.png"
+  render "redes/04-backtesting-carrusel/carrusel.html?s=$s&modo=suelta&n=$n&de=6" historia 1080 1920 "$DIR/sueltas/post-$n-tiktok.png"
 done

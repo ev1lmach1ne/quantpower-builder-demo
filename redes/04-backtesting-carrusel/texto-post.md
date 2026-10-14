@@ -85,96 +85,67 @@ Ejemplo didáctico con datos sintéticos; no es una recomendación de inversión
 
 ---
 
-# Serie de 7 publicaciones sueltas
+# Serie de 6 publicaciones sueltas
 
 Las mismas ideas como publicaciones independientes, en la carpeta `sueltas/`:
-`post-N-tiktok.png` (9:16) y `post-N-vertical.png` (4:5). Cada imagen lleva el
-enlace al artículo y, en las de datos, el contexto del ejemplo, así que se
-entienden solas.
+`post-N-tiktok.png` (9:16) y `post-N-vertical.png` (4:5). MAE y MFE van juntas
+en la publicación 3. Cada imagen lleva el enlace al artículo y, en las de
+datos, el contexto del ejemplo.
 
-Ritmo sugerido: una cada 1 o 2 días, en este orden, empezando cuando el
-artículo ya esté publicado. En TikTok, el enlace va en el perfil.
+Ritmo sugerido: una cada 1 o 2 días, en orden, cuando el artículo ya esté
+publicado. En TikTok usa solo la descripción de una línea (más líneas abren un
+panel negro y desplazan la imagen) y pon el resto en un comentario fijado.
 
-Hashtags comunes: #backtesting #trading #tradingalgoritmico #quant #QuantPowerBuilder
+## 1/6 · Tu backtest cuenta una sola historia
 
-## 1/7 · Tu backtest cuenta una sola historia
+**Descripción:** 👀 Tu backtest cuenta una sola historia · Serie 1/6 #backtesting
 
-Tu backtest cuenta una sola historia 👀 ¿Cómo sabes si es verdad o pura suerte?
+**Comentario fijado:**
+Un backtest es solo una de las muchas historias posibles. En esta serie, 3 técnicas para saber si la tuya es real, todas disponibles en QuantPower Builder. Artículo en el perfil 👆
+#QuantPowerBuilder #backtesting #trading #quant
 
-Empiezo una serie con las 3 técnicas que uso para comprobarlo antes de arriesgar dinero: MAE/MFE, walk-forward y Montecarlo.
+## 2/6 · El ejemplo
 
-Serie backtesting 1/7 · Sígueme para no perderte las siguientes.
+**Descripción:** 📊 +128 % frente a +5 %: ¿suerte o ventaja? · Serie 2/6 #backtesting
 
-## 2/7 · El ejemplo
+**Comentario fijado:**
+Sistema de tendencia: ruptura de 60 velas, filtro de media de 200 y stop de seguimiento, 153 operaciones en 8 años. Así se construye y se prueba un sistema en QuantPower Builder. Ejemplo didáctico con datos sintéticos.
+#QuantPowerBuilder #backtesting #tradingalgoritmico #trading
 
-+128 % en 8 años con una caída máxima del −11,9 %. Comprar y mantener el mismo activo: +5 % y una caída del −62,9 % 📊
+## 3/6 · MAE y MFE
 
-Un resultado así es justo el que más conviene examinar antes de creérselo. En las próximas publicaciones lo ponemos a prueba.
+**Descripción:** 🔍 Lo que pasa dentro de cada operación: MAE y MFE · Serie 3/6 #trading
 
-Serie backtesting 2/7 · Ejemplo didáctico con datos sintéticos.
+**Comentario fijado:**
+MAE = cuánto va en contra una operación; MFE = cuánto llega a ir a favor. En QuantPower Builder los ves en cada operación para decidir dónde poner el stop y cómo salir.
+#QuantPowerBuilder #MAE #MFE #gestiondelriesgo #backtesting
 
-## 3/7 · MAE
+## 4/6 · Walk-forward
 
-¿Cuánto va en contra una operación antes de ganar? Eso es la MAE 📉
+**Descripción:** 🔁 Optimiza con el pasado, comprueba con el futuro · Serie 4/6 #quant
 
-En el ejemplo, la mitad de las ganadoras no retrocede más de 0,32 R. Eso te dice dónde poner el stop… pero el cambio siempre hay que validarlo.
+**Comentario fijado:**
+Optimiza con 2 años, comprueba en los 6 meses siguientes y repite. QuantPower Builder separa la optimización in-sample de la evaluación out-of-sample y walk-forward.
+#QuantPowerBuilder #walkforward #backtesting #quant #tradingalgoritmico
 
-Serie backtesting 3/7 · Artículo completo: enlace en el perfil.
+## 5/6 · Montecarlo
 
-## 4/7 · MFE
+**Descripción:** 🎲 La caída de tu backtest no es la peor · Serie 5/6 #trading
 
-¿Cuánto beneficio devuelven tus operaciones? Eso es la MFE 💸
+**Comentario fijado:**
+10.000 simulaciones con las mismas operaciones para ver la caída que de verdad puedes sufrir. El Montecarlo de QuantPower Builder te da el abanico completo de resultados.
+#QuantPowerBuilder #montecarlo #gestiondelriesgo #trading #backtesting
 
-Las ganadoras capturan menos de la mitad de su recorrido. La tentación es ajustar el stop de seguimiento… y a 3 ATR cuesta casi un tercio de la rentabilidad.
+## 6/6 · El orden importa
 
-Serie backtesting 4/7 · Artículo completo: enlace en el perfil.
+**Descripción:** ✅ El orden importa · Serie 6/6, artículo en el perfil #backtesting
 
-## 5/7 · Walk-forward
-
-Optimiza con el pasado, comprueba con el futuro 🔁
-
-Walk-forward: elegir parámetros con 2 años y probarlos en los 6 meses siguientes, 12 veces. Fuera de muestra, el ejemplo gana un +82,6 % en 6 años con 10 de 12 ventanas en positivo.
-
-Serie backtesting 5/7 · Artículo completo: enlace en el perfil.
-
-## 6/7 · Montecarlo
-
-La caída que viste en tu backtest no es la peor 🎲
-
-10.000 simulaciones con las mismas operaciones: el backtest cayó un −11,9 %, pero en el peor 5 % de los casos la caída llega al −19,2 %. Ese es el número con el que hay que calcular el riesgo.
-
-Serie backtesting 6/7 · Artículo completo: enlace en el perfil.
-
-## 7/7 · El orden importa
-
-Cierre de la serie: el orden en que aplicar todo esto ✅
-
-1. Hipótesis y costes antes de mirar resultados
-2. Backtest realista
-3. MAE y MFE para la gestión
-4. Walk-forward para los parámetros
-5. Montecarlo para el riesgo
-
-Ninguna técnica convierte un sistema malo en bueno, pero juntas te dicen si el tuyo lo es.
-
-Serie backtesting 7/7 · Artículo completo con tablas y gráficos: enlace en el perfil.
+**Comentario fijado:**
+Hipótesis → backtest → MAE/MFE → walk-forward → Montecarlo. Todo el flujo, en una sola plataforma: QuantPower Builder. Artículo completo en el perfil 👆
+#QuantPowerBuilder #backtesting #tradingalgoritmico #quant #trading
 
 ---
 
-## TikTok: descripciones de una línea + comentario fijado
+## Carrusel completo (8 imágenes en una publicación)
 
-En TikTok, una descripción de más de una línea abre un panel negro bajo la
-imagen y la desplaza hacia arriba. Para cada publicación de la serie, usa solo
-la línea de descripción y fija como comentario el texto largo de la sección
-anterior («Serie de 7 publicaciones sueltas»).
-
-1. 👀 Tu backtest cuenta una sola historia · Serie 1/7 #backtesting
-2. 📊 +128 % frente a +5 %: ¿suerte o ventaja? · Serie 2/7 #backtesting
-3. 📉 ¿Cuánto va en contra antes de ganar? MAE · Serie 3/7 #trading
-4. 💸 ¿Cuánto beneficio devuelves? MFE · Serie 4/7 #trading
-5. 🔁 Optimiza con el pasado, comprueba con el futuro · Serie 5/7 #quant
-6. 🎲 La caída de tu backtest no es la peor · Serie 6/7 #trading
-7. ✅ El orden importa · Serie 7/7, artículo en el perfil #backtesting
-
-Carrusel completo (8 imágenes en una publicación):
-👀 3 técnicas para saber si tu backtest es real · enlace en el perfil #backtesting
+**Descripción:** 👀 3 técnicas para saber si tu backtest es real · enlace en el perfil #backtesting
