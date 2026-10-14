@@ -51,7 +51,7 @@ Crea sistemas de trading sin escribir código: combina indicadores, define tus r
 ✅ Gestión del riesgo
 ✅ Validación de robustez
 
-Demo gratuita para Windows y artículos en quantpowerbuilder.com 👉 enlace en el perfil
+Demo gratuita para Windows y artículos 👉 quantpowerbuilder.com 👉 enlace en el perfil
 
 #trading #tradingalgoritmico #backtesting #quant #sistemasdetrading #nocode #QuantPowerBuilder
 
@@ -131,5 +131,5 @@ comentario fijado.
 
 **Comentario fijado:**
 
-QuantPower Builder: construcción visual, análisis del activo, gestión del riesgo y validación de robustez en una sola plataforma. Demo gratuita para Windows y artículos en quantpowerbuilder.com
+QuantPower Builder: construcción visual, análisis del activo, gestión del riesgo y validación de robustez en una sola plataforma. Demo gratuita para Windows y artículos 👉 quantpowerbuilder.com
 #tradingalgoritmico #backtesting #quant #nocode #QuantPowerBuilder

@@ -121,9 +121,9 @@ comentario fijado (publícalo desde la cuenta, mantén pulsado → «Fijar»).
 
 **Comentario fijado:**
 
-Cómo conseguir tu licencia:
-1️⃣ Crea tu cuenta gratis en quantpowerbuilder.com/cuenta
+Cómo conseguir tu licencia de QuantPower Builder:
+1️⃣ Crea tu cuenta gratis 👉 quantpowerbuilder.com/cuenta
 2️⃣ Recibe tu clave por correo en 24–48 h
 3️⃣ Actívala en la app o en tu cuenta
 ⏳ Cuando se agoten las 50 plazas, se cierra la promoción.
-#tradingalgoritmico #backtesting #quant #sistemasdetrading
+#QuantPowerBuilder #tradingalgoritmico #backtesting #quant #sistemasdetrading

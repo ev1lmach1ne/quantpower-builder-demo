@@ -101,7 +101,7 @@ panel negro y desplazan la imagen) y pon el resto en un comentario fijado.
 **Descripción:** 👀 Tu backtest cuenta una sola historia · Serie 1/6 #backtesting
 
 **Comentario fijado:**
-Un backtest es solo una de las muchas historias posibles. En esta serie, 3 técnicas para saber si la tuya es real, todas disponibles en QuantPower Builder. Artículo en el perfil 👆
+Un backtest es solo una de las muchas historias posibles. En esta serie, 3 técnicas para saber si la tuya es real, todas disponibles en QuantPower Builder. 👉 quantpowerbuilder.com/articulos
 #QuantPowerBuilder #backtesting #trading #quant
 
 ## 2/6 · El ejemplo
@@ -109,7 +109,7 @@ Un backtest es solo una de las muchas historias posibles. En esta serie, 3 técn
 **Descripción:** 📊 +128 % frente a +5 %: ¿suerte o ventaja? · Serie 2/6 #backtesting
 
 **Comentario fijado:**
-Sistema de tendencia: ruptura de 60 velas, filtro de media de 200 y stop de seguimiento, 153 operaciones en 8 años. Así se construye y se prueba un sistema en QuantPower Builder. Ejemplo didáctico con datos sintéticos.
+Sistema de tendencia: ruptura de 60 velas, filtro de media de 200 y stop de seguimiento, 153 operaciones en 8 años. Así se construye y se prueba un sistema en QuantPower Builder. Ejemplo didáctico con datos sintéticos. 👉 quantpowerbuilder.com
 #QuantPowerBuilder #backtesting #tradingalgoritmico #trading
 
 ## 3/6 · MAE y MFE
@@ -117,7 +117,7 @@ Sistema de tendencia: ruptura de 60 velas, filtro de media de 200 y stop de segu
 **Descripción:** 🔍 Lo que pasa dentro de cada operación: MAE y MFE · Serie 3/6 #trading
 
 **Comentario fijado:**
-MAE = cuánto va en contra una operación; MFE = cuánto llega a ir a favor. En QuantPower Builder los ves en cada operación para decidir dónde poner el stop y cómo salir.
+MAE = lo máximo que una operación va en contra antes de cerrarse. MFE = lo máximo que llega a ir a favor. En QuantPower Builder los ves en cada operación: la MAE te dice dónde poner el stop y la MFE cuánto beneficio devuelve tu salida. 👉 quantpowerbuilder.com
 #QuantPowerBuilder #MAE #MFE #gestiondelriesgo #backtesting
 
 ## 4/6 · Walk-forward
@@ -125,7 +125,7 @@ MAE = cuánto va en contra una operación; MFE = cuánto llega a ir a favor. En 
 **Descripción:** 🔁 Optimiza con el pasado, comprueba con el futuro · Serie 4/6 #quant
 
 **Comentario fijado:**
-Optimiza con 2 años, comprueba en los 6 meses siguientes y repite. QuantPower Builder separa la optimización in-sample de la evaluación out-of-sample y walk-forward.
+Optimiza con 2 años, comprueba en los 6 meses siguientes y repite. QuantPower Builder separa la optimización in-sample de la evaluación out-of-sample y walk-forward. 👉 quantpowerbuilder.com
 #QuantPowerBuilder #walkforward #backtesting #quant #tradingalgoritmico
 
 ## 5/6 · Montecarlo
@@ -133,7 +133,7 @@ Optimiza con 2 años, comprueba en los 6 meses siguientes y repite. QuantPower B
 **Descripción:** 🎲 La caída de tu backtest no es la peor · Serie 5/6 #trading
 
 **Comentario fijado:**
-10.000 simulaciones con las mismas operaciones para ver la caída que de verdad puedes sufrir. El Montecarlo de QuantPower Builder te da el abanico completo de resultados.
+10.000 simulaciones con las mismas operaciones para ver la caída que de verdad puedes sufrir. El Montecarlo de QuantPower Builder te da el abanico completo de resultados. 👉 quantpowerbuilder.com
 #QuantPowerBuilder #montecarlo #gestiondelriesgo #trading #backtesting
 
 ## 6/6 · El orden importa
@@ -141,7 +141,7 @@ Optimiza con 2 años, comprueba en los 6 meses siguientes y repite. QuantPower B
 **Descripción:** ✅ El orden importa · Serie 6/6, artículo en el perfil #backtesting
 
 **Comentario fijado:**
-Hipótesis → backtest → MAE/MFE → walk-forward → Montecarlo. Todo el flujo, en una sola plataforma: QuantPower Builder. Artículo completo en el perfil 👆
+Hipótesis → backtest → MAE/MFE → walk-forward → Montecarlo. Todo el flujo, en una sola plataforma: QuantPower Builder. Artículo completo 👉 quantpowerbuilder.com/articulos
 #QuantPowerBuilder #backtesting #tradingalgoritmico #quant #trading
 
 ---
