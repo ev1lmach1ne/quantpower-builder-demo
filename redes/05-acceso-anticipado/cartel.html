@@ -25,7 +25,7 @@
   .poster {
     position: relative; overflow: hidden;
     width: 1080px; height: 1920px; padding: 360px 150px 340px 80px;
-    display: flex; flex-direction: column; gap: 36px;
+    display: flex; flex-direction: column; gap: 26px;
     font-family: var(--font); color: var(--text);
     background:
       radial-gradient(900px 700px at 90% 20%, rgba(79,195,247,.12), transparent 60%),
@@ -41,9 +41,9 @@
   }
   .poster > * { position: relative; flex-shrink: 0; }
 
-  .head { display: none; align-items: center; gap: 22px; }
-  .vertical .head { display: flex; }
-  .logo { width: 84px; height: 84px; border-radius: 50%; flex: none;
+  .head { display: flex; align-items: center; gap: 22px; }
+
+  .logo { width: 76px; height: 76px; border-radius: 50%; flex: none;
     background: url("../../assets/images/logo-corporativo.png") center / 104% no-repeat; clip-path: circle(48%); }
   .head strong { display: block; font-size: 38px; font-weight: 700; color: var(--text-strong); }
   .head strong span { font-weight: 400; }
