@@ -34,12 +34,14 @@
       <form id="form-alta" class="cuenta-form" role="tabpanel" aria-labelledby="tab-alta" hidden novalidate>
         <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
         <label>Nombre <small>(opcional)</small><input name="nombre" type="text" autocomplete="name" maxlength="80"></label>
-        <label>Nacionalidad (país) <small>(obligatoria)</small><select name="nacionalidad" required aria-describedby="alta-datos-nota"><option value="">Selecciona tu nacionalidad</option></select></label>
+        <label>País de residencia <small>(obligatorio)</small><select name="residencia" required aria-describedby="alta-datos-nota"><option value="">Selecciona tu país</option></select></label>
+        <label>Provincia, estado o región <small>(opcional)</small><select name="provincia_es" hidden><option value="">Selecciona tu provincia</option></select><input name="provincia" type="text" autocomplete="address-level1" maxlength="80"></label>
+        <label>Ciudad o localidad <small>(opcional)</small><input name="ciudad" type="text" autocomplete="address-level2" maxlength="80"></label>
         <label>¿Cómo conociste QuantPower Builder? <small>(opcional)</small><select name="origen"><option value="">Selecciona una opción</option></select></label>
         <label>Contraseña <small>(mínimo 8 caracteres)</small><input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="200"></label>
         <label>Repite la contraseña<input name="password2" type="password" autocomplete="new-password" required maxlength="200"></label>
         <button class="button button-primary" type="submit">Crear cuenta gratis</button>
-        <p class="cuenta-nota" id="alta-datos-nota">La nacionalidad es declarada por ti. Saber cómo nos conociste nos ayuda a mejorar la difusión del software. Al usar la aplicación, el servidor estima el tiempo conectado a partir de sus sesiones y latidos.</p>
+        <p class="cuenta-nota" id="alta-datos-nota">Tu ubicación es declarada por ti y solo se usa con fines estadísticos. Saber cómo nos conociste nos ayuda a mejorar la difusión del software. Al usar la aplicación, el servidor estima el tiempo conectado a partir de sus sesiones y latidos.</p>
         <p class="cuenta-estado" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -100,11 +102,12 @@
 
       <article class="cuenta-card" aria-labelledby="h-perfil">
         <h2 id="h-perfil">Perfil y cómo nos conociste</h2>
-        <p class="cuenta-nota" id="perfil-pendiente" hidden>Tu cuenta es anterior a estos campos. Puedes completar aquí tu nacionalidad; tu acceso y licencia se mantienen.</p>
+        <p class="cuenta-nota" id="perfil-pendiente" hidden>Tu cuenta es anterior a estos campos. Puedes completar aquí tu país de residencia; tu acceso y licencia se mantienen.</p>
         <form id="form-perfil" class="cuenta-form" novalidate>
           <label>Nombre<input name="nombre" type="text" autocomplete="name" maxlength="80"></label>
-          <label>Nacionalidad (país)<select name="nacionalidad" required><option value="">Selecciona tu nacionalidad</option></select></label>
-          <label>País de residencia <small>(opcional)</small><input name="pais" type="text" autocomplete="country-name" maxlength="80"></label>
+          <label>País de residencia<select name="residencia" required><option value="">Selecciona tu país</option></select></label>
+          <label>Provincia, estado o región <small>(opcional)</small><select name="provincia_es" hidden><option value="">Selecciona tu provincia</option></select><input name="provincia" type="text" autocomplete="address-level1" maxlength="80"></label>
+          <label>Ciudad o localidad <small>(opcional)</small><input name="ciudad" type="text" autocomplete="address-level2" maxlength="80"></label>
           <label>Empresa u ocupación<input name="empresa" type="text" autocomplete="organization" maxlength="80"></label>
           <label>Cómo nos conociste <small>(opcional)</small><select name="origen"><option value="">Selecciona una opción</option></select></label>
           <button class="button button-outline" type="submit">Guardar</button>

@@ -15,13 +15,27 @@
         .map((codigo) => [codigo, nombres ? nombres.of(codigo) : codigo])
         .sort((a, b) => a[1].localeCompare(b[1], 'es'));
       paises.push(['OTRO', 'Otra / no aparece en la lista']);
-      for (const [campo, opciones] of [['nacionalidad', paises], ['origen', Object.entries(datos.origenes)]]) {
+      for (const [campo, opciones] of [['residencia', paises], ['provincia_es', datos.provincias_es.map((p) => [p, p])],
+        ['origen', Object.entries(datos.origenes)]]) {
         document.querySelectorAll(`select[name="${campo}"]`).forEach((select) => {
           opciones.forEach(([valor, etiqueta]) => select.add(new Option(etiqueta, valor)));
         });
       }
+      // España: provincia de la lista; resto de países: texto libre (estado o región)
+      document.querySelectorAll('select[name="residencia"]').forEach((select) => {
+        const form = select.form;
+        const alternar = () => {
+          const es = select.value === 'ES';
+          form.provincia_es.hidden = !es; form.provincia.hidden = es;
+          if (es) form.provincia.value = ''; else form.provincia_es.value = '';
+        };
+        select.addEventListener('change', alternar);
+        form.alternarProvincia = alternar;
+        alternar();
+      });
       return datos;
     }).catch(() => null);
+  const provinciaDe = (f) => String(f.get(f.get('residencia') === 'ES' ? 'provincia_es' : 'provincia') || '');
 
   const exigirCatalogo = async () => {
     if (!await catalogoListo) throw new Error('No se pudieron cargar las opciones de registro. Recarga la página e inténtalo de nuevo.');
@@ -139,10 +153,12 @@
         ? 'Introduce tu clave aquí o en la aplicación, después de iniciar sesión.'
         : 'Tu licencia ya no es válida. Puedes activar una clave nueva.';
     const f = $('form-perfil');
-    f.nombre.value = p.nombre; f.pais.value = p.pais; f.empresa.value = p.empresa;
-    $('perfil-pendiente').hidden = Boolean(p.nacionalidad);
+    f.nombre.value = p.nombre; f.empresa.value = p.empresa; f.ciudad.value = p.ciudad || '';
+    $('perfil-pendiente').hidden = Boolean(p.residencia);
     catalogoListo.then(() => {
-      f.nacionalidad.value = p.nacionalidad || '';
+      f.residencia.value = p.residencia || '';
+      if (f.alternarProvincia) f.alternarProvincia();
+      (p.residencia === 'ES' ? f.provincia_es : f.provincia).value = p.provincia || '';
       f.origen.value = p.origen || '';
     });
     const ul = $('lista-equipos');
@@ -194,11 +210,13 @@
     if (!email) throw new Error('Introduce tu correo.');
     if (password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres.');
     if (password !== String(f.get('password2'))) throw new Error('Las contraseñas no coinciden.');
-    const nacionalidad = String(f.get('nacionalidad') || '');
-    if (!nacionalidad) throw new Error('Selecciona tu nacionalidad (país).');
-    const datos = await api('/api/registro', { email, password, nacionalidad,
+    const residencia = String(f.get('residencia') || '');
+    if (!residencia) throw new Error('Selecciona tu país de residencia.');
+    const datos = await api('/api/registro', { email, password, residencia,
+      provincia: provinciaDe(f), ciudad: String(f.get('ciudad') || ''),
       nombre: String(f.get('nombre') || ''), origen: String(f.get('origen') || '') });
     form.reset();
+    if (form.alternarProvincia) form.alternarProvincia();
     if (datos.pendiente) {            // servidor apagado: el buzón guardó el correo, sin cuenta todavía
       mensaje(form, datos.mensaje || 'Ahora mismo no podemos crear cuentas. Hemos guardado tu correo y, '
         + 'mientras queden plazas de la promoción, te enviaremos tu clave de licencia por correo en un plazo máximo de 24 a 48 horas.', 'ok');
@@ -253,11 +271,11 @@
 
   enviar($('form-perfil'), async (f, form) => {
     await exigirCatalogo();
-    const nacionalidad = String(f.get('nacionalidad') || '');
-    if (!nacionalidad) throw new Error('Selecciona tu nacionalidad (país).');
+    const residencia = String(f.get('residencia') || '');
+    if (!residencia) throw new Error('Selecciona tu país de residencia.');
     await conToken('/api/cuenta/guardar', {
-      nombre: String(f.get('nombre')), pais: String(f.get('pais')), empresa: String(f.get('empresa')),
-      nacionalidad, origen: String(f.get('origen') || ''),
+      nombre: String(f.get('nombre')), empresa: String(f.get('empresa')),
+      residencia, provincia: provinciaDe(f), ciudad: String(f.get('ciudad') || ''), origen: String(f.get('origen') || ''),
     });
     $('perfil-pendiente').hidden = true;
     mensaje(form, 'Perfil guardado.', 'ok');
