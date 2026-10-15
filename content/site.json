@@ -8,11 +8,26 @@
   ],
   "highlights": {
     "v0.7.6.3-alpha": [
-      {"title": "Acceso con cuenta y licencia", "text": "Nueva pantalla de acceso dentro del software, activación de licencia y sesión recordada."},
-      {"title": "Recuperación de contraseña", "text": "Enlace por correo solicitado desde la web o el programa para elegir una contraseña nueva."},
-      {"title": "Indicadores y divergencias", "text": "Momentum / ROC, estocástico de Lane y divergencias con confirmación visible en los gráficos."},
-      {"title": "Discord y reportes de errores", "text": "Vincula Discord desde tu cuenta y utiliza el botón del bicho para enviar un reporte al equipo."},
-      {"title": "Gráficos, costes e importación", "text": "Velas más fieles al alejar, costes de compras y ventas configurables y archivos seleccionados sin recortes."}
+      {
+        "title": "Acceso con cuenta y licencia",
+        "text": "Nueva pantalla de acceso dentro del software, activación de licencia y sesión recordada."
+      },
+      {
+        "title": "Recuperación de contraseña",
+        "text": "Enlace por correo solicitado desde la web o el programa para elegir una contraseña nueva."
+      },
+      {
+        "title": "Indicadores y divergencias",
+        "text": "Momentum / ROC, estocástico de Lane y divergencias con confirmación visible en los gráficos."
+      },
+      {
+        "title": "Discord y reportes de errores",
+        "text": "Vincula Discord desde tu cuenta y utiliza el botón del bicho para enviar un reporte al equipo."
+      },
+      {
+        "title": "Gráficos, costes e importación",
+        "text": "Velas más fieles al alejar, costes de compras y ventas configurables y archivos seleccionados sin recortes."
+      }
     ],
     "v0.7.6.2": [
       {
@@ -34,18 +49,18 @@
     ]
   },
   "fallbackRelease": {
-    "tag_name": "v0.7.6.2",
-    "html_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/tag/v0.7.6.2",
-    "published_at": "2026-10-12T13:23:39Z",
+    "tag_name": "v0.7.6.3-alpha",
+    "html_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/tag/v0.7.6.3-alpha",
+    "published_at": "2026-10-15T10:45:17Z",
     "draft": false,
-    "prerelease": false,
+    "prerelease": true,
     "assets": [
       {
         "name": "QuantPowerBuilder_Windows_x64.zip",
         "state": "uploaded",
-        "size": 403581388,
-        "browser_download_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/download/v0.7.6.2/QuantPowerBuilder_Windows_x64.zip",
-        "digest": "sha256:0767a1ae436227ca189594e14c24bea74385f467a8079b972f022971631d1d94"
+        "size": 401072993,
+        "browser_download_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/download/v0.7.6.3-alpha/QuantPowerBuilder_Windows_x64.zip",
+        "digest": "sha256:45e152e3a476501f5d9676bd602c20e177e633a8996f6e0cb7b0740fc3a06875"
       }
     ]
   },
