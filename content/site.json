@@ -7,6 +7,13 @@
     "QuantPowerSystems_Windows_x64.zip"
   ],
   "highlights": {
+    "v0.7.6.3-alpha": [
+      {"title": "Acceso con cuenta y licencia", "text": "Nueva pantalla de acceso dentro del software, activación de licencia y sesión recordada."},
+      {"title": "Recuperación de contraseña", "text": "Enlace por correo solicitado desde la web o el programa para elegir una contraseña nueva."},
+      {"title": "Indicadores y divergencias", "text": "Momentum / ROC, estocástico de Lane y divergencias con confirmación visible en los gráficos."},
+      {"title": "Discord y reportes de errores", "text": "Vincula Discord desde tu cuenta y utiliza el botón del bicho para enviar un reporte al equipo."},
+      {"title": "Gráficos, costes e importación", "text": "Velas más fieles al alejar, costes de compras y ventas configurables y archivos seleccionados sin recortes."}
+    ],
     "v0.7.6.2": [
       {
         "title": "Initial Balance / Opening Range",

@@ -3,6 +3,9 @@
   const API = local ? 'http://127.0.0.1:8787' : 'https://api.quantpowerbuilder.com';
   const CLAVE_SESION = 'qp_cuenta';
   const $ = (id) => document.getElementById(id);
+  const hashEntrada = new URLSearchParams(location.hash.slice(1));
+  let tokenRecuperacion = hashEntrada.get('restablecer') || '';
+  if (tokenRecuperacion) history.replaceState(null, '', location.pathname + location.search);
   const catalogoListo = fetch('../content/registro.json', { cache: 'no-cache' })
     .then(async (r) => {
       if (!r.ok) throw new Error('No se pudieron cargar las opciones de registro. Recarga la página.');
@@ -84,7 +87,19 @@
   });
 
   // ---- vistas --------------------------------------------------------------
-  const mostrarAcceso = () => { $('vista-acceso').hidden = false; $('vista-cuenta').hidden = true; };
+  const mostrarAcceso = () => {
+    $('vista-acceso').hidden = false; $('vista-cuenta').hidden = true;
+    $('vista-recuperar').hidden = true; $('vista-restablecer').hidden = true;
+  };
+  const mostrarRecuperar = () => {
+    $('vista-acceso').hidden = true; $('vista-cuenta').hidden = true;
+    $('vista-restablecer').hidden = true; $('vista-recuperar').hidden = false;
+    $('form-recuperar').elements.email.value = $('form-login').elements.email.value || sesion?.email || '';
+  };
+  const mostrarRestablecer = () => {
+    $('vista-acceso').hidden = true; $('vista-cuenta').hidden = true;
+    $('vista-recuperar').hidden = true; $('vista-restablecer').hidden = false;
+  };
   const cerrarSesion = () => { guardarSesion(null); $('aviso-promo').hidden = true; mostrarAcceso(); };
 
   const pintarPerfil = (p) => {
@@ -253,8 +268,29 @@
     if (nueva.length < 8) throw new Error('La contraseña nueva debe tener al menos 8 caracteres.');
     await conToken('/api/cuenta/password', { actual: String(f.get('actual')), nueva });
     form.reset();
-    mensaje(form, 'Contraseña cambiada.', 'ok');
+    cerrarSesion(); pestana('login');
+    mensaje($('form-login'), 'Contraseña cambiada. Inicia sesión con la nueva contraseña.', 'ok');
   });
+
+  enviar($('form-recuperar'), async (f, form) => {
+    const email = String(f.get('email') || '').trim();
+    if (!email || !$('form-recuperar').elements.email.checkValidity()) throw new Error('Introduce un correo electrónico válido.');
+    const datos = await api('/api/password/solicitar', { email });
+    mensaje(form, datos.mensaje, 'ok');
+  });
+  enviar($('form-restablecer'), async (f, form) => {
+    const password = String(f.get('password') || ''), password2 = String(f.get('password2') || '');
+    if (password.length < 8 || password.length > 200) throw new Error('La contraseña debe tener entre 8 y 200 caracteres.');
+    if (password !== password2) throw new Error('Las contraseñas no coinciden.');
+    if (!tokenRecuperacion) throw new Error('Solicita un nuevo enlace de recuperación.');
+    const datos = await api('/api/password/restablecer', { token: tokenRecuperacion, password, password2 });
+    tokenRecuperacion = '';
+    form.reset(); cerrarSesion(); pestana('login');
+    mensaje($('form-login'), datos.mensaje, 'ok');
+  });
+  $('btn-recuperar').addEventListener('click', mostrarRecuperar);
+  $('btn-recuperar-volver').addEventListener('click', () => { mostrarAcceso(); pestana('login'); });
+  $('btn-restablecer-otro').addEventListener('click', mostrarRecuperar);
 
   $('btn-salir').addEventListener('click', cerrarSesion);
 
@@ -286,13 +322,15 @@
   });
   $('btn-discord-refrescar').addEventListener('click', cargarCuenta);
 
-  const retornoDiscord = new URLSearchParams(location.hash.slice(1)).get('discord');
+  const retornoDiscord = hashEntrada.get('discord');
   if (retornoDiscord) {
     history.replaceState(null, '', location.pathname + location.search);
   }
 
   sesion = leerSesion();
-  if (sesion) {
+  if (tokenRecuperacion) mostrarRestablecer();
+  else if (location.hash === '#recuperar') mostrarRecuperar();
+  else if (sesion) {
     cargarCuenta().then(() => {
       if (retornoDiscord === 'error') $('discord-estado').textContent = 'No se completó la vinculación de Discord. Vuelve a intentarlo.';
     });

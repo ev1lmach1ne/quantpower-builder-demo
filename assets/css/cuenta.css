@@ -16,6 +16,7 @@
 .cuenta-form input:focus-visible, .cuenta-form select:focus-visible, .cuenta-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .cuenta-form input[name="clave"] { font-family: var(--font-mono); text-transform: uppercase; }
 .cuenta-form button[disabled] { opacity: .6; cursor: wait; }
+.cuenta-enlace { background: none; border: 0; padding: 0; cursor: pointer; width: fit-content; margin-top: 12px; }
 .cuenta-estado { min-height: 1.5em; margin: 0; font-size: .95rem; color: var(--text-muted); }
 .cuenta-estado.error { color: var(--red); }
 .cuenta-estado.ok { color: var(--green); }

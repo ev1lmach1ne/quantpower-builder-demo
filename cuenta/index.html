@@ -27,6 +27,7 @@
       <form id="form-login" class="cuenta-form" role="tabpanel" aria-labelledby="tab-login" novalidate>
         <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
         <label>Contraseña<input name="password" type="password" autocomplete="current-password" required maxlength="200"></label>
+        <button class="text-link cuenta-enlace" type="button" id="btn-recuperar">¿Olvidaste tu contraseña?</button>
         <button class="button button-primary" type="submit">Entrar</button>
         <p class="cuenta-estado" role="status" aria-live="polite"></p>
       </form>
@@ -41,6 +42,28 @@
         <p class="cuenta-nota" id="alta-datos-nota">La nacionalidad es declarada por ti. Saber cómo nos conociste nos ayuda a mejorar la difusión del software. Al usar la aplicación, el servidor estima el tiempo conectado a partir de sus sesiones y latidos.</p>
         <p class="cuenta-estado" role="status" aria-live="polite"></p>
       </form>
+    </section>
+
+    <section id="vista-recuperar" hidden aria-labelledby="titulo-recuperar">
+      <h1 id="titulo-recuperar">Recupera tu <span class="text-accent">contraseña.</span></h1>
+      <p class="lead">Introduce el correo de tu cuenta. Recibirás un enlace de un solo uso que caduca en 30 minutos.</p>
+      <form id="form-recuperar" class="cuenta-form" novalidate>
+        <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <button class="button button-primary" type="submit">Enviar enlace de recuperación</button>
+        <p class="cuenta-estado" role="status" aria-live="polite"></p>
+      </form>
+      <button class="text-link cuenta-enlace" type="button" id="btn-recuperar-volver">Volver a iniciar sesión</button>
+    </section>
+
+    <section id="vista-restablecer" hidden aria-labelledby="titulo-restablecer">
+      <h1 id="titulo-restablecer">Tu nueva <span class="text-accent">contraseña.</span></h1>
+      <form id="form-restablecer" class="cuenta-form" novalidate>
+        <label>Contraseña nueva <small>(mínimo 8 caracteres)</small><input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="200"></label>
+        <label>Repite la contraseña nueva<input name="password2" type="password" autocomplete="new-password" required minlength="8" maxlength="200"></label>
+        <button class="button button-primary" type="submit">Guardar contraseña nueva</button>
+        <p class="cuenta-estado" role="status" aria-live="polite"></p>
+      </form>
+      <button class="text-link cuenta-enlace" type="button" id="btn-restablecer-otro">Solicitar otro enlace</button>
     </section>
 
     <!-- Panel de la cuenta -->
