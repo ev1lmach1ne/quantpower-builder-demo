@@ -50,3 +50,7 @@ render redes/05-acceso-anticipado/cartel.html vertical 1080 1350 "$DIR/cartel-10
 DIR="$ROOT/redes/06-anuncio-articulo"
 render redes/06-anuncio-articulo/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
 render redes/06-anuncio-articulo/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
+
+DIR="$ROOT/redes/07-articulo-publicado"
+render redes/07-articulo-publicado/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
+render redes/07-articulo-publicado/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
