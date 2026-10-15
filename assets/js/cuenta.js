@@ -3,6 +3,26 @@
   const API = local ? 'http://127.0.0.1:8787' : 'https://api.quantpowerbuilder.com';
   const CLAVE_SESION = 'qp_cuenta';
   const $ = (id) => document.getElementById(id);
+  const catalogoListo = fetch('../content/registro.json', { cache: 'no-cache' })
+    .then(async (r) => {
+      if (!r.ok) throw new Error('No se pudieron cargar las opciones de registro. Recarga la página.');
+      const datos = await r.json();
+      const nombres = typeof Intl.DisplayNames === 'function' ? new Intl.DisplayNames(['es'], { type: 'region' }) : null;
+      const paises = datos.nacionalidades.split(' ').filter((c) => c !== 'OTRO')
+        .map((codigo) => [codigo, nombres ? nombres.of(codigo) : codigo])
+        .sort((a, b) => a[1].localeCompare(b[1], 'es'));
+      paises.push(['OTRO', 'Otra / no aparece en la lista']);
+      for (const [campo, opciones] of [['nacionalidad', paises], ['origen', Object.entries(datos.origenes)]]) {
+        document.querySelectorAll(`select[name="${campo}"]`).forEach((select) => {
+          opciones.forEach(([valor, etiqueta]) => select.add(new Option(etiqueta, valor)));
+        });
+      }
+      return datos;
+    }).catch(() => null);
+
+  const exigirCatalogo = async () => {
+    if (!await catalogoListo) throw new Error('No se pudieron cargar las opciones de registro. Recarga la página e inténtalo de nuevo.');
+  };
 
   // ---- sesión (localStorage con 24 h de validez; funciona sin él) ----------
   let sesion = null;
@@ -105,6 +125,11 @@
         : 'Tu licencia ya no es válida. Puedes activar una clave nueva.';
     const f = $('form-perfil');
     f.nombre.value = p.nombre; f.pais.value = p.pais; f.empresa.value = p.empresa;
+    $('perfil-pendiente').hidden = Boolean(p.nacionalidad);
+    catalogoListo.then(() => {
+      f.nacionalidad.value = p.nacionalidad || '';
+      f.origen.value = p.origen || '';
+    });
     const ul = $('lista-equipos');
     ul.replaceChildren();
     if (!p.equipos.length) {
@@ -149,11 +174,15 @@
   });
 
   enviar($('form-alta'), async (f, form) => {
+    await exigirCatalogo();
     const email = String(f.get('email')).trim(), password = String(f.get('password'));
     if (!email) throw new Error('Introduce tu correo.');
     if (password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres.');
     if (password !== String(f.get('password2'))) throw new Error('Las contraseñas no coinciden.');
-    const datos = await api('/api/registro', { email, password });
+    const nacionalidad = String(f.get('nacionalidad') || '');
+    if (!nacionalidad) throw new Error('Selecciona tu nacionalidad (país).');
+    const datos = await api('/api/registro', { email, password, nacionalidad,
+      nombre: String(f.get('nombre') || ''), origen: String(f.get('origen') || '') });
     form.reset();
     if (datos.pendiente) {            // servidor apagado: el buzón guardó el correo, sin cuenta todavía
       mensaje(form, datos.mensaje || 'Ahora mismo no podemos crear cuentas. Hemos guardado tu correo y, '
@@ -208,9 +237,14 @@
   });
 
   enviar($('form-perfil'), async (f, form) => {
+    await exigirCatalogo();
+    const nacionalidad = String(f.get('nacionalidad') || '');
+    if (!nacionalidad) throw new Error('Selecciona tu nacionalidad (país).');
     await conToken('/api/cuenta/guardar', {
       nombre: String(f.get('nombre')), pais: String(f.get('pais')), empresa: String(f.get('empresa')),
+      nacionalidad, origen: String(f.get('origen') || ''),
     });
+    $('perfil-pendiente').hidden = true;
     mensaje(form, 'Perfil guardado.', 'ok');
   });
 

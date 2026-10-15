@@ -13,7 +13,7 @@
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="../"><img class="corporate-logo" src="../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Mi cuenta</small></span></a><a class="discord-link" data-discord-link href="https://api.quantpowerbuilder.com/api/discord/invitacion" target="_blank" rel="noopener noreferrer" aria-label="Unirse al Discord de QuantPower Builder" title="Únete a nuestro Discord"><img src="../assets/images/discord.svg" width="24" height="24" alt=""></a><a class="text-link" href="../">Volver a la web →</a></div></header>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="../"><img class="corporate-logo" src="../assets/images/logo-corporativo.png" width="44" height="44" alt=""><span><strong>QuantPower Builder</strong><small>Mi cuenta</small></span></a><a class="discord-link" data-discord-link href="https://discord.gg/Q62jf5ErGm" target="_blank" rel="noopener noreferrer" aria-label="Unirse al Discord de QuantPower Builder" title="Únete a nuestro Discord"><img src="../assets/images/discord.svg" width="24" height="24" alt=""></a><a class="text-link" href="../">Volver a la web →</a></div></header>
 
   <main id="contenido" class="container cuenta-shell">
     <!-- Acceso: iniciar sesión / crear cuenta -->
@@ -32,9 +32,13 @@
       </form>
       <form id="form-alta" class="cuenta-form" role="tabpanel" aria-labelledby="tab-alta" hidden novalidate>
         <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <label>Nombre <small>(opcional)</small><input name="nombre" type="text" autocomplete="name" maxlength="80"></label>
+        <label>Nacionalidad (país) <small>(obligatoria)</small><select name="nacionalidad" required aria-describedby="alta-datos-nota"><option value="">Selecciona tu nacionalidad</option></select></label>
+        <label>¿Cómo conociste QuantPower Builder? <small>(opcional)</small><select name="origen"><option value="">Selecciona una opción</option></select></label>
         <label>Contraseña <small>(mínimo 8 caracteres)</small><input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="200"></label>
         <label>Repite la contraseña<input name="password2" type="password" autocomplete="new-password" required maxlength="200"></label>
         <button class="button button-primary" type="submit">Crear cuenta gratis</button>
+        <p class="cuenta-nota" id="alta-datos-nota">La nacionalidad es declarada por ti. Saber cómo nos conociste nos ayuda a mejorar la difusión del software. Al usar la aplicación, el servidor estima el tiempo conectado a partir de sus sesiones y latidos.</p>
         <p class="cuenta-estado" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -59,24 +63,27 @@
       </article>
 
       <article class="cuenta-card" aria-labelledby="h-discord">
-        <h2 id="h-discord">Discord</h2>
+        <h2 id="h-discord"><img src="../assets/images/discord.svg" width="26" height="26" alt="">Conexión con Discord</h2>
         <p class="cuenta-nota">Vincula tu cuenta de Discord. Si tienes una licencia vigente y eres miembro del servidor, recibirás el rol «Licencia activa». Se retirará cuando la licencia deje de estar vigente.</p>
         <p class="cuenta-estado" id="discord-estado" role="status" aria-live="polite"></p>
         <div class="button-row">
           <button class="button button-outline" type="button" id="btn-discord-vincular">Vincular Discord</button>
           <button class="button button-quiet" type="button" id="btn-discord-desvincular" hidden>Desvincular Discord</button>
-          <a class="button button-quiet" data-discord-link href="https://api.quantpowerbuilder.com/api/discord/invitacion" target="_blank" rel="noopener noreferrer">Unirse al servidor</a>
+          <a class="button button-quiet" data-discord-link href="https://discord.gg/Q62jf5ErGm" target="_blank" rel="noopener noreferrer"><img src="../assets/images/discord.svg" width="20" height="20" alt="">Ir al servidor de Discord</a>
           <button class="button button-quiet button-small" type="button" id="btn-discord-refrescar">Actualizar estado</button>
         </div>
         <p class="cuenta-nota">Los cambios se sincronizan periódicamente mientras el servicio de licencias está en funcionamiento.</p>
       </article>
 
       <article class="cuenta-card" aria-labelledby="h-perfil">
-        <h2 id="h-perfil">Perfil <small>(opcional)</small></h2>
+        <h2 id="h-perfil">Perfil y cómo nos conociste</h2>
+        <p class="cuenta-nota" id="perfil-pendiente" hidden>Tu cuenta es anterior a estos campos. Puedes completar aquí tu nacionalidad; tu acceso y licencia se mantienen.</p>
         <form id="form-perfil" class="cuenta-form" novalidate>
           <label>Nombre<input name="nombre" type="text" autocomplete="name" maxlength="80"></label>
-          <label>País<input name="pais" type="text" autocomplete="country-name" maxlength="80"></label>
+          <label>Nacionalidad (país)<select name="nacionalidad" required><option value="">Selecciona tu nacionalidad</option></select></label>
+          <label>País de residencia <small>(opcional)</small><input name="pais" type="text" autocomplete="country-name" maxlength="80"></label>
           <label>Empresa u ocupación<input name="empresa" type="text" autocomplete="organization" maxlength="80"></label>
+          <label>Cómo nos conociste <small>(opcional)</small><select name="origen"><option value="">Selecciona una opción</option></select></label>
           <button class="button button-outline" type="submit">Guardar</button>
           <p class="cuenta-estado" role="status" aria-live="polite"></p>
         </form>
