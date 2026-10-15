@@ -153,14 +153,16 @@
         ? 'Introduce tu clave aquí o en la aplicación, después de iniciar sesión.'
         : 'Tu licencia ya no es válida. Puedes activar una clave nueva.';
     const f = $('form-perfil');
-    f.nombre.value = p.nombre; f.empresa.value = p.empresa; f.ciudad.value = p.ciudad || '';
     $('perfil-pendiente').hidden = Boolean(p.residencia);
-    catalogoListo.then(() => {
-      f.residencia.value = p.residencia || '';
-      if (f.alternarProvincia) f.alternarProvincia();
-      (p.residencia === 'ES' ? f.provincia_es : f.provincia).value = p.provincia || '';
-      f.origen.value = p.origen || '';
-    });
+    try {
+      f.nombre.value = p.nombre; f.empresa.value = p.empresa; f.ciudad.value = p.ciudad || '';
+      catalogoListo.then(() => {
+        f.residencia.value = p.residencia || '';
+        if (f.alternarProvincia) f.alternarProvincia();
+        (p.residencia === 'ES' ? f.provincia_es : f.provincia).value = p.provincia || '';
+        f.origen.value = p.origen || '';
+      }).catch((e) => console.error(e));
+    } catch (e) { console.error('Perfil sin dibujar:', e); }
     const ul = $('lista-equipos');
     ul.replaceChildren();
     if (!p.equipos.length) {
@@ -175,13 +177,17 @@
   };
 
   const cargarCuenta = async () => {
+    let perfil;
     try {
-      pintarPerfil(await conToken('/api/cuenta/perfil'));
-      $('vista-acceso').hidden = true; $('vista-cuenta').hidden = false;
+      perfil = await conToken('/api/cuenta/perfil');
     } catch (e) {
       cerrarSesion();
       if (e.codigo === 'red') mensaje($('form-login'), e.message, 'error');
+      return;
     }
+    // un fallo al dibujar la ficha NO debe parecer un login fallido (antes volvía al acceso en silencio)
+    try { pintarPerfil(perfil); } catch (e) { console.error('No se pudo dibujar la cuenta:', e); }
+    $('vista-acceso').hidden = true; $('vista-cuenta').hidden = false;
   };
   const iniciar = (datos) => { guardarSesion({ token: datos.token, exp: datos.exp }); return cargarCuenta(); };
 
