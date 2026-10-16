@@ -24,9 +24,38 @@
   function mostrarSesion(sesion) {
     $('soporte-sesion-requerida').hidden = Boolean(sesion);
     $('soporte-formulario').hidden = !sesion;
+    actualizarEnlaceCuenta(sesion);
     if (sesion) {
       $('soporte-cuenta').textContent = 'Tu sesión está activa. El reporte se asociará a tu cuenta.';
     }
+  }
+
+  async function actualizarEnlaceCuenta(sesion) {
+    const enlace = $('soporte-enlace-cuenta');
+    if (!sesion) {
+      enlace.href = '../cuenta/?return=%2Fsoporte%2F';
+      enlace.textContent = 'Entrar / Crear cuenta';
+      enlace.setAttribute('aria-label', 'Iniciar sesión o crear una cuenta');
+      return;
+    }
+
+    enlace.href = '../cuenta/';
+    enlace.textContent = 'Mi cuenta';
+    enlace.setAttribute('aria-label', 'Abrir mi cuenta');
+    try {
+      const respuesta = await fetch(API + '/api/cuenta/perfil', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: sesion.token }),
+      });
+      const perfil = await respuesta.json().catch(() => ({}));
+      const sesionActual = leerSesion();
+      if (!respuesta.ok || !perfil.ok || !sesionActual || sesionActual.token !== sesion.token) return;
+      const nombre = String(perfil.nombre || '').trim();
+      if (!nombre) return;
+      enlace.textContent = nombre;
+      enlace.setAttribute('aria-label', `Abrir la cuenta de ${nombre}`);
+    } catch { /* El enlace sigue disponible si el servicio no responde. */ }
   }
 
   let sesion = leerSesion();
