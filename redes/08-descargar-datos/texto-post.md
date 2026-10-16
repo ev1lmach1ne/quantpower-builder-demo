@@ -8,10 +8,10 @@ tres publicaciones sueltas: cada una lleva logo, número y enlace.
 - `capturas/` → capturas recortadas por el borde de la ventana. Los correos están
   sustituidos por «tu-cuenta@…».
 
-> En la imagen 1, las cifras grandes son las del proveedor de la captura
-> (acciones y ETFs de EE. UU., 1.253 activos, velas desde 1 minuto, registro y
-> API key gratuitos). Debajo, aparte y con su nombre: Alpaca (acciones de EE. UU.
-> con 1 minuto desde 2016) y Binance (1.200 pares cripto).
+> Imagen 1: cada cifra va con su proveedor. Alpaca: +13.000 acciones y ETFs de
+> EE. UU. (los que detecta el catálogo de la aplicación) y velas de 1 minuto
+> desde 2016. Binance: 1.200 pares cripto. La captura es de otro proveedor
+> gratuito; si se cambia por una con Alpaca seleccionado, cuadra todo.
 
 ## TikTok
 
@@ -19,7 +19,7 @@ tres publicaciones sueltas: cada una lleva logo, número y enlace.
 **Descripción:** 📥 Datos de mercado gratis para tu backtesting · Descargar 1/3 #QuantPowerBuilder
 
 **Comentario fijado:**
-QuantPower Builder descarga datos desde proveedores con API gratuita. En la captura, 1.253 acciones y ETFs de EE. UU. con velas desde 1 minuto. Y hay más: Alpaca, con acciones de EE. UU. y velas de 1 minuto desde 2016, y Binance, con 1.200 pares cripto desde su inicio. 👉 quantpowerbuilder.com
+QuantPower Builder descarga datos desde proveedores con API gratuita: con Alpaca, más de 13.000 acciones y ETFs de EE. UU. con velas de 1 minuto desde 2016; con Binance, 1.200 pares cripto. 👉 quantpowerbuilder.com
 #QuantPowerBuilder #trading #backtesting #datosdemercado #tradingalgoritmico
 
 ### 2/3 · Tus almacenamientos
@@ -41,7 +41,7 @@ QuantPower Builder abre tus ZIP, reconoce los CSV y TXT con OHLC y te deja elegi
 📥 Tus datos de mercado, en un solo sitio.
 
 La pestaña Descargar de QuantPower Builder reúne todo lo que necesitas antes de analizar:
-1️⃣ Proveedores con API gratuita: acciones y ETFs de EE. UU. desde 1 minuto, Alpaca con 1 minuto desde 2016, y Binance con 1.200 pares cripto desde su inicio.
+1️⃣ Proveedores con API gratuita: más de 13.000 acciones y ETFs de EE. UU. con Alpaca (velas de 1 minuto desde 2016) y 1.200 pares cripto con Binance.
 2️⃣ Tus propios almacenamientos: Google Drive, MEGA, OneDrive, Dropbox, SFTP o carpeta local.
 3️⃣ Explora tus ZIP y descarga solo los archivos que necesitas.
 
