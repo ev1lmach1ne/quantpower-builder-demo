@@ -54,3 +54,9 @@ render redes/06-anuncio-articulo/cartel.html vertical 1080 1350 "$DIR/cartel-108
 DIR="$ROOT/redes/07-articulo-publicado"
 render redes/07-articulo-publicado/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
 render redes/07-articulo-publicado/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
+
+DIR="$ROOT/redes/08-descargar-datos"
+for s in 1 2 3; do
+  render "redes/08-descargar-datos/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
+  render "redes/08-descargar-datos/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
+done
