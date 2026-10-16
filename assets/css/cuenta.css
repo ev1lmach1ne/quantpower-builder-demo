@@ -9,11 +9,12 @@
 .cuenta-form { display: grid; gap: 16px; margin-top: 20px; }
 .cuenta-form label { display: grid; gap: 6px; color: var(--text-muted); font-size: .9rem; }
 .cuenta-form small, .cuenta-card h2 small { color: var(--text-soft); font-weight: 400; }
-.cuenta-form input, .cuenta-form select {
+.cuenta-form input, .cuenta-form select, .cuenta-form textarea {
   background: var(--bg-deep); color: var(--text-strong);
   border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font: inherit;
 }
-.cuenta-form input:focus-visible, .cuenta-form select:focus-visible, .cuenta-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cuenta-form textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
+.cuenta-form input:focus-visible, .cuenta-form select:focus-visible, .cuenta-form textarea:focus-visible, .cuenta-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .cuenta-form input[name="clave"] { font-family: var(--font-mono); text-transform: uppercase; }
 .cuenta-form button[disabled] { opacity: .6; cursor: wait; }
 .cuenta-enlace { background: none; border: 0; padding: 0; cursor: pointer; width: fit-content; margin-top: 12px; }

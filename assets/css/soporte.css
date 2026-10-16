@@ -1,0 +1,4 @@
+.soporte-shell { max-width: 720px; }
+.soporte-shell > h1 { margin-bottom: 8px; }
+.soporte-shell > .cuenta-card { margin-top: 24px; }
+.soporte-shell .button { width: fit-content; }

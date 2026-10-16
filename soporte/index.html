@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Contacta con el equipo de QuantPower Builder para pedir cambios, proponer ideas o informar de un error.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://quantpowerbuilder.com/soporte/">
+  <link rel="icon" href="../assets/images/favicon-circular.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <link rel="stylesheet" href="../assets/css/cuenta.css">
+  <link rel="stylesheet" href="../assets/css/soporte.css">
+  <script src="../assets/js/soporte.js?v=20261016" defer></script>
+  <title>Atención al cliente — QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../" aria-label="QuantPower Builder, inicio">
+        <img class="corporate-logo" src="../assets/images/logo-corporativo.png" width="44" height="44" alt="">
+        <span><strong>QuantPower Builder</strong><small>Atención al cliente</small></span>
+      </a>
+      <a class="text-link" href="../cuenta/">Mi cuenta</a>
+      <a class="text-link" href="../">Volver a la web →</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="container cuenta-shell soporte-shell">
+    <h1>Atención al <span class="text-accent">cliente.</span></h1>
+    <p class="lead">Envía una petición o cuéntanos qué problema encontraste. El equipo recibirá el mensaje en su Bandeja de atención.</p>
+
+    <section id="soporte-sesion-requerida" class="cuenta-card" aria-labelledby="soporte-login-titulo">
+      <h2 id="soporte-login-titulo">Inicia sesión para continuar</h2>
+      <p class="cuenta-nota">Las solicitudes quedan vinculadas a tu cuenta para que podamos seguir la conversación.</p>
+      <a class="button button-primary" href="../cuenta/?return=%2Fsoporte%2F">Iniciar sesión o crear cuenta</a>
+      <p id="soporte-login-mensaje" class="cuenta-estado" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="soporte-formulario" class="cuenta-card" aria-labelledby="soporte-titulo" hidden>
+      <h2 id="soporte-titulo">Nueva solicitud</h2>
+      <p id="soporte-cuenta" class="cuenta-nota"></p>
+      <form id="form-soporte" class="cuenta-form" novalidate>
+        <label>Tipo de solicitud
+          <select name="categoria" required>
+            <option value="cambio">Solicitar un cambio</option>
+            <option value="bug">Reportar un bug</option>
+            <option value="indicador">Solicitar un indicador</option>
+            <option value="estrategia">Proponer un sistema / estrategia</option>
+            <option value="consulta">Hacer una consulta</option>
+          </select>
+        </label>
+        <label>Título<input name="titulo" type="text" required maxlength="160" placeholder="Resume tu solicitud"></label>
+        <label>Descripción<textarea name="descripcion" required maxlength="8000" rows="8" placeholder="Explica qué quieres conseguir o, si es un error, los pasos para reproducirlo y qué esperabas que ocurriera."></textarea></label>
+        <p class="cuenta-nota">Se enviará desde el correo de tu cuenta. No incluyas contraseñas ni claves de licencia.</p>
+        <button class="button button-primary" type="submit">Enviar a soporte</button>
+        <p id="soporte-estado" class="cuenta-estado" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <span>© <span id="current-year">2026</span> QuantPower Systems</span>
+      <a href="mailto:info@quantpowerbuilder.com">Contacto por correo</a>
+    </div>
+  </footer>
+</body>
+</html>

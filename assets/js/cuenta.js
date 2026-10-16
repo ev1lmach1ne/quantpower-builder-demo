@@ -4,6 +4,20 @@
   const CLAVE_SESION = 'qp_cuenta';
   const $ = (id) => document.getElementById(id);
   const hashEntrada = new URLSearchParams(location.hash.slice(1));
+  const rutaRetorno = (() => {
+    const retorno = new URLSearchParams(location.search).get('return');
+    if (!retorno) return '';
+    try {
+      const destino = new URL(retorno, location.origin);
+      return destino.origin === location.origin && destino.pathname === '/soporte/'
+        ? destino.href : '';
+    } catch (e) { return ''; }
+  })();
+  const volverASoporte = () => {
+    if (!rutaRetorno) return false;
+    location.replace(rutaRetorno);
+    return true;
+  };
   let tokenRecuperacion = hashEntrada.get('restablecer') || '';
   if (tokenRecuperacion) history.replaceState(null, '', location.pathname + location.search);
   const catalogoListo = fetch('../content/registro.json', { cache: 'no-cache' })
@@ -34,7 +48,7 @@
         alternar();
       });
       return datos;
-    }).catch(() => null);
+  }).catch(() => null);
   const provinciaDe = (f) => String(f.get(f.get('residencia') === 'ES' ? 'provincia_es' : 'provincia') || '');
 
   const exigirCatalogo = async () => {
@@ -189,7 +203,11 @@
     try { pintarPerfil(perfil); } catch (e) { console.error('No se pudo dibujar la cuenta:', e); }
     $('vista-acceso').hidden = true; $('vista-cuenta').hidden = false;
   };
-  const iniciar = (datos) => { guardarSesion({ token: datos.token, exp: datos.exp }); return cargarCuenta(); };
+  const iniciar = (datos) => {
+    guardarSesion({ token: datos.token, exp: datos.exp });
+    if (volverASoporte()) return Promise.resolve();
+    return cargarCuenta();
+  };
 
   // ---- pestañas ------------------------------------------------------------
   const pestana = (cual) => {
@@ -355,6 +373,7 @@
   if (tokenRecuperacion) mostrarRestablecer();
   else if (location.hash === '#recuperar') mostrarRecuperar();
   else if (sesion) {
+    if (volverASoporte()) return;
     cargarCuenta().then(() => {
       if (retornoDiscord === 'error') $('discord-estado').textContent = 'No se completó la vinculación de Discord. Vuelve a intentarlo.';
     });
