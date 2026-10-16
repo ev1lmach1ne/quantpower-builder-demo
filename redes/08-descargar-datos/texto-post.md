@@ -8,9 +8,10 @@ tres publicaciones sueltas: cada una lleva logo, número y enlace.
 - `capturas/` → capturas recortadas por el borde de la ventana. Los correos están
   sustituidos por «tu-cuenta@…».
 
-> Las cifras de la imagen 1 son las del proveedor que aparece en la captura
+> En la imagen 1, las cifras grandes son las del proveedor de la captura
 > (acciones y ETFs de EE. UU., 1.253 activos, velas desde 1 minuto, registro y
-> API key gratuitos). No se mezclan con las de otros proveedores.
+> API key gratuitos). Debajo, aparte y con su nombre: Alpaca (+13.000 activos,
+> 1 minuto desde 2016) y Binance (cripto desde su inicio).
 
 ## TikTok
 
@@ -18,7 +19,7 @@ tres publicaciones sueltas: cada una lleva logo, número y enlace.
 **Descripción:** 📥 Datos de mercado gratis para tu backtesting · Descargar 1/3 #QuantPowerBuilder
 
 **Comentario fijado:**
-QuantPower Builder descarga datos desde proveedores con API gratuita. En la captura, acciones y ETFs de EE. UU. con velas desde 1 minuto: eliges activo, fechas y temporalidad, y a descargar. 👉 quantpowerbuilder.com
+QuantPower Builder descarga datos desde proveedores con API gratuita. En la captura, 1.253 acciones y ETFs de EE. UU. con velas desde 1 minuto. Y hay más: Alpaca, con +13.000 activos y velas de 1 minuto desde 2016, y Binance, con cripto desde su inicio. 👉 quantpowerbuilder.com
 #QuantPowerBuilder #trading #backtesting #datosdemercado #tradingalgoritmico
 
 ### 2/3 · Tus almacenamientos
@@ -40,7 +41,7 @@ QuantPower Builder abre tus ZIP, reconoce los CSV y TXT con OHLC y te deja elegi
 📥 Tus datos de mercado, en un solo sitio.
 
 La pestaña Descargar de QuantPower Builder reúne todo lo que necesitas antes de analizar:
-1️⃣ Proveedores con API gratuita, con velas desde 1 minuto.
+1️⃣ Proveedores con API gratuita: acciones y ETFs de EE. UU. desde 1 minuto, Alpaca con +13.000 activos y 1 minuto desde 2016, y Binance con cripto desde su inicio.
 2️⃣ Tus propios almacenamientos: Google Drive, MEGA, OneDrive, Dropbox, SFTP o carpeta local.
 3️⃣ Explora tus ZIP y descarga solo los archivos que necesitas.
 
