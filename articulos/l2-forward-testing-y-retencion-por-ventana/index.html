@@ -82,11 +82,22 @@
         <li><strong>Base histórica (HDB).</strong> Al cierre, el día se ordena y se escribe en disco en una partición por fecha. Así se acumulan años de eventos, consultables con el mismo lenguaje.</li>
       </ul>
       <p>Por encima suele haber niveles de almacenamiento: caliente (discos rápidos para lo reciente), templado y frío (almacenamiento de objetos o cinta para lo antiguo). A todo eso se añaden captura redundante en varias ubicaciones, equipos dedicados a la calidad de los datos y clústeres que reprocesan años de eventos de cientos de activos en una noche.</p>
+      <h3>Una escala de petabytes</h3>
+      <p>El tamaño de lo que se guarda es difícil de imaginar desde un escritorio. Un solo feed, el de opciones de EE. UU. (OPRA), puede generar <strong>varios terabytes al día</strong> en su máxima granularidad, según Databento; a ese ritmo, ese feed por sí solo se acerca al petabyte al año. SIX, un proveedor de datos de mercado, acumula unos <strong>10 TB de tick data al mes</strong>, que pueden triplicarse en un día volátil, con más de 10 años de histórico de más de 360 mercados. Una firma que conserve años de profundidad completa de muchos mercados y activos trabaja, por tanto, a escala de <strong>petabytes</strong>.</p>
+      <p>Y el dato no se escribe una sola vez. Se reescribe continuamente:</p>
+      <ul>
+        <li>Al cierre, el día se ordena y se vuelve a escribir en su partición histórica.</li>
+        <li>Cada versión nueva de la normalización, cada corrección del proveedor y cada relleno de huecos obliga a regenerar días o años enteros.</li>
+        <li>Los conjuntos derivados (libro reconstruido en L1, L2 y L3, métricas, muestreos) se recalculan cada vez que cambia la metodología.</li>
+        <li>Todo se mantiene en copias redundantes, en varias ubicaciones.</li>
+      </ul>
+      <p>El resultado es que el volumen escrito al año multiplica varias veces el capturado. No es una tarea secundaria: hay puestos de dirección dedicados a ella. Una oferta de empleo de Two Sigma de 2026 para dirigir la ingeniería de datos de alta frecuencia incluye la estrategia de almacenamiento histórico a largo plazo y la reconstrucción del libro de órdenes.</p>
       <p>Esta estructura tiene sentido allí por tres motivos: muchos equipos investigan sobre los mismos datos, las ideas se prueban sobre todo el universo de activos y la inversión se reparte entre decenas de estrategias. Guardarlo todo es caro, pero cada byte se reutiliza muchas veces.</p>
 
       <h2 id="problema">El problema del retail: el backtest L2 de horizonte largo</h2>
       <p class="bridge">Ahora bajemos a un escritorio con un solo equipo. Intentar copiar ese modelo a pequeña escala choca con tres muros a la vez.</p>
       <p>El primero es el volumen. Con las estimaciones del artículo anterior, un universo de <strong>300 activos</strong> con snapshots del libro cada segundo genera unos <strong>2,1 TB al año</strong>. Si además se quieren los eventos completos de solo 5 activos, se suman otros 1,5 TB. En dos años son más de 7 TB, y la cifra no se estabiliza nunca: crece cada día que el mercado abre.</p>
+      <p>Siete terabytes son una gota frente a los petabytes institucionales, pero el problema es el mismo a otra escala: un volumen que no deja de crecer, que hay que reescribir y mantener, sin un equipo que lo haga. Por eso el retail no necesita una versión pequeña de la arquitectura institucional, sino otra estrategia.</p>
       <p>El segundo es la consulta. Un backtest evento a evento tiene que leer esos terabytes enteros cada vez que cambia un parámetro. Con un disco NVMe de consumo, cada pasada sobre un año completo lleva tiempo de lectura apreciable. Multiplicado por cientos de combinaciones en una optimización, el equipo pasa más tiempo leyendo datos que calculando.</p>
       <p>El tercero es la estructura. Guardar años de L2 de cientos de activos exige lo mismo que en una institución, aunque en pequeño:</p>
       <ul>
@@ -327,6 +338,9 @@
         <li>QuestDB, «Time To Live (TTL)» y «ALTER TABLE SET TTL» (<a href="https://questdb.com/docs/concepts/ttl/" rel="noopener">questdb.com</a>)</li>
         <li>TimescaleDB (Tiger Data), «add_retention_policy» (<a href="https://www.tigerdata.com/docs/api/latest/data-retention/add_retention_policy/" rel="noopener">tigerdata.com</a>)</li>
         <li>ClickHouse, «TTL» en tablas MergeTree (<a href="https://clickhouse.com/docs/guides/developer/ttl" rel="noopener">clickhouse.com</a>)</li>
+        <li>Databento, catálogo de OPRA: volumen diario del feed de opciones de EE. UU. (<a href="https://databento.com/catalog/opra/OPRA.PILLAR" rel="noopener">databento.com</a>)</li>
+        <li>SIX y AWS, caso de estudio sobre el almacenamiento de tick data (<a href="https://www.six-group.com/dam/download/financial-information/reference-pricing-data/fixed-income-data/aws-case-study.pdf" rel="noopener">six-group.com</a>)</li>
+        <li>Two Sigma, oferta de empleo «Head of High-Frequency Market Data Engineering» (<a href="https://careers.twosigma.com/careers/JobDetail/New-York-United-States-Head-of-High-Frequency-Market-Data-Engineering/14097" rel="noopener">careers.twosigma.com</a>)</li>
         <li>Apache Parquet, formato columnar de archivo (<a href="https://parquet.apache.org/docs/" rel="noopener">parquet.apache.org</a>)</li>
         <li>Kevin J. Davey, <em>Building Winning Algorithmic Trading Systems</em> (Wiley, 2014), sobre la incubación de sistemas en tiempo real</li>
         <li>Robert Pardo, <em>The Evaluation and Optimization of Trading Strategies</em>, 2.ª ed. (Wiley, 2008)</li>
