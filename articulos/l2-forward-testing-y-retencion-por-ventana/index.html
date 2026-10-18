@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111828">
+  <meta name="description" content="Cómo guardan los datos de profundidad las grandes corporaciones, por qué el backtest L2 de horizonte largo no encaja en el retail y cómo sustituirlo por forward testing en vivo con retención por ventana rodante.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Order flow sin terabytes - Forward testing en vivo y retención por ventana rodante — QuantPower Builder">
+  <meta property="og:description" content="Cómo guardan los datos de profundidad las grandes corporaciones, por qué el backtest L2 de horizonte largo no encaja en el retail y cómo sustituirlo por forward testing en vivo con retención por ventana rodante.">
+  <meta property="og:url" content="https://quantpowerbuilder.com/articulos/l2-forward-testing-y-retencion-por-ventana/">
+  <meta property="og:image" content="https://quantpowerbuilder.com/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://quantpowerbuilder.com/articulos/l2-forward-testing-y-retencion-por-ventana/">
+  <link rel="icon" href="../../assets/images/favicon-circular.png" sizes="256x256" type="image/png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/articles.css">
+  <script type="module" src="../../assets/js/articles.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Order flow sin terabytes - Forward testing en vivo y retención por ventana rodante",
+    "description": "Cómo guardan los datos de profundidad las grandes corporaciones, por qué el backtest L2 de horizonte largo no encaja en el retail y cómo sustituirlo por forward testing en vivo con retención por ventana rodante.",
+    "datePublished": "2026-10-21",
+    "inLanguage": "es",
+    "author": { "@type": "Organization", "name": "QuantPower Systems" },
+    "publisher": { "@type": "Organization", "name": "QuantPower Systems" },
+    "mainEntityOfPage": "https://quantpowerbuilder.com/articulos/l2-forward-testing-y-retencion-por-ventana/"
+  }
+  </script>
+  <title>Order flow sin terabytes - Forward testing en vivo y retención por ventana rodante — QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 3H3v18h18v-7"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../" aria-label="QuantPower Builder, inicio">
+        <img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="54" height="54" alt="Logo de QuantPower Systems">
+        <span><strong>QuantPower<span class="brand-light"> Builder</span></strong><small>by QuantPower Systems</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="navegacion" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+      <nav id="navegacion" class="main-nav" aria-label="Navegación principal">
+        <a href="../../#plataforma">Plataforma</a>
+        <a href="../../#analizador">Analizador</a>
+        <a href="../../#constructor">Constructor</a>
+        <a href="../../#backtesting">Backtesting</a>
+        <a href="../../#proyecto">Proyecto</a>
+        <a href="../" aria-current="page">Artículos</a>
+        <a class="button button-small button-outline nav-demo" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="articles-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="../../">Inicio</a><span aria-hidden="true">/</span><a href="../">Artículos</a></nav>
+      <article class="article" id="inicio">
+        <span class="eyebrow">Infraestructura de datos</span>
+        <h1 class="article-title">Order flow sin terabytes - Forward testing en vivo y retención por ventana rodante</h1>
+        <p class="article-meta">Publicado el <time datetime="2026-10-21">21 de octubre de 2026</time></p>
+        <div class="article-body">
+      <p class="lead">Un fondo que opera con order flow puede reproducir cualquier sesión de los últimos años, en cientos de activos, evento a evento. Un trader independiente casi nunca puede, y no siempre por dinero: lo que le falta es la estructura para guardar y consultar ese volumen durante años.</p>
+      <p>Este artículo compara las dos formas de tratar los datos de profundidad (L2): la institucional, que lo conserva todo, y una alternativa pensada para el retail, que combina el <strong>forward testing en vivo</strong> con una <strong>retención por ventana rodante</strong>. Es la continuación de <a href="../profundidad-de-mercado-l2-en-local/">Profundidad de mercado - La segunda capa del análisis cuantitativo</a>, donde explicamos qué datos genera el libro y cuánto ocupan. Aquí usamos esas mismas estimaciones.</p>
+      <aside class="callout"><strong>Idea clave.</strong> El backtest L2 de horizonte largo es un problema de arquitectura de datos antes que de presupuesto. Para el retail suele funcionar mejor otra cosa: validar las ideas en vivo sobre el flujo real, guardar para siempre solo lo que los cálculos necesitan y dejar que los datos brutos caduquen cuando salen de la ventana.</aside>
+
+      <h2 id="instituciones">Cómo lo resuelven las grandes corporaciones</h2>
+      <p class="bridge">Empecemos por arriba. Una mesa institucional no se pregunta qué datos guardar: lo guarda todo, y diseña la infraestructura para que eso sea sostenible.</p>
+      <p>La arquitectura de referencia más documentada es la de kdb+/tick, que KX publica en abierto. Se organiza en tres piezas que reparten el trabajo por antigüedad del dato:</p>
+      <ul>
+        <li><strong>Capturador (tickerplant).</strong> Recibe el feed, lo escribe en un registro para poder recuperarse de un fallo y lo reparte a quien esté suscrito. Es deliberadamente ligero.</li>
+        <li><strong>Base del día (RDB).</strong> Mantiene en memoria todo lo ocurrido en la sesión y permite consultarlo al momento.</li>
+        <li><strong>Base histórica (HDB).</strong> Al cierre, el día se ordena y se escribe en disco en una partición por fecha. Así se acumulan años de eventos, consultables con el mismo lenguaje.</li>
+      </ul>
+      <p>Por encima suele haber niveles de almacenamiento: caliente (discos rápidos para lo reciente), templado y frío (almacenamiento de objetos o cinta para lo antiguo). A todo eso se añaden captura redundante en varias ubicaciones, equipos dedicados a la calidad de los datos y clústeres que reprocesan años de eventos de cientos de activos en una noche.</p>
+      <p>Esta estructura tiene sentido allí por tres motivos: muchos equipos investigan sobre los mismos datos, las ideas se prueban sobre todo el universo de activos y la inversión se reparte entre decenas de estrategias. Guardarlo todo es caro, pero cada byte se reutiliza muchas veces.</p>
+
+      <h2 id="problema">El problema del retail: el backtest L2 de horizonte largo</h2>
+      <p class="bridge">Ahora bajemos a un escritorio con un solo equipo. Intentar copiar ese modelo a pequeña escala choca con tres muros a la vez.</p>
+      <p>El primero es el volumen. Con las estimaciones del artículo anterior, un universo de <strong>300 activos</strong> con snapshots del libro cada segundo genera unos <strong>2,1 TB al año</strong>. Si además se quieren los eventos completos de solo 5 activos, se suman otros 1,5 TB. En dos años son más de 7 TB, y la cifra no se estabiliza nunca: crece cada día que el mercado abre.</p>
+      <p>El segundo es la consulta. Un backtest evento a evento tiene que leer esos terabytes enteros cada vez que cambia un parámetro. Con un disco NVMe de consumo, cada pasada sobre un año completo lleva tiempo de lectura apreciable. Multiplicado por cientos de combinaciones en una optimización, el equipo pasa más tiempo leyendo datos que calculando.</p>
+      <p>El tercero es la estructura. Guardar años de L2 de cientos de activos exige lo mismo que en una institución, aunque en pequeño:</p>
+      <ul>
+        <li>Particiones bien diseñadas.</li>
+        <li>Copias de seguridad.</li>
+        <li>Control de huecos y de cambios en el formato del feed.</li>
+        <li>Un catálogo de qué hay y de qué calidad es.</li>
+      </ul>
+      <p>Sin esa estructura, el histórico acaba siendo un conjunto de archivos con huecos, capturado a trozos y con criterios que cambian. Un backtest sobre esos datos da una confianza que no merece.</p>
+      <p class="note">Supuestos: 7 GB por activo y año en snapshots de 1 s con 10 niveles y 300 GB por activo y año en eventos completos (el extremo bajo de «cientos de GB»), sin comprimir. Son órdenes de magnitud, no mediciones.</p>
+
+      <h2 id="forward">La alternativa: forward testing en vivo</h2>
+      <p class="bridge">Si el problema es reproducir el pasado, la salida es dejar de depender de él para validar la parte que usa el libro de órdenes.</p>
+      <p>El forward testing en vivo calcula las señales sobre el flujo en directo, igual que lo haría el sistema en producción, pero sin dinero o con un tamaño mínimo. Cada señal, cada operación simulada y el estado del libro en ese instante se registran. El histórico de validación se construye solo, día a día, con datos que nadie ha podido mirar antes.</p>
+      <ul>
+        <li><strong>Sin sesgo de anticipación.</strong> Los datos llegan en su orden real. Es imposible que una señal use, por error, información que aún no existía.</li>
+        <li><strong>Las condiciones reales del feed.</strong> Latencias, ráfagas, huecos y reconexiones aparecen como en producción, y no como en un archivo limpio.</li>
+        <li><strong>Ejecución con el libro del momento.</strong> La operación simulada se valora con el spread y la profundidad que había en ese instante, no con un deslizamiento fijo.</li>
+        <li><strong>Varias variantes a la vez.</strong> Nada impide ejecutar en paralelo diez combinaciones de parámetros sobre el mismo flujo. Es un forward «en abanico»: cuesta poco cómputo y multiplica la evidencia desde el primer día.</li>
+      </ul>
+      <h3>Sus límites, y cómo se compensan</h3>
+      <p>El forward testing tiene dos debilidades claras, y conviene conocerlas antes de defenderlo.</p>
+      <ul>
+        <li><strong>La muestra crece despacio.</strong> Un mes en vivo es un mes de datos, y una estrategia que opera poco tardará en acumular operaciones suficientes. Se compensa validando antes la lógica de fondo con un backtest largo sobre barras y métricas agregadas, que sí se guardan durante años, y dejando al forward solo la parte que depende del libro.</li>
+        <li><strong>No se puede repetir con parámetros nuevos fuera de la ventana.</strong> Si mañana se te ocurre otra variante, no podrás evaluarla sobre lo que ya caducó. Se compensa de dos formas: lanzando desde el principio un abanico amplio de variantes y manteniendo una ventana bruta suficiente para recalcular lo reciente.</li>
+      </ul>
+
+      <h2 id="retencion">Retención por ventana rodante: qué guardar y cuánto tiempo</h2>
+      <p class="bridge">Llegamos al corazón del método. El forward testing decide qué se calcula; la política de retención decide qué se conserva de todo lo que entra.</p>
+      <p>La regla central es sencilla: <strong>los datos brutos solo tienen que vivir mientras algún cálculo los necesite</strong>. Cada capa de datos se guarda el tiempo que exige su uso, y después se borra o se resume.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capa</th><th>Qué contiene</th><th>Cuánto tiempo</th><th>Para qué</th></tr></thead>
+          <tbody>
+            <tr><td>Eventos brutos</td><td>Cada mensaje del libro de los activos en estudio</td><td>Días o pocas semanas</td><td>Reprocesar lo reciente si cambia un cálculo o aparece un error</td></tr>
+            <tr><td>Snapshots</td><td>Estado del libro cada segundo, primeros niveles</td><td>Semanas o pocos meses</td><td>Recalcular métricas con otro criterio y revisar señales</td></tr>
+            <tr><td>Métricas por barra</td><td>Desequilibrio, spread, liquidez y delta agregados por minuto</td><td>Indefinido</td><td>Backtests largos y análisis de régimen</td></tr>
+            <tr><td>Episodios marcados</td><td>Eventos brutos alrededor de momentos de interés</td><td>Indefinido</td><td>Estudiar casos concretos: noticias, huecos, fallos</td></tr>
+            <tr><td>Resultados del forward</td><td>Señales, operaciones simuladas y estado de cada variante</td><td>Indefinido</td><td>La evidencia que valida o descarta el sistema</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Cómo dimensionar la ventana</h3>
+      <p>El tamaño de la ventana bruta no se elige a ojo. Debe cubrir tres plazos sumados:</p>
+      <ol>
+        <li><strong>El mayor horizonte de los cálculos.</strong> Si una métrica usa las dos últimas horas de eventos, necesitas al menos esas dos horas.</li>
+        <li><strong>El tiempo hasta revisar los resultados.</strong> Si analizas el forward cada semana, los eventos deben seguir ahí al revisarlos.</li>
+        <li><strong>Un margen para reprocesar.</strong> Es el tiempo que tardarías en detectar un error y volver a calcular.</li>
+      </ol>
+      <p>Por ejemplo, con métricas de dos horas, revisión semanal y una semana de margen, la ventana de eventos queda en unas dos semanas. Para snapshots que alimentan métricas diarias y una reoptimización mensual, entre uno y tres meses.</p>
+      <h3>Los mecanismos</h3>
+      <p>No hace falta programar el borrado a mano. Las bases de series temporales lo traen resuelto, y casi todas trabajan por particiones de tiempo:</p>
+      <ul>
+        <li><strong>QuestDB</strong> admite un TTL por tabla («ALTER TABLE … SET TTL 2 WEEKS») y borra las particiones enteras cuyo periodo queda fuera de la ventana. El TTL debe ser múltiplo del tamaño de partición.</li>
+        <li><strong>TimescaleDB</strong> usa políticas de retención («add_retention_policy») que eliminan en segundo plano los bloques más antiguos que el intervalo indicado.</li>
+        <li><strong>ClickHouse</strong> permite un «TTL» por tabla o por columna en las tablas MergeTree.</li>
+      </ul>
+      <p>Antes de que una partición caduque, un proceso puede copiar lo que merezca quedarse, como los episodios marcados, a archivos Parquet comprimidos en un disco barato. Es la versión doméstica del nivel frío institucional, limitada a lo que de verdad interesa.</p>
+      <figure>
+          <svg viewBox="0 0 760 560" role="img" aria-labelledby="fig-arq-t fig-arq-d">
+          <title id="fig-arq-t">Dos arquitecturas para los datos de profundidad</title>
+          <desc id="fig-arq-d">Arriba, la arquitectura institucional guarda todo el flujo durante años. Abajo, la arquitectura retail calcula en vivo, guarda las métricas para siempre y los datos brutos solo dentro de una ventana rodante.</desc>
+          <defs><marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--text-soft)"/></marker></defs>
+          <text class="d-title" x="24" y="34">Gran corporación: guardarlo todo, de cientos de activos y durante años</text>
+          <rect class="d-box" x="14" y="56" width="132" height="70" rx="8"/>
+          <text class="d-name" x="80.0" y="87.0">Feed</text>
+          <text class="d-txt" x="80.0" y="104.0">bolsas y</text>
+          <text class="d-txt" x="80.0" y="118.0">proveedores</text>
+          <rect class="d-box" x="164" y="56" width="132" height="70" rx="8"/>
+          <text class="d-name" x="230.0" y="87.0">Capturador</text>
+          <text class="d-txt" x="230.0" y="104.0">tickerplant</text>
+          <text class="d-txt" x="230.0" y="118.0">con registro</text>
+          <path class="d-line" d="M146 91L160 91" marker-end="url(#flecha)"/>
+          <rect class="d-box" x="314" y="56" width="132" height="70" rx="8"/>
+          <text class="d-name" x="380.0" y="87.0">Base del día</text>
+          <text class="d-txt" x="380.0" y="104.0">en memoria</text>
+          <text class="d-txt" x="380.0" y="118.0">consultable</text>
+          <path class="d-line" d="M296 91L310 91" marker-end="url(#flecha)"/>
+          <rect class="d-main" x="464" y="56" width="132" height="70" rx="8"/>
+          <text class="d-name" x="530.0" y="87.0">Base histórica</text>
+          <text class="d-txt" x="530.0" y="104.0">particiones</text>
+          <text class="d-txt" x="530.0" y="118.0">por fecha, años</text>
+          <path class="d-line" d="M446 91L460 91" marker-end="url(#flecha)"/>
+          <rect class="d-box" x="614" y="56" width="132" height="70" rx="8"/>
+          <text class="d-name" x="680.0" y="87.0">Archivo frío</text>
+          <text class="d-txt" x="680.0" y="104.0">objeto o cinta</text>
+          <text class="d-txt" x="680.0" y="118.0">sin caducidad</text>
+          <path class="d-line" d="M596 91L610 91" marker-end="url(#flecha)"/>
+          <path d="M14 168H746" stroke="var(--border-soft)" stroke-width="1"/>
+          <text class="d-title" x="24" y="204">Retail: calcular en vivo y guardar solo lo que los cálculos necesitan</text>
+          <rect class="d-box" x="14" y="226" width="132" height="70" rx="8"/>
+          <text class="d-name" x="80.0" y="257.0">Feed</text>
+          <text class="d-txt" x="80.0" y="274.0">proveedor</text>
+          <text class="d-txt" x="80.0" y="288.0">en directo</text>
+          <rect class="d-main" x="164" y="226" width="132" height="70" rx="8"/>
+          <text class="d-name" x="230.0" y="257.0">Libro</text>
+          <text class="d-txt" x="230.0" y="274.0">en memoria</text>
+          <text class="d-txt" x="230.0" y="288.0">por activo</text>
+          <rect class="d-box" x="314" y="226" width="132" height="70" rx="8"/>
+          <text class="d-name" x="380.0" y="257.0">Agregador</text>
+          <text class="d-txt" x="380.0" y="274.0">métricas por</text>
+          <text class="d-txt" x="380.0" y="288.0">barra de 1 min</text>
+          <rect class="d-main" x="464" y="226" width="132" height="70" rx="8"/>
+          <text class="d-name" x="530.0" y="257.0">Métricas</text>
+          <text class="d-txt" x="530.0" y="274.0">permanentes</text>
+          <text class="d-txt" x="530.0" y="288.0">decenas de MB/año</text>
+          <path class="d-line" d="M146 261L160 261" marker-end="url(#flecha)"/>
+          <path class="d-line" d="M296 261L310 261" marker-end="url(#flecha)"/>
+          <path class="d-line" d="M446 261L460 261" marker-end="url(#flecha)"/>
+          <rect class="d-box" x="314" y="330" width="132" height="70" rx="8"/>
+          <text class="d-name" x="380.0" y="361.0">Ventana bruta</text>
+          <text class="d-txt" x="380.0" y="378.0">eventos y snapshots</text>
+          <text class="d-txt" x="380.0" y="392.0">últimos días (TTL)</text>
+          <rect class="d-box" x="464" y="330" width="132" height="70" rx="8" stroke-dasharray="5 5"/>
+          <text class="d-name" x="530.0" y="361.0">Se borra</text>
+          <text class="d-txt" x="530.0" y="378.0">la partición</text>
+          <text class="d-txt" x="530.0" y="392.0">que caduca</text>
+          <rect class="d-main" x="614" y="330" width="132" height="70" rx="8"/>
+          <text class="d-name" x="680.0" y="361.0">Episodios</text>
+          <text class="d-txt" x="680.0" y="378.0">brutos marcados</text>
+          <text class="d-txt" x="680.0" y="392.0">se conservan</text>
+          <path class="d-line" d="M230.0 296V365H310" marker-end="url(#flecha)"/>
+          <path class="d-line" d="M446 365L460 365" marker-end="url(#flecha)"/>
+          <path class="d-line" d="M380.0 400V418H680.0V404" marker-end="url(#flecha)"/>
+          <text class="d-txt" x="530.0" y="432">antes de caducar, se copia lo interesante</text>
+          <rect class="d-main" x="164" y="454" width="132" height="70" rx="8"/>
+          <text class="d-name" x="230.0" y="485.0">Forward test</text>
+          <text class="d-txt" x="230.0" y="502.0">variantes en</text>
+          <text class="d-txt" x="230.0" y="516.0">paralelo, en vivo</text>
+          <rect class="d-box" x="314" y="454" width="282" height="70" rx="8"/>
+          <text class="d-name" x="455.0" y="485.0">Registro de resultados</text>
+          <text class="d-txt" x="455.0" y="502.0">señales, operaciones simuladas</text>
+          <text class="d-txt" x="455.0" y="516.0">y estado: permanente</text>
+          <path class="d-line" d="M80.0 296V489H160" marker-end="url(#flecha)"/>
+          <path class="d-line" d="M296 489L310 489" marker-end="url(#flecha)"/>
+          </svg>
+        <figcaption>Arriba, el modelo institucional guarda todo el flujo durante años en niveles de almacenamiento. Abajo, el modelo retail calcula en vivo, guarda las métricas y los resultados para siempre y deja caducar los datos brutos.</figcaption>
+      </figure>
+
+      <h2 id="cifras">Cuánto ocupa cada enfoque</h2>
+      <p class="bridge">Pongamos números al ejemplo de los 300 activos y comparemos las dos políticas durante dos años.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Concepto</th><th>Guardarlo todo</th><th>Ventana rodante + métricas</th></tr></thead>
+          <tbody>
+            <tr><td>Snapshots de 1 s, 300 activos</td><td>2.100 GB al año, sin límite</td><td>167 GB fijos (20 días hábiles)</td></tr>
+            <tr><td>Eventos completos, 5 activos</td><td>1.500 GB al año, sin límite</td><td>30 GB fijos (5 días hábiles)</td></tr>
+            <tr><td>Métricas por barra de 1 min, 300 activos</td><td>Incluidas en lo anterior</td><td>15 GB al año</td></tr>
+            <tr><td>Episodios marcados</td><td>Incluidos en lo anterior</td><td>Unos 3 GB al año</td></tr>
+            <tr><td><strong>A los 24 meses</strong></td><td><strong>7,2 TB</strong></td><td><strong>Unos 230 GB</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure>
+          <svg viewBox="0 0 760 400" role="img" aria-labelledby="fig-alm-t fig-alm-d">
+          <title id="fig-alm-t">Almacenamiento acumulado en 24 meses para 300 activos</title>
+          <desc id="fig-alm-d">Guardarlo todo crece en línea recta hasta 7,2 TB a los 24 meses. La ventana rodante con métricas se estabiliza en torno a 226 GB.</desc>
+          <text class="d-title" x="24" y="32">Almacenamiento acumulado, 300 activos</text>
+          <path d="M80 330.0H640" stroke="var(--border-soft)" stroke-width="1"/>
+          <text class="d-txt" x="70" y="334.0" style="text-anchor:end">0 TB</text>
+          <path d="M80 262.5H640" stroke="var(--border-soft)" stroke-width="1"/>
+          <text class="d-txt" x="70" y="266.5" style="text-anchor:end">2 TB</text>
+          <path d="M80 195.0H640" stroke="var(--border-soft)" stroke-width="1"/>
+          <text class="d-txt" x="70" y="199.0" style="text-anchor:end">4 TB</text>
+          <path d="M80 127.5H640" stroke="var(--border-soft)" stroke-width="1"/>
+          <text class="d-txt" x="70" y="131.5" style="text-anchor:end">6 TB</text>
+          <path d="M80 60.0H640" stroke="var(--border-soft)" stroke-width="1"/>
+          <text class="d-txt" x="70" y="64.0" style="text-anchor:end">8 TB</text>
+          <text class="d-txt" x="80.0" y="350">0</text>
+          <text class="d-txt" x="220.0" y="350">6</text>
+          <text class="d-txt" x="360.0" y="350">12</text>
+          <text class="d-txt" x="500.0" y="350">18</text>
+          <text class="d-txt" x="640.0" y="350">24</text>
+          <text class="d-txt" x="360.0" y="372">Meses de captura</text>
+          <path d="M80 330H640" stroke="var(--border)" stroke-width="1"/>
+          <path d="M80.0 330.0 L103.3 319.9 L126.7 309.8 L150.0 299.6 L173.3 289.5 L196.7 279.4 L220.0 269.2 L243.3 259.1 L266.7 249.0 L290.0 238.9 L313.3 228.8 L336.7 218.6 L360.0 208.5 L383.3 198.4 L406.7 188.2 L430.0 178.1 L453.3 168.0 L476.7 157.9 L500.0 147.8 L523.3 137.6 L546.7 127.5 L570.0 117.4 L593.3 107.2 L616.7 97.1 L640.0 87.0" fill="none" stroke="var(--text-soft)" stroke-width="2" stroke-dasharray="6 5"/>
+          <path d="M80.0 330.0 L103.3 323.3 L126.7 323.3 L150.0 323.2 L173.3 323.2 L196.7 323.2 L220.0 323.1 L243.3 323.1 L266.7 323.0 L290.0 323.0 L313.3 322.9 L336.7 322.9 L360.0 322.9 L383.3 322.8 L406.7 322.8 L430.0 322.7 L453.3 322.7 L476.7 322.7 L500.0 322.6 L523.3 322.6 L546.7 322.5 L570.0 322.5 L593.3 322.4 L616.7 322.4 L640.0 322.4" fill="none" stroke="var(--accent)" stroke-width="3"/>
+          <circle cx="220.0" cy="269.2" r="4.5" fill="var(--text-soft)" stroke="var(--panel)" stroke-width="2"><title>Guardarlo todo, mes 6: 1.800 GB</title></circle>
+          <circle cx="220.0" cy="323.1" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"><title>Ventana + métricas, mes 6: 204 GB</title></circle>
+          <circle cx="360.0" cy="208.5" r="4.5" fill="var(--text-soft)" stroke="var(--panel)" stroke-width="2"><title>Guardarlo todo, mes 12: 3.600 GB</title></circle>
+          <circle cx="360.0" cy="322.9" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"><title>Ventana + métricas, mes 12: 211 GB</title></circle>
+          <circle cx="500.0" cy="147.8" r="4.5" fill="var(--text-soft)" stroke="var(--panel)" stroke-width="2"><title>Guardarlo todo, mes 18: 5.400 GB</title></circle>
+          <circle cx="500.0" cy="322.6" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"><title>Ventana + métricas, mes 18: 219 GB</title></circle>
+          <circle cx="640.0" cy="87.0" r="4.5" fill="var(--text-soft)" stroke="var(--panel)" stroke-width="2"><title>Guardarlo todo, mes 24: 7.200 GB</title></circle>
+          <circle cx="640.0" cy="322.4" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"><title>Ventana + métricas, mes 24: 226 GB</title></circle>
+          <text class="d-name" x="650.0" y="91.0" style="text-anchor:start">Guardarlo todo</text>
+          <text class="d-txt" x="650.0" y="107.0" style="text-anchor:start">7,2 TB</text>
+          <text class="d-name" x="430.0" y="292.7" style="fill:var(--accent)">Ventana + métricas</text>
+          <text class="d-txt" x="430.0" y="308.7">se estabiliza: 226 GB a los 24 meses</text>
+          </svg>
+        <figcaption>Guardarlo todo crece en línea recta; la ventana rodante se llena en el primer mes y después solo suma lo que ocupan las métricas. Pasa el ratón por los puntos para ver las cifras.</figcaption>
+      </figure>
+      <p>La diferencia no está solo en el total: es la forma de la curva. Guardarlo todo crece sin parar y obliga a ampliar discos cada pocos meses. La ventana rodante llena su espacio en el primer mes y después solo crece lo que pesan las métricas, unos 15 GB al año. Un único NVMe de 1 TB basta para muchos años.</p>
+      <p class="note">Los episodios suponen 10 momentos al mes con 30 minutos de eventos completos cada uno. Todas las cifras son estimaciones sin comprimir; con compresión columnar suelen reducirse varias veces.</p>
+
+      <h2 id="comparativa">Por qué es superior para el retail, y cuándo no</h2>
+      <p class="bridge">Con todo sobre la mesa, la comparación criterio a criterio.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Criterio</th><th>Backtest L2 de horizonte largo</th><th>Forward en vivo + ventana rodante</th></tr></thead>
+          <tbody>
+            <tr><td>Almacenamiento</td><td>Crece sin límite: terabytes al año</td><td>Estable: cientos de GB</td></tr>
+            <tr><td>Estructura que exige</td><td>Particiones, copias, control de calidad y catálogo de años de datos</td><td>Una política de retención y un registro de resultados</td></tr>
+            <tr><td>Realismo de la ejecución</td><td>Depende de cómo se simule el libro histórico</td><td>Libro, latencias y huecos reales</td></tr>
+            <tr><td>Sesgo de anticipación</td><td>Posible si hay errores en el código o en los datos</td><td>Imposible por construcción</td></tr>
+            <tr><td>Repetir con otros parámetros</td><td>Siempre</td><td>Solo dentro de la ventana o con variantes lanzadas antes</td></tr>
+            <tr><td>Tiempo hasta tener evidencia</td><td>Inmediato, si el histórico existe</td><td>Semanas o meses de captura</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Para quien opera desde su propio equipo, el balance favorece al forward con ventana rodante. Elimina los problemas que más daño hacen en solitario: un histórico de calidad dudosa, el sesgo de anticipación y un almacenamiento que nunca deja de crecer. Su gran coste es el tiempo, y se reduce con un backtest largo previo sobre barras y métricas y con variantes en paralelo.</p>
+      <p>Hay casos en los que conviene igualmente un histórico L2 completo:</p>
+      <ul>
+        <li>Estrategias de muy corto plazo que dependen del microprecio o de la cola de órdenes, donde la ejecución exacta lo es todo.</li>
+        <li>Investigar cómo se comportó el libro en episodios concretos del pasado, como una crisis o un cambio de reglas.</li>
+        <li>Cuando el histórico ya está pagado y bien estructurado por un proveedor, y solo hay que consultarlo.</li>
+      </ul>
+
+      <h2 id="hoja-de-ruta">Hoja de ruta práctica</h2>
+      <p class="bridge">Para terminar, el orden en el que lo montaríamos desde cero.</p>
+      <ol>
+        <li><strong>Valida la idea en barras.</strong> Backtest largo con OHLCV y, si las tienes, métricas agregadas del libro. Si la idea no funciona ahí, el L2 rara vez la salva.</li>
+        <li><strong>Define los cálculos y su horizonte.</strong> Qué métricas usa el sistema y cuánto pasado necesita cada una.</li>
+        <li><strong>Fija la retención por capas.</strong> Ventana de eventos, ventana de snapshots y qué se guarda para siempre. Configúralo con el TTL o la política de retención de tu base de datos.</li>
+        <li><strong>Lanza el forward en abanico.</strong> Varias variantes de parámetros en paralelo, registrando señales, operaciones simuladas y estado del libro.</li>
+        <li><strong>Marca y archiva episodios.</strong> Antes de que caduquen, copia a Parquet los tramos que quieras estudiar.</li>
+        <li><strong>Revisa con criterios fijados de antemano.</strong> Número mínimo de operaciones, métricas exigidas y qué variantes se descartan, decididos antes de mirar los resultados.</li>
+      </ol>
+
+      <h2 id="quantpower">En QuantPower Builder</h2>
+      <p>En QuantPower Builder trabajamos sobre esta misma idea: almacenamiento local eficiente y validación con datos que el sistema no ha visto. Iremos contando en los artículos cómo la aplicamos a medida que la plataforma avance. Si te interesa la parte de volumen e infraestructura, el punto de partida es nuestro artículo sobre <a href="../profundidad-de-mercado-l2-en-local/">la profundidad de mercado en local</a>.</p>
+      <p class="note">Artículo divulgativo. Las cifras de almacenamiento son estimaciones de orden de magnitud con los supuestos indicados, y no constituyen una recomendación de inversión.</p>
+
+      <h2 id="fuentes">Autores y referencias</h2>
+      <ul>
+        <li>KX, «Architecture of kdb+ systems»: capturador, base del día y base histórica (<a href="https://code.kx.com/q/architecture/" rel="noopener">code.kx.com</a>)</li>
+        <li>KX, «kdb+tick» (<a href="https://code.kx.com/q/kb/kdb-tick/" rel="noopener">code.kx.com</a>)</li>
+        <li>QuestDB, «Time To Live (TTL)» y «ALTER TABLE SET TTL» (<a href="https://questdb.com/docs/concepts/ttl/" rel="noopener">questdb.com</a>)</li>
+        <li>TimescaleDB (Tiger Data), «add_retention_policy» (<a href="https://www.tigerdata.com/docs/api/latest/data-retention/add_retention_policy/" rel="noopener">tigerdata.com</a>)</li>
+        <li>ClickHouse, «TTL» en tablas MergeTree (<a href="https://clickhouse.com/docs/guides/developer/ttl" rel="noopener">clickhouse.com</a>)</li>
+        <li>Apache Parquet, formato columnar de archivo (<a href="https://parquet.apache.org/docs/" rel="noopener">parquet.apache.org</a>)</li>
+        <li>Kevin J. Davey, <em>Building Winning Algorithmic Trading Systems</em> (Wiley, 2014), sobre la incubación de sistemas en tiempo real</li>
+        <li>Robert Pardo, <em>The Evaluation and Optimization of Trading Strategies</em>, 2.ª ed. (Wiley, 2008)</li>
+      </ul>
+
+        </div>
+        <div class="article-end">
+          <a class="button button-quiet" href="../">← Todos los artículos</a>
+          <a class="button button-outline" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-top"><a class="brand" href="../../"><img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="48" height="48" loading="lazy" alt="Logo de QuantPower Systems"><span><strong>QuantPower<span class="brand-light"> Systems</span></strong><small>Construyendo herramientas para investigar.</small></span></a><nav aria-label="Navegación del pie"><a href="../../#analizador">Analizador</a><a href="../../#constructor">Constructor</a><a href="../../#backtesting">Backtesting</a><a href="../">Artículos</a><a href="../../#demo">Demo</a><a href="mailto:info@quantpowerbuilder.com">Contacto</a><a href="https://github.com/ev1lmach1ne/quantpower-builder-demo" target="_blank" rel="noopener noreferrer">Proyecto web <svg class="icon"><use href="#i-external"/></svg></a></nav></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> QuantPower Systems</span><span>QuantPower Builder · Portfolio de producto</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+</body>
+</html>
