@@ -38,11 +38,11 @@ Hashtags base: #QuantPowerBuilder #orderflow #level2 #trading #datosdemercado
 **Comentario fijado:** Altas, cambios, cancelaciones y ejecuciones de cada orden… y lo que ni así se ve. Te lo contamos en QuantPower Builder 👉 quantpowerbuilder.com/articulos
 #QuantPowerBuilder #level3 #orderflow #microestructura #trading
 
-## 5 · ¿Qué nivel necesitas?
+## 5 · Más información, más huecos donde buscar ventaja
 
-**TikTok (una línea):** ¿L1, L2 o L3? Depende de tu estrategia 🎯 #QuantPowerBuilder
+**TikTok (una línea):** Más información, más huecos donde buscar edge 🎯 #QuantPowerBuilder
 
-**Comentario fijado:** No hace falta el máximo detalle: hace falta el que use tu estrategia. Y de dónde sale cada nivel, en QuantPower Builder 👉 quantpowerbuilder.com/articulos
+**Comentario fijado:** En QP Systems creemos que cuanta más información, más opciones de encontrar ventaja en lo que el precio aún no refleja. Por dónde empezar y cómo subir de nivel, en QuantPower Builder 👉 quantpowerbuilder.com/articulos
 #QuantPowerBuilder #orderflow #level2 #tradingalgoritmico #datosdemercado
 
 ## Instagram, Facebook y LinkedIn (texto común; cambia la primera línea)
@@ -51,7 +51,7 @@ Hashtags base: #QuantPowerBuilder #orderflow #level2 #trading #datosdemercado
 2. Level 1: la foto mínima del mercado, y el matiz que casi nadie cuenta.
 3. Level 2: lo que hay detrás del mejor precio, y lo que no te dice.
 4. Level 3: cada orden y su sitio en la cola.
-5. ¿Qué nivel de datos necesitas de verdad? Depende de tu estrategia.
+5. En QP Systems creemos que cuanta más información tienes, más opciones hay de encontrar edge. Por dónde empezar y cómo subir de nivel.
 
 Lo explicamos con detalle en el artículo «Level 1, Level 2 y Level 3»: qué contiene cada nivel y de dónde sale (bolsas, consolidadores, proveedores y brokers).
 
