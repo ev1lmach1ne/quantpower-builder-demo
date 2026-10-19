@@ -60,3 +60,13 @@ for s in 1 2 3; do
   render "redes/08-descargar-datos/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
   render "redes/08-descargar-datos/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
 done
+
+DIR="$ROOT/redes/09-anuncio-niveles"
+render redes/09-anuncio-niveles/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
+render redes/09-anuncio-niveles/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
+
+DIR="$ROOT/redes/10-niveles-de-datos"
+for s in 1 2 3 4 5; do
+  render "redes/10-niveles-de-datos/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
+  render "redes/10-niveles-de-datos/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
+done
