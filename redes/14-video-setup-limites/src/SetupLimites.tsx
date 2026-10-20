@@ -289,19 +289,43 @@ const Grafico = ({frame}: {frame: number}) => {
   );
 };
 
-// Subtítulo con las palabras que se van iluminando al ritmo de la voz
+// Divide un texto largo en páginas de frases completas que quepan en el cuadro (unos 130 caracteres)
+const paginas = (texto: string) => {
+  // Solo se corta tras punto, interrogación o exclamación seguidos de espacio (no en «quantpowerbuilder.com»)
+  const frases = texto.split(/(?<=[.?!])\s+/);
+  const out: string[] = [];
+  for (const f of frases) {
+    const ult = out[out.length - 1];
+    if (ult !== undefined && (ult + ' ' + f).length <= 130) out[out.length - 1] = ult + ' ' + f;
+    else out.push(f);
+  }
+  return out.map((p) => p.trim());
+};
+
+// Subtítulo con las palabras que se van iluminando al ritmo de la voz; los textos largos pasan por páginas
 const Subtitulo = ({frame}: {frame: number}) => {
   const e = [...ESCENAS].reverse().find((s) => frame >= s.inicio)!;
-  const palabras = e.texto.split(' ');
+  const todas = e.texto.split(' ');
   const habla = e.duracion - PAUSA * FPS - (e.id === 'cierre' ? 45 : 0);
-  const k = interpolate(frame, [e.inicio, e.inicio + habla], [0, palabras.length], clamp);
+  const kTotal = interpolate(frame, [e.inicio, e.inicio + habla], [0, todas.length], clamp);
+  const pags = paginas(e.texto);
+  let antes = 0;
+  let pagina = pags[pags.length - 1];
+  for (const p of pags) {
+    const n = p.split(' ').length;
+    if (kTotal < antes + n) { pagina = p; break; }
+    antes += n;
+  }
+  if (pagina === pags[pags.length - 1]) antes = todas.length - pagina.split(' ').length;
+  const palabras = pagina.split(' ');
+  const k = kTotal - antes;
   return (
     <div
       style={{
         // Anclado abajo y con letra según la longitud, para que el texto no se salga del cuadro ni de la zona segura
         position: 'absolute', left: X0, right: 150, top: 1372, minHeight: 200, maxHeight: 208, boxSizing: 'border-box',
         padding: '18px 24px', borderRadius: 18, overflow: 'hidden',
-        background: 'rgba(13,20,36,.88)', border: `1px solid ${C.border}`, fontSize: e.texto.length > 150 ? 28 : 33, lineHeight: 1.3, fontWeight: 600,
+        background: 'rgba(13,20,36,.88)', border: `1px solid ${C.border}`, fontSize: pagina.length > 140 ? 29 : 33, lineHeight: 1.3, fontWeight: 600,
         opacity: interpolate(frame, [e.inicio, e.inicio + 8], [0, 1], clamp),
       }}
     >

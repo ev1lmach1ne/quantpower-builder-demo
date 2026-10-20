@@ -1,0 +1,11 @@
+[
+ {"id":"intro","titulo":"¿Entras tarde?","texto":"¿Te ha pasado? Ves la señal, entras tarde… y el precio se gira justo en tu contra. Hoy te enseño cómo evitarlo con QuantPower Builder."},
+ {"id":"mercado","titulo":"El contexto","texto":"Estamos en el ES a un minuto. El precio cae con fuerza, y abajo el RSI nos dice cuánta fuerza le queda a esa caída."},
+ {"id":"minimo1","titulo":"Primer mínimo","texto":"Primer mínimo. El RSI se hunde en sobreventa. Aquí todavía no hacemos nada."},
+ {"id":"minimo2","titulo":"Divergencia alcista","texto":"Ahora el precio marca un mínimo más bajo… pero el RSI no lo acompaña: hace un mínimo más alto. Eso es una divergencia alcista. Los vendedores se están quedando sin gasolina."},
+ {"id":"confirmacion","titulo":"Setup confirmado","texto":"Pero no nos adelantamos. El sistema espera a que el segundo mínimo se confirme, y comprueba que la volatilidad esté en rango. Cuando se cumple todo, el setup es válido."},
+ {"id":"perfil","titulo":"¿Dónde entramos?","texto":"Y aquí está la clave: ¿dónde entramos? La herramienta calcula el perfil de volumen. Los HVN son zonas donde se negoció mucho: el mercado las respeta. Los LVN son huecos: el precio los cruza rápido."},
+ {"id":"ordenes","titulo":"Nuevo: órdenes límite en tu nivel","texto":"Esto es lo nuevo de la versión 0.8: las órdenes límite por niveles del perfil. En vez de perseguir el precio, eliges el nivel donde quieres esperar la ejecución. Puede ser el HVN o el LVN. La orden límite queda marcada en ese nivel, con el stop justo debajo y el objetivo en el siguiente HVN. Tú decides el precio; el mercado viene a ti."},
+ {"id":"ejecucion","titulo":"Ejecución","texto":"El precio retrocede, toca nuestro nivel y la orden se ejecuta. Sin perseguir nada, con el riesgo definido desde el principio. Y desde ahí, directo al objetivo."},
+ {"id":"cierre","titulo":"QuantPower Builder v0.8","texto":"Señales confirmadas y entradas en el nivel que tú eliges. Pruébalo gratis en quantpowerbuilder.com, mientras queden licencias."}
+]

@@ -1,5 +1,6 @@
 # Post 14 · Vídeo: setup con divergencia confirmada y órdenes límite por niveles del perfil
 
+- `setup-limites-voz-propia-1080x1920.mp4` → versión con la voz real (95 s): grabación propia cortada por bloques y procesada con `scripts/voz_propia.py` (limpieza, tono algo más grave y algo más rápida). El guion está en `voz-propia/bloques.json`.
 - `setup-limites-1080x1920.mp4` → TikTok, Reels y Shorts (68 s, con voz en off neuronal y subtítulos).
 - `portada.jpg` → miniatura.
 - `guion.md` → guion completo, por si prefieres grabar tu propia voz.
