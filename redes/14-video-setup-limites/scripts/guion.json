@@ -38,7 +38,7 @@
  {
   "id": "ordenes",
   "titulo": "Nuevo: órdenes límite en tu nivel",
-  "texto": "Nuevo en la v0.8: en vez de perseguir el precio, eliges uno de estos niveles, el HVN o el LVN, para esperar la ejecución. Las órdenes límite quedan marcadas en ese nivel, con el stop debajo y el objetivo en el HVN superior.",
+  "texto": "Nuevo en la v0.8: no persigas el precio. Elige un nivel, HVN o LVN, y la orden límite queda marcada ahí, con stop debajo y objetivo en el HVN superior.",
   "voz": "Nuevo en la versión cero punto ocho: en vez de perseguir el precio, eliges uno de estos niveles, el nodo de alto volumen o el de bajo volumen, para esperar la ejecución. Las órdenes límite quedan marcadas en ese nivel, con el stop debajo, y el objetivo en el nodo superior."
  },
  {

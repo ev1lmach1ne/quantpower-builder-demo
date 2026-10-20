@@ -248,7 +248,7 @@ const Ordenes = ({frame}: {frame: number}) => {
         return (
           <g key={n.txt} opacity={a}>
             <line x1={xi} x2={X1} y1={y(n.p)} y2={y(n.p)} stroke={n.col} strokeWidth={n.lleno ? 4 : 3} strokeDasharray={n.lleno ? undefined : '10 8'} />
-            <rect x={X0 + 6} y={y(n.p) - 21} width={n.lleno ? 470 : 420} height={42} rx={9} fill={C.bgDeep} stroke={n.col} strokeWidth={2} opacity={0.88} />
+            <rect x={X0 + 6} y={y(n.p) - 21} width={n.lleno ? 545 : 420} height={42} rx={9} fill={C.bgDeep} stroke={n.col} strokeWidth={2} opacity={0.88} />
             <text x={X0 + 20} y={y(n.p) + 8} fill={n.col} fontSize={21} fontWeight={700} fontFamily={FONT}>
               {n.txt}{n.lleno ? '  ✓ ejecutada' : ''}
             </text>
@@ -298,8 +298,10 @@ const Subtitulo = ({frame}: {frame: number}) => {
   return (
     <div
       style={{
-        position: 'absolute', left: X0, right: 150, top: 1372, height: 200, padding: '18px 24px', borderRadius: 18,
-        background: 'rgba(13,20,36,.88)', border: `1px solid ${C.border}`, fontSize: 33, lineHeight: 1.32, fontWeight: 600,
+        // Anclado abajo y con letra según la longitud, para que el texto no se salga del cuadro ni de la zona segura
+        position: 'absolute', left: X0, right: 150, top: 1372, minHeight: 200, maxHeight: 208, boxSizing: 'border-box',
+        padding: '18px 24px', borderRadius: 18, overflow: 'hidden',
+        background: 'rgba(13,20,36,.88)', border: `1px solid ${C.border}`, fontSize: e.texto.length > 150 ? 28 : 33, lineHeight: 1.3, fontWeight: 600,
         opacity: interpolate(frame, [e.inicio, e.inicio + 8], [0, 1], clamp),
       }}
     >
