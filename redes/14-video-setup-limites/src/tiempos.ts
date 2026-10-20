@@ -9,6 +9,7 @@ export type Escena = {
   titulo: string;
   texto: string;
   audio: string;
+  palabras?: {w: string; t: number}[]; // tiempos por palabra, si la voz está transcrita
   inicio: number; // fotograma
   duracion: number; // fotogramas
 };

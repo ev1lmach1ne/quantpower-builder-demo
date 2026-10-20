@@ -1,65 +1,939 @@
 [
  {
   "id": "intro",
-  "titulo": "¿Entras tarde?",
-  "texto": "¿Te ha pasado? Ves la señal, entras tarde… y el precio se gira justo en tu contra. Hoy te enseño cómo evitarlo con QuantPower Builder.",
+  "titulo": "QuantPower Builder",
+  "texto": "Esto es QuantPower Builder. En esta ocasión vamos a mostrar cómo el sistema de backtesting genera o construye sistemas y cómo trata todo.",
   "audio": "voz/intro.wav",
-  "dur": 6.002
+  "dur": 13.625,
+  "palabras": [
+   {
+    "w": "Esto",
+    "t": 0.192
+   },
+   {
+    "w": "es",
+    "t": 1.135
+   },
+   {
+    "w": "QuantPower",
+    "t": 1.269
+   },
+   {
+    "w": "Builder.",
+    "t": 1.654
+   },
+   {
+    "w": "En",
+    "t": 2.615
+   },
+   {
+    "w": "esta",
+    "t": 2.942
+   },
+   {
+    "w": "ocasión",
+    "t": 3.173
+   },
+   {
+    "w": "vamos",
+    "t": 3.731
+   },
+   {
+    "w": "a",
+    "t": 3.942
+   },
+   {
+    "w": "mostrar",
+    "t": 4.115
+   },
+   {
+    "w": "cómo",
+    "t": 4.404
+   },
+   {
+    "w": "el",
+    "t": 4.808
+   },
+   {
+    "w": "sistema",
+    "t": 5.038
+   },
+   {
+    "w": "de",
+    "t": 5.5
+   },
+   {
+    "w": "backtesting",
+    "t": 5.635
+   },
+   {
+    "w": "genera",
+    "t": 6.096
+   },
+   {
+    "w": "o",
+    "t": 7.192
+   },
+   {
+    "w": "construye",
+    "t": 8.019
+   },
+   {
+    "w": "sistemas",
+    "t": 9.096
+   },
+   {
+    "w": "y",
+    "t": 9.654
+   },
+   {
+    "w": "cómo",
+    "t": 11.192
+   },
+   {
+    "w": "trata",
+    "t": 11.615
+   },
+   {
+    "w": "todo.",
+    "t": 12.058
+   }
+  ]
  },
  {
   "id": "mercado",
-  "titulo": "El contexto",
-  "texto": "Estamos en el ES a un minuto. El precio cae con fuerza, y abajo el RSI nos dice cuánta fuerza le queda a esa caída.",
+  "titulo": "El ejemplo: ES a 1 minuto",
+  "texto": "Vamos a poner un ejemplo de un sistema en el que estamos operando el ES en un minuto. El precio cae con fuerza y abajo el RSI nos dice cuánta fuerza le queda a esa caída.",
   "audio": "voz/mercado.wav",
-  "dur": 8.497
+  "dur": 12.904,
+  "palabras": [
+   {
+    "w": "Vamos",
+    "t": 0.192
+   },
+   {
+    "w": "a",
+    "t": 0.365
+   },
+   {
+    "w": "poner",
+    "t": 0.577
+   },
+   {
+    "w": "un",
+    "t": 0.75
+   },
+   {
+    "w": "ejemplo",
+    "t": 1.077
+   },
+   {
+    "w": "de",
+    "t": 1.462
+   },
+   {
+    "w": "un",
+    "t": 2.038
+   },
+   {
+    "w": "sistema",
+    "t": 2.615
+   },
+   {
+    "w": "en",
+    "t": 3.096
+   },
+   {
+    "w": "el",
+    "t": 4.462
+   },
+   {
+    "w": "que",
+    "t": 4.596
+   },
+   {
+    "w": "estamos",
+    "t": 4.788
+   },
+   {
+    "w": "operando",
+    "t": 5.154
+   },
+   {
+    "w": "el",
+    "t": 5.712
+   },
+   {
+    "w": "ES",
+    "t": 6.25
+   },
+   {
+    "w": "en",
+    "t": 6.538
+   },
+   {
+    "w": "un",
+    "t": 6.808
+   },
+   {
+    "w": "minuto.",
+    "t": 6.942
+   },
+   {
+    "w": "El",
+    "t": 8.192
+   },
+   {
+    "w": "precio",
+    "t": 8.538
+   },
+   {
+    "w": "cae",
+    "t": 8.904
+   },
+   {
+    "w": "con",
+    "t": 9.115
+   },
+   {
+    "w": "fuerza",
+    "t": 9.231
+   },
+   {
+    "w": "y",
+    "t": 9.519
+   },
+   {
+    "w": "abajo",
+    "t": 10.019
+   },
+   {
+    "w": "el",
+    "t": 10.269
+   },
+   {
+    "w": "RSI",
+    "t": 10.462
+   },
+   {
+    "w": "nos",
+    "t": 10.827
+   },
+   {
+    "w": "dice",
+    "t": 10.962
+   },
+   {
+    "w": "cuánta",
+    "t": 11.173
+   },
+   {
+    "w": "fuerza",
+    "t": 11.538
+   },
+   {
+    "w": "le",
+    "t": 11.788
+   },
+   {
+    "w": "queda",
+    "t": 11.962
+   },
+   {
+    "w": "a esa",
+    "t": 12.077
+   },
+   {
+    "w": "caída.",
+    "t": 12.288
+   }
+  ]
  },
  {
   "id": "minimo1",
-  "titulo": "Primer mínimo",
-  "texto": "Primer mínimo. El RSI se hunde en sobreventa. Aquí todavía no hacemos nada.",
+  "titulo": "Nuevo indicador",
+  "texto": "Para empezar hemos añadido en esta última actualización",
   "audio": "voz/minimo1.wav",
-  "dur": 3.014
+  "dur": 3.24,
+  "palabras": [
+   {
+    "w": "Para",
+    "t": 0.192
+   },
+   {
+    "w": "empezar",
+    "t": 0.5
+   },
+   {
+    "w": "hemos",
+    "t": 0.827
+   },
+   {
+    "w": "añadido",
+    "t": 1.327
+   },
+   {
+    "w": "en",
+    "t": 1.846
+   },
+   {
+    "w": "esta",
+    "t": 2.25
+   },
+   {
+    "w": "última",
+    "t": 2.423
+   },
+   {
+    "w": "actualización",
+    "t": 2.673
+   }
+  ]
  },
  {
   "id": "minimo2",
-  "titulo": "Divergencia alcista",
-  "texto": "Ahora el precio marca un mínimo más bajo… pero el RSI no lo acompaña: hace un mínimo más alto. Eso es una divergencia alcista. Los vendedores se están quedando sin gasolina.",
+  "titulo": "Divergencias automáticas",
+  "texto": "Un indicador que detecta automáticamente las divergencias,",
   "audio": "voz/minimo2.wav",
-  "dur": 12.579
+  "dur": 6.51,
+  "palabras": [
+   {
+    "w": "Un",
+    "t": -0.048
+   },
+   {
+    "w": "indicador",
+    "t": 1.106
+   },
+   {
+    "w": "que",
+    "t": 2.913
+   },
+   {
+    "w": "detecta",
+    "t": 3.683
+   },
+   {
+    "w": "automáticamente",
+    "t": 4.279
+   },
+   {
+    "w": "las",
+    "t": 5.337
+   },
+   {
+    "w": "divergencias,",
+    "t": 5.587
+   }
+  ]
  },
  {
   "id": "confirmacion",
   "titulo": "Setup confirmado",
-  "texto": "Pero no nos adelantamos. El sistema espera a que el segundo mínimo se confirme, y comprueba que la volatilidad esté en rango. Cuando se cumple todo, el setup es válido.",
+  "texto": "pero no nos adelantamos. El sistema espera que el segundo mínimo se confirme y comprueba que la volatilidad está en el rango. Cuando se cumple todo el setup es válido.",
   "audio": "voz/confirmacion.wav",
-  "dur": 9.565
+  "dur": 10.577,
+  "palabras": [
+   {
+    "w": "pero",
+    "t": 0.192
+   },
+   {
+    "w": "no",
+    "t": 1.712
+   },
+   {
+    "w": "nos",
+    "t": 1.846
+   },
+   {
+    "w": "adelantamos.",
+    "t": 2.0
+   },
+   {
+    "w": "El",
+    "t": 2.635
+   },
+   {
+    "w": "sistema",
+    "t": 2.692
+   },
+   {
+    "w": "espera",
+    "t": 2.962
+   },
+   {
+    "w": "que",
+    "t": 3.288
+   },
+   {
+    "w": "el",
+    "t": 3.519
+   },
+   {
+    "w": "segundo",
+    "t": 3.808
+   },
+   {
+    "w": "mínimo",
+    "t": 4.154
+   },
+   {
+    "w": "se",
+    "t": 4.481
+   },
+   {
+    "w": "confirme",
+    "t": 4.692
+   },
+   {
+    "w": "y",
+    "t": 5.25
+   },
+   {
+    "w": "comprueba",
+    "t": 5.481
+   },
+   {
+    "w": "que",
+    "t": 5.962
+   },
+   {
+    "w": "la",
+    "t": 6.115
+   },
+   {
+    "w": "volatilidad",
+    "t": 6.231
+   },
+   {
+    "w": "está",
+    "t": 6.692
+   },
+   {
+    "w": "en",
+    "t": 6.885
+   },
+   {
+    "w": "el",
+    "t": 6.981
+   },
+   {
+    "w": "rango.",
+    "t": 7.115
+   },
+   {
+    "w": "Cuando",
+    "t": 7.385
+   },
+   {
+    "w": "se",
+    "t": 8.769
+   },
+   {
+    "w": "cumple",
+    "t": 9.077
+   },
+   {
+    "w": "todo",
+    "t": 9.327
+   },
+   {
+    "w": "el",
+    "t": 9.519
+   },
+   {
+    "w": "setup",
+    "t": 9.654
+   },
+   {
+    "w": "es válido.",
+    "t": 9.865
+   }
+  ]
  },
  {
   "id": "perfil",
   "titulo": "¿Dónde entramos?",
-  "texto": "Y aquí está la clave: ¿dónde entramos? La herramienta calcula el perfil de volumen. Los HVN son zonas donde se negoció mucho: el mercado las respeta. Los LVN son huecos: el precio los cruza rápido.",
+  "texto": "A partir de ahí otra nueva implementación, que es el perfil de volumen, que aquí está la clave: ¿dónde entramos? La herramienta calcula el perfil de volumen.",
   "audio": "voz/perfil.wav",
-  "dur": 10.933
+  "dur": 11.856,
+  "palabras": [
+   {
+    "w": "A",
+    "t": 0.192
+   },
+   {
+    "w": "partir",
+    "t": 0.212
+   },
+   {
+    "w": "de",
+    "t": 0.385
+   },
+   {
+    "w": "ahí",
+    "t": 0.596
+   },
+   {
+    "w": "otra",
+    "t": 0.75
+   },
+   {
+    "w": "nueva",
+    "t": 2.365
+   },
+   {
+    "w": "implementación,",
+    "t": 3.269
+   },
+   {
+    "w": "que",
+    "t": 4.596
+   },
+   {
+    "w": "es",
+    "t": 4.827
+   },
+   {
+    "w": "el",
+    "t": 4.962
+   },
+   {
+    "w": "perfil",
+    "t": 5.096
+   },
+   {
+    "w": "de",
+    "t": 5.442
+   },
+   {
+    "w": "volumen,",
+    "t": 5.538
+   },
+   {
+    "w": "que",
+    "t": 5.865
+   },
+   {
+    "w": "aquí",
+    "t": 6.442
+   },
+   {
+    "w": "está",
+    "t": 6.596
+   },
+   {
+    "w": "la",
+    "t": 6.769
+   },
+   {
+    "w": "clave:",
+    "t": 6.865
+   },
+   {
+    "w": "¿dónde",
+    "t": 7.115
+   },
+   {
+    "w": "entramos?",
+    "t": 8.038
+   },
+   {
+    "w": "La",
+    "t": 9.519
+   },
+   {
+    "w": "herramienta",
+    "t": 10.327
+   },
+   {
+    "w": "calcula",
+    "t": 10.712
+   },
+   {
+    "w": "el",
+    "t": 11.058
+   },
+   {
+    "w": "perfil",
+    "t": 11.154
+   },
+   {
+    "w": "de",
+    "t": 11.404
+   },
+   {
+    "w": "volumen.",
+    "t": 11.5
+   }
+  ]
  },
  {
   "id": "ordenes",
   "titulo": "Nuevo: órdenes límite en tu nivel",
-  "texto": "Esto es lo nuevo de la versión 0.8: las órdenes límite por niveles del perfil. En vez de perseguir el precio, eliges el nivel donde quieres esperar la ejecución. Puede ser el HVN o el LVN. La orden límite queda marcada en ese nivel, con el stop justo debajo y el objetivo en el siguiente HVN. Tú decides el precio; el mercado viene a ti.",
+  "texto": "Y automáticamente podemos seleccionar los nodos de alto volumen o los nodos de bajo volumen, y pues podemos colocar nuestras órdenes límite de nuestra configuración en base a estos niveles, o si no, otras muchas variables existentes.",
   "audio": "voz/ordenes.wav",
-  "dur": 20.712
+  "dur": 19.048,
+  "palabras": [
+   {
+    "w": "Y",
+    "t": -0.048
+   },
+   {
+    "w": "automáticamente",
+    "t": 0.26
+   },
+   {
+    "w": "podemos",
+    "t": 1.163
+   },
+   {
+    "w": "seleccionar",
+    "t": 1.663
+   },
+   {
+    "w": "los",
+    "t": 2.202
+   },
+   {
+    "w": "nodos",
+    "t": 2.837
+   },
+   {
+    "w": "de",
+    "t": 4.298
+   },
+   {
+    "w": "alto",
+    "t": 4.413
+   },
+   {
+    "w": "volumen",
+    "t": 4.587
+   },
+   {
+    "w": "o",
+    "t": 5.048
+   },
+   {
+    "w": "los",
+    "t": 5.452
+   },
+   {
+    "w": "nodos",
+    "t": 5.606
+   },
+   {
+    "w": "de",
+    "t": 6.01
+   },
+   {
+    "w": "bajo",
+    "t": 6.163
+   },
+   {
+    "w": "volumen,",
+    "t": 6.394
+   },
+   {
+    "w": "y",
+    "t": 6.952
+   },
+   {
+    "w": "pues",
+    "t": 8.49
+   },
+   {
+    "w": "podemos",
+    "t": 8.913
+   },
+   {
+    "w": "colocar",
+    "t": 9.317
+   },
+   {
+    "w": "nuestras",
+    "t": 11.606
+   },
+   {
+    "w": "órdenes",
+    "t": 11.952
+   },
+   {
+    "w": "límite",
+    "t": 12.606
+   },
+   {
+    "w": "de",
+    "t": 12.952
+   },
+   {
+    "w": "nuestra",
+    "t": 13.856
+   },
+   {
+    "w": "configuración",
+    "t": 14.048
+   },
+   {
+    "w": "en",
+    "t": 14.702
+   },
+   {
+    "w": "base",
+    "t": 14.837
+   },
+   {
+    "w": "a",
+    "t": 14.99
+   },
+   {
+    "w": "estos",
+    "t": 15.106
+   },
+   {
+    "w": "niveles,",
+    "t": 15.24
+   },
+   {
+    "w": "o",
+    "t": 15.76
+   },
+   {
+    "w": "si",
+    "t": 16.26
+   },
+   {
+    "w": "no,",
+    "t": 16.413
+   },
+   {
+    "w": "otras",
+    "t": 16.548
+   },
+   {
+    "w": "muchas",
+    "t": 16.99
+   },
+   {
+    "w": "variables",
+    "t": 17.587
+   },
+   {
+    "w": "existentes.",
+    "t": 17.894
+   }
+  ]
  },
  {
   "id": "ejecucion",
   "titulo": "Ejecución",
-  "texto": "El precio retrocede, toca nuestro nivel y la orden se ejecuta. Sin perseguir nada, con el riesgo definido desde el principio. Y desde ahí, directo al objetivo.",
+  "texto": "El precio retrocede, toca nuestro nivel y la orden se ejecuta, sin perseguir nada, con el riesgo definido desde el principio, y desde ahí directo al objetivo.",
   "audio": "voz/ejecucion.wav",
-  "dur": 9.107
+  "dur": 8.75,
+  "palabras": [
+   {
+    "w": "El",
+    "t": 0.192
+   },
+   {
+    "w": "precio",
+    "t": 0.808
+   },
+   {
+    "w": "retrocede,",
+    "t": 1.077
+   },
+   {
+    "w": "toca",
+    "t": 1.865
+   },
+   {
+    "w": "nuestro",
+    "t": 2.019
+   },
+   {
+    "w": "nivel",
+    "t": 2.231
+   },
+   {
+    "w": "y",
+    "t": 2.558
+   },
+   {
+    "w": "la",
+    "t": 2.865
+   },
+   {
+    "w": "orden",
+    "t": 2.981
+   },
+   {
+    "w": "se",
+    "t": 3.173
+   },
+   {
+    "w": "ejecuta,",
+    "t": 3.346
+   },
+   {
+    "w": "sin",
+    "t": 3.827
+   },
+   {
+    "w": "perseguir",
+    "t": 4.0
+   },
+   {
+    "w": "nada,",
+    "t": 4.481
+   },
+   {
+    "w": "con",
+    "t": 4.731
+   },
+   {
+    "w": "el",
+    "t": 5.538
+   },
+   {
+    "w": "riesgo",
+    "t": 5.692
+   },
+   {
+    "w": "definido",
+    "t": 5.942
+   },
+   {
+    "w": "desde el",
+    "t": 6.385
+   },
+   {
+    "w": "principio,",
+    "t": 6.596
+   },
+   {
+    "w": "y",
+    "t": 7.019
+   },
+   {
+    "w": "desde",
+    "t": 7.385
+   },
+   {
+    "w": "ahí",
+    "t": 7.5
+   },
+   {
+    "w": "directo",
+    "t": 7.75
+   },
+   {
+    "w": "al",
+    "t": 8.096
+   },
+   {
+    "w": "objetivo.",
+    "t": 8.173
+   }
+  ]
  },
  {
   "id": "cierre",
   "titulo": "QuantPower Builder v0.8",
-  "texto": "Señales confirmadas y entradas en el nivel que tú eliges. Pruébalo gratis en quantpowerbuilder.com, mientras queden licencias.",
+  "texto": "Señales confirmadas y entradas en el nivel que tú eliges. Compruébalo gratis en el software de quantpowerbuilder.com, mientras queden licencias, es gratis.",
   "audio": "voz/cierre.wav",
-  "dur": 10.574
+  "dur": 11.538,
+  "palabras": [
+   {
+    "w": "Señales",
+    "t": 0.192
+   },
+   {
+    "w": "confirmadas",
+    "t": 0.808
+   },
+   {
+    "w": "y",
+    "t": 1.346
+   },
+   {
+    "w": "entradas",
+    "t": 1.5
+   },
+   {
+    "w": "en",
+    "t": 1.808
+   },
+   {
+    "w": "el",
+    "t": 2.212
+   },
+   {
+    "w": "nivel",
+    "t": 2.327
+   },
+   {
+    "w": "que",
+    "t": 2.538
+   },
+   {
+    "w": "tú",
+    "t": 2.692
+   },
+   {
+    "w": "eliges.",
+    "t": 2.827
+   },
+   {
+    "w": "Compruébalo",
+    "t": 3.692
+   },
+   {
+    "w": "gratis",
+    "t": 4.365
+   },
+   {
+    "w": "en",
+    "t": 4.923
+   },
+   {
+    "w": "el",
+    "t": 5.731
+   },
+   {
+    "w": "software",
+    "t": 5.827
+   },
+   {
+    "w": "de",
+    "t": 6.077
+   },
+   {
+    "w": "quantpowerbuilder.com,",
+    "t": 6.288
+   },
+   {
+    "w": "mientras",
+    "t": 8.788
+   },
+   {
+    "w": "queden",
+    "t": 9.404
+   },
+   {
+    "w": "licencias,",
+    "t": 9.731
+   },
+   {
+    "w": "es",
+    "t": 10.212
+   },
+   {
+    "w": "gratis.",
+    "t": 10.75
+   }
+  ]
  }
 ]

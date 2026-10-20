@@ -289,36 +289,40 @@ const Grafico = ({frame}: {frame: number}) => {
   );
 };
 
-// Divide un texto largo en páginas de frases completas que quepan en el cuadro (unos 130 caracteres)
-const paginas = (texto: string) => {
-  // Solo se corta tras punto, interrogación o exclamación seguidos de espacio (no en «quantpowerbuilder.com»)
-  const frases = texto.split(/(?<=[.?!])\s+/);
-  const out: string[] = [];
-  for (const f of frases) {
-    const ult = out[out.length - 1];
-    if (ult !== undefined && (ult + ' ' + f).length <= 130) out[out.length - 1] = ult + ' ' + f;
-    else out.push(f);
-  }
-  return out.map((p) => p.trim());
+type Palabra = {w: string; t: number};
+
+// Agrupa las palabras en páginas que quepan en el cuadro: se cierra página al acabar una frase,
+// en una coma si ya va larga, o a la fuerza hacia los 120 caracteres
+const paginar = (palabras: Palabra[]) => {
+  const pags: number[][] = [];
+  let actual: number[] = [];
+  let largo = 0;
+  palabras.forEach((p, i) => {
+    actual.push(i);
+    largo += p.w.length + 1;
+    const fin = /[.?!]$/.test(p.w);
+    const coma = /,$/.test(p.w);
+    if ((fin && largo >= 60) || (coma && largo >= 95) || largo >= 120) {
+      pags.push(actual);
+      actual = [];
+      largo = 0;
+    }
+  });
+  if (actual.length) pags.push(actual);
+  return pags;
 };
 
-// Subtítulo con las palabras que se van iluminando al ritmo de la voz; los textos largos pasan por páginas
+// Subtítulo: cada palabra se ilumina cuando suena (tiempos de la transcripción) y el texto pasa por páginas.
+// Si la escena no trae tiempos por palabra, se reparten a lo largo de la frase.
 const Subtitulo = ({frame}: {frame: number}) => {
   const e = [...ESCENAS].reverse().find((s) => frame >= s.inicio)!;
-  const todas = e.texto.split(' ');
-  const habla = e.duracion - PAUSA * FPS - (e.id === 'cierre' ? 45 : 0);
-  const kTotal = interpolate(frame, [e.inicio, e.inicio + habla], [0, todas.length], clamp);
-  const pags = paginas(e.texto);
-  let antes = 0;
-  let pagina = pags[pags.length - 1];
-  for (const p of pags) {
-    const n = p.split(' ').length;
-    if (kTotal < antes + n) { pagina = p; break; }
-    antes += n;
-  }
-  if (pagina === pags[pags.length - 1]) antes = todas.length - pagina.split(' ').length;
-  const palabras = pagina.split(' ');
-  const k = kTotal - antes;
+  const habla = (e.duracion - PAUSA * FPS - (e.id === 'cierre' ? 45 : 0)) / FPS;
+  const lista: Palabra[] = e.palabras ?? e.texto.split(' ').map((w, i, arr) => ({w, t: (i / arr.length) * habla}));
+  const seg = (frame - e.inicio) / FPS;
+  const k = lista.filter((p) => p.t <= seg + 0.04).length;
+  const pags = paginar(lista);
+  const activa = pags.find((pg) => pg.includes(Math.max(0, k - 1))) ?? pags[0];
+  const pagina = activa.map((i) => lista[i].w).join(' ');
   return (
     <div
       style={{
@@ -329,8 +333,8 @@ const Subtitulo = ({frame}: {frame: number}) => {
         opacity: interpolate(frame, [e.inicio, e.inicio + 8], [0, 1], clamp),
       }}
     >
-      {palabras.map((w, i) => (
-        <span key={i} style={{color: i < k ? C.strong : 'rgba(154,174,199,.55)'}}>{w} </span>
+      {activa.map((i) => (
+        <span key={i} style={{color: i < k ? C.strong : 'rgba(154,174,199,.55)'}}>{lista[i].w} </span>
       ))}
     </div>
   );
