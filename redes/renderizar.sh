@@ -78,3 +78,10 @@ render redes/11-futuros-1min/cartel.html vertical 1080 1350 "$DIR/cartel-1080x13
 DIR="$ROOT/redes/12-descarga-licencia"
 render redes/12-descarga-licencia/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
 render redes/12-descarga-licencia/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
+
+DIR="$ROOT/redes/13-novedades-v08"
+for s in 1 2 3 4 5 6 7; do
+  render "redes/13-novedades-v08/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
+  render "redes/13-novedades-v08/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
+done
+# El vídeo se genera aparte con: node redes/13-novedades-v08/video/grabar.js
