@@ -74,3 +74,7 @@ done
 DIR="$ROOT/redes/11-futuros-1min"
 render redes/11-futuros-1min/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
 render redes/11-futuros-1min/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
+
+DIR="$ROOT/redes/12-descarga-licencia"
+render redes/12-descarga-licencia/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
+render redes/12-descarga-licencia/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
