@@ -12,11 +12,11 @@ El proveedor no se nombra.
 
 **Descripción (una línea):**
 
-🆕 v0.8: el ES desde 2010 a 1 minuto, 5 M de cierres con volumen #QuantPowerBuilder
+🆕 v0.8: el ES desde 2010 a 1 minuto, 5 millones de cierres de 1 min con volumen #QuantPowerBuilder
 
 **Comentario fijado:**
 
-Nuevo en la v0.8 de QuantPower Builder: el histórico completo de futuros como ES, NQ, GC o FDAX en velas de 1 minuto, a través de un proveedor de datos integrado. Solo del ES, desde 2010: 5 millones de cierres de minuto con volumen. Directo al análisis y al backtesting.
+Nuevo en la v0.8 de QuantPower Builder: el histórico completo de futuros como ES, NQ, GC o FDAX en timeframe de 1 minuto (TF 1 min), a través de un proveedor de datos integrado. Solo del ES, desde 2010: 5 millones de cierres de minuto con volumen. Directo al análisis y al backtesting.
 👉 quantpowerbuilder.com
 #QuantPowerBuilder #futuros #ES #NQ #FDAX #backtesting #trading
 
