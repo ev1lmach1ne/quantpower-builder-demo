@@ -80,27 +80,36 @@
         <div class="hero-copy">
           <div class="hero-identity"><img class="corporate-logo" src="./assets/images/logo-corporativo.png" width="100" height="100" alt="Imagen corporativa de QuantPower Systems"><div><span class="hero-company">QuantPower Systems</span><span class="eyebrow"><span class="status-dot"></span> Investigación cuantitativa,<br> a tu alcance</span></div></div>
           <h1>Analiza y construye <span class="text-accent">tu ventaja.</span></h1>
-          <p class="hero-description">Combina indicadores, define tus reglas de entrada/salida y evalúa su comportamiento histórico con un motor de backtesting acelerado. QuantPower Builder simplifica la construcción de sistemas sin perder profundidad técnica.</p>
-          <p class="hero-support"><strong>Crea sistemas sin escribir código.</strong> Selecciona opciones, combina condiciones y construye tu lógica desde la plataforma.</p>
+          <p class="hero-description">Combina indicadores, define tus reglas y evalúa su comportamiento histórico con un motor de backtesting acelerado, sin escribir código.</p>
+          <aside class="hero-gift" aria-labelledby="hero-gift-title">
+            <span class="hero-gift-count" aria-hidden="true">50</span>
+            <div><strong id="hero-gift-title">Regalamos 50 licencias</strong><span>a los primeros usuarios que se registren.</span></div>
+          </aside>
           <div class="button-row">
-            <a class="button button-primary" href="#constructor">Explorar el constructor <svg class="icon"><use href="#i-arrow"/></svg></a>
+            <a class="button button-primary" href="./cuenta/#crear">Crear cuenta gratis <svg class="icon"><use href="#i-arrow"/></svg></a>
             <a class="button button-quiet" href="#demo"><svg class="icon"><use href="#i-download"/></svg> Descargar la demo</a>
           </div>
-          <div class="hero-footnote"><span class="mini-dot"></span> Aplicación de escritorio <span class="separator">/</span> Proyecto de portfolio</div>
         </div>
 
         <div class="hero-visual">
           <div class="terminal hero-terminal">
-            <div class="terminal-titlebar"><span class="window-dots"><i></i><i></i><i></i></span><span>QuantPower Builder</span><span class="terminal-badge">BACKTEST</span></div>
-            <div class="terminal-tabs"><span>Constructor</span><span class="selected">Resultados</span><span>Optimizador</span><span class="terminal-asset">ACTIVO DEMO · H1</span></div>
-            <div class="hero-chart-heading"><div><span class="label">Sistema de tendencia</span><strong>Tu lógica, puesta a prueba.</strong></div><span class="pill pill-cyan">IS / OOS</span></div>
-            <img class="hero-chart" src="./assets/images/trend.svg" width="1100" height="600" alt="Backtest del motor sobre velas sintéticas: EMA, RSI y puntos separados de señal, entrada y salida." fetchpriority="high">
-            <div class="hero-terminal-stats"><div><span>SEÑAL</span><strong>EMA 20 / 50</strong></div><div><span>CONFIRMACIÓN</span><strong>RSI &gt; 50</strong></div><div><span>PROTECCIÓN</span><strong>Stop × ATR</strong></div></div>
-            <div class="terminal-caption"><span class="status-dot"></span> Motor real · Datos sintéticos · Señal en t → ejecución en t+1</div>
+            <div class="terminal-titlebar"><span class="window-dots"><i></i><i></i><i></i></span><span>QuantPower Builder</span><span class="terminal-badge">NUEVO</span></div>
+            <div class="terminal-tabs"><span>Constructor</span><span class="selected">Perfil de volumen</span><span>Órdenes</span><span class="terminal-asset">FUTURO DEMO · H1</span></div>
+            <div class="hero-chart-heading"><div><span class="label">Niveles que detecta el motor</span><strong>El volumen marca el precio.</strong></div><span class="pill pill-cyan">HVN / LVN</span></div>
+            <img class="hero-chart" src="./assets/images/perfil-volumen.svg" width="1100" height="600" alt="Perfil de volumen sobre el precio: dos nodos de alto volumen (HVN) y un nodo de bajo volumen (LVN) entre ellos, con una orden límite de compra en el LVN y el objetivo límite en el HVN superior." fetchpriority="high">
+            <div class="terminal-caption"><span class="status-dot"></span> Ilustración · Datos sintéticos · Niveles calculados sobre el perfil</div>
           </div>
-          <div class="floating-rule"><span class="floating-icon"><svg class="icon"><use href="#i-check"/></svg></span><div><span>DE LA IDEA A LA REGLA</span><strong>Condiciones conectadas.</strong><small>Señal + confirmación + gestión</small></div></div>
+          <div class="floating-rule"><span class="floating-icon"><svg class="icon"><use href="#i-check"/></svg></span><div><span>NUEVO EN EL MOTOR</span><strong>Órdenes límite.</strong><small>Entrada en LVN · objetivo en HVN</small></div></div>
           <div class="visual-coordinate" aria-hidden="true">QP / RESEARCH ENVIRONMENT</div>
         </div>
+      </div>
+      <div id="novedades" class="container hero-news" aria-labelledby="hero-news-title">
+        <span class="eyebrow" id="hero-news-title"><span class="status-dot"></span> Novedades de la nueva versión</span>
+        <ul>
+          <li><span class="news-icon"><svg class="icon"><use href="#i-layers"/></svg></span><div><strong>Perfil de volumen en el precio</strong><p>El motor de backtesting detecta los niveles de alto y bajo volumen (HVN y LVN) para usarlos en tus reglas.</p></div></li>
+          <li><span class="news-icon"><svg class="icon"><use href="#i-sliders"/></svg></span><div><strong>Órdenes límite</strong><p>Nuevas funciones para colocar entradas y objetivos con órdenes límite, por ejemplo sobre un HVN o un LVN.</p></div></li>
+          <li><span class="news-icon"><svg class="icon"><use href="#i-database"/></svg></span><div><strong>Proveedor de datos de futuros</strong><p>Descarga históricos desde 2010 de un amplio catálogo de futuros y haz tus pruebas gratis si entras ahora.</p></div></li>
+        </ul>
       </div>
       <div class="container capability-strip" aria-label="Capacidades principales">
         <span><svg class="icon"><use href="#i-grid"/></svg> Construcción visual</span>
