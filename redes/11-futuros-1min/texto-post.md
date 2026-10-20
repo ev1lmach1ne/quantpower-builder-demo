@@ -16,7 +16,7 @@ El proveedor no se nombra.
 
 **Comentario fijado:**
 
-Nuevo en la v0.8 de QuantPower Builder: el histórico completo de futuros como ES, NQ, GC o FDAX en timeframe de 1 minuto (TF 1 min), a través de un proveedor de datos integrado. Solo del ES, desde 2010: 5 millones de cierres de minuto con volumen. Directo al análisis y al backtesting.
+Nuevo en la v0.8 de QuantPower Builder: el histórico completo de futuros como ES, NQ, GC o FDAX en timeframe de 1 minuto (TF 1 min), a través de un proveedor de datos integrado. Solo del ES, desde 2010 (16 años de datos): 5 millones de cierres de minuto con volumen. Directo al análisis y al backtesting.
 👉 quantpowerbuilder.com
 #QuantPowerBuilder #futuros #ES #NQ #FDAX #backtesting #trading
 
@@ -24,7 +24,7 @@ Nuevo en la v0.8 de QuantPower Builder: el histórico completo de futuros como E
 
 🆕 Nuevo en QuantPower Builder v0.8: histórico completo de futuros a 1 minuto.
 
-A través de un proveedor de datos integrado en la app, tienes el histórico completo de futuros como ES (S&P 500), NQ (Nasdaq 100), GC (oro) o FDAX (DAX) en velas de un minuto. Solo del ES, histórico desde 2010: 5 millones de cierres de minuto con volumen, listos para analizar y para hacer backtesting sin importar archivos.
+A través de un proveedor de datos integrado en la app, tienes el histórico completo de futuros como ES (S&P 500), NQ (Nasdaq 100), GC (oro) o FDAX (DAX) en velas de un minuto. Solo del ES, histórico desde 2010, 16 años de datos: 5 millones de cierres de minuto con volumen, listos para analizar y para hacer backtesting sin importar archivos.
 
 👉 quantpowerbuilder.com
 
