@@ -424,7 +424,7 @@ code { font-family: var(--font-mono); font-size: 10px; line-height: 1.95; color:
 .req-sizes > div { padding: 12px 14px; border: 1px solid var(--border-soft); border-radius: 10px; background: var(--panel); }
 .req-sizes span { display: block; font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
 .req-sizes strong { display: block; margin-top: 4px; font-size: 18px; font-weight: 600; color: var(--text-strong); font-variant-numeric: tabular-nums; }
-.req-sizes .req-pending { color: var(--amber); font-size: 14px; }
+.req-sizes small { display: block; margin-top: 2px; font-size: 9px; color: var(--text-muted); }
 .req-table { overflow-x: auto; margin-block: 14px 12px; }
 .requirements, .installation-layout > div { min-width: 0; }
 .req-table table { width: 100%; min-width: 0; border-collapse: collapse; font-family: var(--font-sans); font-size: 11px; white-space: normal; }
