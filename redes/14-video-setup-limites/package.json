@@ -1,0 +1,21 @@
+{
+  "name": "qpb-video-setup-limites",
+  "private": true,
+  "description": "Vídeo: setup con divergencia confirmada y órdenes límite en HVN/LVN (QuantPower Builder v0.8)",
+  "scripts": {
+    "datos": "python3 scripts/mercado.py && sh scripts/voz.sh",
+    "studio": "remotion studio",
+    "render": "remotion render SetupLimites out/setup-limites-1080x1920.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.537",
+    "@remotion/media": "4.0.537",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.537"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}
