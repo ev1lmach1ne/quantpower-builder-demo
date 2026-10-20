@@ -2,7 +2,7 @@ import tiempos from './tiempos.json';
 
 export const FPS = 30;
 // Margen tras cada frase para que la escena respire
-const PAUSA = 0.6;
+export const PAUSA = 0.25;
 
 export type Escena = {
   id: string;
@@ -21,7 +21,7 @@ export const ESCENAS: Escena[] = tiempos.map((t) => {
   return e;
 });
 // La escena final se alarga para dejar la llamada a la acción en pantalla
-ESCENAS[ESCENAS.length - 1].duracion += 2 * FPS;
+ESCENAS[ESCENAS.length - 1].duracion += 1.5 * FPS;
 export const DURACION_TOTAL = ESCENAS.reduce((s, e) => s + e.duracion, 0);
 
 export const escena = (id: string) => ESCENAS.find((e) => e.id === id)!;

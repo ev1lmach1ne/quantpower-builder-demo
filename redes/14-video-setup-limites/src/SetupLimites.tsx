@@ -1,7 +1,7 @@
 import {AbsoluteFill, Easing, Img, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {Audio} from '@remotion/media';
 import mercado from './mercado.json';
-import {ESCENAS, escena} from './tiempos';
+import {ESCENAS, FPS, PAUSA, escena} from './tiempos';
 
 // Paleta de los carteles de QuantPower Builder
 const C = {
@@ -213,18 +213,36 @@ const Ordenes = ({frame}: {frame: number}) => {
   if (!desde(frame, 'ordenes')) return null;
   const v = velasVisibles(frame);
   const xi = x(mercado.barraOrdenes) + PASO;
+  // Primero se ofrecen los dos niveles candidatos; después se elige uno y ahí se marcan las órdenes límite
+  const ofrece = prog(frame, 'ordenes', 0.12, 0.22);
+  const elige = prog(frame, 'ordenes', 0.36, 0.46);
+  const elegido = mercado.ordenes[0];
   const niveles = [
-    ...mercado.ordenes.map((o, k) => ({
-      p: o.precio, col: o.tipo === 'LVN' ? C.purple : C.accent, t0: 0.3 + k * 0.12,
-      txt: `Compra límite ${k + 1} · ${o.contratos} ct · ${fmt(o.precio)} (${o.tipo})`, lleno: o.barra !== null && v > o.barra,
+    ...mercado.ordenes.map((o) => ({
+      p: o.precio, col: o.tipo === 'LVN' ? C.purple : C.accent, t0: 0.46,
+      txt: `Compra límite · ${o.contratos} ct · ${fmt(o.precio)} (${o.tipo})`, lleno: o.barra !== null && v > o.barra,
     })),
-    {p: mercado.stop, col: C.red, t0: 0.62, txt: `Stop · ${fmt(mercado.stop)}`, lleno: false},
-    {p: mercado.objetivo, col: C.green, t0: 0.72, txt: `Objetivo · ${fmt(mercado.objetivo)} (HVN)`, lleno: false},
+    {p: mercado.stop, col: C.red, t0: 0.6, txt: `Stop · ${fmt(mercado.stop)}`, lleno: false},
+    {p: mercado.objetivo, col: C.green, t0: 0.7, txt: `Objetivo · ${fmt(mercado.objetivo)} (HVN)`, lleno: false},
   ];
-  const ambas = mercado.ordenes.every((o) => o.barra !== null && v > o.barra);
   const objetivo = mercado.barraObjetivo !== null && v > mercado.barraObjetivo;
   return (
     <g>
+      {mercado.candidatos.map((c) => {
+        const esElegido = c.tipo === elegido.tipo && c.precio === elegido.precio;
+        const col = c.tipo === 'LVN' ? C.purple : C.accent;
+        // El candidato no elegido se apaga; el elegido se convierte en la línea de la orden
+        const op = ofrece * (esElegido ? 1 - prog(frame, 'ordenes', 0.46, 0.52) : 1 - 0.75 * elige);
+        return (
+          <g key={c.tipo} opacity={op}>
+            <line x1={xi} x2={X1} y1={y(c.precio)} y2={y(c.precio)} stroke={col} strokeWidth={3} strokeDasharray="4 8" />
+            <rect x={X0 + 6} y={y(c.precio) - 21} width={360} height={42} rx={9} fill={C.bgDeep} stroke={col} strokeWidth={esElegido ? 2 + 2 * elige : 2} opacity={0.9} />
+            <text x={X0 + 20} y={y(c.precio) + 8} fill={col} fontSize={21} fontWeight={700} fontFamily={FONT}>
+              {`Nivel ${c.tipo} · ${fmt(c.precio)}`}{esElegido && elige > 0.5 ? '  ← elegido' : ''}
+            </text>
+          </g>
+        );
+      })}
       {niveles.map((n) => {
         const a = prog(frame, 'ordenes', n.t0, n.t0 + 0.1);
         return (
@@ -232,18 +250,11 @@ const Ordenes = ({frame}: {frame: number}) => {
             <line x1={xi} x2={X1} y1={y(n.p)} y2={y(n.p)} stroke={n.col} strokeWidth={n.lleno ? 4 : 3} strokeDasharray={n.lleno ? undefined : '10 8'} />
             <rect x={X0 + 6} y={y(n.p) - 21} width={n.lleno ? 470 : 420} height={42} rx={9} fill={C.bgDeep} stroke={n.col} strokeWidth={2} opacity={0.88} />
             <text x={X0 + 20} y={y(n.p) + 8} fill={n.col} fontSize={21} fontWeight={700} fontFamily={FONT}>
-              {n.txt}{n.lleno ? '  ✓ llenada' : ''}
+              {n.txt}{n.lleno ? '  ✓ ejecutada' : ''}
             </text>
           </g>
         );
       })}
-      {ambas && (
-        <g>
-          <line x1={xi} x2={X1} y1={y(mercado.media)} y2={y(mercado.media)} stroke={C.amber} strokeWidth={3} strokeDasharray="4 6" />
-          <rect x={612} y={y(mercado.media) - 62} width={300} height={40} rx={9} fill={C.bgDeep} stroke={C.amber} strokeWidth={2} />
-          <text x={626} y={y(mercado.media) - 34} fill={C.amber} fontSize={20} fontWeight={800} fontFamily={FONT}>Entrada media · {fmt(mercado.media)}</text>
-        </g>
-      )}
       {objetivo && (
         <g>
           <rect x={590} y={y(mercado.objetivo) - 80} width={300} height={46} rx={10} fill={C.green} />
@@ -282,7 +293,7 @@ const Grafico = ({frame}: {frame: number}) => {
 const Subtitulo = ({frame}: {frame: number}) => {
   const e = [...ESCENAS].reverse().find((s) => frame >= s.inicio)!;
   const palabras = e.texto.split(' ');
-  const habla = e.duracion - 0.6 * 30 - (e.id === 'cierre' ? 60 : 0);
+  const habla = e.duracion - PAUSA * FPS - (e.id === 'cierre' ? 45 : 0);
   const k = interpolate(frame, [e.inicio, e.inicio + habla], [0, palabras.length], clamp);
   return (
     <div
@@ -302,12 +313,12 @@ const Subtitulo = ({frame}: {frame: number}) => {
 const Cierre = ({frame}: {frame: number}) => {
   if (!desde(frame, 'cierre')) return null;
   const a = prog(frame, 'cierre', 0.05, 0.25);
-  const puntos = ['Divergencias solo cuando se confirman', 'Perfil de volumen con HVN y LVN', 'Órdenes límite repartidas por niveles'];
+  const puntos = ['Divergencias solo cuando se confirman', 'Perfil de volumen con HVN y LVN', 'Órdenes límite en el nivel que elijas'];
   return (
     <div style={{position: 'absolute', left: X0, right: 150, top: 610, opacity: a, translate: interpolate(a, [0, 1], ['0px 40px', '0px 0px'])}}>
       <div style={{display: 'inline-block', padding: '10px 22px', borderRadius: 8, background: C.accent, color: C.bgDeep, fontSize: 24, fontWeight: 800, letterSpacing: '.14em'}}>NUEVO EN LA V0.8</div>
       <div style={{marginTop: 22, fontSize: 70, lineHeight: 1.05, fontWeight: 800, letterSpacing: '-.03em', color: C.strong}}>
-        Del setup a la <span style={{color: C.accent}}>entrada por niveles.</span>
+        Del setup a <span style={{color: C.accent}}>tu nivel de entrada.</span>
       </div>
       <div style={{marginTop: 30, display: 'grid', gap: 14}}>
         {puntos.map((t, k) => (

@@ -59,7 +59,9 @@ hvn = max((pr for pr in precios if 5286 <= pr <= 5290), key=lambda pr: suave[pr]
 lvn = min((pr for pr in precios if 5292 <= pr <= 5297), key=lambda pr: suave[pr])
 objetivo = max((pr for pr in precios if 5304 <= pr <= 5311), key=lambda pr: suave[pr])
 stop = hvn - 4
-ordenes = [dict(tipo='LVN', precio=lvn + .5, contratos=1), dict(tipo='HVN', precio=hvn + .5, contratos=2)]
+# El usuario elige uno de los niveles del perfil para esperar la ejecución; en el ejemplo, el HVN
+candidatos = [dict(tipo='LVN', precio=lvn + .5), dict(tipo='HVN', precio=hvn + .5)]
+ordenes = [dict(tipo='HVN', precio=hvn + .5, contratos=2)]
 for o in ordenes:
     o['barra'] = next((j for j in range(ORD + 1, len(bars)) if bars[j]['l'] <= o['precio']), None)
 media = sum(o['precio'] * o['contratos'] for o in ordenes) / sum(o['contratos'] for o in ordenes)
@@ -70,7 +72,7 @@ datos = dict(barras=bars, rsi=[None if x is None else round(x, 2) for x in R],
              min2=dict(barra=L2, precio=bars[L2]['l'], rsiBarra=r2, rsi=round(R[r2], 1)),
              confirmacion=CONF, barraOrdenes=ORD,
              perfil=[dict(precio=pr, vol=round(perfil[pr])) for pr in precios],
-             hvn=hvn + .5, lvn=lvn + .5, objetivo=objetivo + .5, stop=stop, ordenes=ordenes,
+             hvn=hvn + .5, lvn=lvn + .5, objetivo=objetivo + .5, stop=stop, candidatos=candidatos, ordenes=ordenes,
              media=round(media, 2), barraObjetivo=barra_obj)
 os.makedirs('src', exist_ok=True)
 json.dump(datos, open('src/mercado.json', 'w'))
