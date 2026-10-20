@@ -102,7 +102,7 @@ function displayRelease(release, { snapshot = false, latest = false, total = 1 }
     ? "Versión disponible mientras se consulta la lista de Releases."
     : `${total} versiones publicadas${latest ? " · última con ZIP seleccionada" : " · explorando el historial"}.`;
   if (release.downloadUrl) {
-    setButton(release.downloadUrl, "Descargar para Windows");
+    setButton(release.downloadUrl, "Descargar para Windows 64 bits");
     document.getElementById("download-note").textContent = "Descarga directa desde GitHub Releases. Descomprime el ZIP completo antes de abrir la aplicación.";
   } else {
     setButton(release.pageUrl, "Ver la publicación", "i-external", true);

@@ -398,6 +398,9 @@ code { font-family: var(--font-mono); font-size: 10px; line-height: 1.95; color:
 .platform-icon { font-size: 35px; line-height: 1; color: var(--accent); }
 .release-platform strong { display: block; color: var(--text-strong); font-size: 16px; font-weight: 500; }
 .release-platform div > span { display: block; color: var(--text-muted); font-size: 10px; }
+.bits-help { margin: -4px 0 17px; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: 8px; background: #4fc3f708; font-size: 11px; line-height: 1.6; color: var(--text-muted); }
+.bits-help strong { color: var(--accent); font-weight: 600; }
+.bits-help em { font-style: normal; color: var(--text); }
 .release-facts { margin: 0 0 20px; }
 .release-facts > div { display: flex; gap: 12px; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-soft); padding-block: 9px; }
 .release-facts dt { font-size: 10px; color: var(--text-muted); }
