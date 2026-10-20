@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Histórico de futuros a 1 minuto — QuantPower Builder</title>
+<!--
+  Portada: histórico completo de futuros a 1 minuto a través de un proveedor de datos, incluido en la v0.8.
+  Las velas son decorativas (generadas), no datos reales.
+  Se renderiza a PNG con redes/renderizar.sh.
+  Formato por parámetro: ?f=tiktok (1080×1920, por defecto) o ?f=vertical (1080×1350).
+  En 9:16 deja libres ~360 px arriba, ~340 abajo y ~150 a la derecha y omite la cabecera.
+-->
+<style>
+  :root {
+    --bg: #111828; --bg-deep: #0d1424; --panel: #141e30; --panel-raised: #1a2a45;
+    --border: #253a60; --text: #c8d6e5; --text-strong: #e6edf3; --text-muted: #9aaec7;
+    --accent: #4fc3f7; --amber: #f1c40f; --green: #2ecc71; --red: #e74c3c;
+    --font: "Inter", "Segoe UI", Arial, sans-serif;
+    --mono: "DejaVu Sans Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-deep); }
+  .poster {
+    position: relative; overflow: hidden;
+    width: 1080px; height: 1920px; padding: 360px 150px 340px 80px;
+    display: flex; flex-direction: column; gap: 34px;
+    font-family: var(--font); color: var(--text);
+    background:
+      radial-gradient(900px 700px at 85% 35%, rgba(79,195,247,.16), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  }
+  .poster.vertical { height: 1350px; padding: 64px 80px 56px; gap: 28px; }
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(37,58,96,.30) 1px, transparent 1px), linear-gradient(90deg, rgba(37,58,96,.30) 1px, transparent 1px);
+    background-size: 54px 54px; mask-image: linear-gradient(200deg, #000 0%, transparent 60%); }
+  .poster > * { position: relative; flex-shrink: 0; }
+
+  .head { display: flex; align-items: center; gap: 20px; }
+
+  .logo { width: 76px; height: 76px; border-radius: 50%; flex: none;
+    background: url("../../assets/images/logo-corporativo.png") center / 104% no-repeat; clip-path: circle(48%); }
+  .head strong { font-size: 34px; font-weight: 700; color: var(--text-strong); }
+
+  .badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border-radius: 8px;
+    background: var(--accent); color: var(--bg-deep); font-size: 23px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .badge::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-deep); }
+
+  h1 { font-size: 66px; line-height: 1.08; font-weight: 800; letter-spacing: -.03em; color: var(--text-strong); }
+  h1 span { color: var(--accent); }
+  .vertical h1 { font-size: 64px; }
+
+  .date { display: flex; align-items: stretch; border: 2px solid var(--accent); border-radius: 26px; overflow: hidden; background: rgba(20,30,48,.9); }
+  .cal { flex: none; width: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px 0;
+    background: rgba(79,195,247,.1); border-right: 2px solid var(--accent); }
+  .cal small { font-size: 26px; font-weight: 800; letter-spacing: .18em; color: var(--accent); }
+  .cal strong { font-size: 128px; line-height: 1; font-weight: 800; letter-spacing: -.04em; color: var(--text-strong); }
+  .when { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 24px 34px; }
+  .when b { font-size: 46px; font-weight: 800; color: var(--text-strong); }
+  .when .hour { font-size: 64px; font-weight: 800; letter-spacing: -.02em; color: var(--accent); line-height: 1; }
+  .when .hour small { font-size: 28px; font-weight: 600; color: var(--text-muted); letter-spacing: 0; }
+
+  .topics { display: grid; gap: 12px; }
+  .topic { display: flex; align-items: center; gap: 22px; padding: 20px 26px; border-radius: 16px;
+    border: 1px solid var(--border); background: rgba(26,42,69,.55); font-size: 28px; color: var(--text-muted); }
+  .topic b { color: var(--text-strong); font-weight: 700; }
+  .topic i { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+    font-style: normal; font-family: var(--mono); font-size: 22px; color: var(--accent); border: 2px solid var(--accent); }
+  .vertical .topic { padding: 16px 24px; font-size: 27px; }
+
+  .foot { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border); }
+  .foot small { display: block; font-size: 21px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); }
+  .foot strong { display: block; margin-top: 8px; font-size: 40px; font-weight: 700; color: var(--text-strong); }
+  .foot strong span { color: var(--accent); }
+  .poster:not(.vertical) { gap: 24px; }
+  .chart { display: block; width: 100%; height: 170px; padding: 18px 0; border: 1px solid var(--border); border-radius: 22px; background: rgba(20,30,48,.85); }
+  .vertical .chart { height: 190px; }
+  .poster:not(.vertical) .topic { padding: 16px 24px; font-size: 26px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .stat { padding: 20px 20px; border-radius: 18px; border: 2px solid var(--accent); background: rgba(79,195,247,.07); }
+  .stat strong { display: block; font-size: 50px; font-weight: 800; letter-spacing: -.03em; color: var(--accent); line-height: 1; }
+  .stat span { display: block; margin-top: 10px; font-size: 23px; line-height: 1.25; color: var(--text-muted); }
+  .vertical .stat strong { font-size: 46px; }
+  .ver { color: var(--text-strong); }
+</style>
+</head>
+<body>
+<main class="poster" id="poster">
+  <div class="grid"></div>
+  <header class="head"><div class="logo" role="img" aria-label="Logotipo de QuantPower Systems"></div><strong>QuantPower Builder</strong></header>
+  <div class="badge">Nuevo en la v0.8</div>
+  <h1>Histórico completo de <span>futuros a 1 minuto</span>, dentro del software.</h1>
+  <svg class="chart" viewBox="0 0 920 230" preserveAspectRatio="none" aria-hidden="true"><path d="M7.2 197.8V204.3" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="2.6" y="200.8" width="9.2" height="2.2" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M21.6 197.6V206.0" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="17.0" y="203.0" width="9.2" height="2.0" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M35.9 186.9V210.7" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="31.3" y="189.4" width="9.2" height="15.4" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M50.3 180.3V190.4" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="45.7" y="182.6" width="9.2" height="6.8" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M64.7 177.7V199.2" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="60.1" y="182.6" width="9.2" height="13.7" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M79.1 175.1V206.4" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="74.5" y="184.8" width="9.2" height="11.5" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M93.4 182.1V189.9" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="88.8" y="184.8" width="9.2" height="3.3" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M107.8 178.2V191.8" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="103.2" y="181.3" width="9.2" height="6.9" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M122.2 167.6V185.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="117.6" y="169.9" width="9.2" height="11.4" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M136.6 139.1V176.8" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="132.0" y="142.3" width="9.2" height="27.6" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M150.9 136.4V144.3" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="146.3" y="140.7" width="9.2" height="2.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M165.3 129.6V142.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="160.7" y="133.2" width="9.2" height="7.5" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M179.7 124.1V136.2" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="175.1" y="129.7" width="9.2" height="3.6" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M194.1 103.0V131.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="189.5" y="107.6" width="9.2" height="22.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M208.4 86.3V107.9" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="203.8" y="94.9" width="9.2" height="12.7" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M222.8 61.3V96.8" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="218.2" y="72.9" width="9.2" height="22.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M237.2 62.7V75.8" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="232.6" y="67.4" width="9.2" height="5.5" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M251.6 53.8V72.2" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="247.0" y="62.2" width="9.2" height="5.2" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M265.9 44.3V70.5" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="261.3" y="49.8" width="9.2" height="12.5" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M280.3 41.0V57.2" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="275.7" y="41.7" width="9.2" height="8.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M294.7 28.4V44.3" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="290.1" y="31.9" width="9.2" height="9.8" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M309.1 26.4V47.4" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="304.5" y="31.9" width="9.2" height="12.4" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M323.4 17.6V52.8" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="318.8" y="29.3" width="9.2" height="15.1" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M337.8 18.8V32.6" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="333.2" y="27.1" width="9.2" height="2.2" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M352.2 12.6V52.1" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="347.6" y="27.1" width="9.2" height="22.9" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M366.6 43.6V66.6" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="362.0" y="50.0" width="9.2" height="11.0" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M380.9 51.4V62.4" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="376.3" y="52.3" width="9.2" height="8.7" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M395.3 42.9V55.9" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="390.7" y="52.1" width="9.2" height="2.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M409.7 48.5V61.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="405.1" y="51.7" width="9.2" height="2.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M424.1 37.9V54.7" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="419.5" y="43.4" width="9.2" height="8.3" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M438.4 39.7V77.0" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="433.8" y="43.4" width="9.2" height="28.8" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M452.8 71.1V105.4" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="448.2" y="72.2" width="9.2" height="27.4" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M467.2 90.3V124.7" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="462.6" y="99.5" width="9.2" height="22.0" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M481.6 119.7V134.3" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="477.0" y="121.5" width="9.2" height="9.1" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M495.9 124.0V140.3" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="491.3" y="130.6" width="9.2" height="5.9" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M510.3 130.5V148.4" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="505.7" y="136.5" width="9.2" height="11.7" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M524.7 142.8V173.2" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="520.1" y="148.2" width="9.2" height="16.5" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M539.1 156.8V176.6" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="534.5" y="164.7" width="9.2" height="11.1" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M553.4 174.1V191.0" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="548.8" y="175.8" width="9.2" height="7.1" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M567.8 175.6V206.3" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="563.2" y="182.9" width="9.2" height="16.1" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M582.2 195.3V218.0" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="577.6" y="199.0" width="9.2" height="12.5" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M596.6 202.5V212.3" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="592.0" y="204.5" width="9.2" height="7.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M610.9 201.1V205.5" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="606.3" y="204.4" width="9.2" height="2.0" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M625.3 198.5V204.4" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="620.7" y="201.8" width="9.2" height="2.6" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M639.7 189.3V213.4" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="635.1" y="192.6" width="9.2" height="9.2" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M654.1 184.6V194.7" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="649.5" y="187.1" width="9.2" height="5.4" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M668.4 179.0V189.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="663.8" y="184.3" width="9.2" height="2.8" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M682.8 165.4V199.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="678.2" y="176.0" width="9.2" height="8.3" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M697.2 174.6V185.9" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="692.6" y="176.0" width="9.2" height="7.6" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M711.6 172.6V187.4" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="707.0" y="175.1" width="9.2" height="8.6" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M725.9 162.2V189.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="721.3" y="165.2" width="9.2" height="9.9" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M740.3 150.6V165.8" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="735.7" y="153.8" width="9.2" height="11.4" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M754.7 148.0V169.5" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="750.1" y="148.4" width="9.2" height="5.4" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M769.1 139.7V155.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="764.5" y="145.5" width="9.2" height="2.9" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M783.4 132.2V150.5" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="778.8" y="137.7" width="9.2" height="7.8" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M797.8 102.5V139.7" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="793.2" y="112.3" width="9.2" height="25.4" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M812.2 104.0V118.6" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="807.6" y="107.6" width="9.2" height="4.7" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M826.6 101.3V137.7" stroke="var(--red)" stroke-width="2" opacity=".8"/><rect x="822.0" y="107.6" width="9.2" height="21.8" rx="1.5" fill="var(--red)" opacity=".85"/><path d="M840.9 105.2V130.4" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="836.3" y="113.8" width="9.2" height="15.6" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M855.3 92.2V114.9" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="850.7" y="93.0" width="9.2" height="20.8" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M869.7 76.6V93.5" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="865.1" y="77.4" width="9.2" height="15.6" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M884.1 48.3V79.1" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="879.5" y="54.3" width="9.2" height="23.1" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M898.4 12.0V59.6" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="893.8" y="18.6" width="9.2" height="35.7" rx="1.5" fill="var(--green)" opacity=".85"/><path d="M912.8 16.9V22.7" stroke="var(--green)" stroke-width="2" opacity=".8"/><rect x="908.2" y="17.7" width="9.2" height="2.0" rx="1.5" fill="var(--green)" opacity=".85"/></svg>
+  <section class="stats">
+    <div class="stat"><strong>1 min</strong><span>velas de un minuto</span></div>
+    <div class="stat"><strong>Todo</strong><span>el histórico disponible</span></div>
+    <div class="stat"><strong>Varios</strong><span>futuros listos para usar</span></div>
+  </section>
+  <section class="topics">
+    <div class="topic"><i>01</i><span><b>A través de un proveedor de datos</b> integrado en la app</span></div>
+    <div class="topic"><i>02</i><span><b>Directo al análisis</b> y al backtesting, sin importar archivos</span></div>
+  </section>
+  <footer class="foot"><small>Incluido en la <span class="ver">v0.8</span> · Más en</small><strong>quantpowerbuilder.com</strong></footer>
+</main>
+<script>
+  if (new URLSearchParams(location.search).get("f") === "vertical") document.getElementById("poster").classList.add("vertical");
+  // Comprobación al renderizar: cuántos píxeles de contenido no caben en el lienzo
+  addEventListener("load", () => {
+    const el = document.getElementById("poster");
+    document.documentElement.dataset.desborde = el.scrollHeight - el.clientHeight;
+  });
+</script>
+</body>
+</html>
