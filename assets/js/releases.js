@@ -87,6 +87,9 @@ function displayRelease(release, { snapshot = false, latest = false, total = 1 }
   renderHighlights(release, latest);
   document.getElementById("release-size").textContent = release.size
     ? `${new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(release.size / 1048576)} MiB` : "ZIP pendiente";
+  const reqSize = document.getElementById("req-download-size");
+  // Mismo cálculo que el panel; «MB» como lo muestra el Explorador de Windows.
+  if (reqSize && release.size) reqSize.textContent = `${new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(release.size / 1048576)} MB`;
   const published = new Date(release.publishedAt);
   document.getElementById("release-date").textContent = Number.isNaN(published.getTime()) ? "Ver Release"
     : new Intl.DateTimeFormat("es-ES", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(published);

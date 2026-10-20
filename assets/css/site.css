@@ -420,6 +420,20 @@ code { font-family: var(--font-mono); font-size: 10px; line-height: 1.95; color:
 .requirements dt { color: var(--text-muted); }
 .requirements dd { margin: 0; text-align: right; }
 .requirements p { font-size: 9px; line-height: 1.75; }
+.req-sizes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.req-sizes > div { padding: 12px 14px; border: 1px solid var(--border-soft); border-radius: 10px; background: var(--panel); }
+.req-sizes span { display: block; font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+.req-sizes strong { display: block; margin-top: 4px; font-size: 18px; font-weight: 600; color: var(--text-strong); font-variant-numeric: tabular-nums; }
+.req-sizes .req-pending { color: var(--amber); font-size: 14px; }
+.req-table { overflow-x: auto; margin-block: 14px 12px; }
+.requirements, .installation-layout > div { min-width: 0; }
+.req-table table { width: 100%; min-width: 0; border-collapse: collapse; font-family: var(--font-sans); font-size: 11px; white-space: normal; }
+.req-table th, .req-table td { padding: 9px 8px; border-bottom: 1px solid var(--border-soft); text-align: left; vertical-align: top; }
+.req-table thead th { font-family: var(--font-mono); font-size: 9px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); }
+.req-table tbody th { font-weight: 500; color: var(--text-muted); }
+.req-table td { color: var(--text); }
+.req-table td:last-child { color: var(--text-strong); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .faq-list { max-width: 950px; margin: 50px auto 0; }
 .faq-list details { border-top: 1px solid var(--border-soft); }
 .faq-list details:last-child { border-bottom: 1px solid var(--border-soft); }
