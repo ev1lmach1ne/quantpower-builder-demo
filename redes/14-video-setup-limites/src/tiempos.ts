@@ -21,8 +21,10 @@ export const ESCENAS: Escena[] = tiempos.map((t) => {
   cursor += duracion;
   return e;
 });
-// La escena final se alarga para dejar la llamada a la acción en pantalla
+// La escena de cierre se alarga para dejar la llamada a la acción en pantalla
 ESCENAS[ESCENAS.length - 1].duracion += 1.5 * FPS;
+// Escena final sin voz: la portada del artículo publicado en la web
+ESCENAS.push({id: 'articulo', titulo: 'Nuevo artículo en la web', texto: '', audio: '', inicio: cursor + 1.5 * FPS, duracion: Math.round(4.5 * FPS)});
 export const DURACION_TOTAL = ESCENAS.reduce((s, e) => s + e.duracion, 0);
 
 export const escena = (id: string) => ESCENAS.find((e) => e.id === id)!;

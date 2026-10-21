@@ -270,7 +270,7 @@ const Grafico = ({frame}: {frame: number}) => {
   const cierre = prog(frame, 'cierre', 0, 0.15);
   const precios = [5280, 5290, 5300, 5310];
   return (
-    <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: entra * (1 - 0.92 * cierre)}}>
+    <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: entra * (1 - 0.92 * cierre) * (1 - prog(frame, 'articulo', 0, 0.15))}}>
       <rect x={X0} y={PY0 - 10} width={X1 - X0} height={PY1 - PY0 + 20} fill={C.panel} stroke={C.borderSoft} rx={12} />
       {precios.map((p) => (
         <g key={p}>
@@ -316,6 +316,7 @@ const paginar = (palabras: Palabra[]) => {
 // Si la escena no trae tiempos por palabra, se reparten a lo largo de la frase.
 const Subtitulo = ({frame}: {frame: number}) => {
   const e = [...ESCENAS].reverse().find((s) => frame >= s.inicio)!;
+  if (!e.texto) return null;
   const habla = (e.duracion - PAUSA * FPS - (e.id === 'cierre' ? 45 : 0)) / FPS;
   const lista: Palabra[] = e.palabras ?? e.texto.split(' ').map((w, i, arr) => ({w, t: (i / arr.length) * habla}));
   const seg = (frame - e.inicio) / FPS;
@@ -342,7 +343,8 @@ const Subtitulo = ({frame}: {frame: number}) => {
 
 const Cierre = ({frame}: {frame: number}) => {
   if (!desde(frame, 'cierre')) return null;
-  const a = prog(frame, 'cierre', 0.05, 0.25);
+  const a = prog(frame, 'cierre', 0.05, 0.25) * (1 - prog(frame, 'articulo', 0, 0.12));
+  if (a <= 0 && desde(frame, 'articulo')) return null;
   const puntos = ['Divergencias solo cuando se confirman', 'Perfil de volumen con HVN y LVN', 'Órdenes límite en el nivel que elijas'];
   return (
     <div style={{position: 'absolute', left: X0, right: 150, top: 610, opacity: a, translate: interpolate(a, [0, 1], ['0px 40px', '0px 0px'])}}>
@@ -372,6 +374,30 @@ const Cierre = ({frame}: {frame: number}) => {
   );
 };
 
+// Escena final: portada del artículo publicado hoy, dentro de un marco de móvil
+const Articulo = ({frame}: {frame: number}) => {
+  if (!desde(frame, 'articulo')) return null;
+  const a = prog(frame, 'articulo', 0, 0.25);
+  const W = 600, H = Math.round((W * 1400) / 1080);
+  return (
+    <div style={{position: 'absolute', left: X0, right: 150, top: 540, opacity: a, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 26}}>
+      <div style={{padding: '10px 22px', borderRadius: 8, background: C.accent, color: C.bgDeep, fontSize: 24, fontWeight: 800, letterSpacing: '.14em'}}>NUEVO ARTÍCULO · YA EN LA WEB</div>
+      <div style={{
+        width: W + 24, padding: 12, borderRadius: 36, background: '#0a1020', border: `2px solid ${C.border}`,
+        boxShadow: '0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(79,195,247,.15)', transformOrigin: 'top center',
+        translate: interpolate(a, [0, 1], ['0px 80px', '0px 0px']),
+        scale: interpolate(frame, [escena('articulo').inicio, escena('articulo').inicio + escena('articulo').duracion], [0.96, 1.02], clamp),
+      }}>
+        <Img src={staticFile('articulo-portada.png')} style={{display: 'block', width: W, height: H, borderRadius: 26, objectFit: 'cover', objectPosition: 'top'}} />
+      </div>
+      <div style={{textAlign: 'center', fontSize: 30, fontWeight: 800, color: C.strong, lineHeight: 1.25, opacity: prog(frame, 'articulo', 0.25, 0.45)}}>
+        Level 1, Level 2 y Level 3: qué datos ofrece el mercado
+      </div>
+      <div style={{fontSize: 30, fontWeight: 700, color: C.accent, opacity: prog(frame, 'articulo', 0.35, 0.55)}}>quantpowerbuilder.com/articulos</div>
+    </div>
+  );
+};
+
 export const SetupLimites = () => {
   const frame = useCurrentFrame();
   return (
@@ -379,8 +405,9 @@ export const SetupLimites = () => {
       <Grafico frame={frame} />
       <Cabecera frame={frame} />
       <Cierre frame={frame} />
+      <Articulo frame={frame} />
       <Subtitulo frame={frame} />
-      {ESCENAS.map((e) => (
+      {ESCENAS.filter((e) => e.audio).map((e) => (
         <Sequence key={e.id} name={`Voz · ${e.id}`} from={e.inicio} durationInFrames={e.duracion}>
           <Audio src={staticFile(e.audio)} />
         </Sequence>
