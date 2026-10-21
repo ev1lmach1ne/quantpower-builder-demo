@@ -91,3 +91,7 @@ for s in 1 2 3 4 5 6 7 8; do
   render "redes/15-ordenes-limite/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
   render "redes/15-ordenes-limite/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
 done
+
+DIR="$ROOT/redes/16-articulo-niveles-publicado"
+render redes/16-articulo-niveles-publicado/cartel.html tiktok 1080 1920 "$DIR/cartel-1080x1920.png"
+render redes/16-articulo-niveles-publicado/cartel.html vertical 1080 1350 "$DIR/cartel-1080x1350.png"
