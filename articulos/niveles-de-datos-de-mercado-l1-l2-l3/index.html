@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111828">
+  <meta name="description" content="Qué tipos de datos produce un mercado, qué contiene cada nivel del libro de órdenes (L1, L2 y L3) y dónde se obtiene cada uno: bolsas, consolidadores, proveedores de datos y brokers.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Level 1, Level 2 y Level 3 - Qué datos ofrece el mercado y de dónde salen — QuantPower Builder">
+  <meta property="og:description" content="Qué tipos de datos produce un mercado, qué contiene cada nivel del libro de órdenes (L1, L2 y L3) y dónde se obtiene cada uno: bolsas, consolidadores, proveedores de datos y brokers.">
+  <meta property="og:url" content="https://quantpowerbuilder.com/articulos/niveles-de-datos-de-mercado-l1-l2-l3/">
+  <meta property="og:image" content="https://quantpowerbuilder.com/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://quantpowerbuilder.com/articulos/niveles-de-datos-de-mercado-l1-l2-l3/">
+  <link rel="icon" href="../../assets/images/favicon-circular.png" sizes="256x256" type="image/png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/articles.css">
+  <script type="module" src="../../assets/js/articles.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Level 1, Level 2 y Level 3 - Qué datos ofrece el mercado y de dónde salen",
+    "description": "Qué tipos de datos produce un mercado, qué contiene cada nivel del libro de órdenes (L1, L2 y L3) y dónde se obtiene cada uno: bolsas, consolidadores, proveedores de datos y brokers.",
+    "datePublished": "2026-10-21",
+    "inLanguage": "es",
+    "author": { "@type": "Organization", "name": "QuantPower Systems" },
+    "publisher": { "@type": "Organization", "name": "QuantPower Systems" },
+    "mainEntityOfPage": "https://quantpowerbuilder.com/articulos/niveles-de-datos-de-mercado-l1-l2-l3/"
+  }
+  </script>
+  <title>Level 1, Level 2 y Level 3 - Qué datos ofrece el mercado y de dónde salen — QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 3H3v18h18v-7"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../" aria-label="QuantPower Builder, inicio">
+        <img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="54" height="54" alt="Logo de QuantPower Systems">
+        <span><strong>QuantPower<span class="brand-light"> Builder</span></strong><small>by QuantPower Systems</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="navegacion" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+      <nav id="navegacion" class="main-nav" aria-label="Navegación principal">
+        <a href="../../#plataforma">Plataforma</a>
+        <a href="../../#analizador">Analizador</a>
+        <a href="../../#constructor">Constructor</a>
+        <a href="../../#backtesting">Backtesting</a>
+        <a href="../../#proyecto">Proyecto</a>
+        <a href="../" aria-current="page">Artículos</a>
+        <a class="button button-small button-outline nav-demo" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="articles-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="../../">Inicio</a><span aria-hidden="true">/</span><a href="../">Artículos</a></nav>
+      <article class="article" id="inicio">
+        <span class="eyebrow">Datos de mercado</span>
+        <h1 class="article-title">Level 1, Level 2 y Level 3 - Qué datos ofrece el mercado y de dónde salen</h1>
+        <p class="article-meta">Publicado el <time datetime="2026-10-21">21 de octubre de 2026</time></p>
+        <div class="article-body">
+      <p class="lead">Cuando un trader habla de «ver el Level 2» o de «tener datos L3», está hablando de cuánto del libro de órdenes puede ver. Son la misma realidad mirada con más o menos detalle, y cada nivel tiene un coste, unos proveedores y unos usos distintos.</p>
+      <p>Este artículo explica qué tipos de datos produce un mercado, qué contiene exactamente cada nivel (L1, L2 y L3) y de dónde sale cada uno: la bolsa, los consolidadores, los proveedores de datos y los brokers. Si después quieres saber cuánto ocupa la profundidad y qué exige guardarla, lo tratamos en <a href="../profundidad-de-mercado-l2-en-local/">Profundidad de mercado - La segunda capa del análisis cuantitativo</a>.</p>
+      <aside class="callout"><strong>Idea clave.</strong> L1, L2 y L3 no son tres datos distintos, sino tres resoluciones del mismo libro de órdenes. L1 enseña solo el mejor precio de cada lado; L2, la cantidad total en cada precio; L3, cada orden individual y su lugar en la cola. Cuanto más detalle, más volumen, más coste y menos proveedores.</aside>
+
+      <h2 id="tipos">Qué datos produce un mercado</h2>
+      <p class="bridge">Antes de los niveles, conviene ver el mapa completo. Un mercado no emite solo precios: emite varias familias de datos, y cada una sirve para algo distinto.</p>
+      <p>Todo nace en el <strong>motor de casamiento</strong> de la bolsa, que recibe las órdenes de compra y de venta, las ordena en el libro y las cruza cuando coinciden en precio. Cada cosa que ocurre ahí genera un mensaje, y de esos mensajes salen todas las familias de datos:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tipo de dato</th><th>Qué contiene</th><th>Para qué se usa</th></tr></thead>
+          <tbody>
+            <tr><td>Operaciones (trades)</td><td>Cada cruce: precio, cantidad, hora y, a menudo, qué lado agredió. Es la «cinta» o <em>time &amp; sales</em></td><td>Volumen, delta, VWAP y la construcción de barras</td></tr>
+            <tr><td>Cotizaciones (quotes)</td><td>El mejor precio de compra y de venta, con su cantidad, cada vez que cambian</td><td>Spread, precio medio y coste de ejecución</td></tr>
+            <tr><td>Libro de órdenes</td><td>Lo que está esperando en cada precio, agregado por nivel o orden a orden</td><td>Liquidez, desequilibrio y order flow</td></tr>
+            <tr><td>Barras OHLCV</td><td>Apertura, máximo, mínimo, cierre y volumen de cada intervalo. Se calculan a partir de las operaciones</td><td>Indicadores, backtests y la mayoría de sistemas</td></tr>
+            <tr><td>Datos de referencia</td><td>Definición de cada instrumento: tick mínimo, multiplicador, vencimiento, horarios</td><td>Calcular bien precios, valores y vencimientos</td></tr>
+            <tr><td>Estadísticas y subastas</td><td>Precio de liquidación, interés abierto, desequilibrios de apertura y cierre</td><td>Contexto diario y estrategias de subasta</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Los niveles L1, L2 y L3 hablan de las dos familias centrales, cotizaciones y libro: hasta dónde ves lo que hay esperando para ejecutarse. Las operaciones suelen acompañar a cualquiera de los tres.</p>
+
+      <h2 id="level1">Level 1: lo mejor de cada lado</h2>
+      <p class="bridge">Empezamos por el nivel que ve cualquiera con una cuenta de broker. Es la foto mínima del mercado.</p>
+      <p>El Level 1 (L1), también llamado <em>top of book</em>, muestra solo la primera fila del libro en cada lado. Sus campos habituales son:</p>
+      <ul>
+        <li><strong>Mejor compra (bid)</strong>: el precio más alto al que alguien quiere comprar, y la cantidad total a ese precio.</li>
+        <li><strong>Mejor venta (ask u offer)</strong>: el precio más bajo al que alguien quiere vender, y su cantidad.</li>
+        <li><strong>Última operación</strong>: precio, cantidad y hora del último cruce.</li>
+        <li><strong>Datos de la sesión</strong>: volumen acumulado y, según el proveedor, apertura, máximo, mínimo y cierre anterior.</li>
+      </ul>
+      <p>Con eso ya se calculan dos cosas muy útiles: el <strong>spread</strong> (la distancia entre la mejor venta y la mejor compra, que es lo que cuesta cruzar el mercado) y el <strong>precio medio</strong>. Una variante muy práctica junta cada operación con el L1 que había justo antes, para saber si se ejecutó contra la compra o contra la venta; Databento la llama TBBO.</p>
+      <p>Un matiz importante en acciones de EE. UU.: la misma acción cotiza en muchas bolsas a la vez. El L1 de una sola bolsa no es el del mercado. El <strong>NBBO</strong> (mejor compra y venta nacional) lo calculan los consolidadores oficiales, los SIP, juntando todas las bolsas. Por eso un plan gratuito que solo da cotizaciones de una bolsa, como el de IEX en Alpaca, puede mostrar un spread distinto del real.</p>
+
+      <h2 id="level2">Level 2: la escalera de precios</h2>
+      <p class="bridge">Subimos un nivel. Ya no vemos solo la primera fila, sino lo que hay detrás.</p>
+      <p>El Level 2 (L2), también llamado <strong>profundidad de mercado</strong> o <em>market by price</em> (MBP), muestra varios niveles de precio a cada lado, cada uno con:</p>
+      <ul>
+        <li>El <strong>precio</strong> del nivel.</li>
+        <li>La <strong>cantidad total</strong> que espera a ese precio, sumando todas las órdenes.</li>
+        <li>A veces, el <strong>número de órdenes</strong> que forman esa cantidad.</li>
+      </ul>
+      <p>El número de niveles depende del feed. El de CME (MDP 3.0) ofrece, por ejemplo, un libro agregado de 10 niveles; Binance publica gratis vistas de 5, 10 o 20 niveles y un flujo de cambios para mantener el libro completo en local.</p>
+      <p>El L2 llega de dos formas: como <strong>fotos</strong> periódicas del libro (snapshots) o como <strong>actualizaciones</strong> incrementales («el nivel 100,02 pasa a 12»), que hay que aplicar en orden sobre una foto inicial. La segunda es más fiel, pero obliga a reconstruir el libro y a detectar mensajes perdidos.</p>
+      <p>Lo que el L2 no dice es <strong>quién</strong> está en cada precio ni en qué orden llegó. Si en 100,00 hay 15 contratos, no sabes si es una orden de 15 o quince de 1, ni cuánto falta para que se ejecute la tuya.</p>
+
+      <h2 id="level3">Level 3: orden a orden</h2>
+      <p class="bridge">Y llegamos al detalle máximo. Aquí ya no hay resúmenes: se ve cada orden.</p>
+      <p>El Level 3 (L3), llamado <em>market by order</em> (MBO) o libro completo, publica cada orden individual con un identificador y cada cosa que le pasa:</p>
+      <ul>
+        <li><strong>Alta</strong>: una orden nueva entra en el libro, con su lado, precio y cantidad.</li>
+        <li><strong>Modificación</strong>: cambia su cantidad o su precio (y a menudo pierde su sitio en la cola).</li>
+        <li><strong>Cancelación</strong>: la orden se retira sin ejecutarse.</li>
+        <li><strong>Ejecución</strong>: la orden se cruza total o parcialmente.</li>
+      </ul>
+      <p>Con esos mensajes se reconstruye el libro exacto y, sobre todo, la <strong>cola de prioridad</strong> de cada precio: qué orden está delante de cuál. Eso permite medir cuánto tardan en cancelarse las órdenes, si un tamaño grande es real o desaparece al acercarse el precio, y en qué posición de la cola estaría una orden propia. Ejemplos de feeds orden a orden son Nasdaq TotalView-ITCH, el MBO de CME y el canal <em>level3</em> de Kraken en cripto.</p>
+      <p>Incluso aquí hay cosas que no se ven: las órdenes ocultas, la parte escondida de las órdenes iceberg y las órdenes stop que aún no se han activado. Ningún nivel muestra la intención completa del mercado.</p>
+      <figure>
+          <svg viewBox="0 0 760 430" role="img" aria-labelledby="fig-niv-t fig-niv-d">
+          <title id="fig-niv-t">El mismo libro de órdenes visto en Level 1, Level 2 y Level 3</title>
+          <desc id="fig-niv-d">Level 1 muestra solo el mejor precio de compra y de venta con su cantidad. Level 2 muestra la cantidad total en cada nivel de precio. Level 3 muestra cada orden individual en su cola.</desc>
+          <rect class="d-box" x="1" y="1" width="236" height="428" rx="10" style="stroke:var(--border-soft)"/>
+          <text class="d-title" x="119" y="34" text-anchor="middle" style="font-size:17px;">Level 1</text>
+          <text class="d-txt" x="119" y="54" style="font-size:13px;">mejor compra y mejor venta</text>
+          <rect class="d-box" x="263" y="1" width="236" height="428" rx="10" style="stroke:var(--border-soft)"/>
+          <text class="d-title" x="381" y="34" text-anchor="middle" style="font-size:17px;">Level 2</text>
+          <text class="d-txt" x="381" y="54" style="font-size:13px;">cantidad total por precio</text>
+          <rect class="d-box" x="525" y="1" width="236" height="428" rx="10" style="stroke:var(--border-soft)"/>
+          <text class="d-title" x="643" y="34" text-anchor="middle" style="font-size:17px;">Level 3</text>
+          <text class="d-txt" x="643" y="54" style="font-size:13px;">cada orden, en su cola</text>
+          <text class="d-txt" x="276" y="102" text-anchor="start" style="fill:var(--text);font-size:14px;">100,03</text>
+          <text class="d-txt" x="538" y="102" text-anchor="start" style="fill:var(--text);font-size:14px;">100,03</text>
+          <rect x="342" y="86" width="92" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".6"/>
+          <text class="d-txt" x="442" y="102" text-anchor="start" style="fill:var(--text-strong);font-size:14px;font-weight:600;">20</text>
+          <rect x="604" y="86" width="25" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <text class="d-txt" x="616" y="102" style="fill:var(--text-strong);font-size:12px;">6</text>
+          <rect x="631.6" y="86" width="43" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <text class="d-txt" x="653" y="102" style="fill:var(--text-strong);font-size:12px;">10</text>
+          <rect x="677.6" y="86" width="15" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <text class="d-txt" x="685" y="102" style="fill:var(--text-strong);font-size:12px;">4</text>
+          <text class="d-txt" x="276" y="146" text-anchor="start" style="fill:var(--text);font-size:14px;">100,02</text>
+          <text class="d-txt" x="538" y="146" text-anchor="start" style="fill:var(--text);font-size:14px;">100,02</text>
+          <rect x="342" y="130" width="55" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".6"/>
+          <text class="d-txt" x="405" y="146" text-anchor="start" style="fill:var(--text-strong);font-size:14px;font-weight:600;">12</text>
+          <rect x="604" y="130" width="34" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <text class="d-txt" x="621" y="146" style="fill:var(--text-strong);font-size:12px;">8</text>
+          <rect x="640.8" y="130" width="15" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <text class="d-txt" x="648" y="146" style="fill:var(--text-strong);font-size:12px;">4</text>
+          <text class="d-txt" x="276" y="190" text-anchor="start" style="fill:var(--text);font-size:14px;">100,01</text>
+          <text class="d-txt" x="538" y="190" text-anchor="start" style="fill:var(--text);font-size:14px;">100,01</text>
+          <rect x="342" y="174" width="46" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".6"/>
+          <text class="d-txt" x="396" y="190" text-anchor="start" style="fill:var(--text-strong);font-size:14px;font-weight:600;">10</text>
+          <rect x="604" y="174" width="11" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <rect x="617.8" y="174" width="20" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <text class="d-txt" x="628" y="190" style="fill:var(--text-strong);font-size:12px;">5</text>
+          <rect x="640.8" y="174" width="6" height="22" rx="4" fill="var(--red)" fill-opacity=".22" stroke="var(--red)" stroke-opacity=".7"/>
+          <text class="d-txt" x="276" y="246" text-anchor="start" style="fill:var(--text);font-size:14px;">100,00</text>
+          <text class="d-txt" x="538" y="246" text-anchor="start" style="fill:var(--text);font-size:14px;">100,00</text>
+          <rect x="342" y="230" width="69" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".6"/>
+          <text class="d-txt" x="419" y="246" text-anchor="start" style="fill:var(--text-strong);font-size:14px;font-weight:600;">15</text>
+          <rect x="604" y="230" width="15" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <text class="d-txt" x="612" y="246" style="fill:var(--text-strong);font-size:12px;">4</text>
+          <rect x="622.4" y="230" width="6" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <rect x="631.6" y="230" width="25" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <text class="d-txt" x="644" y="246" style="fill:var(--text-strong);font-size:12px;">6</text>
+          <rect x="659.2" y="230" width="11" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <text class="d-txt" x="276" y="290" text-anchor="start" style="fill:var(--text);font-size:14px;">99,99</text>
+          <text class="d-txt" x="538" y="290" text-anchor="start" style="fill:var(--text);font-size:14px;">99,99</text>
+          <rect x="342" y="274" width="51" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".6"/>
+          <text class="d-txt" x="401" y="290" text-anchor="start" style="fill:var(--text-strong);font-size:14px;font-weight:600;">11</text>
+          <rect x="604" y="274" width="38" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <text class="d-txt" x="623" y="290" style="fill:var(--text-strong);font-size:12px;">9</text>
+          <rect x="645.4" y="274" width="6" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <text class="d-txt" x="276" y="334" text-anchor="start" style="fill:var(--text);font-size:14px;">99,98</text>
+          <text class="d-txt" x="538" y="334" text-anchor="start" style="fill:var(--text);font-size:14px;">99,98</text>
+          <rect x="342" y="318" width="78" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".6"/>
+          <text class="d-txt" x="428" y="334" text-anchor="start" style="fill:var(--text-strong);font-size:14px;font-weight:600;">17</text>
+          <rect x="604" y="318" width="20" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <text class="d-txt" x="614" y="334" style="fill:var(--text-strong);font-size:12px;">5</text>
+          <rect x="627.0" y="318" width="52" height="22" rx="4" fill="var(--green)" fill-opacity=".22" stroke="var(--green)" stroke-opacity=".7"/>
+          <text class="d-txt" x="653" y="334" style="fill:var(--text-strong);font-size:12px;">12</text>
+          <path d="M274 216H488" stroke="var(--text-soft)" stroke-dasharray="4 4" opacity=".6"/>
+          <path d="M536 216H750" stroke="var(--text-soft)" stroke-dasharray="4 4" opacity=".6"/>
+          <rect x="22" y="120" width="194" height="70" rx="8" fill="var(--red)" fill-opacity=".12" stroke="var(--red)" stroke-opacity=".6"/>
+          <text class="d-txt" x="119" y="141" style="font-size:13px;">Mejor venta (ask)</text>
+          <text class="d-name" x="119" y="172" style="font-size:19px;">100,01  ·  10</text>
+          <rect x="22" y="220" width="194" height="70" rx="8" fill="var(--green)" fill-opacity=".12" stroke="var(--green)" stroke-opacity=".6"/>
+          <text class="d-txt" x="119" y="241" style="font-size:13px;">Mejor compra (bid)</text>
+          <text class="d-name" x="119" y="272" style="font-size:19px;">100,00  ·  15</text>
+          <text class="d-txt" x="119" y="340" style="fill:var(--text);font-size:13px;">Último cruce: 100,01 × 2</text>
+          <text class="d-txt" x="119" y="362" style="fill:var(--text);font-size:13px;">Spread: 0,01</text>
+          <text class="d-txt" x="119" y="400" style="font-size:12px;">El resto del libro no se ve</text>
+          <text class="d-txt" x="381" y="400" style="font-size:12px;">No se sabe cuántas órdenes</text>
+          <text class="d-txt" x="381" y="416" style="font-size:12px;">ni en qué orden llegaron</text>
+          <text class="d-txt" x="643" y="400" style="font-size:12px;">Se ve la cola de cada precio</text>
+          <text class="d-txt" x="643" y="416" style="font-size:12px;">(salvo órdenes ocultas)</text>
+          </svg>
+        <figcaption>El mismo libro de órdenes visto con tres resoluciones. Las cantidades son un ejemplo: en rojo, órdenes de venta; en verde, de compra. Cada bloque del Level 3 es una orden, y la de la izquierda es la primera de la cola.</figcaption>
+      </figure>
+      <aside class="callout"><strong>Ojo con los nombres.</strong> En el Nasdaq clásico, «Level II» era la pantalla con las cotizaciones de cada creador de mercado y «Level III» el acceso que permitía a esos creadores introducir y cambiar sus cotizaciones. Hoy, en el lenguaje de los proveedores de datos, L2 suele significar libro agregado por precio y L3 libro orden a orden. Si un servicio vende «Level 2», pregunta cuántos niveles da y si es agregado o por orden.</aside>
+
+      <h2 id="comparativa">Los tres niveles, frente a frente</h2>
+      <p class="bridge">Puesto en una tabla, se ve qué gana cada nivel y qué cuesta.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Level 1</th><th>Level 2</th><th>Level 3</th></tr></thead>
+          <tbody>
+            <tr><td>Otros nombres</td><td>Top of book, BBO, cotización</td><td>Profundidad, market by price (MBP)</td><td>Market by order (MBO), libro completo</td></tr>
+            <tr><td>Qué se ve</td><td>Mejor compra y venta con su cantidad</td><td>Cantidad total en cada nivel de precio</td><td>Cada orden y su posición en la cola</td></tr>
+            <tr><td>Qué no se ve</td><td>Todo lo que hay detrás del primer nivel</td><td>Cuántas órdenes hay y en qué orden</td><td>Órdenes ocultas e icebergs</td></tr>
+            <tr><td>Volumen de datos</td><td>Bajo</td><td>Medio: unos 7 GB por instrumento y año en snapshots de 1 s con 10 niveles</td><td>Alto: de cientos de GB a más de 1 TB por instrumento y año</td></tr>
+            <tr><td>Quién lo da</td><td>Casi cualquier broker y API, a menudo gratis</td><td>Brokers y plataformas, normalmente de pago por bolsa</td><td>Feeds directos y proveedores especializados</td></tr>
+            <tr><td>Uso típico</td><td>Barras, spread y coste de ejecución</td><td>Liquidez, desequilibrio y filtros</td><td>Microestructura, colas y alta frecuencia</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Las cifras de volumen son las estimaciones de orden de magnitud del artículo de profundidad de mercado, para un futuro que cotiza casi todo el día y sin comprimir.</p>
+
+      <h2 id="origen">De dónde sale cada nivel</h2>
+      <p class="bridge">Ya sabemos qué contiene cada nivel. Falta saber por qué camino llega hasta tu pantalla, porque de eso depende lo que pagas y lo que recibes.</p>
+      <p>Todos los niveles nacen en el mismo sitio, el motor de casamiento de cada bolsa, y llegan al usuario por uno de estos caminos:</p>
+      <ul>
+        <li><strong>Feeds directos de la bolsa.</strong> Son la fuente original, con L1, L2 y L3 según el producto, y los más rápidos. Exigen licencia de la bolsa y, para sacarles partido, infraestructura cerca de ella. Ejemplos: Nasdaq TotalView-ITCH, CME MDP 3.0 o el EOBI de Eurex.</li>
+        <li><strong>Consolidadores.</strong> En acciones de EE. UU., los SIP juntan las cotizaciones y operaciones de todas las bolsas y calculan el NBBO. Dan L1 consolidado, no profundidad.</li>
+        <li><strong>Proveedores de datos.</strong> Capturan los feeds, los normalizan a un formato común y los venden en tiempo real y en histórico. Databento, por ejemplo, ofrece esquemas MBO, MBP-10, MBP-1, TBBO, operaciones y barras, los agrupa en niveles de L0 a L3 y cobra según ese nivel.</li>
+        <li><strong>Brokers y plataformas.</strong> Es la puerta habitual para el retail. Revenden los datos de las bolsas por suscripción: L1 casi siempre y profundidad como extra por bolsa. En futuros, muchas plataformas reciben la profundidad de CME a través de servicios como Rithmic o CQG.</li>
+        <li><strong>APIs gratuitas.</strong> Algunas casas ofrecen datos sin coste con límites: Alpaca da gratis las cotizaciones de una sola bolsa (IEX) y reserva el feed consolidado para su plan de pago; los exchanges de criptomonedas publican su propio libro sin coste.</li>
+      </ul>
+      <figure>
+          <svg viewBox="0 0 760 330" role="img" aria-labelledby="fig-cad-t fig-cad-d">
+          <title id="fig-cad-t">De la bolsa a tu programa</title>
+          <desc id="fig-cad-d">El dato nace en el motor de casamiento de la bolsa. De ahí sale por feeds directos, por un consolidador o por un proveedor que normaliza, y llega al usuario a través de un broker, una plataforma o una API.</desc>
+          <defs><marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--text-soft)"/></marker></defs>
+          <rect class="d-main" x="14" y="119" width="160" height="92" rx="8"/>
+          <text class="d-name" x="94" y="145" style="font-size:14px;">Bolsa</text>
+          <text class="d-txt" x="94" y="165" style="font-size:12px;">motor de casamiento</text>
+          <text class="d-txt" x="94" y="181" style="font-size:12px;">libro completo</text>
+          <rect class="d-box" x="300" y="14" width="160" height="92" rx="8"/>
+          <text class="d-name" x="380" y="40" style="font-size:14px;">Feed directo</text>
+          <text class="d-txt" x="380" y="60" style="font-size:12px;">L1, L2 y L3 en bruto</text>
+          <text class="d-txt" x="380" y="76" style="font-size:12px;">de una sola bolsa</text>
+          <rect class="d-box" x="300" y="119" width="160" height="92" rx="8"/>
+          <text class="d-name" x="380" y="145" style="font-size:14px;">Consolidador</text>
+          <text class="d-txt" x="380" y="165" style="font-size:12px;">solo L1 de todas</text>
+          <text class="d-txt" x="380" y="181" style="font-size:12px;">las bolsas (SIP)</text>
+          <rect class="d-box" x="300" y="224" width="160" height="92" rx="8"/>
+          <text class="d-name" x="380" y="250" style="font-size:14px;">Proveedor</text>
+          <text class="d-txt" x="380" y="270" style="font-size:12px;">normaliza y vende</text>
+          <text class="d-txt" x="380" y="286" style="font-size:12px;">tiempo real e histórico</text>
+          <rect class="d-main" x="586" y="119" width="160" height="92" rx="8"/>
+          <text class="d-name" x="666" y="145" style="font-size:14px;">Tú</text>
+          <text class="d-txt" x="666" y="165" style="font-size:12px;">broker, plataforma</text>
+          <text class="d-txt" x="666" y="181" style="font-size:12px;">o API</text>
+          <path class="d-line" d="M174 165L296 60" marker-end="url(#fl)"/>
+          <path class="d-line" d="M460 60L582 165" marker-end="url(#fl)"/>
+          <path class="d-line" d="M174 165L296 165" marker-end="url(#fl)"/>
+          <path class="d-line" d="M460 165L582 165" marker-end="url(#fl)"/>
+          <path class="d-line" d="M174 165L296 270" marker-end="url(#fl)"/>
+          <path class="d-line" d="M460 270L582 165" marker-end="url(#fl)"/>
+          </svg>
+        <figcaption>El dato nace en la bolsa y llega al usuario por tres caminos: el feed directo, el consolidador o un proveedor que lo normaliza. El broker, la plataforma o la API son la última puerta.</figcaption>
+      </figure>
+      <h3>Cómo cambia según el mercado</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mercado</th><th>Level 1</th><th>Level 2</th><th>Level 3</th></tr></thead>
+          <tbody>
+            <tr><td>Acciones de EE. UU.</td><td>NBBO de los SIP, o cotizaciones de una sola bolsa en planes gratuitos</td><td>Feeds de profundidad de cada bolsa; cada uno solo ve su parte del mercado</td><td>Feeds orden a orden como Nasdaq TotalView-ITCH</td></tr>
+            <tr><td>Futuros (CME)</td><td>Top of book de CME</td><td>Libro agregado de 10 niveles (MBP)</td><td>Libro orden a orden completo (MBO)</td></tr>
+            <tr><td>Futuros y opciones europeos (Eurex)</td><td>Mejor precio del feed de la bolsa</td><td>Libro agregado por precio</td><td>Feed orden a orden (EOBI)</td></tr>
+            <tr><td>Criptomonedas</td><td>Gratis en cada exchange (por ejemplo, <em>bookTicker</em> en Binance)</td><td>Gratis: Binance publica 5, 10 o 20 niveles y un flujo de cambios; Coinbase, su canal <em>level2</em></td><td>Pocos exchanges: Kraken tiene un canal <em>level3</em> con autenticación</td></tr>
+            <tr><td>Forex al contado</td><td>Cotización del broker o del proveedor de liquidez</td><td>Solo la profundidad de una plataforma concreta (ECN)</td><td>No existe un libro central</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Dos diferencias de fondo explican la tabla. En acciones y criptomonedas, el mercado está <strong>fragmentado</strong>: cada bolsa o exchange tiene su propio libro, y el L2 de uno no es el del mercado entero. En forex no hay bolsa central: los precios vienen de bancos y proveedores de liquidez, y la profundidad que ves es solo la de tu plataforma. Los futuros, en cambio, se negocian en una sola bolsa, y por eso su libro es el más completo y el más estudiado.</p>
+
+      <h2 id="pagar">Qué condiciona el precio</h2>
+      <p class="bridge">Los mismos datos pueden costar nada o mucho dinero según cómo los pidas. Estas son las variables que mueven la factura.</p>
+      <ul>
+        <li><strong>El nivel.</strong> L1 es lo más barato; la profundidad se cobra aparte; el orden a orden suele ser lo más caro.</li>
+        <li><strong>Tiempo real o diferido.</strong> Muchas bolsas regalan o abaratan los datos con unos minutos de retraso.</li>
+        <li><strong>Tipo de usuario.</strong> Las bolsas cobran mucho menos a un particular (no profesional) que a un profesional o a una empresa.</li>
+        <li><strong>Uso.</strong> Mirar los datos en pantalla no se licencia igual que usarlos en un algoritmo (uso no visual) o redistribuirlos.</li>
+        <li><strong>Histórico.</strong> El tiempo real se paga por mes; el histórico, sobre todo el de L3, suele ser la parte más cara.</li>
+      </ul>
+
+      <h2 id="cual">Qué nivel necesitas</h2>
+      <p class="bridge">Para terminar, la pregunta práctica. No hace falta el máximo detalle para todo; hace falta el que use tu estrategia.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Si tu estrategia…</th><th>Te basta con</th></tr></thead>
+          <tbody>
+            <tr><td>Opera en diario o semanal con indicadores</td><td>Barras OHLCV</td></tr>
+            <tr><td>Opera intradía y quieres costes realistas</td><td>Barras, operaciones y L1 (spread en cada momento)</td></tr>
+            <tr><td>Usa la liquidez o el desequilibrio como filtro</td><td>L2 de 5 a 10 niveles, o métricas ya agregadas por barra</td></tr>
+            <tr><td>Estudia colas, cancelaciones o microestructura</td><td>L3 (MBO)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>La regla general: empieza por el nivel más bajo que responda a tu pregunta y sube solo cuando hayas comprobado que el siguiente mejora tus resultados. Cada nivel multiplica el volumen, el coste y el trabajo de ingeniería.</p>
+
+      <h2 id="qpb">En QuantPower Builder</h2>
+      <aside class="callout"><strong>Nuestra visión.</strong> En QuantPower Systems creemos que cuanta más información tienes del mercado, más opciones tienes de encontrar <em>edge</em>, una ventaja real. Las ventajas suelen esconderse en los huecos: en lo que el precio todavía no refleja, en cómo se mueve la liquidez a su alrededor y en los detalles que una barra de un minuto resume y pierde. Cada nivel de datos abre huecos nuevos donde buscar.</aside>
+      <p>Por eso la regla anterior no es un techo, sino un orden de trabajo: empezar por lo que ya puedes validar y subir de nivel a medida que cada capa demuestra que aporta. Más información no da una ventaja por sí sola, pero sin ella hay ventajas que no se pueden ni buscar.</p>
+      <p>Hoy la pestaña Descargar trabaja con barras OHLCV de proveedores con API gratuita, como Alpaca o Binance, que es el punto de partida que recomendamos. Lo que exige la profundidad en datos, disco y licencias lo contamos en <a href="../profundidad-de-mercado-l2-en-local/">Profundidad de mercado - La segunda capa del análisis cuantitativo</a>.</p>
+      <p class="note">Artículo divulgativo. Las condiciones de los proveedores cambian con frecuencia: comprueba en su documentación los niveles, los límites y las tarifas vigentes antes de contratar. No constituye una recomendación de inversión.</p>
+
+      <h2 id="fuentes">Autores y referencias</h2>
+      <ul>
+        <li>Databento, «Market data schemas»: MBO, MBP-10, MBP-1, TBBO y niveles L0 a L3 (<a href="https://databento.com/docs/knowledge-base/new-users/market-data-schemas" rel="noopener">databento.com</a>)</li>
+        <li>CME Group, «MDP 3.0 Market Data»: libro por precio de 10 niveles y libro por orden (<a href="https://cmegroupclientsite.atlassian.net/wiki/spaces/EPICSANDBOX/pages/457219613/CME+MDP+3.0+Market+Data" rel="noopener">cmegroup</a>)</li>
+        <li>Nasdaq, especificación de TotalView-ITCH (<a href="https://nasdaqtrader.com/content/technicalsupport/specifications/dataproducts/NQTVITCHspecification.pdf" rel="noopener">nasdaqtrader.com</a>)</li>
+        <li>Binance, «WebSocket Streams» de spot: bookTicker, profundidad parcial y flujo de cambios (<a href="https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md" rel="noopener">github.com/binance</a>)</li>
+        <li>Coinbase, canales WebSocket de Advanced Trade (<a href="https://docs.cdp.coinbase.com/coinbase-app/advanced-trade-apis/websocket/websocket-channels" rel="noopener">docs.cdp.coinbase.com</a>)</li>
+        <li>Kraken, canal «level3» de la WebSocket v2 (<a href="https://docs.kraken.com/api/docs/websocket-v2/level3" rel="noopener">docs.kraken.com</a>)</li>
+        <li>Alpaca, «About Market Data API»: feeds IEX y SIP (<a href="https://docs.alpaca.markets/docs/market-data" rel="noopener">docs.alpaca.markets</a>)</li>
+        <li>Larry Harris, <em>Trading and Exchanges: Market Microstructure for Practitioners</em> (Oxford University Press, 2003)</li>
+      </ul>
+
+        </div>
+        <div class="article-end">
+          <a class="button button-quiet" href="../">← Todos los artículos</a>
+          <a class="button button-outline" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-top"><a class="brand" href="../../"><img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="48" height="48" loading="lazy" alt="Logo de QuantPower Systems"><span><strong>QuantPower<span class="brand-light"> Systems</span></strong><small>Construyendo herramientas para investigar.</small></span></a><nav aria-label="Navegación del pie"><a href="../../#analizador">Analizador</a><a href="../../#constructor">Constructor</a><a href="../../#backtesting">Backtesting</a><a href="../">Artículos</a><a href="../../#demo">Demo</a><a href="mailto:info@quantpowerbuilder.com">Contacto</a><a href="https://github.com/ev1lmach1ne/quantpower-builder-demo" target="_blank" rel="noopener noreferrer">Proyecto web <svg class="icon"><use href="#i-external"/></svg></a></nav></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> QuantPower Systems</span><span>QuantPower Builder · Portfolio de producto</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+</body>
+</html>
