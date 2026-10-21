@@ -109,9 +109,7 @@ def actualizar_html(path, snapshot):
     html = _replace_inner(html, "release-version", snapshot["tag_name"])
     html = _replace_inner(html, "release-size", size_label)
     html = _replace_inner(html, "release-date", date_label)
-    estado = f"Demo {snapshot['tag_name']} disponible · Descarga directa."
-    if snapshot.get("prerelease"):
-        estado = f"Demo Alpha {snapshot['tag_name']} disponible · Descarga directa."
+    estado = f"{snapshot['tag_name']} disponible · Descarga directa."
     html = _replace_inner(html, "release-status", estado)
     html = _replace_release_href(html, snapshot["html_url"])
     path.write_text(html, encoding="utf-8")

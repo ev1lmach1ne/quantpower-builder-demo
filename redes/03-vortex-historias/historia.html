@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Historias del Vortex Indicator — QuantPower Builder</title>
+<!--
+  Dos historias verticales 1080×1920 (9:16) para Instagram, Facebook y TikTok.
+  ?h=1  Anuncio del artículo.   ?h=2  Dato curioso: los huecos de precio.
+  Se renderizan a PNG con redes/03-vortex-historias/renderizar.js.
+  Zonas seguras: ~250 px arriba (perfil y barra de progreso) y ~340 px abajo (respuesta y sticker de enlace).
+-->
+<style>
+  :root {
+    --bg: #111828; --bg-deep: #0d1424; --panel: #141e30; --border: #253a60;
+    --text: #c8d6e5; --text-strong: #e6edf3; --text-muted: #9aaec7;
+    --accent: #4fc3f7; --warm: #f5b84b; --green: #2ecc71;
+    --font: "Inter", "Segoe UI", Arial, sans-serif;
+    --mono: "DejaVu Sans Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-deep); }
+  .story {
+    position: relative; overflow: hidden; width: 1080px; height: 1920px;
+    padding: 250px 90px 340px; display: flex; flex-direction: column; gap: 40px;
+    font-family: var(--font); color: var(--text);
+    background:
+      radial-gradient(900px 700px at 90% -5%, rgba(79,195,247,.2), transparent 60%),
+      radial-gradient(800px 600px at -10% 100%, rgba(79,195,247,.09), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  }
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(37,58,96,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(37,58,96,.35) 1px, transparent 1px);
+    background-size: 54px 54px; mask-image: linear-gradient(200deg, #000 0%, transparent 55%); }
+  .story > * { position: relative; flex-shrink: 0; }
+  .head { display: flex; align-items: center; gap: 24px; }
+  .logo { width: 104px; height: 104px; border-radius: 50%; flex: none;
+    background: url("../../assets/images/logo-corporativo.png") center / 104% no-repeat; clip-path: circle(48%); }
+  .brand small { display: block; font-size: 20px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+  .brand strong { display: block; margin-top: 4px; font-size: 38px; font-weight: 700; color: var(--text-strong); }
+  .tag { align-self: flex-start; padding: 12px 22px; border-radius: 6px; background: var(--accent); color: #0d1424;
+    font-size: 24px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  h1 { font-size: 112px; line-height: 1.02; letter-spacing: -.03em; font-weight: 800; color: var(--text-strong); }
+  h1 em { font-style: normal; color: var(--accent); }
+  .sub { font-size: 44px; line-height: 1.38; color: var(--text-muted); }
+  .sub strong { color: var(--text-strong); font-weight: 600; }
+  .panel { padding: 30px 34px; border: 1px solid var(--border); border-radius: 24px; background: var(--panel); }
+  .panel svg { display: block; width: 100%; height: auto; }
+  .chips { display: flex; flex-wrap: wrap; gap: 14px; }
+  .chips span { padding: 14px 26px; border: 1px solid var(--border); border-radius: 999px; background: var(--panel);
+    font-size: 30px; font-weight: 600; color: var(--text-strong); }
+  .cta { margin-top: auto; padding-top: 28px; border-top: 1px solid var(--border); }
+  .cta small { display: block; font-size: 24px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); }
+  .cta strong { display: block; margin-top: 8px; font-size: 44px; font-weight: 700; color: var(--text-strong); }
+  .cta strong b { color: var(--accent); font-weight: 700; }
+  .d-t { fill: #9aaec7; font-size: 22px; font-family: var(--font); }
+  .d-n { font-size: 30px; font-weight: 800; font-family: var(--font); }
+  .s2 { gap: 28px; }
+  .s2 h1 { font-size: 100px; }
+  .s2 .sub { font-size: 40px; }
+  .s2 .panel { padding: 22px 26px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<!-- Historia 1: anuncio -->
+<div class="story s1" id="s1">
+  <div class="grid"></div>
+  <div class="head"><div class="logo" role="img" aria-label="Logo de QuantPower Systems"></div>
+    <div class="brand"><small>QuantPower Systems</small><strong>QuantPower Builder</strong></div></div>
+  <div class="tag">Nuevo artículo</div>
+  <h1>El <em>Vortex</em> Indicator a examen</h1>
+  <p class="sub">¿Mejora de verdad al DMI de Wilder? <strong>Lo repasamos con fórmula, reglas y pruebas.</strong></p>
+  <div class="chips"><span>Fórmula</span><span>Reglas</span><span>Huecos de precio</span><span>Pruebas</span></div>
+  <div class="cta"><small>Léelo completo</small><strong>quantpowerbuilder<b>.com</b>/articulos</strong></div>
+</div>
+
+<!-- Historia 2: dato curioso -->
+<div class="story s2 hidden" id="s2">
+  <div class="grid"></div>
+  <div class="head"><div class="logo" role="img" aria-label="Logo de QuantPower Systems"></div>
+    <div class="brand"><small>QuantPower Systems</small><strong>QuantPower Builder</strong></div></div>
+  <div class="tag">Dato curioso</div>
+  <h1>Un hueco, <em>dos lecturas</em></h1>
+  <p class="sub">En el Vortex, un hueco alcista también suma al lado <strong>bajista</strong>.</p>
+  <div class="panel">
+    <svg viewBox="-60 30 920 390" role="img" aria-label="Un hueco al alza suma movimiento al lado bajista">
+      <g stroke="#253a60" stroke-width="2" stroke-dasharray="6 8">
+        <path d="M60 60H800M60 200H800M60 260H800M60 380H800"/>
+      </g>
+      <text class="d-t" x="52" y="66" text-anchor="end">H</text>
+      <text class="d-t" x="52" y="206" text-anchor="end">L</text>
+      <text class="d-t" x="52" y="266" text-anchor="end">H ayer</text>
+      <text class="d-t" x="52" y="386" text-anchor="end">L ayer</text>
+      <rect x="150" y="260" width="64" height="120" rx="6" fill="none" stroke="#9aaec7" stroke-width="3"/>
+      <text class="d-t" x="182" y="412" text-anchor="middle">Ayer</text>
+      <rect x="340" y="60" width="64" height="140" rx="6" fill="rgba(79,195,247,.14)" stroke="#4fc3f7" stroke-width="4"/>
+      <text class="d-t" x="372" y="412" text-anchor="middle">Hoy (con hueco)</text>
+      <path d="M560 60H580V380H560" fill="none" stroke="#2ecc71" stroke-width="4"/>
+      <text class="d-n" x="600" y="226" fill="#2ecc71">VM+</text>
+      <path d="M690 200H710V260H690" fill="none" stroke="#f5b84b" stroke-width="4"/>
+      <text class="d-n" x="728" y="238" fill="#f5b84b">VM−</text>
+    </svg>
+  </div>
+  <p class="sub">Los autores lo defienden como diseño. Nosotros lo analizamos en el artículo.</p>
+  <div class="cta"><small>Lee el análisis</small><strong>quantpowerbuilder<b>.com</b>/articulos</strong></div>
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('h') === '2') {
+    document.getElementById('s1').classList.add('hidden'); document.getElementById('s2').classList.remove('hidden');
+  }
+</script>
+</body>
+</html>

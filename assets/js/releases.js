@@ -87,6 +87,9 @@ function displayRelease(release, { snapshot = false, latest = false, total = 1 }
   renderHighlights(release, latest);
   document.getElementById("release-size").textContent = release.size
     ? `${new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(release.size / 1048576)} MiB` : "ZIP pendiente";
+  const reqSize = document.getElementById("req-download-size");
+  // Mismo cálculo que el panel; «MB» como lo muestra el Explorador de Windows.
+  if (reqSize && release.size) reqSize.textContent = `${new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(release.size / 1048576)} MB`;
   const published = new Date(release.publishedAt);
   document.getElementById("release-date").textContent = Number.isNaN(published.getTime()) ? "Ver Release"
     : new Intl.DateTimeFormat("es-ES", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(published);
@@ -95,14 +98,14 @@ function displayRelease(release, { snapshot = false, latest = false, total = 1 }
     ? `${release.prerelease ? "Última alpha publicada" : "Última versión publicada"} · `
     : `${release.prerelease ? "Alpha histórica" : "Versión histórica seleccionada"} · `;
   document.getElementById("release-status").textContent = snapshot
-    ? `${selectedInfo}${release.downloadUrl ? "Demo disponible." : "ZIP pendiente."} Consulta las novedades para ver si hay una actualización.`
-    : release.downloadUrl ? `${selectedInfo}Demo disponible.` : "La publicación seleccionada todavía no incluye el ZIP de Windows.";
+    ? `${selectedInfo}${release.downloadUrl ? "Descarga disponible." : "ZIP pendiente."} Consulta las novedades para ver si hay una actualización.`
+    : release.downloadUrl ? `${selectedInfo}Descarga disponible.` : "La publicación seleccionada todavía no incluye el ZIP de Windows.";
   const help = document.getElementById("release-version-help");
   if (help) help.textContent = snapshot
     ? "Versión disponible mientras se consulta la lista de Releases."
     : `${total} versiones publicadas${latest ? " · última con ZIP seleccionada" : " · explorando el historial"}.`;
   if (release.downloadUrl) {
-    setButton(release.downloadUrl, "Descargar demo para Windows");
+    setButton(release.downloadUrl, "Descargar para Windows 64 bits");
     document.getElementById("download-note").textContent = "Descarga directa desde GitHub Releases. Descomprime el ZIP completo antes de abrir la aplicación.";
   } else {
     setButton(release.pageUrl, "Ver la publicación", "i-external", true);
@@ -197,7 +200,7 @@ export async function initReleases() {
         document.getElementById("release-version").textContent = "Pendiente de publicación";
         document.getElementById("release-size").textContent = "—";
         document.getElementById("release-date").textContent = "—";
-        document.getElementById("release-status").textContent = "La primera demo pública está en preparación.";
+        document.getElementById("release-status").textContent = "La primera versión pública está en preparación.";
         setButton(releasesUrl, "Consultar las publicaciones", "i-external", true);
         document.getElementById("download-note").textContent = "Cuando haya una Release oficial con el ZIP, la última versión aparecerá aquí automáticamente.";
         return;
