@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="../assets/css/site.css">
   <link rel="stylesheet" href="../assets/css/cuenta.css">
   <link rel="stylesheet" href="../assets/css/soporte.css?v=20261016-nombre-cuenta">
-  <script src="../assets/js/soporte.js?v=20261016-nombre-cuenta" defer></script>
+  <link rel="stylesheet" href="../assets/css/legal.css">
+  <script src="../assets/js/soporte.js?v=20261020-legal" defer></script>
   <title>Atención al cliente — QuantPower Builder</title>
 </head>
 <body>
@@ -53,6 +54,7 @@
         <label>Título<input name="titulo" type="text" required maxlength="160" placeholder="Resume tu solicitud"></label>
         <label>Descripción<textarea name="descripcion" required maxlength="8000" rows="8" placeholder="Explica qué quieres conseguir o, si es un error, los pasos para reproducirlo y qué esperabas que ocurriera."></textarea></label>
         <p class="cuenta-nota">Se enviará desde el correo de tu cuenta. No incluyas contraseñas ni claves de licencia.</p>
+        <label class="consentimiento"><input name="acepta_privacidad" type="checkbox" required><span>Acepto que QuantPower Systems trate el contenido de esta solicitud y los datos de mi cuenta para atenderla, según la <a href="../privacidad/" target="_blank">Política de privacidad</a>. Puedo ejercer mis derechos en info@quantpowerbuilder.com.</span></label>
         <button class="button button-primary" type="submit">Enviar a soporte</button>
         <p id="soporte-estado" class="cuenta-estado" role="status" aria-live="polite"></p>
       </form>
@@ -62,6 +64,7 @@
   <footer class="site-footer">
     <div class="container footer-bottom">
       <span>© <span id="current-year">2026</span> QuantPower Systems</span>
+      <nav class="footer-legal" aria-label="Información legal"><a href="../privacidad/">Privacidad</a><a href="../terminos/">Términos</a><a href="../cookies/">Cookies</a><a href="../reembolsos/">Reembolsos</a></nav>
       <a href="mailto:info@quantpowerbuilder.com">Contacto por correo</a>
     </div>
   </footer>

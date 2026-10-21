@@ -7,6 +7,28 @@
     "QuantPowerSystems_Windows_x64.zip"
   ],
   "highlights": {
+    "v0.8": [
+      {
+        "title": "Perfil de volumen",
+        "text": "PoC, área de valor y nodos de volumen en el gráfico, en tus reglas y con dos sistemas listos."
+      },
+      {
+        "title": "Órdenes límite",
+        "text": "Entradas y salidas esperando un retroceso a una media, Bollinger, el perfil de volumen o Fibonacci."
+      },
+      {
+        "title": "Databento y EODHD",
+        "text": "Futuros oficiales de CME y Eurex con el coste visible antes de descargar, y acciones de más de 60 bolsas."
+      },
+      {
+        "title": "Descargas y optimizador más rápidos",
+        "text": "Prueba de conexión, fechas reales del histórico, reanudación de descargas y optimizaciones en hasta 8 núcleos."
+      },
+      {
+        "title": "Cuenta y soporte en Ajustes",
+        "text": "Solicita cambios o indicadores, reporta bugs y lee las respuestas del equipo desde el programa."
+      }
+    ],
     "v0.7.6.3-alpha": [
       {
         "title": "Acceso con cuenta y licencia",

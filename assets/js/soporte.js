@@ -86,6 +86,11 @@
       $('soporte-estado').className = 'cuenta-estado error';
       return;
     }
+    if (!datosForm.get('acepta_privacidad')) {
+      $('soporte-estado').textContent = 'Acepta el tratamiento de tus datos para que podamos atender la solicitud.';
+      $('soporte-estado').className = 'cuenta-estado error';
+      return;
+    }
 
     boton.disabled = true;
     $('soporte-estado').textContent = 'Enviando…';

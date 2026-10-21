@@ -2,6 +2,8 @@
   const local = ['localhost', '127.0.0.1'].includes(location.hostname);
   const API = local ? 'http://127.0.0.1:8787' : 'https://api.quantpowerbuilder.com';
   const CLAVE_SESION = 'qp_cuenta';
+  // Fecha de los textos legales aceptados en el alta (privacidad/términos).
+  const VERSION_LEGAL = '2026-10-20';
   const $ = (id) => document.getElementById(id);
   const hashEntrada = new URLSearchParams(location.hash.slice(1));
   const rutaRetorno = (() => {
@@ -236,9 +238,11 @@
     if (password !== String(f.get('password2'))) throw new Error('Las contraseñas no coinciden.');
     const residencia = String(f.get('residencia') || '');
     if (!residencia) throw new Error('Selecciona tu país de residencia.');
+    if (!f.get('acepta_legal')) throw new Error('Para crear la cuenta debes aceptar los Términos y condiciones y la Política de privacidad.');
     const datos = await api('/api/registro', { email, password, residencia,
       provincia: provinciaDe(f), ciudad: String(f.get('ciudad') || ''),
-      nombre: String(f.get('nombre') || ''), origen: String(f.get('origen') || '') });
+      nombre: String(f.get('nombre') || ''), origen: String(f.get('origen') || ''),
+      acepta_legal: true, version_legal: VERSION_LEGAL });
     form.reset();
     if (form.alternarProvincia) form.alternarProvincia();
     if (datos.pendiente) {            // servidor apagado: el buzón guardó el correo, sin cuenta todavía
