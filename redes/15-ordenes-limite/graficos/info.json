@@ -1,22 +1,37 @@
 {
  "media": {
   "senal": 36,
-  "ejec": 43
- },
- "bollinger": {
-  "senal": 36,
-  "ejec": 43
+  "ejec": 43,
+  "velas_espera": 7
  },
  "perfil": {
-  "poc": 5308.5,
-  "vah": 5312,
-  "val": 5288,
-  "hvn": 5288.5,
-  "lvn": 5295.5,
-  "objetivo": 5308.5,
-  "orden": 5288.5
+  "poc": 106.25,
+  "vah": 108.0,
+  "val": 101.0,
+  "hvn": 101.25,
+  "lvn": 104.25,
+  "bloque": 47,
+  "senal": 51,
+  "cierre_senal": 106.54,
+  "ejec": 54
+ },
+ "atr": {
+  "senal": 16,
+  "ejec": 18,
+  "atr": 1.539
+ },
+ "vela": {
+  "senal": 9,
+  "ejec": 11
  },
  "fibonacci": {
-  "ejec": 40
+  "pivotes": [
+   0,
+   7,
+   18,
+   34
+  ],
+  "senal": 36,
+  "ejec": 42
  }
 }

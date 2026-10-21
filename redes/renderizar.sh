@@ -87,7 +87,7 @@ done
 # El vídeo se genera aparte con: node redes/13-novedades-v08/video/grabar.js
 
 DIR="$ROOT/redes/15-ordenes-limite"
-for s in 1 2 3 4 5 6 7; do
+for s in 1 2 3 4 5 6 7 8; do
   render "redes/15-ordenes-limite/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
   render "redes/15-ordenes-limite/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
 done
