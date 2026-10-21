@@ -80,9 +80,9 @@
       {
         "name": "QuantPowerBuilder_Windows_x64.zip",
         "state": "uploaded",
-        "size": 404751320,
+        "size": 401523693,
         "browser_download_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/download/v0.8/QuantPowerBuilder_Windows_x64.zip",
-        "digest": "sha256:9629bfd75ec7c8907406f811c19e86c13ea3c71071d4f5620d15f675e43ce1ea"
+        "digest": "sha256:feedefdfd52486719854ab06959349374b51a636b27245a3e842df43ad0931f5"
       }
     ]
   },
