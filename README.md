@@ -7,13 +7,11 @@ de investigación cuantitativa.
 - Web: <https://quantpowerbuilder.com/>
 - Versiones públicas: <https://github.com/ev1lmach1ne/quantpower-builder-demo/releases>
 
-## v0.7.6.3-alpha
+## v0.8
 
-Edición Alpha para Windows con acceso mediante cuenta y licencia, recuperación de
-contraseña desde la web y el software, conexión con Discord y reportes de errores,
-además de nuevos indicadores, divergencias y mejoras de gráficos, costes e importación.
+Versión para Windows con perfil de volumen, órdenes límite en el constructor, nuevas fuentes Databento y EODHD, descargas reanudables, un optimizador que usa hasta 8 núcleos y soporte con respuestas del equipo desde el propio programa. La web añade las páginas de soporte, términos, privacidad, cookies y reembolsos.
 
-[Lista completa de cambios desde v0.7.6.2](docs/releases/v0.7.6.3-alpha.md).
+[Lista completa de cambios desde v0.7.6.3-alpha](docs/releases/v0.8.md).
 Descarga `QuantPowerBuilder_Windows_x64.zip` desde la release, extrae la carpeta
 completa y abre `QuantPowerBuilder.exe`. La cuenta y su recuperación de contraseña
 se gestionan en <https://quantpowerbuilder.com/cuenta/>.

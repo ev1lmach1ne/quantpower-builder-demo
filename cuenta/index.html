@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex">
   <link rel="canonical" href="https://quantpowerbuilder.com/cuenta/">
   <link rel="icon" href="../assets/images/favicon-circular.png">
-  <link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/cuenta.css">
-  <script src="../assets/js/cuenta.js?v=20261016-soporte-externo" defer></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css"><link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/cuenta.css"><link rel="stylesheet" href="../assets/css/legal.css">
+  <script src="../assets/js/cuenta.js?v=20261020-legal" defer></script>
   <script type="module" src="../assets/js/discord.js"></script>
   <title>Cuenta — QuantPower Builder</title>
 </head>
@@ -40,8 +40,10 @@
         <label>¿Cómo conociste QuantPower Builder? <small>(opcional)</small><select name="origen"><option value="">Selecciona una opción</option></select></label>
         <label>Contraseña <small>(mínimo 8 caracteres)</small><input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="200"></label>
         <label>Repite la contraseña<input name="password2" type="password" autocomplete="new-password" required maxlength="200"></label>
+        <label class="consentimiento"><input name="acepta_legal" type="checkbox" required aria-describedby="alta-info-privacidad"><span>He leído y acepto los <a href="../terminos/" target="_blank">Términos y condiciones</a> y la <a href="../privacidad/" target="_blank">Política de privacidad</a>, y declaro ser mayor de 18 años.</span></label>
         <button class="button button-primary" type="submit">Crear cuenta gratis</button>
         <p class="cuenta-nota" id="alta-datos-nota">Tu ubicación es declarada por ti y solo se usa con fines estadísticos. Saber cómo nos conociste nos ayuda a mejorar la difusión del software. Al usar la aplicación, el servidor estima el tiempo conectado a partir de sus sesiones y latidos.</p>
+        <p class="cuenta-nota" id="alta-info-privacidad"><strong>Protección de datos:</strong> el responsable es QuantPower Systems. Usamos tus datos para crear y gestionar tu cuenta y tu licencia, y para estadísticas internas. No los cedemos a terceros salvo a los proveedores que prestan el servicio. Puedes acceder, rectificar o suprimir tus datos y ejercer tus demás derechos en <a href="mailto:info@quantpowerbuilder.com">info@quantpowerbuilder.com</a>. Más información en la <a href="../privacidad/">Política de privacidad</a>.</p>
         <p class="cuenta-estado" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -53,6 +55,7 @@
         <label>Correo electrónico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
         <button class="button button-primary" type="submit">Enviar enlace de recuperación</button>
         <p class="cuenta-estado" role="status" aria-live="polite"></p>
+        <p class="cuenta-nota">Usaremos tu correo solo para enviarte el enlace. Consulta la <a href="../privacidad/">Política de privacidad</a>.</p>
       </form>
       <button class="text-link cuenta-enlace" type="button" id="btn-recuperar-volver">Volver a iniciar sesión</button>
     </section>
@@ -134,5 +137,12 @@
 
     <p class="cuenta-pie">¿Sin clave de licencia? Escribe a <a href="mailto:info@quantpowerbuilder.com">info@quantpowerbuilder.com</a>. Las licencias se entregan manualmente.</p>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <span>© <span id="current-year">2026</span> QuantPower Systems</span>
+      <nav class="footer-legal" aria-label="Información legal"><a href="../privacidad/">Privacidad</a><a href="../terminos/">Términos</a><a href="../cookies/">Cookies</a><a href="../reembolsos/">Reembolsos</a></nav>
+    </div>
+  </footer>
 </body>
 </html>
