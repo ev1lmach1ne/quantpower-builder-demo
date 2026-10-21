@@ -1,0 +1,22 @@
+{
+ "media": {
+  "senal": 36,
+  "ejec": 43
+ },
+ "bollinger": {
+  "senal": 36,
+  "ejec": 43
+ },
+ "perfil": {
+  "poc": 5308.5,
+  "vah": 5312,
+  "val": 5288,
+  "hvn": 5288.5,
+  "lvn": 5295.5,
+  "objetivo": 5308.5,
+  "orden": 5288.5
+ },
+ "fibonacci": {
+  "ejec": 40
+ }
+}
