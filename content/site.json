@@ -7,6 +7,28 @@
     "QuantPowerSystems_Windows_x64.zip"
   ],
   "highlights": {
+    "v0.8": [
+      {
+        "title": "Perfil de volumen",
+        "text": "PoC, área de valor y nodos de volumen en el gráfico, en tus reglas y con dos sistemas listos."
+      },
+      {
+        "title": "Órdenes límite",
+        "text": "Entradas y salidas esperando un retroceso a una media, Bollinger, el perfil de volumen o Fibonacci."
+      },
+      {
+        "title": "Databento y EODHD",
+        "text": "Futuros oficiales de CME y Eurex con el coste visible antes de descargar, y acciones de más de 60 bolsas."
+      },
+      {
+        "title": "Descargas y optimizador más rápidos",
+        "text": "Prueba de conexión, fechas reales del histórico, reanudación de descargas y optimizaciones en hasta 8 núcleos."
+      },
+      {
+        "title": "Cuenta y soporte en Ajustes",
+        "text": "Solicita cambios o indicadores, reporta bugs y lee las respuestas del equipo desde el programa."
+      }
+    ],
     "v0.7.6.3-alpha": [
       {
         "title": "Acceso con cuenta y licencia",
@@ -49,18 +71,18 @@
     ]
   },
   "fallbackRelease": {
-    "tag_name": "v0.7.6.3-alpha",
-    "html_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/tag/v0.7.6.3-alpha",
-    "published_at": "2026-10-15T10:45:17Z",
+    "tag_name": "v0.8",
+    "html_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/tag/v0.8",
+    "published_at": "2026-10-21T00:35:09Z",
     "draft": false,
-    "prerelease": true,
+    "prerelease": false,
     "assets": [
       {
         "name": "QuantPowerBuilder_Windows_x64.zip",
         "state": "uploaded",
-        "size": 401072993,
-        "browser_download_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/download/v0.7.6.3-alpha/QuantPowerBuilder_Windows_x64.zip",
-        "digest": "sha256:45e152e3a476501f5d9676bd602c20e177e633a8996f6e0cb7b0740fc3a06875"
+        "size": 401523693,
+        "browser_download_url": "https://github.com/ev1lmach1ne/quantpower-builder-demo/releases/download/v0.8/QuantPowerBuilder_Windows_x64.zip",
+        "digest": "sha256:feedefdfd52486719854ab06959349374b51a636b27245a3e842df43ad0931f5"
       }
     ]
   },

@@ -1,0 +1,33 @@
+/* Páginas legales: privacidad, términos, cookies y reembolsos. */
+.legal-shell { max-width: 820px; padding-block: 56px 80px; }
+.legal-shell h1 { font-size: clamp(36px, 4.2vw, 56px); margin-bottom: 12px; }
+.legal-meta { color: var(--text-muted); font-size: .9rem; margin-bottom: 28px; }
+.legal-shell h2 { font-size: 1.35rem; margin: 40px 0 12px; letter-spacing: -.02em; }
+.legal-shell h3 { font-size: 1.05rem; margin: 24px 0 8px; letter-spacing: -.01em; }
+.legal-shell p, .legal-shell li { color: var(--text); }
+.legal-shell p + p { margin-top: 12px; }
+.legal-shell ul, .legal-shell ol { padding-left: 22px; margin: 10px 0; display: grid; gap: 6px; }
+.legal-shell a { color: var(--accent); }
+.legal-shell strong { color: var(--text-strong); }
+.legal-indice { margin: 0 0 8px; padding: 18px 22px; background: var(--panel); border: 1px solid var(--border-soft); border-radius: var(--radius); }
+.legal-indice ol { margin: 6px 0 0; }
+.legal-resumen { margin: 24px 0; padding: 18px 22px; border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 var(--radius) var(--radius) 0; }
+.legal-tabla { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .92rem; }
+.legal-tabla th, .legal-tabla td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border-soft); }
+.legal-tabla th { color: var(--text-strong); background: var(--panel); font-weight: 600; }
+.legal-tabla code { font-family: var(--font-mono); font-size: .85em; }
+.legal-tabla-envoltorio { overflow-x: auto; }
+/* Datos del titular aún sin completar: visibles para que no se publiquen por descuido. */
+.legal-pendiente { color: var(--amber); font-weight: 600; }
+.legal-otras { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border-soft); font-size: .92rem; }
+.legal-otras a[aria-current="page"] { color: var(--text-strong); text-decoration: none; pointer-events: none; }
+
+/* Casillas de consentimiento en los formularios. */
+.cuenta-form .consentimiento { display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+.cuenta-form .consentimiento input[type="checkbox"] { margin: 3px 0 0; padding: 0; width: 18px; height: 18px; flex: none; accent-color: var(--accent); }
+.cuenta-form .consentimiento a { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .legal-shell { padding-block: 36px 56px; }
+  .legal-tabla th, .legal-tabla td { padding: 8px; }
+}
