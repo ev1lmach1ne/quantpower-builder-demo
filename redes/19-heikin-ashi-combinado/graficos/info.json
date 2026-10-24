@@ -1,0 +1,19 @@
+{
+ "semilla": 5,
+ "orden": [
+  "ha",
+  "rsi",
+  "ema"
+ ],
+ "activacion": {
+  "ema": 31,
+  "rsi": 29,
+  "ha": 27
+ },
+ "entrada": 31,
+ "nombres": {
+  "ema": "Cierre > EMA 50",
+  "rsi": "RSI > 50",
+  "ha": "3 velas HA verdes"
+ }
+}

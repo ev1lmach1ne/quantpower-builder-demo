@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Heikin Ashi combinado — QuantPower Builder</title>
+<!--
+  Ejemplo «Heikin Ashi + EMA 50 + RSI 14» (confirmación HA: próximamente, v0.8.1). Se renderiza con redes/renderizar.sh.
+  Parámetros: ?s=1…2 y ?f=vertical (1080×1350, por defecto) o ?f=tiktok (1080×1920).
+  Generado con scripts/montar.py; el gráfico (graficos/combinado.svg) son datos simulados de scripts/graficos.py.
+-->
+<style>
+  :root {
+    --bg: #111828; --bg-deep: #0d1424; --panel: #141e30; --panel-raised: #1a2a45;
+    --border: #253a60; --border-soft: #202d44; --text: #c8d6e5; --text-strong: #e6edf3;
+    --text-muted: #9aaec7; --accent: #4fc3f7; --green: #2ecc71; --red: #e74c3c; --amber: #f1c40f;
+    --font: "Inter", "Segoe UI", Arial, sans-serif;
+    --mono: "DejaVu Sans Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-deep); }
+  .slide {
+    position: relative; overflow: hidden; display: none;
+    width: 1080px; height: 1350px; padding: 60px 80px 52px;
+    flex-direction: column; gap: 22px;
+    font-family: var(--font); color: var(--text);
+    background:
+      radial-gradient(900px 640px at 92% -8%, rgba(79,195,247,.16), transparent 60%),
+      radial-gradient(700px 500px at -10% 105%, rgba(79,195,247,.07), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  }
+  .slide.active { display: flex; }
+  .tiktok .slide { height: 1920px; padding: 360px 150px 340px 80px; gap: 20px; }
+  .slide > * { position: relative; flex-shrink: 0; }
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(37,58,96,.30) 1px, transparent 1px), linear-gradient(90deg, rgba(37,58,96,.30) 1px, transparent 1px);
+    background-size: 54px 54px; mask-image: linear-gradient(200deg, #000 0%, transparent 50%); }
+
+  .top { display: flex; align-items: center; gap: 18px; }
+  .logo { width: 64px; height: 64px; border-radius: 50%; flex: none;
+    background: url("../../assets/images/logo-corporativo.png") center / 104% no-repeat; clip-path: circle(48%); }
+  .top strong { font-size: 28px; font-weight: 700; color: var(--text-strong); }
+  .top .count { margin-left: auto; font-family: var(--mono); font-size: 21px; color: var(--text-muted); }
+
+  .eyebrow { font-family: var(--mono); font-size: 22px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+  h2 { font-size: 58px; line-height: 1.06; font-weight: 800; letter-spacing: -.03em; color: var(--text-strong); }
+  h2 span { color: var(--accent); }
+  .tiktok h2 { font-size: 52px; }
+  .lead { font-size: 27px; line-height: 1.4; color: var(--text-muted); }
+  .lead b { color: var(--text-strong); }
+  .tiktok .lead { font-size: 25px; }
+
+  /* Libro de órdenes */
+  .panel { border: 1px solid var(--border); border-radius: 18px; background: rgba(20,30,48,.85); padding: 18px 22px; }
+  .panel h3 { display: flex; align-items: baseline; gap: 12px; font-size: 26px; font-weight: 800; color: var(--text-strong); margin-bottom: 10px; }
+  .panel h3 small { font-size: 19px; font-weight: 500; color: var(--text-muted); }
+  .book { display: grid; gap: 7px; }
+  .lv { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 12px; height: 38px; }
+  .lv .p { font-family: var(--mono); font-size: 21px; color: var(--text); text-align: right; }
+  .lv .q { display: flex; align-items: center; gap: 4px; height: 100%; }
+  .blk { height: 100%; border-radius: 6px; display: grid; place-items: center; font-size: 18px; font-weight: 700; color: var(--text-strong); }
+  .ask .blk { background: rgba(231,76,60,.24); border: 1.5px solid rgba(231,76,60,.75); }
+  .bid .blk { background: rgba(46,204,113,.22); border: 1.5px solid rgba(46,204,113,.75); }
+  .tot { margin-left: 10px; font-size: 22px; font-weight: 800; color: var(--text-strong); }
+  .spread { height: 0; border-top: 2px dashed rgba(143,179,217,.5); margin: 4px 0; }
+  .big .lv { height: 52px; grid-template-columns: 120px 1fr; }
+  .big .lv .p { font-size: 26px; }
+  .big .blk { font-size: 22px; border-radius: 8px; }
+  .big .tot { font-size: 28px; }
+
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .l1row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .best { border-radius: 14px; padding: 12px 18px; text-align: center; }
+  .best small { display: block; font-size: 20px; color: var(--text-muted); }
+  .best strong { display: block; margin-top: 4px; font-size: 34px; font-weight: 800; color: var(--text-strong); font-family: var(--mono); }
+  .best.ask { background: rgba(231,76,60,.12); border: 1.5px solid rgba(231,76,60,.65); }
+  .best.bid { background: rgba(46,204,113,.12); border: 1.5px solid rgba(46,204,113,.65); }
+  .xl .best { padding: 20px 22px; }
+  .xl .best small { font-size: 24px; }
+  .xl .best strong { font-size: 48px; }
+
+  .cards { display: grid; gap: 12px; }
+  .cards.two { grid-template-columns: 1fr 1fr; }
+  .card { padding: 16px 20px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); font-size: 23px; line-height: 1.3; color: var(--text-muted); }
+  .card b { display: block; color: var(--text-strong); font-size: 24px; margin-bottom: 4px; }
+  .warn { padding: 16px 22px; border-radius: 14px; border-left: 5px solid var(--amber); background: rgba(241,196,15,.07); font-size: 23px; line-height: 1.35; color: var(--text); }
+  .warn b { color: var(--amber); }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .chip { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); font-size: 22px; color: var(--text-muted); line-height: 1.25; }
+  .chip i { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 24px; font-weight: 800; }
+  .chip b { color: var(--text-strong); display: block; font-size: 23px; }
+
+  .need { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: 1fr 230px; align-items: center; gap: 16px; padding: 14px 20px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); font-size: 23px; line-height: 1.3; color: var(--text); }
+  .row span:last-child { justify-self: end; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--accent); background: rgba(79,195,247,.08); font-weight: 800; color: var(--accent); font-size: 22px; text-align: center; }
+  .chain { display: grid; grid-template-columns: 1fr 34px 1.3fr 34px 1fr; align-items: center; gap: 6px; }
+  .node { padding: 14px 10px; border-radius: 14px; border: 1px solid var(--border); background: rgba(20,30,48,.9); text-align: center; font-size: 21px; color: var(--text-muted); line-height: 1.25; }
+  .node b { display: block; font-size: 24px; color: var(--text-strong); }
+  .node.main { border: 2px solid var(--accent); background: rgba(79,195,247,.08); }
+  .mids { display: grid; gap: 8px; }
+  .arr { text-align: center; font-size: 30px; color: var(--accent); }
+
+  .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    padding-top: 18px; border-top: 1px solid var(--border-soft); font-size: 20px; color: var(--text-muted); }
+  .foot b { font-size: 26px; font-weight: 700; color: var(--accent); }
+
+  .hero { font-size: 92px; line-height: 1; font-weight: 800; letter-spacing: -.04em; color: var(--text-strong); }
+  .hero span { color: var(--accent); }
+  .tiktok .hero { font-size: 84px; }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .tile { padding: 20px 22px; border-radius: 18px; border: 1px solid var(--border); background: rgba(26,42,69,.6); }
+  .tile i { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 14px; font-style: normal; font-size: 30px;
+    background: rgba(79,195,247,.14); color: var(--accent); margin-bottom: 12px; }
+  .tile b { display: block; font-size: 27px; color: var(--text-strong); margin-bottom: 4px; }
+  .tile span { font-size: 22px; line-height: 1.3; color: var(--text-muted); }
+  .tk5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .tk { padding: 14px 8px; border-radius: 16px; border: 1px solid var(--border); background: rgba(26,42,69,.7); text-align: center; }
+  .tk b { display: block; font-family: var(--mono); font-size: 32px; color: var(--text-strong); }
+  .tk span { display: block; margin-top: 4px; font-size: 18px; color: var(--text-muted); }
+  .tk.more b { color: var(--accent); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { padding: 18px; border-radius: 16px; border: 2px solid var(--accent); background: rgba(79,195,247,.07); }
+  .stat strong { display: block; font-size: 38px; font-weight: 800; letter-spacing: -.02em; color: var(--accent); white-space: nowrap; }
+  .stat span { display: block; margin-top: 6px; font-size: 20px; line-height: 1.3; color: var(--text-muted); }
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pills span { padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--accent); background: rgba(79,195,247,.07); font-size: 22px; font-weight: 700; color: var(--text-strong); }
+  .flow { display: grid; gap: 9px; }
+  .fl { display: grid; grid-template-columns: 54px 200px 1fr; align-items: center; gap: 16px; padding: 12px 18px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); }
+  .fl i { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; font-style: normal; font-family: var(--mono); font-size: 19px; color: var(--accent); border: 2px solid var(--accent); }
+  .fl b { font-size: 25px; color: var(--text-strong); }
+  .fl span { font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .tiktok .fl { grid-template-columns: 50px 170px 1fr; padding: 10px 16px; }
+  .steps { display: grid; gap: 12px; }
+  .step { display: flex; align-items: center; gap: 20px; padding: 16px 22px; border-radius: 16px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 26px; color: var(--text-muted); }
+  .step b { color: var(--text-strong); }
+  .step i { flex: none; width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 24px; font-weight: 800; color: var(--bg-deep); background: var(--accent); }
+  .step.life { border: 2px solid rgba(46,204,113,.6); background: rgba(46,204,113,.08); }
+  .step.life i { background: var(--green); }
+  .button { display: flex; align-items: center; justify-content: center; height: 88px; border-radius: 20px; background: var(--accent); color: var(--bg-deep); font-size: 36px; font-weight: 800; }
+  .badge { align-self: flex-start; padding: 10px 22px; border-radius: 8px; background: var(--accent); color: var(--bg-deep); font-size: 22px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .badge.amber { background: transparent; border: 2px solid rgba(241,196,15,.6); color: var(--amber); border-radius: 999px; }
+
+  /* Tamaños mayores para este carrusel; el contenido se centra entre la cabecera y el pie */
+  .slide > .top + * { margin-top: auto; }
+  .slide { gap: 26px; }
+  h2 { font-size: 66px; }
+  .tiktok h2 { font-size: 58px; }
+  .lead { font-size: 31px; }
+  .card { padding: 20px 24px; font-size: 26px; }
+  .card b { font-size: 29px; }
+  .tile { padding: 24px 26px; }
+  .tile b { font-size: 31px; }
+  .tile span { font-size: 25px; }
+  .tile i { width: 64px; height: 64px; font-size: 34px; }
+  .tk { padding: 18px 8px; }
+  .tk b { font-size: 38px; }
+  .tk span { font-size: 21px; }
+  .stat { padding: 22px; }
+  .stat strong { font-size: 44px; }
+  .stat span { font-size: 23px; }
+  .pills span { font-size: 26px; padding: 12px 20px; }
+  .fl { padding: 18px 20px; grid-template-columns: 58px 210px 1fr; }
+  .fl b { font-size: 30px; }
+  .fl span { font-size: 24px; }
+  .step { padding: 22px 26px; font-size: 30px; }
+  .step i { width: 58px; height: 58px; font-size: 27px; }
+  .button { height: 100px; font-size: 38px; }
+  .hero { font-size: 104px; }
+  .foot { font-size: 22px; }
+  .tiktok .slide { gap: 22px; }
+  .tiktok .lead { font-size: 27px; }
+  .tiktok .card { padding: 16px 20px; font-size: 23px; }
+  .tiktok .card b { font-size: 26px; }
+  .tiktok .tile { padding: 18px 20px; }
+  .tiktok .tile b { font-size: 27px; }
+  .tiktok .tile span { font-size: 22px; }
+  .tiktok .tile i { width: 54px; height: 54px; font-size: 28px; }
+  .tiktok .stat strong { font-size: 38px; }
+  .tiktok .stat span { font-size: 21px; }
+  .tiktok .tk b { font-size: 32px; }
+  .tiktok .pills span { font-size: 23px; padding: 10px 16px; }
+  .tiktok .fl { padding: 13px 16px; grid-template-columns: 52px 170px 1fr; }
+  .tiktok .fl b { font-size: 26px; }
+  .tiktok .fl span { font-size: 21px; }
+  .tiktok .step { padding: 16px 22px; font-size: 26px; }
+  .tiktok .button { height: 86px; font-size: 32px; }
+  .tiktok .hero { font-size: 92px; }
+  .chart { display: block; width: 100%; border-radius: 18px; border: 1px solid var(--border); }
+  .num { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 16px; background: var(--accent); color: var(--bg-deep); font-size: 36px; font-weight: 900; margin-right: 18px; vertical-align: middle; }
+  .titulo { display: flex; align-items: center; }
+  .checks { display: grid; gap: 12px; }
+  .check { display: flex; align-items: center; gap: 18px; padding: 16px 22px; border-radius: 16px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 27px; color: var(--text-muted); }
+  .check b { color: var(--text-strong); }
+  .check i { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 26px; font-weight: 900; background: var(--green); color: var(--bg-deep); }
+  .op { font-family: var(--mono); font-size: 22px; color: var(--accent); text-align: center; letter-spacing: .2em; }
+  .valido { padding: 18px 24px; border-radius: 16px; background: var(--green); color: var(--bg-deep); font-size: 30px; font-weight: 900; text-align: center; }
+  .leyenda { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ley { padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .ley b { display: block; font-size: 23px; margin-bottom: 2px; }
+  .tiktok .ley { font-size: 19px; padding: 10px 14px; }
+  .tiktok .ley b { font-size: 21px; }
+  .tiktok .check { font-size: 24px; padding: 13px 18px; }
+  .tiktok .valido { font-size: 26px; }
+  .tiles .tile.ancho { grid-column: span 2; }
+  .ui { color: var(--text-strong); font-weight: 700; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .opt { padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .opt b { display: block; font-size: 23px; color: var(--text-strong); margin-bottom: 4px; }
+  .opt.sel { border: 2px solid var(--amber); background: rgba(241,196,15,.07); }
+  .opt.sel b { color: var(--amber); }
+  .tiktok .opt { font-size: 19px; padding: 12px 14px; }
+  .tiktok .opt b { font-size: 21px; }
+  .leyenda.tres { grid-template-columns: 1fr 1fr 1fr; }
+  .costes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .coste { padding: 14px 18px; border-radius: 14px; font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .coste b { display: block; font-size: 23px; margin-bottom: 4px; }
+  .coste.lim { border: 2px solid rgba(46,204,113,.6); background: rgba(46,204,113,.07); }
+  .coste.lim b { color: var(--green); }
+  .coste.mer { border: 1px solid var(--border); background: rgba(26,42,69,.6); }
+  .coste.mer b { color: var(--text-strong); }
+  .tiktok .coste { font-size: 19px; padding: 12px 14px; }
+  .tiktok .tile.ancho { padding: 14px 20px; }
+  body:not(.tiktok) .slide[data-s="1"] .hero { font-size: 92px; }
+  body:not(.tiktok) .slide[data-s="4"] .chart { width: 80%; align-self: center; }
+  body:not(.tiktok) .slide[data-s="4"] .lead { font-size: 27px; }
+  .conf { display: grid; gap: 10px; }
+  .cf { display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 16px; padding: 13px 20px; border-radius: 16px;
+    border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 23px; color: var(--text-muted); }
+  .cf b { display: block; font-size: 25px; color: var(--text-strong); }
+  .cf i { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; font-style: normal; font-size: 22px; font-weight: 900; border: 3px solid; }
+  .cf em { font-style: normal; font-family: var(--mono); font-size: 20px; color: var(--text-muted); }
+  .tiktok .cf { padding: 10px 16px; font-size: 20px; }
+  .tiktok .cf b { font-size: 22px; }
+  .slide[data-s="1"] .chart { width: 70%; align-self: center; }
+  .tiktok .slide[data-s="1"] .chart { width: 74%; }
+  .slide[data-s="1"] .valido { padding: 12px 20px; font-size: 26px; }
+  body:not(.tiktok) .slide[data-s="1"] { gap: 18px; }
+</style>
+</head>
+<body>
+
+<section class="slide" data-s="1">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">Heikin Ashi + 2 · 1/2</span></div>
+  <span class="eyebrow">Ejemplo · largo con 3 confirmaciones</span>
+  <h2>Tres confirmaciones, <span>una entrada.</span></h2>
+  <svg class="chart" viewBox="0 0 920 720" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="920" height="470" rx="18" fill="#141e30"/><rect x="446.2" y="20" width="13.8" height="430" fill="#2ecc71" opacity=".16"/><line x1="398.1" x2="398.1" y1="20" y2="450" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5 6" opacity=".8"/><line x1="425.6" x2="425.6" y1="20" y2="450" stroke="#b38af6" stroke-width="2" stroke-dasharray="5 6" opacity=".8"/><line x1="453.1" x2="453.1" y1="20" y2="450" stroke="#4fc3f7" stroke-width="2" stroke-dasharray="5 6" opacity=".8"/><polyline points="26.9,198.7 40.6,200.7 54.4,203.2 68.1,204.4 81.9,206.5 95.6,208.5 109.4,211.4 123.1,215.4 136.9,220.1 150.6,223.9 164.4,228.1 178.1,233.0 191.9,237.7 205.6,242.0 219.4,246.7 233.1,252.4 246.9,256.8 260.6,261.2 274.4,264.5 288.1,268.4 301.9,272.0 315.6,276.0 329.4,280.3 343.1,284.9 356.9,289.7 370.6,292.8 384.4,295.9 398.1,298.1 411.9,299.8 425.6,300.8 439.4,301.2 453.1,301.2 466.9,299.9 480.6,299.0 494.4,298.5 508.1,298.7 521.9,298.1 535.6,297.0 549.4,293.9 563.1,291.1 576.9,287.5 590.6,284.0 604.4,281.1 618.1,277.4 631.9,272.2 645.6,267.4 659.4,263.1 673.1,259.0 686.9,254.1 700.6,249.0 714.4,243.2 728.1,235.9 741.9,229.1 755.6,222.6 769.4,217.1 783.1,212.1 796.9,208.0 810.6,203.0 824.4,198.4 838.1,193.7 851.9,188.7 865.6,184.0 879.4,180.0 893.1,176.1" fill="none" stroke="#4fc3f7" stroke-width="3.5" opacity="1"/><line x1="26.9" x2="26.9" y1="244.7" y2="278.5" stroke="#2ecc71" stroke-width="2"/><rect x="22.3" y="257.4" width="9.1" height="7.1" fill="#2ecc71" rx="1.5"/><line x1="40.6" x2="40.6" y1="237.1" y2="261.0" stroke="#2ecc71" stroke-width="2"/><rect x="36.1" y="246.4" width="9.1" height="14.5" fill="#2ecc71" rx="1.5"/><line x1="54.4" x2="54.4" y1="246.7" y2="288.7" stroke="#e74c3c" stroke-width="2"/><rect x="49.8" y="253.7" width="9.1" height="8.7" fill="#e74c3c" rx="1.5"/><line x1="68.1" x2="68.1" y1="219.1" y2="268.0" stroke="#2ecc71" stroke-width="2"/><rect x="63.6" y="246.5" width="9.1" height="11.6" fill="#2ecc71" rx="1.5"/><line x1="81.9" x2="81.9" y1="234.8" y2="265.3" stroke="#2ecc71" stroke-width="2"/><rect x="77.3" y="248.1" width="9.1" height="4.1" fill="#2ecc71" rx="1.5"/><line x1="95.6" x2="95.6" y1="250.2" y2="280.3" stroke="#e74c3c" stroke-width="2"/><rect x="91.1" y="250.2" width="9.1" height="11.6" fill="#e74c3c" rx="1.5"/><line x1="109.4" x2="109.4" y1="241.5" y2="285.6" stroke="#e74c3c" stroke-width="2"/><rect x="104.8" y="256.0" width="9.1" height="10.8" fill="#e74c3c" rx="1.5"/><line x1="123.1" x2="123.1" y1="261.4" y2="330.5" stroke="#e74c3c" stroke-width="2"/><rect x="118.6" y="261.4" width="9.1" height="38.6" fill="#e74c3c" rx="1.5"/><line x1="136.9" x2="136.9" y1="280.7" y2="336.7" stroke="#e74c3c" stroke-width="2"/><rect x="132.3" y="280.7" width="9.1" height="40.5" fill="#e74c3c" rx="1.5"/><line x1="150.6" x2="150.6" y1="300.9" y2="351.7" stroke="#e74c3c" stroke-width="2"/><rect x="146.1" y="300.9" width="9.1" height="28.7" fill="#e74c3c" rx="1.5"/><line x1="164.4" x2="164.4" y1="290.5" y2="341.2" stroke="#e74c3c" stroke-width="2"/><rect x="159.8" y="315.3" width="9.1" height="5.0" fill="#e74c3c" rx="1.5"/><line x1="178.1" x2="178.1" y1="317.6" y2="353.5" stroke="#e74c3c" stroke-width="2"/><rect x="173.6" y="317.8" width="9.1" height="21.1" fill="#e74c3c" rx="1.5"/><line x1="191.9" x2="191.9" y1="328.4" y2="373.8" stroke="#e74c3c" stroke-width="2"/><rect x="187.3" y="328.4" width="9.1" height="25.3" fill="#e74c3c" rx="1.5"/><line x1="205.6" x2="205.6" y1="334.0" y2="369.6" stroke="#e74c3c" stroke-width="2"/><rect x="201.1" y="341.0" width="9.1" height="9.8" fill="#e74c3c" rx="1.5"/><line x1="219.4" x2="219.4" y1="332.8" y2="363.5" stroke="#e74c3c" stroke-width="2"/><rect x="214.8" y="345.9" width="9.1" height="5.3" fill="#e74c3c" rx="1.5"/><line x1="233.1" x2="233.1" y1="348.5" y2="409.7" stroke="#e74c3c" stroke-width="2"/><rect x="228.6" y="348.5" width="9.1" height="29.5" fill="#e74c3c" rx="1.5"/><line x1="246.9" x2="246.9" y1="352.6" y2="420.3" stroke="#e74c3c" stroke-width="2"/><rect x="242.3" y="363.2" width="9.1" height="19.3" fill="#e74c3c" rx="1.5"/><line x1="260.6" x2="260.6" y1="351.4" y2="372.9" stroke="#2ecc71" stroke-width="2"/><rect x="256.1" y="363.9" width="9.1" height="9.0" fill="#2ecc71" rx="1.5"/><line x1="274.4" x2="274.4" y1="327.5" y2="380.8" stroke="#2ecc71" stroke-width="2"/><rect x="269.8" y="355.9" width="9.1" height="12.5" fill="#2ecc71" rx="1.5"/><line x1="288.1" x2="288.1" y1="339.9" y2="380.7" stroke="#2ecc71" stroke-width="2"/><rect x="283.6" y="357.6" width="9.1" height="4.5" fill="#2ecc71" rx="1.5"/><line x1="301.9" x2="301.9" y1="351.7" y2="366.3" stroke="#e74c3c" stroke-width="2"/><rect x="297.3" y="359.9" width="9.1" height="2.0" fill="#e74c3c" rx="1.5"/><line x1="315.6" x2="315.6" y1="352.7" y2="384.7" stroke="#e74c3c" stroke-width="2"/><rect x="311.1" y="360.0" width="9.1" height="7.6" fill="#e74c3c" rx="1.5"/><line x1="329.4" x2="329.4" y1="360.2" y2="398.9" stroke="#e74c3c" stroke-width="2"/><rect x="324.8" y="363.8" width="9.1" height="16.3" fill="#e74c3c" rx="1.5"/><line x1="343.1" x2="343.1" y1="371.9" y2="398.4" stroke="#e74c3c" stroke-width="2"/><rect x="338.6" y="371.9" width="9.1" height="18.7" fill="#e74c3c" rx="1.5"/><line x1="356.9" x2="356.9" y1="381.3" y2="411.4" stroke="#e74c3c" stroke-width="2"/><rect x="352.3" y="381.3" width="9.1" height="20.7" fill="#e74c3c" rx="1.5"/><line x1="370.6" x2="370.6" y1="366.8" y2="410.5" stroke="#2ecc71" stroke-width="2"/><rect x="366.1" y="388.6" width="9.1" height="3.0" fill="#2ecc71" rx="1.5"/><line x1="384.4" x2="384.4" y1="367.7" y2="390.1" stroke="#2ecc71" stroke-width="2"/><rect x="379.8" y="370.6" width="9.1" height="19.5" fill="#2ecc71" rx="1.5"/><line x1="398.1" x2="398.1" y1="351.1" y2="380.3" stroke="#2ecc71" stroke-width="2"/><rect x="393.6" y="362.9" width="9.1" height="17.4" fill="#2ecc71" rx="1.5"/><line x1="411.9" x2="411.9" y1="337.5" y2="371.6" stroke="#2ecc71" stroke-width="2"/><rect x="407.3" y="349.3" width="9.1" height="22.3" fill="#2ecc71" rx="1.5"/><line x1="425.6" x2="425.6" y1="313.2" y2="360.5" stroke="#2ecc71" stroke-width="2"/><rect x="421.1" y="332.2" width="9.1" height="28.2" fill="#2ecc71" rx="1.5"/><line x1="439.4" x2="439.4" y1="286.3" y2="346.3" stroke="#2ecc71" stroke-width="2"/><rect x="434.8" y="314.8" width="9.1" height="31.5" fill="#2ecc71" rx="1.5"/><line x1="453.1" x2="453.1" y1="299.0" y2="330.6" stroke="#2ecc71" stroke-width="2"/><rect x="448.6" y="308.6" width="9.1" height="22.0" fill="#2ecc71" rx="1.5"/><line x1="466.9" x2="466.9" y1="253.1" y2="319.6" stroke="#2ecc71" stroke-width="2"/><rect x="462.3" y="281.3" width="9.1" height="38.3" fill="#2ecc71" rx="1.5"/><line x1="480.6" x2="480.6" y1="263.7" y2="300.4" stroke="#2ecc71" stroke-width="2"/><rect x="476.1" y="272.6" width="9.1" height="27.9" fill="#2ecc71" rx="1.5"/><line x1="494.4" x2="494.4" y1="274.5" y2="315.0" stroke="#e74c3c" stroke-width="2"/><rect x="489.8" y="286.5" width="9.1" height="2.1" fill="#e74c3c" rx="1.5"/><line x1="508.1" x2="508.1" y1="281.6" y2="314.3" stroke="#e74c3c" stroke-width="2"/><rect x="503.6" y="287.6" width="9.1" height="8.8" fill="#e74c3c" rx="1.5"/><line x1="521.9" x2="521.9" y1="267.9" y2="307.1" stroke="#2ecc71" stroke-width="2"/><rect x="517.3" y="290.5" width="9.1" height="2.0" fill="#2ecc71" rx="1.5"/><line x1="535.6" x2="535.6" y1="256.5" y2="293.8" stroke="#2ecc71" stroke-width="2"/><rect x="531.1" y="276.2" width="9.1" height="15.0" fill="#2ecc71" rx="1.5"/><line x1="549.4" x2="549.4" y1="208.3" y2="283.7" stroke="#2ecc71" stroke-width="2"/><rect x="544.8" y="243.6" width="9.1" height="40.1" fill="#2ecc71" rx="1.5"/><line x1="563.1" x2="563.1" y1="216.7" y2="263.7" stroke="#2ecc71" stroke-width="2"/><rect x="558.6" y="219.8" width="9.1" height="43.9" fill="#2ecc71" rx="1.5"/><line x1="576.9" x2="576.9" y1="188.3" y2="241.7" stroke="#2ecc71" stroke-width="2"/><rect x="572.3" y="209.3" width="9.1" height="32.5" fill="#2ecc71" rx="1.5"/><line x1="590.6" x2="590.6" y1="180.3" y2="225.5" stroke="#2ecc71" stroke-width="2"/><rect x="586.1" y="199.7" width="9.1" height="25.8" fill="#2ecc71" rx="1.5"/><line x1="604.4" x2="604.4" y1="190.8" y2="212.6" stroke="#2ecc71" stroke-width="2"/><rect x="599.8" y="202.5" width="9.1" height="10.1" fill="#2ecc71" rx="1.5"/><line x1="618.1" x2="618.1" y1="175.8" y2="210.8" stroke="#2ecc71" stroke-width="2"/><rect x="613.6" y="195.8" width="9.1" height="11.7" fill="#2ecc71" rx="1.5"/><line x1="631.9" x2="631.9" y1="137.3" y2="201.7" stroke="#2ecc71" stroke-width="2"/><rect x="627.3" y="166.3" width="9.1" height="35.3" fill="#2ecc71" rx="1.5"/><line x1="645.6" x2="645.6" y1="129.3" y2="184.0" stroke="#2ecc71" stroke-width="2"/><rect x="641.1" y="143.2" width="9.1" height="40.8" fill="#2ecc71" rx="1.5"/><line x1="659.4" x2="659.4" y1="143.3" y2="173.6" stroke="#2ecc71" stroke-width="2"/><rect x="654.8" y="156.2" width="9.1" height="7.4" fill="#2ecc71" rx="1.5"/><line x1="673.1" x2="673.1" y1="153.5" y2="173.0" stroke="#e74c3c" stroke-width="2"/><rect x="668.6" y="159.9" width="9.1" height="2.0" fill="#e74c3c" rx="1.5"/><line x1="686.9" x2="686.9" y1="121.9" y2="166.6" stroke="#2ecc71" stroke-width="2"/><rect x="682.3" y="144.9" width="9.1" height="15.4" fill="#2ecc71" rx="1.5"/><line x1="700.6" x2="700.6" y1="121.0" y2="157.3" stroke="#2ecc71" stroke-width="2"/><rect x="696.1" y="134.5" width="9.1" height="18.0" fill="#2ecc71" rx="1.5"/><line x1="714.4" x2="714.4" y1="99.3" y2="143.5" stroke="#2ecc71" stroke-width="2"/><rect x="709.8" y="113.9" width="9.1" height="29.6" fill="#2ecc71" rx="1.5"/><line x1="728.1" x2="728.1" y1="55.7" y2="128.7" stroke="#2ecc71" stroke-width="2"/><rect x="723.6" y="81.0" width="9.1" height="47.8" fill="#2ecc71" rx="1.5"/><line x1="741.9" x2="741.9" y1="50.3" y2="104.8" stroke="#2ecc71" stroke-width="2"/><rect x="737.3" y="60.2" width="9.1" height="44.7" fill="#2ecc71" rx="1.5"/><line x1="755.6" x2="755.6" y1="49.9" y2="82.5" stroke="#2ecc71" stroke-width="2"/><rect x="751.1" y="62.2" width="9.1" height="20.3" fill="#2ecc71" rx="1.5"/><line x1="769.4" x2="769.4" y1="50.8" y2="81.8" stroke="#2ecc71" stroke-width="2"/><rect x="764.8" y="69.6" width="9.1" height="2.7" fill="#2ecc71" rx="1.5"/><line x1="783.1" x2="783.1" y1="71.0" y2="101.7" stroke="#e74c3c" stroke-width="2"/><rect x="778.6" y="71.0" width="9.1" height="17.8" fill="#e74c3c" rx="1.5"/><line x1="796.9" x2="796.9" y1="79.9" y2="110.8" stroke="#e74c3c" stroke-width="2"/><rect x="792.3" y="79.9" width="9.1" height="19.3" fill="#e74c3c" rx="1.5"/><line x1="810.6" x2="810.6" y1="70.4" y2="108.9" stroke="#e74c3c" stroke-width="2"/><rect x="806.1" y="89.5" width="9.1" height="2.4" fill="#e74c3c" rx="1.5"/><line x1="824.4" x2="824.4" y1="65.2" y2="92.8" stroke="#2ecc71" stroke-width="2"/><rect x="819.8" y="80.8" width="9.1" height="9.9" fill="#2ecc71" rx="1.5"/><line x1="838.1" x2="838.1" y1="53.6" y2="91.1" stroke="#2ecc71" stroke-width="2"/><rect x="833.6" y="77.2" width="9.1" height="8.6" fill="#2ecc71" rx="1.5"/><line x1="851.9" x2="851.9" y1="54.3" y2="102.5" stroke="#2ecc71" stroke-width="2"/><rect x="847.3" y="75.5" width="9.1" height="6.0" fill="#2ecc71" rx="1.5"/><line x1="865.6" x2="865.6" y1="49.7" y2="78.5" stroke="#2ecc71" stroke-width="2"/><rect x="861.1" y="64.7" width="9.1" height="13.8" fill="#2ecc71" rx="1.5"/><line x1="879.4" x2="879.4" y1="51.3" y2="111.3" stroke="#e74c3c" stroke-width="2"/><rect x="874.8" y="71.6" width="9.1" height="7.1" fill="#e74c3c" rx="1.5"/><line x1="893.1" x2="893.1" y1="71.3" y2="91.9" stroke="#e74c3c" stroke-width="2"/><rect x="888.6" y="75.1" width="9.1" height="6.8" fill="#e74c3c" rx="1.5"/><text x="81.9" y="192.5" fill="#4fc3f7" font-size="20" font-weight="800" font-family="Inter, Segoe UI, Arial, sans-serif">EMA 50</text><circle cx="398.1" cy="42" r="17" fill="#0d1424" stroke="#2ecc71" stroke-width="3"/><text x="398.1" y="50" fill="#2ecc71" font-size="21" font-weight="900" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif">1</text><circle cx="425.6" cy="42" r="17" fill="#0d1424" stroke="#b38af6" stroke-width="3"/><text x="425.6" y="50" fill="#b38af6" font-size="21" font-weight="900" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif">2</text><circle cx="453.1" cy="42" r="17" fill="#0d1424" stroke="#4fc3f7" stroke-width="3"/><text x="453.1" y="50" fill="#4fc3f7" font-size="21" font-weight="900" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif">3</text><rect x="469.1" y="354.6" width="300.0" height="40" rx="9" fill="#0d1424" stroke="#2ecc71" stroke-width="2"/><text x="481.1" y="382.6" fill="#2ecc71" font-size="20" font-weight="800" font-family="Inter, Segoe UI, Arial, sans-serif">Entrada: las 3 a la vez</text><text x="32" y="442" fill="#9aaec7" font-size="18" font-weight="700" font-family="Inter, Segoe UI, Arial, sans-serif">Velas Heikin Ashi</text><g transform="translate(0,480)"><rect x="0" y="0" width="920" height="240" rx="18" fill="#141e30"/><rect x="446.2" y="24" width="13.8" height="192" fill="#2ecc71" opacity=".16"/><line x1="398.1" x2="398.1" y1="24" y2="216" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5 6" opacity=".8"/><line x1="425.6" x2="425.6" y1="24" y2="216" stroke="#b38af6" stroke-width="2" stroke-dasharray="5 6" opacity=".8"/><line x1="453.1" x2="453.1" y1="24" y2="216" stroke="#4fc3f7" stroke-width="2" stroke-dasharray="5 6" opacity=".8"/><line x1="20" x2="900" y1="120.0" y2="120.0" stroke="#9aaec7" stroke-width="2" stroke-dasharray="8 7"/><polyline points="26.9,141.5 40.6,143.7 54.4,151.5 68.1,129.1 81.9,142.6 95.6,142.2 109.4,156.8 123.1,171.5 136.9,180.1 150.6,165.8 164.4,172.4 178.1,180.9 191.9,181.2 205.6,174.8 219.4,181.9 233.1,194.1 246.9,169.6 260.6,171.0 274.4,151.7 288.1,160.7 301.9,156.6 315.6,165.0 329.4,171.5 343.1,176.7 356.9,181.9 370.6,145.4 384.4,145.8 398.1,132.6 411.9,121.7 425.6,110.3 439.4,100.8 453.1,94.0 466.9,74.4 480.6,83.8 494.4,92.3 508.1,105.5 521.9,93.7 535.6,84.6 549.4,58.8 563.1,63.7 576.9,53.7 590.6,55.3 604.4,63.8 618.1,54.4 631.9,38.2 645.6,43.0 659.4,53.2 673.1,52.3 686.9,43.1 700.6,39.9 714.4,31.2 728.1,24.0 741.9,24.0 755.6,26.7 769.4,45.7 783.1,55.8 796.9,71.3 810.6,59.5 824.4,60.9 838.1,59.5 851.9,51.6 865.6,56.4 879.4,73.7 893.1,72.0" fill="none" stroke="#b38af6" stroke-width="3.5"/><text x="32" y="46" fill="#b38af6" font-size="20" font-weight="800" font-family="Inter, Segoe UI, Arial, sans-serif">RSI 14</text><text x="892" y="110.0" fill="#9aaec7" font-size="18" font-weight="700" text-anchor="end" font-family="Inter, Segoe UI, Arial, sans-serif">50</text></g></svg>
+  <div class="conf">
+    <div class="cf"><i style="color:var(--green);border-color:var(--green)">1</i><span><b>Heikin Ashi</b>Cambia a verde y suma 3 velas seguidas</span><em>4 velas antes</em></div>
+    <div class="cf"><i style="color:#b38af6;border-color:#b38af6">2</i><span><b>Momento · RSI 14</b>Cruza y se mantiene por encima de 50</span><em>2 velas antes</em></div>
+    <div class="cf"><i style="color:var(--accent);border-color:var(--accent)">3</i><span><b>Tendencia · EMA 50</b>El cierre real supera la EMA 50</span><em>misma vela de la entrada</em></div>
+  </div>
+  <div class="valido">ENTRADA: las 3 a la vez («Todas · AND»)</div>
+  <div class="foot"><span>Datos simulados con fines ilustrativos</span><b>quantpowerbuilder.com</b></div>
+</section>
+
+<section class="slide" data-s="2">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">Heikin Ashi + 2 · 2/2</span></div>
+  <span class="eyebrow">Por qué combinarlas</span>
+  <h2>Cada una filtra <span>algo distinto.</span></h2>
+  <div class="cards">
+    <div class="card"><b style="color:var(--accent)">Tendencia · EMA 50</b>No compras contra la tendencia: el precio ya está por encima de su media</div>
+    <div class="card"><b style="color:#b38af6">Momento · RSI 14</b>El impulso acompaña: por encima de 50 dominan las subidas</div>
+    <div class="card"><b style="color:var(--green)">Heikin Ashi · N velas</b>El giro ya está en marcha: 3 velas verdes seguidas, no una sola</div>
+  </div>
+  <div class="warn"><b>El precio de cada condición:</b> más confirmaciones dan menos entradas y algo más tardías, pero más filtradas. Pruébalo con el backtest antes de decidir cuántas exigir.</div>
+  <p class="lead">La EMA y el RSI ya están en el constructor. <b>Heikin Ashi como confirmación llega en la v0.8.1.</b></p>
+  <div class="button">quantpowerbuilder.com</div>
+  <div class="foot"><span>Últimas licencias gratis de por vida</span><b>v0.8.1</b></div>
+</section>
+
+<script>
+  const q = new URLSearchParams(location.search);
+  if (q.get("f") === "tiktok") document.body.classList.add("tiktok");
+  const el = document.querySelector(`.slide[data-s="${q.get("s") || "1"}"]`);
+  if (el) el.classList.add("active");
+  // Comprobación al renderizar: cuántos píxeles de contenido no caben en el lienzo
+  addEventListener("load", () => {
+    if (el) document.documentElement.dataset.desborde = el.scrollHeight - el.clientHeight;
+  });
+</script>
+</body>
+</html>

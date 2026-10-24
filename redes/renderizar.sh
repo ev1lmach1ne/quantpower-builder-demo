@@ -107,3 +107,9 @@ for s in 1 2 3 4 5 6; do
   render "redes/18-heikin-ashi/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
   render "redes/18-heikin-ashi/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
 done
+
+DIR="$ROOT/redes/19-heikin-ashi-combinado"
+for s in 1 2; do
+  render "redes/19-heikin-ashi-combinado/publicacion.html?s=$s" vertical 1080 1350 "$DIR/vertical-$s.png"
+  render "redes/19-heikin-ashi-combinado/publicacion.html?s=$s" tiktok 1080 1920 "$DIR/tiktok-$s.png"
+done
