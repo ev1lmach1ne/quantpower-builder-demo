@@ -1,0 +1,20 @@
+{
+  "name": "qpb-video-eventos",
+  "private": true,
+  "description": "Vídeo: estadística de eventos del Analizador (Gaps, Initial Balance y Perfil: dónde cierra), QuantPower Builder v0.8",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render Eventos eventos-1080x1920.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.537",
+    "@remotion/media": "4.0.537",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.537"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}
