@@ -1,0 +1,114 @@
+name: Publicar artículo Alpha Decay
+
+on:
+  schedule:
+    - cron: '*/5 11 28 10 *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obtener la rama publicada
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Comprobar la hora de publicación
+        id: gate
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          from datetime import datetime, timezone
+
+          target = datetime(2026, 10, 28, 11, 0, tzinfo=timezone.utc)
+          now = datetime.now(timezone.utc)
+          print(f"publish={str(now >= target).lower()}")
+          print(f"current_utc={now.isoformat()}")
+          PY
+
+      - name: Incorporar el artículo preparado
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          STAGING_BRANCH: schedule/alpha-decay-2026-10-28
+          ARTICLE_SLUG: alpha-decay-degradacion-ventaja
+        run: |
+          git fetch --no-tags origin "$STAGING_BRANCH"
+          mkdir -p "$RUNNER_TEMP/alpha-decay"
+          git archive --format=tar FETCH_HEAD \
+            "articulos/$ARTICLE_SLUG/index.html" \
+            "articulos/index.html" | tar -xf - -C "$RUNNER_TEMP/alpha-decay"
+
+          mkdir -p "articulos/$ARTICLE_SLUG"
+          cp "$RUNNER_TEMP/alpha-decay/articulos/$ARTICLE_SLUG/index.html" \
+            "articulos/$ARTICLE_SLUG/index.html"
+
+          python - "$RUNNER_TEMP/alpha-decay/articulos/index.html" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          slug = "alpha-decay-degradacion-ventaja"
+          source = Path(sys.argv[1]).read_text(encoding="utf-8")
+          target = Path("articulos/index.html")
+          current = target.read_text(encoding="utf-8")
+          route = f'href="{slug}/"'
+
+          if route not in current:
+              pattern = rf'        <li>\s*<a class="article-row" href="{slug}/".*?        </li>'
+              match = re.search(pattern, source, re.S)
+              if not match:
+                  raise SystemExit("No se encontró la entrada preparada en el índice del borrador.")
+              marker = '      <ol class="article-list" aria-label="Lista de artículos, del más reciente al más antiguo">\n'
+              if marker not in current:
+                  raise SystemExit("No se encontró la lista de artículos en el índice publicado.")
+              current = current.replace(marker, marker + match.group(0) + "\n", 1)
+              target.write_text(current, encoding="utf-8")
+          PY
+
+          if ! git diff --quiet -- "articulos/$ARTICLE_SLUG/index.html" "articulos/index.html"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "articulos/$ARTICLE_SLUG/index.html" "articulos/index.html"
+            git commit -m "docs: publish Alpha Decay article"
+            git push origin HEAD:main
+          fi
+
+      - name: Configurar GitHub Pages
+        if: steps.gate.outputs.publish == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Subir el sitio estático
+        if: steps.gate.outputs.publish == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Publicar
+        if: steps.gate.outputs.publish == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Desactivar el programador de un solo uso
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          STAGING_BRANCH: schedule/alpha-decay-2026-10-28
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh api --method PUT \
+            "repos/$REPOSITORY/actions/workflows/publish-alpha-decay.yml/disable"
+          git push origin --delete "$STAGING_BRANCH"
