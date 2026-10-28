@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Alpha Decay — QuantPower Builder</title>
+<!--
+  Carrusel «Alpha Decay» (artículo del 28 oct de 2026, 12:00). Se renderiza a PNG con redes/renderizar.sh.
+  Parámetros: ?s=1…5 y ?f=vertical (1080×1350, por defecto) o ?f=tiktok (1080×1920).
+  Generado con scripts/montar.py.
+-->
+<style>
+  :root {
+    --bg: #111828; --bg-deep: #0d1424; --panel: #141e30; --panel-raised: #1a2a45;
+    --border: #253a60; --border-soft: #202d44; --text: #c8d6e5; --text-strong: #e6edf3;
+    --text-muted: #9aaec7; --accent: #4fc3f7; --green: #2ecc71; --red: #e74c3c; --amber: #f1c40f;
+    --font: "Inter", "Segoe UI", Arial, sans-serif;
+    --mono: "DejaVu Sans Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-deep); }
+  .slide {
+    position: relative; overflow: hidden; display: none;
+    width: 1080px; height: 1350px; padding: 60px 80px 52px;
+    flex-direction: column; gap: 22px;
+    font-family: var(--font); color: var(--text);
+    background:
+      radial-gradient(900px 640px at 92% -8%, rgba(79,195,247,.16), transparent 60%),
+      radial-gradient(700px 500px at -10% 105%, rgba(79,195,247,.07), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  }
+  .slide.active { display: flex; }
+  .tiktok .slide { height: 1920px; padding: 360px 150px 340px 80px; gap: 20px; }
+  .slide > * { position: relative; flex-shrink: 0; }
+  .grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(37,58,96,.30) 1px, transparent 1px), linear-gradient(90deg, rgba(37,58,96,.30) 1px, transparent 1px);
+    background-size: 54px 54px; mask-image: linear-gradient(200deg, #000 0%, transparent 50%); }
+
+  .top { display: flex; align-items: center; gap: 18px; }
+  .logo { width: 64px; height: 64px; border-radius: 50%; flex: none;
+    background: url("../../assets/images/logo-corporativo.png") center / 104% no-repeat; clip-path: circle(48%); }
+  .top strong { font-size: 28px; font-weight: 700; color: var(--text-strong); }
+  .top .count { margin-left: auto; font-family: var(--mono); font-size: 21px; color: var(--text-muted); }
+
+  .eyebrow { font-family: var(--mono); font-size: 22px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+  h2 { font-size: 58px; line-height: 1.06; font-weight: 800; letter-spacing: -.03em; color: var(--text-strong); }
+  h2 span { color: var(--accent); }
+  .tiktok h2 { font-size: 52px; }
+  .lead { font-size: 27px; line-height: 1.4; color: var(--text-muted); }
+  .lead b { color: var(--text-strong); }
+  .tiktok .lead { font-size: 25px; }
+
+  /* Libro de órdenes */
+  .panel { border: 1px solid var(--border); border-radius: 18px; background: rgba(20,30,48,.85); padding: 18px 22px; }
+  .panel h3 { display: flex; align-items: baseline; gap: 12px; font-size: 26px; font-weight: 800; color: var(--text-strong); margin-bottom: 10px; }
+  .panel h3 small { font-size: 19px; font-weight: 500; color: var(--text-muted); }
+  .book { display: grid; gap: 7px; }
+  .lv { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 12px; height: 38px; }
+  .lv .p { font-family: var(--mono); font-size: 21px; color: var(--text); text-align: right; }
+  .lv .q { display: flex; align-items: center; gap: 4px; height: 100%; }
+  .blk { height: 100%; border-radius: 6px; display: grid; place-items: center; font-size: 18px; font-weight: 700; color: var(--text-strong); }
+  .ask .blk { background: rgba(231,76,60,.24); border: 1.5px solid rgba(231,76,60,.75); }
+  .bid .blk { background: rgba(46,204,113,.22); border: 1.5px solid rgba(46,204,113,.75); }
+  .tot { margin-left: 10px; font-size: 22px; font-weight: 800; color: var(--text-strong); }
+  .spread { height: 0; border-top: 2px dashed rgba(143,179,217,.5); margin: 4px 0; }
+  .big .lv { height: 52px; grid-template-columns: 120px 1fr; }
+  .big .lv .p { font-size: 26px; }
+  .big .blk { font-size: 22px; border-radius: 8px; }
+  .big .tot { font-size: 28px; }
+
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .l1row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .best { border-radius: 14px; padding: 12px 18px; text-align: center; }
+  .best small { display: block; font-size: 20px; color: var(--text-muted); }
+  .best strong { display: block; margin-top: 4px; font-size: 34px; font-weight: 800; color: var(--text-strong); font-family: var(--mono); }
+  .best.ask { background: rgba(231,76,60,.12); border: 1.5px solid rgba(231,76,60,.65); }
+  .best.bid { background: rgba(46,204,113,.12); border: 1.5px solid rgba(46,204,113,.65); }
+  .xl .best { padding: 20px 22px; }
+  .xl .best small { font-size: 24px; }
+  .xl .best strong { font-size: 48px; }
+
+  .cards { display: grid; gap: 12px; }
+  .cards.two { grid-template-columns: 1fr 1fr; }
+  .card { padding: 16px 20px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); font-size: 23px; line-height: 1.3; color: var(--text-muted); }
+  .card b { display: block; color: var(--text-strong); font-size: 24px; margin-bottom: 4px; }
+  .warn { padding: 16px 22px; border-radius: 14px; border-left: 5px solid var(--amber); background: rgba(241,196,15,.07); font-size: 23px; line-height: 1.35; color: var(--text); }
+  .warn b { color: var(--amber); }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .chip { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); font-size: 22px; color: var(--text-muted); line-height: 1.25; }
+  .chip i { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 24px; font-weight: 800; }
+  .chip b { color: var(--text-strong); display: block; font-size: 23px; }
+
+  .need { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: 1fr 230px; align-items: center; gap: 16px; padding: 14px 20px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); font-size: 23px; line-height: 1.3; color: var(--text); }
+  .row span:last-child { justify-self: end; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--accent); background: rgba(79,195,247,.08); font-weight: 800; color: var(--accent); font-size: 22px; text-align: center; }
+  .chain { display: grid; grid-template-columns: 1fr 34px 1.3fr 34px 1fr; align-items: center; gap: 6px; }
+  .node { padding: 14px 10px; border-radius: 14px; border: 1px solid var(--border); background: rgba(20,30,48,.9); text-align: center; font-size: 21px; color: var(--text-muted); line-height: 1.25; }
+  .node b { display: block; font-size: 24px; color: var(--text-strong); }
+  .node.main { border: 2px solid var(--accent); background: rgba(79,195,247,.08); }
+  .mids { display: grid; gap: 8px; }
+  .arr { text-align: center; font-size: 30px; color: var(--accent); }
+
+  .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    padding-top: 18px; border-top: 1px solid var(--border-soft); font-size: 20px; color: var(--text-muted); }
+  .foot b { font-size: 26px; font-weight: 700; color: var(--accent); }
+
+  .hero { font-size: 92px; line-height: 1; font-weight: 800; letter-spacing: -.04em; color: var(--text-strong); }
+  .hero span { color: var(--accent); }
+  .tiktok .hero { font-size: 84px; }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .tile { padding: 20px 22px; border-radius: 18px; border: 1px solid var(--border); background: rgba(26,42,69,.6); }
+  .tile i { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 14px; font-style: normal; font-size: 30px;
+    background: rgba(79,195,247,.14); color: var(--accent); margin-bottom: 12px; }
+  .tile b { display: block; font-size: 27px; color: var(--text-strong); margin-bottom: 4px; }
+  .tile span { font-size: 22px; line-height: 1.3; color: var(--text-muted); }
+  .tk5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .tk { padding: 14px 8px; border-radius: 16px; border: 1px solid var(--border); background: rgba(26,42,69,.7); text-align: center; }
+  .tk b { display: block; font-family: var(--mono); font-size: 32px; color: var(--text-strong); }
+  .tk span { display: block; margin-top: 4px; font-size: 18px; color: var(--text-muted); }
+  .tk.more b { color: var(--accent); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { padding: 18px; border-radius: 16px; border: 2px solid var(--accent); background: rgba(79,195,247,.07); }
+  .stat strong { display: block; font-size: 38px; font-weight: 800; letter-spacing: -.02em; color: var(--accent); white-space: nowrap; }
+  .stat span { display: block; margin-top: 6px; font-size: 20px; line-height: 1.3; color: var(--text-muted); }
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pills span { padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--accent); background: rgba(79,195,247,.07); font-size: 22px; font-weight: 700; color: var(--text-strong); }
+  .flow { display: grid; gap: 9px; }
+  .fl { display: grid; grid-template-columns: 54px 200px 1fr; align-items: center; gap: 16px; padding: 12px 18px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.55); }
+  .fl i { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; font-style: normal; font-family: var(--mono); font-size: 19px; color: var(--accent); border: 2px solid var(--accent); }
+  .fl b { font-size: 25px; color: var(--text-strong); }
+  .fl span { font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .tiktok .fl { grid-template-columns: 50px 170px 1fr; padding: 10px 16px; }
+  .steps { display: grid; gap: 12px; }
+  .step { display: flex; align-items: center; gap: 20px; padding: 16px 22px; border-radius: 16px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 26px; color: var(--text-muted); }
+  .step b { color: var(--text-strong); }
+  .step i { flex: none; width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 24px; font-weight: 800; color: var(--bg-deep); background: var(--accent); }
+  .step.life { border: 2px solid rgba(46,204,113,.6); background: rgba(46,204,113,.08); }
+  .step.life i { background: var(--green); }
+  .button { display: flex; align-items: center; justify-content: center; height: 88px; border-radius: 20px; background: var(--accent); color: var(--bg-deep); font-size: 36px; font-weight: 800; }
+  .badge { align-self: flex-start; padding: 10px 22px; border-radius: 8px; background: var(--accent); color: var(--bg-deep); font-size: 22px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .badge.amber { background: transparent; border: 2px solid rgba(241,196,15,.6); color: var(--amber); border-radius: 999px; }
+
+  /* Tamaños mayores para este carrusel; el contenido se centra entre la cabecera y el pie */
+  .slide > .top + * { margin-top: auto; }
+  .slide { gap: 26px; }
+  h2 { font-size: 66px; }
+  .tiktok h2 { font-size: 58px; }
+  .lead { font-size: 31px; }
+  .card { padding: 20px 24px; font-size: 26px; }
+  .card b { font-size: 29px; }
+  .tile { padding: 24px 26px; }
+  .tile b { font-size: 31px; }
+  .tile span { font-size: 25px; }
+  .tile i { width: 64px; height: 64px; font-size: 34px; }
+  .tk { padding: 18px 8px; }
+  .tk b { font-size: 38px; }
+  .tk span { font-size: 21px; }
+  .stat { padding: 22px; }
+  .stat strong { font-size: 44px; }
+  .stat span { font-size: 23px; }
+  .pills span { font-size: 26px; padding: 12px 20px; }
+  .fl { padding: 18px 20px; grid-template-columns: 58px 210px 1fr; }
+  .fl b { font-size: 30px; }
+  .fl span { font-size: 24px; }
+  .step { padding: 22px 26px; font-size: 30px; }
+  .step i { width: 58px; height: 58px; font-size: 27px; }
+  .button { height: 100px; font-size: 38px; }
+  .hero { font-size: 104px; }
+  .foot { font-size: 22px; }
+  .tiktok .slide { gap: 22px; }
+  .tiktok .lead { font-size: 27px; }
+  .tiktok .card { padding: 16px 20px; font-size: 23px; }
+  .tiktok .card b { font-size: 26px; }
+  .tiktok .tile { padding: 18px 20px; }
+  .tiktok .tile b { font-size: 27px; }
+  .tiktok .tile span { font-size: 22px; }
+  .tiktok .tile i { width: 54px; height: 54px; font-size: 28px; }
+  .tiktok .stat strong { font-size: 38px; }
+  .tiktok .stat span { font-size: 21px; }
+  .tiktok .tk b { font-size: 32px; }
+  .tiktok .pills span { font-size: 23px; padding: 10px 16px; }
+  .tiktok .fl { padding: 13px 16px; grid-template-columns: 52px 170px 1fr; }
+  .tiktok .fl b { font-size: 26px; }
+  .tiktok .fl span { font-size: 21px; }
+  .tiktok .step { padding: 16px 22px; font-size: 26px; }
+  .tiktok .button { height: 86px; font-size: 32px; }
+  .tiktok .hero { font-size: 92px; }
+  .chart { display: block; width: 100%; border-radius: 18px; border: 1px solid var(--border); }
+  .num { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 16px; background: var(--accent); color: var(--bg-deep); font-size: 36px; font-weight: 900; margin-right: 18px; vertical-align: middle; }
+  .titulo { display: flex; align-items: center; }
+  .checks { display: grid; gap: 12px; }
+  .check { display: flex; align-items: center; gap: 18px; padding: 16px 22px; border-radius: 16px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 27px; color: var(--text-muted); }
+  .check b { color: var(--text-strong); }
+  .check i { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 26px; font-weight: 900; background: var(--green); color: var(--bg-deep); }
+  .op { font-family: var(--mono); font-size: 22px; color: var(--accent); text-align: center; letter-spacing: .2em; }
+  .valido { padding: 18px 24px; border-radius: 16px; background: var(--green); color: var(--bg-deep); font-size: 30px; font-weight: 900; text-align: center; }
+  .leyenda { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ley { padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .ley b { display: block; font-size: 23px; margin-bottom: 2px; }
+  .tiktok .ley { font-size: 19px; padding: 10px 14px; }
+  .tiktok .ley b { font-size: 21px; }
+  .tiktok .check { font-size: 24px; padding: 13px 18px; }
+  .tiktok .valido { font-size: 26px; }
+  .tiles .tile.ancho { grid-column: span 2; }
+  .ui { color: var(--text-strong); font-weight: 700; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .opt { padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .opt b { display: block; font-size: 23px; color: var(--text-strong); margin-bottom: 4px; }
+  .opt.sel { border: 2px solid var(--amber); background: rgba(241,196,15,.07); }
+  .opt.sel b { color: var(--amber); }
+  .tiktok .opt { font-size: 19px; padding: 12px 14px; }
+  .tiktok .opt b { font-size: 21px; }
+  .leyenda.tres { grid-template-columns: 1fr 1fr 1fr; }
+  .costes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .coste { padding: 14px 18px; border-radius: 14px; font-size: 21px; line-height: 1.3; color: var(--text-muted); }
+  .coste b { display: block; font-size: 23px; margin-bottom: 4px; }
+  .coste.lim { border: 2px solid rgba(46,204,113,.6); background: rgba(46,204,113,.07); }
+  .coste.lim b { color: var(--green); }
+  .coste.mer { border: 1px solid var(--border); background: rgba(26,42,69,.6); }
+  .coste.mer b { color: var(--text-strong); }
+  .tiktok .coste { font-size: 19px; padding: 12px 14px; }
+  .tiktok .tile.ancho { padding: 14px 20px; }
+  body:not(.tiktok) .slide[data-s="1"] .hero { font-size: 92px; }
+  body:not(.tiktok) .slide[data-s="4"] .chart { width: 80%; align-self: center; }
+  body:not(.tiktok) .slide[data-s="4"] .lead { font-size: 27px; }
+  .tabla { display: grid; gap: 10px; }
+  .tf { display: grid; grid-template-columns: 1fr 44px 1fr; align-items: center; gap: 8px; }
+  .tf div { padding: 14px 18px; border-radius: 14px; border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 23px; line-height: 1.3; color: var(--text); }
+  .tf div:last-child { border-color: rgba(79,195,247,.55); background: rgba(79,195,247,.07); color: var(--text-strong); font-weight: 700; }
+  .tf span { text-align: center; font-size: 30px; color: var(--accent); }
+  .tiktok .tf div { font-size: 20px; padding: 11px 14px; }
+  .cifras { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cifra { padding: 26px 24px; border-radius: 20px; border: 2px solid var(--red); background: rgba(231,76,60,.07); }
+  .cifra strong { display: block; font-size: 96px; font-weight: 800; letter-spacing: -.04em; color: var(--red); line-height: 1; }
+  .cifra span { display: block; margin-top: 10px; font-size: 25px; line-height: 1.3; color: var(--text); }
+  .tiktok .cifra strong { font-size: 80px; }
+  .capas { display: grid; gap: 10px; }
+  .capa { display: grid; grid-template-columns: 250px 1fr; align-items: center; gap: 18px; padding: 16px 22px; border-radius: 16px;
+    border: 1px solid var(--border); background: rgba(26,42,69,.6); font-size: 22px; line-height: 1.3; color: var(--text-muted); }
+  .capa b { font-size: 26px; color: var(--text-strong); }
+  .capa:nth-child(1) { border-left: 6px solid var(--green); }
+  .capa:nth-child(2) { border-left: 6px solid #b38af6; }
+  .capa:nth-child(3) { border-left: 6px solid var(--accent); }
+  .capa:nth-child(4) { border-left: 6px solid var(--amber); }
+  .tiktok .capa { grid-template-columns: 200px 1fr; padding: 12px 16px; font-size: 20px; }
+  .tiktok .capa b { font-size: 23px; }
+  .hoy { display: flex; align-items: center; gap: 18px; padding: 18px 24px; border-radius: 18px; border: 2px solid var(--accent); background: rgba(79,195,247,.08); font-size: 30px; color: var(--text-strong); font-weight: 700; }
+  .hoy strong { font-size: 48px; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<section class="slide" data-s="1">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">Alpha Decay · 1/5</span></div>
+  <span class="badge amber">Nuevo artículo · Hoy 12:00</span>
+  <div class="hero">Alpha Decay: <span>tu ventaja también caduca.</span></div>
+  <p class="lead">Una regla que funcionó durante años no viene con garantía para los veinte siguientes. Cambian los participantes, los costes y los entornos. <b>El reto no es adivinar el futuro: es detectar cuándo se erosiona la ventaja</b> y decidir qué capital merece seguir expuesto.</p>
+  <div class="hoy"><strong>12:00</strong><span>Hoy, miércoles 28 de octubre</span></div>
+  <div class="foot"><span>Desliza para ver un adelanto</span><b>quantpowerbuilder.com</b></div>
+</section>
+
+<section class="slide" data-s="2">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">Alpha Decay · 2/5</span></div>
+  <span class="eyebrow">Qué se degrada exactamente</span>
+  <h2>¿Mala racha o <span>ventaja perdida?</span></h2>
+  <p class="lead">Una caída prolongada puede tener explicaciones distintas, y cada una pide una respuesta diferente:</p>
+  <div class="tabla">
+    <div class="tf"><div>Pérdidas dentro de lo que ya mostraban las simulaciones</div><span>→</span><div>Varianza normal o racha adversa</div></div>
+    <div class="tf"><div>La rentabilidad bruta se mantiene, la neta cae</div><span>→</span><div>Más spread, slippage, impacto o rotación</div></div>
+    <div class="tf"><div>La señal ordena peor los resultados que antes</div><span>→</span><div>La relación predictiva se debilita</div></div>
+    <div class="tf"><div>La señal funciona, pero solo en algunos estados</div><span>→</span><div>Cambio de régimen o de capacidad</div></div>
+  </div>
+  <div class="foot"><span>Hoy, 12:00 · Artículos</span><b>quantpowerbuilder.com</b></div>
+</section>
+
+<section class="slide" data-s="3">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">Alpha Decay · 3/5</span></div>
+  <span class="eyebrow">El dato</span>
+  <h2>Publicar una señal <span>también la desgasta.</span></h2>
+  <p class="lead">McLean y Pontiff estudiaron <b>97 predictores</b> de retornos bursátiles. Los retornos de sus carteras fueron:</p>
+  <div class="cifras">
+    <div class="cifra"><strong>−26 %</strong><span>fuera de la muestra original</span></div>
+    <div class="cifra"><strong>−58 %</strong><span>después de la publicación</span></div>
+  </div>
+  <div class="warn"><b>Ojo:</b> es un resultado sobre ese conjunto de predictores, no una vida útil universal. Sí es razón para tratar el alpha como una <b>hipótesis que necesita seguimiento</b>, no como una propiedad permanente.</div>
+  <div class="foot"><span>McLean y Pontiff, The Journal of Finance, 2016</span><b>quantpowerbuilder.com</b></div>
+</section>
+
+<section class="slide" data-s="4">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">Alpha Decay · 4/5</span></div>
+  <span class="eyebrow">La trampa de las reglas estáticas</span>
+  <h2>15 o 20 años con <span>las mismas reglas.</span></h2>
+  <div class="tabla">
+    <div class="tf"><div>Especializar las reglas para el régimen reciente</div><span>→</span><div>Riesgo de ajustarse al ruido</div></div>
+    <div class="tf"><div>Ampliar y filtrar para funcionar en todas partes</div><span>→</span><div>La ventaja se diluye y cae el Sharpe neto</div></div>
+    <div class="tf"><div>No cambiar nada ni medir de nuevo</div><span>→</span><div>Riesgo asignado como si nada hubiera cambiado</div></div>
+  </div>
+  <p class="lead">La salida <b>no es reoptimizar cada vez que la curva baja:</b> eso convierte la volatilidad normal en una fábrica de parámetros nuevos.</p>
+  <div class="foot"><span>Hoy, 12:00 · Artículos</span><b>quantpowerbuilder.com</b></div>
+</section>
+
+<section class="slide" data-s="5">
+  <div class="grid"></div>
+  <div class="top"><div class="logo"></div><strong>QuantPower Builder</strong><span class="count">Alpha Decay · 5/5</span></div>
+  <span class="eyebrow">Una arquitectura jerárquica</span>
+  <h2>Separa qué operar <span>de cuánto arriesgar.</span></h2>
+  <div class="capas">
+    <div class="capa"><b>Ejecución</b>Cuándo entrar, salir o cancelar, y el tamaño operativo</div>
+    <div class="capa"><b>Detección de entorno</b>Qué condiciones describe la información disponible, con su incertidumbre</div>
+    <div class="capa"><b>Asignación de capital</b>Cuánto riesgo dar a cada estrategia, con límites</div>
+    <div class="capa"><b>Supervisión</b>Si resultados y costes se alejan de lo validado</div>
+  </div>
+  <div class="button">Léelo hoy a las 12:00</div>
+  <div class="foot"><span>Divulgativo · no es recomendación de inversión</span><b>quantpowerbuilder.com/articulos</b></div>
+</section>
+
+<script>
+  const q = new URLSearchParams(location.search);
+  if (q.get("f") === "tiktok") document.body.classList.add("tiktok");
+  const el = document.querySelector(`.slide[data-s="${q.get("s") || "1"}"]`);
+  if (el) el.classList.add("active");
+  // Comprobación al renderizar: cuántos píxeles de contenido no caben en el lienzo
+  addEventListener("load", () => {
+    if (el) document.documentElement.dataset.desborde = el.scrollHeight - el.clientHeight;
+  });
+</script>
+</body>
+</html>
