@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111828">
+  <meta name="description" content="Por qué se degrada una ventaja cuantitativa, cómo distinguir el alpha decay del ruido y cómo separar ejecución, detección de régimen y asignación de capital.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Alpha Decay - Cómo se degrada una ventaja y cómo gestionarla — QuantPower Builder">
+  <meta property="og:description" content="Por qué se degrada una ventaja cuantitativa, cómo distinguir el alpha decay del ruido y cómo separar ejecución, detección de régimen y asignación de capital.">
+  <meta property="og:url" content="https://quantpowerbuilder.com/articulos/alpha-decay-degradacion-ventaja/">
+  <meta property="og:image" content="https://quantpowerbuilder.com/assets/images/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://quantpowerbuilder.com/articulos/alpha-decay-degradacion-ventaja/">
+  <link rel="icon" href="../../assets/images/favicon-circular.png" sizes="256x256" type="image/png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/articles.css">
+  <script type="module" src="../../assets/js/articles.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Alpha Decay - Cómo se degrada una ventaja y cómo gestionarla",
+    "description": "Por qué se degrada una ventaja cuantitativa, cómo distinguir el alpha decay del ruido y cómo separar ejecución, detección de régimen y asignación de capital.",
+    "datePublished": "2026-10-28",
+    "inLanguage": "es",
+    "author": { "@type": "Organization", "name": "QuantPower Systems" },
+    "publisher": { "@type": "Organization", "name": "QuantPower Systems" },
+    "mainEntityOfPage": "https://quantpowerbuilder.com/articulos/alpha-decay-degradacion-ventaja/"
+  }
+  </script>
+  <title>Alpha Decay - Cómo se degrada una ventaja y cómo gestionarla — QuantPower Builder</title>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14M10 3H3v18h18v-7"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../" aria-label="QuantPower Builder, inicio">
+        <img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="54" height="54" alt="Logo de QuantPower Systems">
+        <span><strong>QuantPower<span class="brand-light"> Builder</span></strong><small>by QuantPower Systems</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="navegacion" aria-expanded="false" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+      <nav id="navegacion" class="main-nav" aria-label="Navegación principal">
+        <a href="../../#plataforma">Plataforma</a>
+        <a href="../../#analizador">Analizador</a>
+        <a href="../../#constructor">Constructor</a>
+        <a href="../../#backtesting">Backtesting</a>
+        <a href="../../#proyecto">Proyecto</a>
+        <a href="../" aria-current="page">Artículos</a>
+        <a class="button button-small button-outline nav-demo" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="articles-main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="../../">Inicio</a><span aria-hidden="true">/</span><a href="../">Artículos</a></nav>
+      <article class="article" id="inicio">
+        <span class="eyebrow">Arquitectura de estrategias</span>
+        <h1 class="article-title">Alpha Decay - Cómo se degrada una ventaja y cómo gestionarla</h1>
+        <p class="article-meta">Publicado el <time datetime="2026-10-28">28 de octubre de 2026</time></p>
+        <div class="article-body">
+      <p class="lead">Una regla que funcionó durante años no viene con una garantía para los veinte siguientes. Cambian los participantes, los costes, la microestructura y los entornos que favorecen cada idea. El reto no es adivinar el futuro: es detectar cuándo la ventaja de un sistema se está erosionando y decidir qué capital merece seguir expuesto.</p>
+      <p><strong>Alpha decay</strong> —degradación de la ventaja— describe la pérdida gradual de capacidad predictiva o de rentabilidad esperada de una estrategia. Puede venir de que otros descubran y exploten la misma señal, de que la ejecución se encarezca o de que cambie el entorno económico para el que la regla tenía sentido. No es sinónimo de una mala racha: una curva puede caer aunque la ventaja siga viva, y una curva ascendente puede ocultar una señal cuyo margen ya se ha estrechado.</p>
+      <aside class="callout"><strong>Idea clave.</strong> No hay que pedirle a una única regla que permanezca idéntica y rentable en todos los regímenes durante dos décadas. Conviene separar tres preguntas: qué hace cada estrategia, qué entorno parece haber y cuánto riesgo asignar a cada una.</aside>
+
+      <h2 id="medir">Qué se degrada exactamente</h2>
+      <p>Una estrategia no produce una rentabilidad conocida de antemano, sino una distribución de resultados. Por eso el alpha decay no se confirma mirando únicamente el último drawdown ni el Sharpe de una ventana móvil. Lo que interesa es si se ha debilitado la relación entre la señal y los retornos futuros, una vez descontados comisiones, spread, deslizamiento, impacto de mercado y límites de capacidad.</p>
+      <p>Una caída prolongada puede tener explicaciones distintas, y cada una pide una respuesta diferente:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Observación</th><th>Posible explicación</th><th>Qué contrastar</th></tr></thead>
+          <tbody>
+            <tr><td>Pérdidas dentro de lo que ya mostraban las simulaciones</td><td>Varianza normal o una racha adversa</td><td>Distribución de drawdowns, duración y secuencias simuladas</td></tr>
+            <tr><td>La rentabilidad bruta se mantiene, la neta cae</td><td>Más spread, slippage, impacto o rotación</td><td>Costes y calidad de ejecución por activo, hora y tamaño</td></tr>
+            <tr><td>La señal ordena peor los resultados que antes</td><td>La relación predictiva se debilita</td><td>Rendimiento fuera de muestra y por cohortes temporales</td></tr>
+            <tr><td>La señal funciona, pero solo en algunos estados</td><td>Cambio de régimen o de capacidad</td><td>Distribución de retornos condicionada al entorno, con muestras suficientes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Un periodo <em>underwater</em> de varios años es doloroso y merece investigación, pero no demuestra por sí solo que el alpha haya desaparecido. Del mismo modo, recuperar el máximo anterior no basta para demostrar que la señal conserva su ventaja. La evidencia más útil combina P&amp;L neto, costes observados, estabilidad de la señal, exposición a factores y resultados en datos que no participaron en el diseño.</p>
+
+      <h2 id="dilema">La trampa de las reglas estáticas durante 15 o 20 años</h2>
+      <p>Aplicar sin interrupción el mismo conjunto de reglas durante quince o veinte años puede esconder un dilema de diseño. No es una ley matemática que toda estrategia estática vaya a fracasar, pero sí es arriesgado suponer que una única configuración conservará su edge, su capacidad y su peso óptimo a través de mercados distintos.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Respuesta al cambio</th><th>Qué se gana</th><th>Qué puede salir mal</th></tr></thead>
+          <tbody>
+            <tr><td>Especializar las reglas para el régimen reciente</td><td>La señal puede capturar con precisión una oportunidad concreta</td><td>Si se optimiza con demasiadas variantes, se ajusta al ruido; un cambio de régimen puede dejarla sin soporte</td></tr>
+            <tr><td>Ampliar y filtrar para intentar funcionar en todas partes</td><td>Se reduce la dependencia aparente de una condición única</td><td>Las reglas se vuelven tan permisivas o se compensan tanto entre sí que cae el Sharpe neto y la ventaja se diluye</td></tr>
+            <tr><td>No cambiar nada ni medir de nuevo</td><td>La implementación permanece sencilla</td><td>El modelo sigue asignando riesgo como si sus costes, capacidad y entorno no hubieran cambiado</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>La primera ruta puede terminar en sobreoptimización: se confunde describir bien un episodio histórico con descubrir una regularidad persistente. La segunda puede producir una estrategia “para todo” que opera en demasiadas condiciones, conserva las pérdidas de varios enfoques y ya no concentra el riesgo donde existía una ventaja. Si, además, se mantienen los mismos pesos por inercia, una de las consecuencias puede ser un Sharpe mediocre o años de curva plana y capital underwater.</p>
+      <p>La salida no es reoptimizar cada vez que la curva baja. Ese reflejo transforma la volatilidad normal en una fábrica de parámetros nuevos. La decisión debe apoyarse en una hipótesis de deterioro contrastable, en costes reales y en pruebas temporales que no reutilicen el mismo tramo para descubrir, ajustar y validar la estrategia.</p>
+
+      <h2 id="industria">Cómo se trata el problema en la práctica cuantitativa</h2>
+      <p>No existe un termómetro único de alpha decay ni un umbral universal que sirva para todas las frecuencias, mercados y estrategias. En un proceso de investigación disciplinado se vigilan varias capas a la vez:</p>
+      <ul>
+        <li><strong>Rendimiento neto frente a una referencia.</strong> Se compara la contribución de la estrategia con su benchmark y con el riesgo asumido, no solo con su backtest bruto.</li>
+        <li><strong>La señal, no solo el saldo.</strong> Se examina si las entradas siguen separando resultados favorables de desfavorables y si esa relación se mantiene fuera de la muestra utilizada para diseñarla.</li>
+        <li><strong>Ejecución y capacidad.</strong> Se desglosan comisiones, spread, slippage, porcentaje de fills, rotación e impacto. La oportunidad puede seguir existiendo, pero no para el tamaño o la ruta de órdenes actuales.</li>
+        <li><strong>Dependencia de estados y exposiciones.</strong> Se estudia si las pérdidas se concentran en ciertos entornos, factores, activos o episodios, sin subdividir tanto los datos que cada segmento quede sin evidencia.</li>
+        <li><strong>Incertidumbre estadística.</strong> Se consideran la longitud de la muestra, las pruebas múltiples y cuántas variantes se probaron antes de seleccionar la que hoy se presenta como ganadora.</li>
+      </ul>
+      <p>Hay evidencia de que la rentabilidad predictiva puede debilitarse fuera de muestra y después de hacerse pública. En el conjunto de 97 predictores que estudiaron, McLean y Pontiff observaron que los retornos de las carteras eran un 26 % menores fuera de muestra que en la muestra original, y un 58 % menores después de la publicación. Atribuyen unos 32 puntos porcentuales de esa diferencia a negociación informada tras la publicación. Es un resultado sobre ese conjunto de predictores bursátiles, no una vida útil universal para cualquier estrategia ni una prueba de que toda caída se deba a que otros copiaron la idea. Sí es una razón para tratar el alpha como una hipótesis que necesita seguimiento, no como una propiedad permanente de una fórmula.</p>
+      <p>También hay que separar <strong>decidir qué operar</strong> de <strong>decidir cuánto arriesgar</strong>. La literatura sobre estrategias de momentum documenta episodios de pérdidas concentradas en ciertas condiciones de mercado. Y el trabajo sobre carteras gestionadas por volatilidad estudia cómo cambiar la exposición al variar el riesgo, sin que eso equivalga a pronosticar con certeza el próximo régimen ni a fabricar alpha nuevo.</p>
+
+      <h2 id="jerarquia">Una arquitectura jerárquica de meta-estrategias</h2>
+      <p>Una solución de diseño consiste en mantener las estrategias de ejecución como módulos relativamente autónomos y poner por encima una capa que observe el entorno y asigne presupuesto de riesgo. Así, cambiar la exposición de una idea no exige reescribir sus entradas, salidas o reglas de órdenes; y una estrategia no necesita fingir que reconoce todos los regímenes por sí sola.</p>
+      <figure>
+        <svg viewBox="0 0 760 430" role="img" aria-labelledby="fig-alpha-t fig-alpha-d">
+          <title id="fig-alpha-t">Arquitectura jerárquica de meta-estrategias</title>
+          <desc id="fig-alpha-d">Los datos conocidos alimentan por separado varios motores de ejecución y un detector de entorno. Una capa metaasignadora combina sus salidas, limita el riesgo y devuelve pesos de capital a la ejecución. Un monitor revisa los resultados netos y genera alertas para validar cambios.</desc>
+          <defs><marker id="alpha-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--text-soft)"/></marker></defs>
+          <rect class="d-main" x="12" y="162" width="132" height="82" rx="9"/>
+          <text class="d-name" x="78" y="194">Datos en t</text>
+          <text class="d-txt" x="78" y="214">solo información</text>
+          <text class="d-txt" x="78" y="230">ya conocida</text>
+
+          <rect class="d-box" x="190" y="42" width="194" height="106" rx="9"/>
+          <text class="d-name" x="287" y="72">Estrategias de</text>
+          <text class="d-name" x="287" y="91">ejecución</text>
+          <text class="d-txt" x="287" y="116">señales, órdenes, costes</text>
+          <text class="d-txt" x="287" y="134">y riesgo por operación</text>
+
+          <rect class="d-box" x="190" y="257" width="194" height="106" rx="9"/>
+          <text class="d-name" x="287" y="288">Detector de entorno</text>
+          <text class="d-txt" x="287" y="315">probabilidades de régimen</text>
+          <text class="d-txt" x="287" y="334">e incertidumbre</text>
+
+          <rect class="d-main" x="442" y="129" width="156" height="112" rx="9"/>
+          <text class="d-name" x="520" y="162">Metaasignador</text>
+          <text class="d-txt" x="520" y="190">combina edge,</text>
+          <text class="d-txt" x="520" y="208">contexto y riesgo</text>
+          <text class="d-txt" x="520" y="226">con límites</text>
+
+          <rect class="d-box" x="632" y="145" width="116" height="82" rx="9"/>
+          <text class="d-name" x="690" y="176">Capital y</text>
+          <text class="d-name" x="690" y="195">órdenes</text>
+          <text class="d-txt" x="690" y="214">pesos y topes</text>
+
+          <rect class="d-box" x="190" y="379" width="558" height="38" rx="8"/>
+          <text class="d-txt" x="469" y="403">Monitor neto: señal · costes · drawdown · capacidad · calidad de datos</text>
+
+          <path class="d-line" d="M144 181L184 114" marker-end="url(#alpha-arrow)"/>
+          <path class="d-line" d="M144 224L184 291" marker-end="url(#alpha-arrow)"/>
+          <path class="d-line" d="M384 94L436 157" marker-end="url(#alpha-arrow)"/>
+          <path class="d-line" d="M384 310L436 214" marker-end="url(#alpha-arrow)"/>
+          <path class="d-line" d="M598 185L626 185" marker-end="url(#alpha-arrow)"/>
+          <path class="d-line" d="M690 231V371" marker-end="url(#alpha-arrow)"/>
+          <path class="d-line" d="M469 371V251" stroke-dasharray="5 5" marker-end="url(#alpha-arrow)"/>
+          <path class="d-line" d="M520 246V268H394V153" stroke-dasharray="5 5" marker-end="url(#alpha-arrow)"/>
+        </svg>
+        <figcaption>Las estrategias proponen operaciones; el detector estima el contexto; el metaasignador decide los pesos de capital. El monitor comprueba el resultado neto y alimenta una revisión controlada, no una reoptimización automática en cada pérdida.</figcaption>
+      </figure>
+
+      <h3 id="capas">Qué hace cada capa</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capa</th><th>Decisión</th><th>Salida</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ejecución</strong></td><td>Cuándo entrar, salir, usar una orden límite o cancelar; cómo calcular el tamaño operativo</td><td>Operaciones candidatas, precios y costes estimados</td></tr>
+            <tr><td><strong>Detección de entorno</strong></td><td>Qué condiciones describe la información observada hasta ahora: tendencia, volatilidad, liquidez o correlación, por ejemplo</td><td>Probabilidades de estado y una medida de incertidumbre</td></tr>
+            <tr><td><strong>Asignación de capital</strong></td><td>Cuánto riesgo presupuestar a cada estrategia dados su edge neto, contexto, correlación, capacidad y límites</td><td>Pesos, topes de exposición y reglas de reducción</td></tr>
+            <tr><td><strong>Supervisión</strong></td><td>Si los resultados, costes o datos se alejan de lo validado y requieren investigación</td><td>Alertas, reducción prudente de riesgo o revisión versionada</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>El detector no debería enviar órdenes ni reescribir la lógica de ejecución. Devuelve una estimación —idealmente probabilística— que la capa de asignación combina con el comportamiento de cada sistema. Una tendencia incierta no se convierte en una etiqueta tajante de “mercado alcista”; puede traducirse en una exposición menor o en una distribución más repartida entre estrategias compatibles.</p>
+      <p>El asignador tampoco busca el mayor Sharpe histórico de cada régimen a cualquier coste. Impone presupuestos de volatilidad, pérdidas y concentración; considera correlaciones y costes de cambio; y evita que una actualización ruidosa mueva toda la cartera de un extremo a otro. Bandas de pesos, límites de rotación y una zona de histéresis evitan operar cada vez que cambia ligeramente una probabilidad.</p>
+
+      <h2 id="construir">Cómo construirla sin convertirla en otra curva sobreoptimizada</h2>
+      <ol>
+        <li><strong>Escribe la hipótesis económica.</strong> Explica qué comportamiento explota la estrategia, por qué podría persistir y qué observación indicaría que el mecanismo dejó de existir.</li>
+        <li><strong>Registra una línea base neta.</strong> Congela código, datos, costes, tamaño y referencia. Conserva operaciones y exposiciones, no solo el Sharpe final.</li>
+        <li><strong>Empieza con pocos estados interpretables.</strong> Selecciona variables disponibles en el momento de la decisión. Un detector con docenas de etiquetas puede memorizar la historia en lugar de describir un entorno.</li>
+        <li><strong>Prueba la detección hacia delante en el tiempo.</strong> Ajusta con el pasado y evalúa después; repite con ventanas walk-forward y separa selección de parámetros de validación. Incluye costes, huecos de datos y periodos difíciles.</li>
+        <li><strong>Asigna riesgo con restricciones antes de optimizar pesos.</strong> Define máximos, mínimos, concentración, exposición total y cuánto puede cambiar la cartera en cada revisión. Si el detector no está seguro, reduce la confianza en su asignación.</li>
+        <li><strong>Opera primero en observación o a escala reducida.</strong> Compara en vivo señales, fills, slippage y pesos con lo esperado. Revisa una versión nueva como una hipótesis nueva; no la declares mejor por el mismo tramo que la inspiró.</li>
+      </ol>
+      <p>Para cada estrategia conviene mantener un historial de versiones y un panel con rendimiento neto, costes, rotación, capacidad, exposición, drawdown y tiempo bajo el máximo. Los umbrales de alerta se fijan según frecuencia y tamaño de muestra: una estrategia diaria no tiene el mismo ritmo estadístico que una estrategia que genera cientos de operaciones al día.</p>
+      <p>Si salta una alerta, la respuesta puede ser investigar datos, reducir el riesgo temporalmente, modificar la asignación o retirar la estrategia. Reoptimizarla es solo una opción y requiere nuevas pruebas fuera de muestra. Así se evita que el control de decay sea, en realidad, un optimizador que persigue el último régimen.</p>
+
+      <h2 id="limites">Lo que esta arquitectura no promete</h2>
+      <p>Un detector de régimen también puede equivocarse, llegar tarde o etiquetar con demasiada seguridad un estado que no existe. Un asignador entrenado sobre los mismos resultados que el backtest puede sobreajustarse igual que una estrategia individual. Y diversificar sistemas que dependen del mismo factor solo crea una apariencia de variedad.</p>
+      <p>La jerarquía ayuda a localizar las decisiones, hacer explícito el presupuesto de riesgo y cambiar una capa sin alterar las demás. No elimina la incertidumbre ni garantiza un Sharpe determinado. Su valor está en que la estrategia no tiene que sobrevivir por decreto: cada módulo debe justificar con evidencia qué aporta, bajo qué condiciones y a qué coste.</p>
+
+      <h2 id="quantpower">En QuantPower Systems</h2>
+      <p>En QuantPower Builder, las reglas de una estrategia se definen como una lógica que puede investigarse y validarse. La separación descrita aquí amplía esa idea a nivel de cartera: conservar la lógica que genera las operaciones y hacer explícita, en otra capa, la decisión de exposición y capital. Es una arquitectura de investigación y control, no una promesa de anticipar todos los cambios de mercado.</p>
+      <p class="note">Artículo divulgativo. El rendimiento pasado, las métricas de backtest y la detección estadística de regímenes no garantizan resultados futuros ni constituyen una recomendación de inversión.</p>
+
+      <h2 id="fuentes">Autores y referencias</h2>
+      <ul>
+        <li>McLean, R. D. y Pontiff, J., «Does Academic Research Destroy Stock Return Predictability?», <em>The Journal of Finance</em>, 71(1), 2016. Estudio sobre el comportamiento fuera de muestra y después de la publicación de predictores de retornos (<a href="https://doi.org/10.1111/jofi.12365" rel="noopener noreferrer">doi.org</a>).</li>
+        <li>Bailey, D. H., Borwein, J. M., López de Prado, M. y Zhu, Q. J., «The Probability of Backtest Overfitting». Propone una forma de medir el riesgo de seleccionar estrategias por su desempeño histórico entre muchas pruebas (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253" rel="noopener noreferrer">SSRN</a>).</li>
+        <li>Daniel, K. y Moskowitz, T. J., «Momentum Crashes», <em>Journal of Financial Economics</em>, 122(2), 2016. Analiza episodios de pérdidas severas en estrategias de momentum y su concentración en ciertas condiciones (<a href="https://doi.org/10.1016/j.jfineco.2015.12.002" rel="noopener noreferrer">doi.org</a>).</li>
+        <li>Harvey, C. R., Liu, Y. y Zhu, H., «… and the Cross-Section of Expected Returns», <em>The Review of Financial Studies</em>, 29(1), 2016. Discute la inferencia estadística y la multiplicidad de pruebas al evaluar factores de rentabilidad (<a href="https://doi.org/10.1093/rfs/hhv059" rel="noopener noreferrer">doi.org</a>).</li>
+        <li>Moreira, A. y Muir, T., «Volatility-Managed Portfolios», <em>The Journal of Finance</em>, 72(4), 2017. Estudia la gestión de exposición según la volatilidad y la diferencia entre controlar riesgo y pronosticar una nueva fuente de alpha (<a href="https://doi.org/10.1111/jofi.12513" rel="noopener noreferrer">doi.org</a>).</li>
+      </ul>
+
+        </div>
+        <div class="article-end">
+          <a class="button button-quiet" href="../">← Todos los artículos</a>
+          <a class="button button-outline" href="../../#demo">Probar la demo <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-top"><a class="brand" href="../../"><img class="corporate-logo" src="../../assets/images/logo-corporativo.png" width="48" height="48" loading="lazy" alt="Logo de QuantPower Systems"><span><strong>QuantPower<span class="brand-light"> Systems</span></strong><small>Construyendo herramientas para investigar.</small></span></a><nav aria-label="Navegación del pie"><a href="../../#analizador">Analizador</a><a href="../../#constructor">Constructor</a><a href="../../#backtesting">Backtesting</a><a href="../">Artículos</a><a href="../../#demo">Demo</a><a href="mailto:info@quantpowerbuilder.com">Contacto</a><a href="https://github.com/ev1lmach1ne/quantpower-builder-demo" target="_blank" rel="noopener noreferrer">Proyecto web <svg class="icon"><use href="#i-external"/></svg></a></nav></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> QuantPower Systems</span><span>QuantPower Builder · Portfolio de producto</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+</body>
+</html>
