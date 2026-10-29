@@ -1,0 +1,160 @@
+name: Publicar artículo sobre ventajas
+
+on:
+  schedule:
+    - cron: '*/5 23 31 10 *'
+    - cron: '*/5 0 1 11 *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obtener la rama publicada
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Comprobar la hora de publicación
+        id: gate
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          from datetime import datetime, timezone
+
+          target = datetime(2026, 10, 31, 23, 0, tzinfo=timezone.utc)
+          deadline = datetime(2026, 11, 1, 1, 0, tzinfo=timezone.utc)
+          now = datetime.now(timezone.utc)
+          publish = target <= now < deadline
+          print(f"publish={str(publish).lower()}")
+          print(f"current_utc={now.isoformat()}")
+          PY
+
+      - name: Incorporar el artículo preparado y actualizar los últimos artículos
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          STAGING_BRANCH: schedule/estudiar-ventaja-2026-11-01
+          ARTICLE_SLUG: como-estudiar-una-ventaja-y-confirmarla
+        run: |
+          git fetch --no-tags origin "$STAGING_BRANCH"
+          mkdir -p "$RUNNER_TEMP/ventaja"
+          git archive --format=tar FETCH_HEAD \
+            "articulos/$ARTICLE_SLUG/index.html" \
+            "articulos/index.html" | tar -xf - -C "$RUNNER_TEMP/ventaja"
+
+          mkdir -p "articulos/$ARTICLE_SLUG"
+          cp "$RUNNER_TEMP/ventaja/articulos/$ARTICLE_SLUG/index.html" \
+            "articulos/$ARTICLE_SLUG/index.html"
+
+          python - "$RUNNER_TEMP/ventaja/articulos/index.html" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          slug = "como-estudiar-una-ventaja-y-confirmarla"
+          source = Path(sys.argv[1]).read_text(encoding="utf-8")
+          article_index = Path("articulos/index.html")
+          current_index = article_index.read_text(encoding="utf-8")
+          route = f'href="{slug}/"'
+
+          if route not in current_index:
+              pattern = rf'        <li>\s*<a class="article-row" href="{re.escape(slug)}/".*?        </li>'
+              match = re.search(pattern, source, re.S)
+              if not match:
+                  raise SystemExit("No se encontró la entrada preparada en el índice del borrador.")
+              marker = '      <ol class="article-list" aria-label="Lista de artículos, del más reciente al más antiguo">\n'
+              if marker not in current_index:
+                  raise SystemExit("No se encontró la lista de artículos publicada.")
+              current_index = current_index.replace(marker, marker + match.group(0) + "\n", 1)
+              article_index.write_text(current_index, encoding="utf-8")
+
+          item_pattern = re.compile(
+              r'        <li>\s*<a class="article-row" href="([^"]+)/".*?        </li>',
+              re.S,
+          )
+          home_items = []
+          for match in item_pattern.finditer(current_index):
+              item_slug = match.group(1)
+              item = match.group(0)
+              item = item.replace(
+                  f'href="{item_slug}/"',
+                  f'href="./articulos/{item_slug}/"',
+                  1,
+              )
+              item = re.sub(r'<h2>(.*?)</h2>', r'<h3>\1</h3>', item, flags=re.S)
+              item = re.sub(r'\s*<p>.*?</p>', '', item, flags=re.S)
+              home_items.append(item)
+
+          if not home_items:
+              raise SystemExit("No se pudieron leer los artículos para actualizar la portada.")
+
+          latest_items = home_items[:5]
+          new_list = (
+              '        <ol class="article-list">\n'
+              + "\n".join(latest_items)
+              + '\n        </ol>'
+          )
+          homepage = Path("index.html")
+          current_home = homepage.read_text(encoding="utf-8")
+          section_start = current_home.find('<section class="section latest-notes"')
+          section_end = current_home.find("</section>", section_start)
+          if section_start < 0 or section_end < 0:
+              raise SystemExit("No se encontró la sección de artículos recientes de la portada.")
+          section = current_home[section_start:section_end]
+          list_match = re.search(
+              r'        <ol class="article-list">.*?        </ol>', section, re.S
+          )
+          if not list_match:
+              raise SystemExit("No se encontró la lista de artículos recientes de la portada.")
+          section = section[:list_match.start()] + new_list + section[list_match.end():]
+          updated_home = current_home[:section_start] + section + current_home[section_end:]
+          if updated_home != current_home:
+              homepage.write_text(updated_home, encoding="utf-8")
+          PY
+
+          if ! git diff --quiet -- "articulos/$ARTICLE_SLUG/index.html" "articulos/index.html" "index.html"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "articulos/$ARTICLE_SLUG/index.html" "articulos/index.html" "index.html"
+            git commit -m "docs: publish article on validating market edge"
+            git push origin HEAD:main
+          fi
+
+      - name: Configurar GitHub Pages
+        if: steps.gate.outputs.publish == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Subir el sitio estático
+        if: steps.gate.outputs.publish == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Publicar
+        if: steps.gate.outputs.publish == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Desactivar el programador de un solo uso
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          STAGING_BRANCH: schedule/estudiar-ventaja-2026-11-01
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh api --method PUT \
+            "repos/$REPOSITORY/actions/workflows/publish-edge-study.yml/disable"
+          git push origin --delete "$STAGING_BRANCH"
