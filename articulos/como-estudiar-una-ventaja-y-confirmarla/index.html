@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111828">
-  <meta name="description" content="Cómo formular una hipótesis de ventaja de mercado, convertirla en reglas ejecutables y contrastarla con datos, costes y pruebas fuera de muestra.">
+  <meta name="description" content="De una curva de backtest a las órdenes reales: cómo distinguir una ineficiencia repetible de una coincidencia histórica y qué pruebas permiten ganar confianza.">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="es_ES">
   <meta property="og:title" content="Cómo estudiar una ventaja y confirmarla — QuantPower Builder">
-  <meta property="og:description" content="De la observación inicial a la ejecución repetida: un proceso para estudiar, validar y vigilar una ventaja de mercado sin confundir una buena racha con evidencia.">
+  <meta property="og:description" content="De una curva de backtest a las órdenes reales: cómo distinguir una ineficiencia repetible de una coincidencia histórica y qué pruebas permiten ganar confianza.">
   <meta property="og:url" content="https://quantpowerbuilder.com/articulos/como-estudiar-una-ventaja-y-confirmarla/">
   <meta property="og:image" content="https://quantpowerbuilder.com/assets/images/social-preview.png">
   <meta property="og:image:width" content="1200">
@@ -25,7 +25,7 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Cómo estudiar una ventaja y confirmarla",
-    "description": "Cómo formular una hipótesis de ventaja de mercado, convertirla en reglas ejecutables y contrastarla con datos, costes y pruebas fuera de muestra.",
+    "description": "De una curva de backtest a las órdenes reales: cómo distinguir una ineficiencia repetible de una coincidencia histórica y qué pruebas permiten ganar confianza.",
     "datePublished": "2026-11-01",
     "inLanguage": "es",
     "author": { "@type": "Organization", "name": "QuantPower Systems" },
@@ -69,62 +69,52 @@
         <h1 class="article-title">Cómo estudiar una ventaja y confirmarla</h1>
         <p class="article-meta">Publicado el <time datetime="2026-11-01">1 de noviembre de 2026</time></p>
         <div class="article-body">
-      <p class="lead">Una ventaja de mercado no es una señal que acierta siempre ni una curva atractiva encontrada al probar muchos parámetros. Es una regularidad explotable: bajo unas condiciones definidas y siguiendo una pauta de ejecución repetida, los resultados tienen una expectativa favorable después de costes a lo largo de una muestra suficiente. Se estudia como hipótesis, se contrasta con datos que no guiaron su diseño y se sigue vigilando cuando empieza a ejecutarse.</p>
-      <p>La idea de fondo es una ineficiencia: el precio no incorpora toda la información de forma instantánea, ciertos participantes tienen restricciones, o la liquidez y la conducta de quienes operan generan patrones que pueden persistir durante un tiempo. La oportunidad puede ser pequeña, irregular y dependiente del contexto. No hace falta que cada operación gane; hace falta que la distribución de resultados de muchas ejecuciones comparables tenga una expectativa neta favorable y que esa diferencia sea viable en la práctica.</p>
-      <aside class="callout"><strong>Idea clave.</strong> Una ventaja no es el nombre de un indicador. Es la combinación concreta de condición, decisión, ejecución y riesgo que, repetida de forma consistente, muestra evidencia de un resultado neto favorable. Una ventaja estadística no es una garantía ni una promesa de beneficios futuros.</aside>
+      <p class="lead">Una curva de capital asciende en la pantalla. ¿Prueba que hay una ventaja? No todavía. Detrás puede haber una regularidad del mercado, repetible y explotable, o una regla que encontró por casualidad la manera de encajar con el pasado. Distinguirlas exige reconstruir la historia completa: de dónde salió la hipótesis, cómo se ejecutaría y qué ocurre cuando la probamos en datos que su autor aún no había visto.</p>
+      <p>En investigación de mercados, una <em>ventaja</em> —o <em>edge</em>— es una pauta que, ejecutada de forma consistente bajo unas condiciones definidas, ofrece una expectativa neta favorable a lo largo de muchas operaciones. No significa acertar siempre ni ganar en cada periodo. Significa que existe una diferencia que puede repetirse después de descontar los costes y asumir el riesgo real de llevarla al mercado.</p>
+      <p>La palabra <strong>ineficiencia</strong> suele acompañar a estas ideas, aunque no siempre se trate de un arbitraje sin riesgo. Puede haber información que el precio incorpora con retraso, participantes sujetos a restricciones, necesidades de liquidez o comportamientos que dejan huellas temporales. El trabajo consiste en averiguar si esa fricción se traduce en una regla concreta y si el margen sobrevive a la ejecución.</p>
+      <aside class="callout"><strong>Idea clave.</strong> La ventaja no está en el nombre de un indicador ni en una curva histórica. Está en una hipótesis con explicación, reglas precisas y resultados que resisten pruebas independientes, costes realistas y ejecución repetida. La evidencia puede crecer; la certeza no llega.</aside>
 
-      <h2 id="hipotesis">De una observación a una hipótesis</h2>
-      <p>Las hipótesis pueden nacer de observar los datos, estudiar una característica del mercado, leer investigación previa o entender una restricción de sus participantes. Una franja horaria puede concentrar más volatilidad; una orden grande puede dejar una huella temporal; una reacción puede ser distinta según el estado de tendencia o liquidez. La observación sugiere una pregunta, pero por sí sola todavía no demuestra una ventaja.</p>
-      <p>Para que la idea se pueda investigar, conviene concretarla en pocos pasos:</p>
-      <ol>
-        <li><strong>Describe el mecanismo posible.</strong> ¿Qué comportamiento, fricción o restricción explicaría la regularidad? Una explicación económica plausible no prueba que exista, pero ayuda a distinguir una hipótesis de una coincidencia visual.</li>
-        <li><strong>Especifica cuándo debería ocurrir.</strong> Define el activo o universo, el contexto, la señal, el momento de decisión y el horizonte. “Comprar cuando parece barato” no es una regla; una condición calculable con información conocida en ese instante sí puede serlo.</li>
-        <li><strong>Di qué resultado esperas y qué la refutaría.</strong> Formula una predicción medible —por ejemplo, una diferencia en el retorno neto posterior frente a una referencia— y deja claro qué evidencia haría abandonar o revisar la idea.</li>
-        <li><strong>Fija la ejecución.</strong> Determina entrada, salida, tamaño, límites de riesgo y tratamiento de órdenes. Una señal calculada al cierre de una vela no debe ejecutarse retrospectivamente a ese mismo cierre si la decisión no podía conocerse entonces.</li>
-      </ol>
-      <p>Este último detalle importa: una hipótesis de mercado y una estrategia ejecutable no son lo mismo. Puede existir una relación predictiva y, aun así, no ser aprovechable por el spread, el deslizamiento, la latencia, el tamaño necesario o la dificultad de obtener los fills supuestos.</p>
+      <h2 id="hipotesis">La historia empieza antes del indicador</h2>
+      <p>Muchas investigaciones arrancan con una anomalía pequeña. En una sesión parece concentrarse el movimiento; después de una noticia, el precio tarda en estabilizarse; cierto tipo de ruptura parece comportarse de forma distinta cuando la volatilidad aumenta. La observación abre una pregunta, no la responde. Antes de dibujar una estrategia, toca preguntar por qué podría existir el patrón y qué dato permitiría comprobarlo.</p>
+      <p>Una hipótesis útil es concreta y se arriesga a quedar desmentida. Delimita el activo o universo, el contexto, el instante de decisión y el horizonte. Explica el mecanismo posible y anticipa qué resultado debería observarse. También define qué hallazgo llevaría a descartarla. Sin esa última parte, cualquier resultado puede reinterpretarse después como una victoria.</p>
+      <p>La diferencia se aprecia en un ejemplo sencillo. «El precio suele rebotar después de caer» apenas orienta una búsqueda; deja abiertas la caída, el momento, el activo y el significado de rebotar. En cambio, una hipótesis puede precisar qué caída se mide, bajo qué condición de volatilidad, cuándo se genera la señal y qué retorno futuro se compara con una referencia. La segunda puede fallar con claridad, y por eso sirve para investigar.</p>
+      <p>La ejecución forma parte de la hipótesis. Si la señal solo se conoce al cierre de una vela, no puede suponerse una entrada anterior a ese cierre. Si requiere una orden límite, hay que considerar que quizá no se ejecute. Una relación estadística puede existir y, aun así, no dejar una oportunidad aprovechable: el spread, la latencia, el tamaño o el impacto pueden consumir el margen.</p>
 
-      <h2 id="descubrir">Cómo se encuentra una posible ventaja</h2>
-      <p>En una primera fase se exploran datos históricos y se buscan regularidades condicionadas a variables observables: retornos posteriores a un evento, diferencias por sesión, comportamiento según volatilidad o frecuencia de ciertos patrones. La exploración sirve para proponer hipótesis. Como normalmente se observan muchos activos, indicadores, ventanas y umbrales, el patrón que mejor destaca puede haber aparecido por azar.</p>
-      <p>Por eso conviene separar desde el principio el material de descubrimiento de la evidencia de confirmación. Se pueden reservar periodos cronológicamente posteriores que no se miran mientras se eligen las reglas, registrar cuántas variantes se probaron y evitar que el mismo tramo de datos se use una y otra vez para ajustar y declarar ganadora una configuración. Si se cambia la hipótesis después de ver esos resultados, esa muestra ya ha servido para diseñar: hará falta evidencia nueva para confirmar la versión modificada.</p>
-      <p>También debe quedar definido qué información estaba disponible en cada fecha. Datos revisados posteriormente, instrumentos que sobrevivieron hasta hoy o señales que usan valores futuros pueden producir una ventaja ficticia. La secuencia temporal de la simulación debe corresponder con la secuencia posible de decisión y ejecución.</p>
+      <h2 id="descubrir">El histórico propone; no dicta sentencia</h2>
+      <p>Con la pregunta definida empieza la exploración. Se estudian los retornos después de un evento, se comparan sesiones o se observa cómo cambia una pauta con la volatilidad. Es el trabajo de buscar señales en un archivo inmenso. Y ahí aparece la primera trampa: cuanto más se busca —más activos, indicadores, ventanas y umbrales—, más fácil es encontrar un patrón que solo parece excepcional porque se probaron muchas alternativas.</p>
+      <p>Por eso los investigadores separan el descubrimiento de la confirmación. Una parte de los datos sirve para formular y ajustar la hipótesis; otra, preferiblemente posterior en el tiempo, queda apartada hasta que las reglas se congelan. Si el resultado de esa prueba se utiliza para cambiar un parámetro, deja de ser una evaluación independiente: se ha convertido en otra etapa de búsqueda y hará falta evidencia nueva.</p>
+      <p>La cronología también importa. Una prueba que utiliza información todavía desconocida en el momento de operar, conserva solo los instrumentos que sobrevivieron o ignora datos ausentes puede dibujar una ventaja que nunca estuvo disponible en tiempo real. La simulación debe reproducir lo que se sabía entonces y el orden real entre señal, orden y ejecución.</p>
 
-      <h2 id="contrastar">Cómo contrastar la hipótesis</h2>
-      <p>Un proceso práctico avanza de comprobaciones sencillas a pruebas más exigentes. No hace falta que todas las ideas superen cada análisis; precisamente, el objetivo es descartar pronto las que no tienen soporte suficiente.</p>
-      <ol>
-        <li><strong>Comprueba la lógica y los datos.</strong> Revisa señales, horarios, huecos, zonas horarias, ajustes de contratos y orden de ejecución. Inspecciona operaciones individuales y confirma que cada una respeta las reglas especificadas.</li>
-        <li><strong>Calcula el resultado neto.</strong> Incluye comisiones, spread, deslizamiento, financiación o préstamo cuando correspondan, y una hipótesis razonable sobre impacto y fills. Contrasta también cuánto cambia el resultado al empeorar los costes. Una ventaja bruta que desaparece con costes plausibles no es una oportunidad ejecutable.</li>
-        <li><strong>Evalúa fuera de la muestra de diseño.</strong> Congela las reglas y aplícalas a datos posteriores que no participaron en la selección. El walk-forward repite la separación en varias ventanas temporales: se diseña con el pasado y se evalúa en el tramo siguiente.</li>
-        <li><strong>Examina estabilidad y sensibilidad.</strong> Observa periodos, condiciones de mercado y valores vecinos de los parámetros. No se exige que la regla funcione en todas partes, pero una única combinación excepcional rodeada de resultados malos es una señal de fragilidad.</li>
-        <li><strong>Cuantifica la incertidumbre.</strong> Considera el tamaño de muestra, la dependencia entre operaciones, la dispersión de resultados y el número de hipótesis ensayadas. Una métrica atractiva no elimina la incertidumbre ni corrige por sí sola la selección entre muchas pruebas.</li>
-        <li><strong>Contrasta la ejecución hacia delante.</strong> Antes de asignar capital significativo, compara señales y precios simulados con datos en tiempo real mediante observación o paper trading. Después, cualquier prueba real debe tener límites de riesgo y tamaño adecuados al objetivo de validación.</li>
-      </ol>
+      <h2 id="ejecucion">El margen se decide en la ejecución</h2>
+      <p>Una curva bruta puede parecer prometedora y desinflarse al reconstruir el coste de cada decisión. Comisiones, spread y deslizamiento son la primera cuenta. Según el mercado se suman financiación, préstamo, impacto, latencia, fills parciales y órdenes que no llegan a ejecutarse. El cálculo no tiene por qué ser perfecto, pero sí lo bastante realista como para no regalarle al sistema un precio que nadie habría podido obtener.</p>
+      <p>La pregunta relevante no es solo cuánto habría ganado la señal, sino cuánto habría quedado después de pagar por actuar. Conviene repetir el análisis con costes más duros y distintos supuestos de ejecución. Si un pequeño cambio borra todo el margen, la ventaja es frágil; si queda un resultado favorable en condiciones plausibles, merece pasar a una prueba más exigente.</p>
+
+      <h2 id="contrastar">Las pruebas que vienen después</h2>
+      <p>El backtest es un laboratorio, no un veredicto. Sirve para reconstruir la secuencia de decisiones, revisar operaciones y comprobar costes. La evaluación se vuelve más informativa cuando cada etapa intenta poner en aprietos a la anterior:</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Prueba</th><th>Qué ayuda a detectar</th><th>Qué no demuestra por sí sola</th></tr></thead>
+          <thead><tr><th>Etapa</th><th>Qué se investiga</th><th>Qué puede revelar</th></tr></thead>
           <tbody>
-            <tr><td>Backtest neto</td><td>Errores de lógica, costes previsibles y comportamiento histórico de las reglas</td><td>Que los datos representen bien el futuro o que los fills simulados sean realizables</td></tr>
-            <tr><td>Out-of-sample y walk-forward</td><td>Dependencia del periodo usado para ajustar y cambios entre ventanas</td><td>Que el siguiente régimen vaya a parecerse a los observados</td></tr>
-            <tr><td>Pruebas de robustez</td><td>Fragilidad ante cambios razonables de parámetros, costes o condiciones</td><td>Que una configuración menos sensible tenga necesariamente una causa económica real</td></tr>
-            <tr><td>Paper o forward testing</td><td>Diferencias entre la ejecución prevista y las señales, órdenes y precios observados</td><td>Rentabilidad futura o fills idénticos al pasar a otro tamaño de capital</td></tr>
+            <tr><td>Revisión del backtest</td><td>Datos, señales, horarios y orden de ejecución</td><td>Errores de cronología o supuestos imposibles de llenar</td></tr>
+            <tr><td>Costes netos</td><td>Comisiones, spread, deslizamiento y capacidad</td><td>Un margen que solo existía antes de pagar por operar</td></tr>
+            <tr><td>Out-of-sample</td><td>Reglas congeladas en un tramo no usado para diseñarlas</td><td>Dependencia del periodo que inspiró la hipótesis</td></tr>
+            <tr><td>Walk-forward</td><td>Repetición de ajuste y evaluación en ventanas temporales sucesivas</td><td>Cómo cambia la pauta al avanzar por distintos entornos</td></tr>
+            <tr><td>Forward testing</td><td>Señales y ejecuciones observadas en tiempo real</td><td>La distancia entre el fill simulado y el que ofrece el mercado</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Las pruebas de remuestreo o Montecarlo pueden ayudar a visualizar la variación posible de una secuencia de resultados, siempre que el método respete las dependencias relevantes. No rescatan una hipótesis mal planteada, y una simulación de operaciones históricas no crea información nueva sobre cómo será el mercado.</p>
+      <p>La estabilidad también se mira alrededor del resultado elegido. Una estrategia que solo funciona con un umbral exacto, mientras valores cercanos se hunden, merece sospecha. No se espera que cada sistema funcione en todos los mercados o regímenes; sí se espera saber dónde parece funcionar, cuánta evidencia hay en cada segmento y cuánto depende de unas pocas operaciones extraordinarias.</p>
+      <p>Las pruebas de remuestreo y Montecarlo pueden mostrar cómo cambia una secuencia de resultados bajo ciertos supuestos. No inventan mercados nuevos ni corrigen una hipótesis sobreajustada. Ayudan a describir incertidumbre, pero no sustituyen a los datos independientes ni a la comprobación de los fills.</p>
 
-      <h2 id="confirmacion">Qué significa confirmarla</h2>
-      <p>Confirmar una ventaja significa acumular evidencia coherente con la hipótesis en pruebas que no se usaron para encontrarla, después de incluir costes y respetar la ejecución definida. No significa demostrar que seguirá funcionando para siempre. Los mercados cambian, los participantes adaptan su comportamiento y una oportunidad puede reducirse, desaparecer o volverse demasiado costosa.</p>
-      <p>Antes de probar, fija qué considerarías evidencia suficiente para el siguiente paso: el periodo y las condiciones de evaluación, la cantidad de observaciones, la tolerancia a costes, el riesgo admisible y los criterios que obligarían a investigar o detenerse. Así se reduce la tentación de cambiar el listón después de conocer el resultado. Una muestra corta, muchas variantes ensayadas o intervalos de incertidumbre amplios piden más cautela, aunque el backtest tenga buena apariencia.</p>
-      <p>La confirmación gana fuerza cuando varias piezas encajan: la regla tiene una explicación plausible; produce un resultado neto favorable en datos reservados; no depende de un único parámetro o episodio; la incertidumbre es compatible con la magnitud de la expectativa; y la ejecución observada no se aleja materialmente del supuesto. Ninguna pieza aislada sustituye a las demás.</p>
-      <p>Una vez desplegada, la investigación continúa. Registra versiones de reglas y costes, compara señales y fills reales con los previstos y vigila la evolución de la expectativa, el drawdown, la rotación y la capacidad. Una racha negativa puede ser variación normal; una degradación persistente merece análisis, pero no justifica reoptimizar cada vez que cae la curva. Cualquier cambio crea una hipótesis nueva y debe evaluarse como tal.</p>
+      <h2 id="confirmacion">¿Cuándo se puede hablar de confirmación?</h2>
+      <p>No hay una cifra universal que convierta un backtest en una ventaja confirmada. El umbral depende de la frecuencia, la calidad y longitud de los datos, la dependencia entre operaciones, los costes y el número de hipótesis que se probaron. Un Sharpe alto o un valor de significación estadística no compensan una muestra pequeña, una selección entre cientos de variantes o una ejecución irreal.</p>
+      <p>Los criterios deben fijarse antes de abrir la muestra reservada: qué resultado neto se espera, cuántas observaciones hacen falta, qué costes se consideran plausibles, qué drawdown cabe tolerar y qué hallazgo obligaría a detener el estudio. Así, el estándar no se mueve para salvar una idea que el histórico acaba de poner en duda.</p>
+      <p>La evidencia gana peso cuando la explicación económica tiene sentido, la expectativa neta se mantiene fuera de muestra, los valores próximos no destruyen el resultado y las operaciones en tiempo real se parecen a las simuladas. Ninguna pieza basta por sí sola. Juntas permiten decir que la hipótesis ha superado pruebas; no que el mercado haya firmado un contrato para repetirla.</p>
 
-      <h2 id="ejemplo">Un ejemplo de planteamiento</h2>
-      <p>Imagina que al revisar un activo observas que, bajo una condición horaria concreta, algunos movimientos iniciales parecen continuar con más frecuencia. La hipótesis no sería “el activo sube a esa hora”, sino algo delimitado: qué define el movimiento inicial, qué información está disponible al decidir, en qué universo y periodo se estudiará, cuándo se entra, cuándo se sale y qué retorno posterior se mide.</p>
-      <p>Primero se explora una parte de los datos; después se congelan esas definiciones y se evalúan en fechas posteriores, descontando costes y comparando con una referencia adecuada. Se inspeccionan ventanas distintas, se comprueba que el resultado no dependa de un solo umbral y se observa en tiempo real si los fills se parecen a los supuestos. El ejemplo describe un método, no afirma que exista esa ventaja en un activo concreto ni atribuye resultados a una estrategia.</p>
-
-      <h2 id="conclusion">Una ventaja es un proceso verificable</h2>
-      <p>Estudiar una ventaja consiste en convertir una observación sobre el mercado en una regla explícita, someterla a pruebas que puedan refutarla y repetir la ejecución bajo condiciones registradas. La evidencia útil no es solo una cifra final: también incluye cómo se descubrió la idea, qué variantes se probaron, qué costes se aplicaron, qué datos quedaron fuera y cuánto se apartó la operativa real de la simulada.</p>
-      <p>La disciplina no elimina el riesgo ni convierte una regularidad pasada en certeza. Permite distinguir mejor entre una hipótesis prometedora, una coincidencia histórica y una pauta que, con la evidencia disponible y dentro de sus límites, merece seguir observándose.</p>
+      <h2 id="seguimiento">La confirmación no cierra la investigación</h2>
+      <p>Imaginemos que una regla supera esas pruebas y empieza a observarse en directo. El trabajo cambia de pregunta: ¿siguen llegando las señales previstas?, ¿los fills y los costes se parecen a los estimados?, ¿el resultado acumulado permanece dentro de la variación que se esperaba? Una racha negativa no demuestra que la ventaja haya desaparecido; una racha positiva tampoco la confirma por sí sola.</p>
+      <p>Con el tiempo, pueden cambiar la liquidez, la competencia, los costes o el régimen de mercado. Una ventaja se puede estrechar o dejar de existir. Por eso conviene registrar versiones de la regla y vigilar su comportamiento neto, sin reoptimizarla cada vez que cae la curva. Si se modifica la hipótesis, empieza una investigación nueva: los datos que inspiraron ese cambio ya no son una confirmación independiente.</p>
+      <p>Estudiar una ventaja, en definitiva, no consiste en encontrar una fórmula ganadora y dejar de hacer preguntas. Consiste en convertir un indicio en una pauta repetible, tratar de refutarla y seguir contrastándola mientras se ejecuta. Lo que se confirma no es el futuro: es que, hasta ahora y bajo condiciones observables, la evidencia ha resistido el examen.</p>
 
       <h2 id="quantpower">En QuantPower Systems</h2>
       <p>QuantPower Builder reúne análisis del activo, definición de reglas, backtesting con costes y herramientas para comparar periodos y configuraciones. Ese flujo ayuda a documentar y contrastar hipótesis; los resultados de una simulación siguen dependiendo de la calidad de los datos, de los supuestos de ejecución y de la incertidumbre propia de los mercados.</p>
@@ -132,9 +122,9 @@
 
       <h2 id="fuentes">Lecturas relacionadas</h2>
       <ul>
-        <li>Fama, E. F., «Efficient Capital Markets: A Review of Theory and Empirical Work», <em>The Journal of Finance</em>, 25(2), 1970. Revisión clásica sobre eficiencia de mercado y evidencia empírica (<a href="https://doi.org/10.2307/2325486" rel="noopener noreferrer">doi.org</a>).</li>
-        <li>Bailey, D. H., Borwein, J. M., López de Prado, M. y Zhu, Q. J., «The Probability of Backtest Overfitting». Analiza el riesgo de seleccionar una estrategia por su rendimiento entre muchas variantes históricas (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253" rel="noopener noreferrer">SSRN</a>).</li>
-        <li>Harvey, C. R., Liu, Y. y Zhu, H., «… and the Cross-Section of Expected Returns», <em>The Review of Financial Studies</em>, 29(1), 2016. Trata la inferencia y las pruebas múltiples en la investigación de factores (<a href="https://doi.org/10.1093/rfs/hhv059" rel="noopener noreferrer">doi.org</a>).</li>
+        <li>Fama, E. F., «Efficient Capital Markets: A Review of Theory and Empirical Work», <em>The Journal of Finance</em>, 25(2), 1970. Revisión de la hipótesis de eficiencia del mercado y de su evidencia empírica (<a href="https://doi.org/10.2307/2325486" rel="noopener noreferrer">doi.org</a>).</li>
+        <li>Bailey, D. H., Borwein, J. M., López de Prado, M. y Zhu, Q. J., «The Probability of Backtest Overfitting». Estudia el riesgo de seleccionar una estrategia por su rendimiento entre muchas variantes (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2326253" rel="noopener noreferrer">SSRN</a>).</li>
+        <li>Harvey, C. R., Liu, Y. y Zhu, H., «… and the Cross-Section of Expected Returns», <em>The Review of Financial Studies</em>, 29(1), 2016. Discute las pruebas múltiples y la inferencia en la investigación de factores (<a href="https://doi.org/10.1093/rfs/hhv059" rel="noopener noreferrer">doi.org</a>).</li>
       </ul>
 
         </div>
