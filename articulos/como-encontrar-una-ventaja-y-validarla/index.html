@@ -19,6 +19,12 @@
   <link rel="stylesheet" href="../../assets/css/tokens.css">
   <link rel="stylesheet" href="../../assets/css/site.css">
   <link rel="stylesheet" href="../../assets/css/articles.css">
+  <style>
+    .edge-flow-scroll { overflow-x: auto; border-radius: 12px; }
+    @media (max-width: 760px) {
+      .edge-flow-scroll svg { min-width: 660px; max-width: none; }
+    }
+  </style>
   <script type="module" src="../../assets/js/articles.js"></script>
   <script type="application/ld+json">
   {
@@ -73,6 +79,48 @@
       <p>En investigación de mercados, una <em>ventaja</em> —o <em>edge</em>— es una pauta que, ejecutada de forma consistente bajo unas condiciones definidas, ofrece una expectativa neta favorable a lo largo de muchas operaciones. No significa acertar siempre ni ganar en cada periodo. Significa que existe una diferencia que puede repetirse después de descontar los costes y asumir el riesgo real de llevarla al mercado.</p>
       <p>La palabra <strong>ineficiencia</strong> suele acompañar a estas ideas, aunque no siempre se trate de un arbitraje sin riesgo. Puede haber información que el precio incorpora con retraso, participantes sujetos a restricciones, necesidades de liquidez o comportamientos que dejan huellas temporales. El trabajo consiste en averiguar si esa fricción se traduce en una regla concreta y si el margen sobrevive a la ejecución.</p>
       <aside class="callout"><strong>Idea clave.</strong> La ventaja no está en el nombre de un indicador ni en una curva histórica. Está en una hipótesis con explicación, reglas precisas y resultados que resisten pruebas independientes, costes realistas y ejecución repetida. La evidencia puede crecer; la certeza no llega.</aside>
+      <p>El recorrido puede resumirse en tres movimientos: encontrar un indicio, validarlo sin reutilizar los datos de búsqueda y observar qué ocurre cuando la regla sale del histórico.</p>
+      <figure>
+        <div class="edge-flow-scroll" role="region" aria-label="Esquema gráfico de las etapas para encontrar y validar una ventaja" tabindex="0">
+          <svg viewBox="0 0 760 370" role="img" aria-labelledby="fig-edge-flow-title fig-edge-flow-desc">
+            <title id="fig-edge-flow-title">Del primer indicio a la validación de una ventaja</title>
+            <desc id="fig-edge-flow-desc">El proceso avanza desde observar una anomalía y formular una hipótesis hasta explorarla en la muestra de desarrollo, congelar las reglas y validarlas fuera de muestra con costes. Si la idea resiste, pasa a pruebas en tiempo real y seguimiento; si no, se revisa o se descarta.</desc>
+            <defs><marker id="edge-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--text-soft)"/></marker></defs>
+
+            <rect class="d-main" x="12" y="58" width="215" height="170" rx="10"/>
+            <text class="d-name" x="119" y="91">01 · ENCONTRAR</text>
+            <text class="d-txt" x="119" y="128">Observar una anomalía</text>
+            <text class="d-txt" x="119" y="152">Proponer un mecanismo</text>
+            <text class="d-txt" x="119" y="176">Escribir una regla falsable</text>
+
+            <rect class="d-box" x="273" y="58" width="215" height="170" rx="10"/>
+            <text class="d-name" x="380" y="91">02 · VALIDAR</text>
+            <text class="d-txt" x="380" y="128">Explorar (IS)</text>
+            <text class="d-txt" x="380" y="152">Congelar las reglas</text>
+            <text class="d-txt" x="380" y="176">Probar (OOS) + costes</text>
+
+            <rect class="d-main" x="534" y="58" width="215" height="170" rx="10"/>
+            <text class="d-name" x="641" y="91">03 · SEGUIR EN REAL</text>
+            <text class="d-txt" x="641" y="128">Prueba en tiempo real</text>
+            <text class="d-txt" x="641" y="152">Medir fills y costes</text>
+            <text class="d-txt" x="641" y="176">Vigilar si se degrada</text>
+
+            <path class="d-line" d="M234 143H265" marker-end="url(#edge-flow-arrow)"/>
+            <path class="d-line" d="M495 143H526" marker-end="url(#edge-flow-arrow)"/>
+            <text class="d-txt" x="511" y="48">si resiste</text>
+
+            <path class="d-line" d="M380 230V256" stroke-dasharray="5 5" marker-end="url(#edge-flow-arrow)"/>
+            <text class="d-txt" x="432" y="249">si no resiste</text>
+            <rect class="d-box" x="273" y="266" width="215" height="64" rx="9"/>
+            <text class="d-name" x="380" y="293">Reformular o descartar</text>
+            <text class="d-txt" x="380" y="314">la hipótesis</text>
+
+            <path class="d-line" d="M272 298H118V230" stroke-dasharray="5 5" marker-end="url(#edge-flow-arrow)"/>
+            <text class="d-txt" x="195" y="289">nueva hipótesis</text>
+          </svg>
+        </div>
+        <figcaption>Esquema conceptual, no una curva de resultados. IS es la muestra de exploración; OOS queda reservada para validar las reglas congeladas con costes. Si no resiste, se formula otra hipótesis y se prepara una nueva prueba independiente, o se descarta.</figcaption>
+      </figure>
 
       <h2 id="hipotesis">La historia empieza antes del indicador</h2>
       <p>Muchas investigaciones arrancan con una anomalía pequeña. En una sesión parece concentrarse el movimiento; después de una noticia, el precio tarda en estabilizarse; cierto tipo de ruptura parece comportarse de forma distinta cuando la volatilidad aumenta. La observación abre una pregunta, no la responde. Antes de dibujar una estrategia, toca preguntar por qué podría existir el patrón y qué dato permitiría comprobarlo.</p>
