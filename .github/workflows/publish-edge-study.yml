@@ -47,7 +47,7 @@ jobs:
         if: steps.gate.outputs.publish == 'true'
         env:
           STAGING_BRANCH: schedule/estudiar-ventaja-2026-11-01
-          ARTICLE_SLUG: como-estudiar-una-ventaja-y-confirmarla
+          ARTICLE_SLUG: como-encontrar-una-ventaja-y-validarla
         run: |
           git fetch --no-tags origin "$STAGING_BRANCH"
           mkdir -p "$RUNNER_TEMP/ventaja"
@@ -64,7 +64,7 @@ jobs:
           import sys
           from pathlib import Path
 
-          slug = "como-estudiar-una-ventaja-y-confirmarla"
+          slug = "como-encontrar-una-ventaja-y-validarla"
           source = Path(sys.argv[1]).read_text(encoding="utf-8")
           article_index = Path("articulos/index.html")
           current_index = article_index.read_text(encoding="utf-8")
