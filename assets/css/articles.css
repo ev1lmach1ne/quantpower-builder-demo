@@ -18,6 +18,9 @@
 .row-date { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); padding-top: 6px; }
 .row-body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .row-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.row-labels { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+.row-reading-time, .article-meta .reading-time { font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; color: var(--text-muted); }
+.article-meta .reading-time { font-size: inherit; }
 .row-body h2, .row-body h3 { font-size: 24px; letter-spacing: -.03em; line-height: 1.25; transition: color .2s; }
 .article-row:hover h2, .article-row:hover h3 { color: var(--accent); }
 .row-body p { font-size: 14px; line-height: 1.75; }
